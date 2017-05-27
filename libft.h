@@ -29,10 +29,10 @@ size_t  ft_strlen(const char *s);
 char  *strdup(const char *string);
 char  *ft_strcpy(char *dest, const char *src);
 char  *ft_strncpy(char *dest, const char *src, size_t n);
-char  *strcat(char *dest, const char *src);
-char  *strncat(char *dest, const char *src, size_t n);
+char  *ft_strcat(char *dest, const char *src);
+char  *ft_strncat(char *dest, const char *src, size_t n);
+size_t  ft_strlcat(char *dst, const char *src, size_t size);
 /*
-strlcat
 strchr
 strrchr */
 char   *ft_strstr(const char *haystack, const char *needle);
