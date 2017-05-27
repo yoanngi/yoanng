@@ -1,7 +1,9 @@
 #include "libft.h"
 
-void    *ft_memcpy(void *dst, const void *src, size_t n)
+void    *ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
+
+    // A modifier, incomplet (int c pour les unsigned)
     char*pdst;
     const char*psrc;
 
@@ -10,4 +12,9 @@ void    *ft_memcpy(void *dst, const void *src, size_t n)
     while (n--)
         *pdst++ = *psrc++;
     return (dst);
+}
+
+int main()
+{
+    return (0);
 }
