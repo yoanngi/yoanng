@@ -1,36 +1,17 @@
 //#include "libft.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 void    *ft_memmove(void *str1, const void *str2, size_t n)
 {
-    size_t i;
+    void *buf;
 
-    i = 0;
-    while (n > 0)
-    {
-        if (n == 0)
-            break;
-        str1[i] == str2[i];
-        i++;
-        n--;
-    }
-}
-
-int main ()
-{
-    char dest[] = "oldstring";
-    const char src[]  = "newstring";
-    char dest2[] = "oldstring";
-    const char src2[]  = "newstring";
-
-
-    printf("Before memmove dest = %s, src = %s\n", dest, src);
-    memmove(dest, src, 9);
-    printf("After memmove dest = %s, src = %s\n", dest, src);
-    printf("*************************************************\n");
-    printf("Before memmove dest = %s, src = %s\n", dest2, src2);
-    ft_memmove(dest2, src2, 9);
-    printf("After memmove dest = %s, src = %s\n", dest2, src2);
-    return(0);
+    buf = (void *)malloc(n * sizeof(void*));
+    if (!buf)
+        return (NULL);
+    ft_memcpy(buf, str2, n);
+    ft_memcpy(str1, buf, n);
+    free(buf);
+    return (str1);
 }
