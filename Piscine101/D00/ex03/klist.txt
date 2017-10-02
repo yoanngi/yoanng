@@ -1,0 +1,5 @@
+Credentials cache: API:29624
+        Principal: yoginet@LE-101.FR
+
+  Issued                Expires               Principal
+Sep  5 13:15:22 2017  Sep 12 13:15:14 2017  krbtgt/LE-101.FR@LE-101.FR
