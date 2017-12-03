@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_numbers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 18:43:41 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/27 18:43:57 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:06:21 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:20:23 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@ void	ft_putchar(char c);
 
 void	ft_print_numbers(void)
 {
-	char a;
+	char	a;
+	int		i;
 
 	a = '0';
-	while (a <= '9')
+	i = 0;
+	while (i < 10)
 	{
-		ft_putchar(a++);
+		ft_putchar(a);
+		a++;
+		i++;
 	}
 }

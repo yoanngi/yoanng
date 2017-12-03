@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_div_mod.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 18:53:16 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/27 18:53:20 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:06:50 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:06:53 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_div_mod(int a, int b, int *div, int *mod)
 {
-	*div = a / b
-	*mod = a % b
+	*div = a / b;
+	*mod = a % b;
 }

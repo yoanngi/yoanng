@@ -3,33 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/28 12:26:39 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/28 12:26:41 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:08:59 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:09:02 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-char	*ft_strdup(char *src)
+int		ft_strlen(char *str)
 {
-	int		i;
-	int		src_size;
-	char	*new_str;
+	int i;
 
 	i = 0;
-	src_size = 0;
-	while (src[src_size])
-		src_size++;
-	new_str = (char*)malloc(sizeof(*new_str) * (src_size));
-	if (new_str == NULL)
-		return (NULL);
-	while (i < src_size)
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(char *src)
+{
+	char	*copy;
+	int		longsrc;
+	int		i;
+
+	i = 0;
+	longsrc = ft_strlen(src);
+	copy = (char*)malloc(sizeof(*copy) * (longsrc + 1));
+	while (i != longsrc)
 	{
-		new_str[i] = src[i];
+		copy[i] = src[i];
 		i++;
 	}
-	new_str[src_size] = '\0';
-	return (new_str);
+	copy[i] = '\0';
+	return (copy);
 }

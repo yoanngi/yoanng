@@ -3,28 +3,32 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yginet <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: yoginet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/07/20 21:29:56 by yginet            #+#    #+#              #
-#    Updated: 2016/07/21 17:28:15 by yginet           ###   ########.fr        #
+#    Created: 2017/11/06 16:47:01 by yoginet           #+#    #+#              #
+#    Updated: 2017/11/10 13:17:11 by yoginet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_display_file
 
-SRC = ft_display_file.c
+CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+SRCS = ft_display_file.c \
+
+OBJS = $(SRCS:.c=.o)
+
+RM = rm -f
 
 all: $(NAME)
 
-$(NAME):
-	gcc $(FLAGS) -o $(NAME) $(SRC)
+$(NAME): $(OBJS)
+	$(CC) -o $(NAME) $?
 
 clean:
-	rm -rf ft_display_file.o
+	$(RM) $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_alphabet.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 18:36:22 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/27 18:40:05 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:05:33 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:05:36 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@ void	ft_putchar(char c);
 
 void	ft_print_alphabet(void)
 {
-	char a;
+	char	a;
+	int		i;
 
 	a = 'a';
-	while (a <= 'z')
+	i = 0;
+	while (i < 26)
 	{
-		ft_putchar(a++);
+		ft_putchar(a);
+		a++;
+		i++;
 	}
 }

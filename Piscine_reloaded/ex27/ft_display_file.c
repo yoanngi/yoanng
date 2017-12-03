@@ -3,65 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/20 16:24:10 by yginet            #+#    #+#             */
-/*   Updated: 2016/07/21 16:33:45 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/06 16:50:12 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 13:25:46 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
+
 #define BUF_SIZE 1
 
-void	ft_putchar(int i, char c)
+void	ft_putchar(char c)
 {
-	write(i, &c, 1);
+	write(1, &c, 1);
 }
 
-void	ft_putstr(int ii, char *str)
+void	ft_putstr(char *str)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_putchar(ii, str[i]);
-		i++;
-	}
+	while (*str)
+		ft_putchar(*str++);
 }
 
-void	ft_printdoc(char *doc)
+int		ft_read_doc(char *doc)
 {
-	int		fd;
+	int		fichier;
 	int		ret;
 	char	buf[BUF_SIZE + 1];
 
-	fd = open(doc, O_RDONLY);
-	if (fd == -1)
-		return ;
-	while ((ret = read(fd, buf, BUF_SIZE)))
+	fichier = open(doc, O_RDONLY);
+	if (fichier == -1)
+		return (1);
+	while ((ret = read(fichier, buf, BUF_SIZE)) != 0)
 	{
 		buf[ret] = '\0';
-		ft_putstr(1, buf);
+		ft_putstr(buf);
 	}
-	close(fd);
+	close(fichier);
+	if (fichier == -1)
+		return (1);
+	return (0);
 }
 
 int		main(int argc, char **argv)
 {
-	if (argc <= 1)
-	{
-		ft_putstr(2, "File name missing.\n");
-		return (0);
-	}
+	int err;
+
+	if (argc < 2)
+		ft_putstr("File name missing.\n");
 	else if (argc > 2)
+		ft_putstr("Too many arguments.\n");
+	else
 	{
-		ft_putstr(2, "Too many arguments.\n");
-		return (0);
+		err = ft_read_doc(argv[1]);
+		if (err == 1)
+			return (1);
 	}
-	ft_printdoc(argv[1]);
 	return (0);
 }

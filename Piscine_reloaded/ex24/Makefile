@@ -3,35 +3,36 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yginet <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: yoginet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/03/28 13:34:10 by yginet            #+#    #+#              #
-#    Updated: 2017/03/28 13:34:12 by yginet           ###   ########.fr        #
+#    Created: 2017/11/06 16:47:01 by yoginet           #+#    #+#              #
+#    Updated: 2017/11/10 12:55:57 by yoginet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =libft.a
-SRC_DIR = srcs/
-INCLUDES_DIR = includes/
-FUNCTIONS=ft_putchar ft_putstr ft_strcmp ft_strlen ft_swap
-FLAGS=-Wall -Wextra -Werror
-BINS = $(patsubst %,%.o,$(FUNCTIONS))
+NAME = libft.a
 
-.PHONY: all clean fclean re
+CFLAGS += -Wall -Wextra -Werror -Iincludes/
+
+SRCS = srcs/ft_putchar.c \
+	   srcs/ft_putstr.c \
+	   srcs/ft_swap.c \
+	   srcs/ft_strlen.c \
+	   srcs/ft_strcmp.c \
+
+OBJS = $(SRCS:.c=.o)
+
+RM = rm -f
 
 all: $(NAME)
 
-$(BINS):
-	gcc -I$(INCLUDES_DIR) $(FLAGS) -c $(patsubst %.o,$(SRC_DIR)%.c,$@)
-
-$(NAME): $(BINS)
-	ar ruv $(NAME) $(BINS)
-	ranlib $(NAME)
+$(NAME): $(OBJS)
+	$(AR) -rcs $(NAME) $?
 
 clean:
-	/bin/rm -f $(BINS)
+	$(RM) $(OBJS)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all

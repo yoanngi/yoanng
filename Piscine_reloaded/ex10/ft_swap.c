@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 18:47:41 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/27 18:48:19 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:06:38 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:06:41 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_swap(int *a, int *b)
 {
-	int c;
+	int tmpa;
+	int tmpb;
 
-	a* = c;
-	b* = a*;
-	b* = c;
+	tmpa = *a;
+	tmpb = *b;
+	*a = tmpb;
+	*b = tmpa;
 }

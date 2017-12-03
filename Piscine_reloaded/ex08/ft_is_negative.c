@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_negative.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 18:45:38 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/27 18:45:47 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:06:05 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:06:09 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@ void	ft_putchar(char c);
 
 void	ft_is_negative(int n)
 {
-	if (n < 48)
-	{
+	if (n < 0)
 		ft_putchar('N');
-	}
 	else
-	{
 		ft_putchar('P');
-	}
 }

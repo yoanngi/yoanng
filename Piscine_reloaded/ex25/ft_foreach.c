@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_foreach.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/28 13:36:41 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/28 13:36:47 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/06 16:48:19 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/06 16:48:22 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_foreach(int *tab, int length, void (*f)(int))
 {
-	int	i;
+	int i;
 
-	i = -1;
-	while (++i < length)
-		(*f)(tab[i]);
+	i = 0;
+	while (i < length)
+	{
+		f(tab[i]);
+		i++;
+	}
 }

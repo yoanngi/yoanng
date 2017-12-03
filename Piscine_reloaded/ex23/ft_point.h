@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_point.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/28 13:33:13 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/28 13:33:15 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:04:35 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:04:39 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_POINT_H
 # define FT_POINT_H
 
-typedef struct	s_point
+typedef	struct	s_point
 {
 	int	x;
 	int	y;
 }				t_point;
+
 #endif

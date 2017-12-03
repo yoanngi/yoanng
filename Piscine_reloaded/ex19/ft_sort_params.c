@@ -3,89 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/28 11:05:17 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/28 12:21:06 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:08:46 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:25:37 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <unistd.h>
 
 void	ft_putchar(char c);
 
 void	ft_putstr(char *str)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_putchar(str[i]);
-		i++;
-	}
+	while (*str)
+		ft_putchar(*str++);
 }
 
-int		ft_strcmp(char *s1, char *s2)
+void	ft_swap(char **tab, int i)
 {
-	int i;
+	char *tmp;
 
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-	{
-		i++;
-	}
-	if (s1[i] < s2[i])
-		return (-1);
-	else if (s1[i] == s2[i])
-		return (0);
-	else
-	{
-		return (1);
-	}
+	tmp = tab[i];
+	tab[i] = tab[i + 1];
+	tab[i + 1] = tmp;
 }
 
-int		array_pass(int len, char *array[])
+void	ft_sort_params(int i, int argc, char **argv)
 {
-	int		i;
-	int		ok;
-	char	*tmp;
+	int j;
+	int compt;
 
-	i = 0;
-	ok = 1;
-	while (++i < (len - 1))
+	j = argc;
+	compt = 0;
+	while (i < argc - 1)
 	{
-		if (ft_strcmp(array[i], array[i + 1]) > 0)
+		if (argv[i][compt] > argv[i + 1][compt])
 		{
-			tmp = array[i];
-			array[i] = array[i + 1];
-			array[i + 1] = tmp;
-			ok = 0;
+			ft_swap(argv, i);
+			i = 1;
+		}
+		if (argv[i][compt] == argv[i + 1][compt])
+			compt++;
+		if (argv[i][compt] < argv[i + 1][compt])
+		{
+			compt = 0;
+			i++;
 		}
 	}
-	return (ok);
 }
 
-int		print_params(int argc, char *argv[])
+int		main(int argc, char **argv)
 {
-	int	argn;
+	int i;
 
-	argn = 0;
-	while (++argn < argc)
+	i = 1;
+	ft_sort_params(i, argc, argv);
+	while (i != argc)
 	{
-		while (*argv[argn] != '\0')
-			ft_putchar(*(argv[argn]++));
+		ft_putstr(argv[i]);
 		ft_putchar('\n');
+		i++;
 	}
 	return (0);
-}
-
-int		main(int argc, char *argv[])
-{
-	if (argc < 2)
-		return (0);
-	if (argc > 2)
-		while (!array_pass(argc, argv))
-			continue;
-	return (print_params(argc, argv));
 }

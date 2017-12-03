@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_recursive_factorial.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 18:54:50 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/27 18:54:53 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:07:18 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 11:47:29 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_recursive_factorial(int nb)
+int		ft_recursive_factorial(int nb)
 {
-	int	f;
-
-	if (nb < 0)
+	if (nb < 0 || nb > 12)
 		return (0);
 	if (nb == 0)
 		return (1);
+	if (nb > 1)
+		return (nb * ft_recursive_factorial(nb - 1));
 	else
-	{
-		f = ft_recursive_factorial(nb - 1);
-		if ((nb * f) / nb != f)
-			return (0);
-		return (nb * f);
-	}
+		return (nb);
 }

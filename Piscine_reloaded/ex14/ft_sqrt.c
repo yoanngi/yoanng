@@ -3,50 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yginet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yoginet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/27 18:55:32 by yginet            #+#    #+#             */
-/*   Updated: 2017/03/27 19:00:18 by yginet           ###   ########.fr       */
+/*   Created: 2017/11/10 10:07:52 by yoginet           #+#    #+#             */
+/*   Updated: 2017/11/10 10:07:55 by yoginet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
 int		ft_sqrt(int nb)
 {
-	int ope;
+	int i;
+	int c;
 
-	ope = 1;
-	if (nb < 0)
-		return (0);
-	while ((ope * ope) < nb)
-		ope++;
-	return (((ope * ope) == nb) ? ope : 0);
-}
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putnbr(int nb)
-{
-	if (nb >= 10)
+	i = 2;
+	c = 0;
+	while (i <= nb / 2 + 1)
 	{
-		ft_putnbr(nb / 10);
-		ft_putnbr(nb % 10);
+		c = i * i;
+		if (c == nb)
+			return (i);
+		else
+			i++;
 	}
-	else
-	{
-		ft_putchar(nb + '0');
-	}
-}
-
-int		main(void)
-{
-	int nb;
-
-	nb = ft_sqrt(16);
-	ft_putnbr(nb);
 	return (0);
 }
