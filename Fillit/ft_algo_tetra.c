@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 15:50:47 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/04 15:54:42 by yoginet          ###   ########.fr       */
+/*   Updated: 2017/12/04 16:14:50 by yoginet          ###   ########.fr       */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,8 @@ static void   ft_del_lst(t_list *lst)
 {
     while (lst)
     {
+        free(lst->block);
+        free(lst->content);
         free(lst);
         lst = lst->next;
     }
