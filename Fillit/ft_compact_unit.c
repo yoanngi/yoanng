@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_compact_unit.c                                  :+:      :+:    :+:   */
+/*   ft_comptact_unit.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/01 11:11:06 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/04 14:32:03 by yoginet          ###   ########.fr       */
+/*   Updated: 2017/12/04 14:47:43 by kcabus      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,17 +95,21 @@ static char	**compact_col(char **s)
 
 void		ft_compact_unit(const char *s)
 {
-	char **tab;
+	char	**tab;
+	int		pos;
 
+	pos = 0;
 	tab = NULL;
 	tab = ft_malloc_tab(tab, 4);
 	tab = ft_strsplit(s, '\n');
 	tab = compact_ligne(tab);
 	tab = compact_col(tab);
-    ft_convert_lettre(tab, 'A');
 	if (ft_piece_valide(tab, 0) == 0)
 		ft_putstr("error\n");
 	else
+	{
+		ft_convert_lettre(tab, 'A');
 		ft_print_carre(tab, 4);
+	}
 	free(tab);
 }
