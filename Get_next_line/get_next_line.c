@@ -6,29 +6,36 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/05 16:09:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/05 16:51:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		ft_get_nl(char *s, char *line)
+static int		ft_get_nl(char *s, char **line)
 {
 	int		i;
+	int		j;
 	char	cpy;
 
 	i = 0;
-	while (s[i] != '\0' || s[i] != '\n')
-		i++;
-	if (i > 0)
+	j = 0;
+	while (s[i])
 	{
-		line = ft_strsub(s, 0, i);
-		free(s);
-		return (1);
+		if (s[i] == '\n')
+		{
+			*line = ft_strsub(s, j, i);
+			j = i;
+			return (1);
+		}
+		if (s[i] == '\0')
+		{
+			*line = ft_strdup("");
+			return (0);
+		}
+		i++;
 	}
-	else
-		line = ft_strdup("");
 	return (0);
 }
 
@@ -46,16 +53,19 @@ static char		*ft_realloc(char *str, int size)
 	return (cpy);
 }
 
-static char		*ft_read_doc(const int fd, char *s, char *buf, int index)
+static char		*ft_read_doc(const int fd, char *s, char *buf)
 {
 	int	ret;
+	int	index;
 
+	index = 0;
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 	{
 		buf[ret] = '\0';
 		if (index == 0)
 			s = ft_strdup(buf);
-		s = ft_strjoin(s, buf);
+		else
+			s = ft_strjoin(s, buf);
 		index += BUFF_SIZE;
 		ft_realloc(s, (index + BUFF_SIZE));
 	}
@@ -77,15 +87,12 @@ static int		ft_error(const int fd, char **line, char *s)
 int				get_next_line(const int fd, char **line)
 {
 	static char		*s;
-	static int		index;
 	char			buff[BUFF_SIZE + 1];
 
-	index = 0;
 	if (ft_error(fd, line, s) == 1)
 		return (-1);
-	s = ft_read_doc(fd, s, buff, index);
-	ft_putstr(s);
-	if (ft_get_nl(s, *line) == 1)
+	s = ft_read_doc(fd, s, buff);
+	if (ft_get_nl(s, line) == 1)
 		return (1);
 	return (0);
 }
