@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:30:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/05 15:26:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/05 15:54:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 
 int		main(int argc, char **argv)
 {
-	char	**line;
+	char	*line;
 	int		fd;
 
 	if (argc == 2)
@@ -26,10 +26,10 @@ int		main(int argc, char **argv)
 		if (fd)
 		{
 			printf("Ouverture ok\n\n\n");
-			while (get_next_line(fd, line) == 1)
+			while (get_next_line(fd, &line) == 1)
 			{
 				printf("Affichage de Line :\n");
-				printf("Line = |%s|\n", *line);
+				printf("Line = |%s|\n", line);
 			}
 			close(fd);
 			printf("\n\n\nFermeture ok\n");
