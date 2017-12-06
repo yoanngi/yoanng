@@ -6,27 +6,40 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/05 16:51:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/06 11:58:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+static char		*ft_resize_str(char *s, int i)
+{
+	char	*cpy;
+	size_t n;
+
+	n = ft_strlen(s);
+	cpy = (char *)malloc(sizeof(char) * (n - i));
+	if (cpy == NULL)
+		return (NULL);
+	cpy = ft_strsub(s, i, (n - i));
+	s = ft_strdup(cpy);
+	free(cpy);
+	return (s);
+}
+
 static int		ft_get_nl(char *s, char **line)
 {
 	int		i;
-	int		j;
-	char	cpy;
 
 	i = 0;
-	j = 0;
 	while (s[i])
 	{
 		if (s[i] == '\n')
 		{
-			*line = ft_strsub(s, j, i);
-			j = i;
+			*line = ft_strsub(s, 0, i);
+			s = ft_resize_str(s, i);
+			i = 0;
 			return (1);
 		}
 		if (s[i] == '\0')
@@ -72,26 +85,20 @@ static char		*ft_read_doc(const int fd, char *s, char *buf)
 	return (s);
 }
 
-static int		ft_error(const int fd, char **line, char *s)
-{
-	if (fd < 0)
-		return (1);
-	if (!line)
-		return (1);
-	s = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
-	if (s == NULL)
-		return (1);
-	return (0);
-}
-
 int				get_next_line(const int fd, char **line)
 {
 	static char		*s;
 	char			buff[BUFF_SIZE + 1];
 
-	if (ft_error(fd, line, s) == 1)
+	if (fd < 0 || !line)
 		return (-1);
-	s = ft_read_doc(fd, s, buff);
+	if (ft_strlen(s) == 0)
+	{
+		s = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
+		if (s == NULL)
+			return (-1);
+		s = ft_read_doc(fd, s, buff);
+	}
 	if (ft_get_nl(s, line) == 1)
 		return (1);
 	return (0);
