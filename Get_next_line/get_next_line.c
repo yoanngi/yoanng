@@ -6,50 +6,32 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/06 11:58:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/06 16:10:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char		*ft_resize_str(char *s, int i)
-{
-	char	*cpy;
-	size_t n;
-
-	n = ft_strlen(s);
-	cpy = (char *)malloc(sizeof(char) * (n - i));
-	if (cpy == NULL)
-		return (NULL);
-	cpy = ft_strsub(s, i, (n - i));
-	s = ft_strdup(cpy);
-	free(cpy);
-	return (s);
-}
-
 static int		ft_get_nl(char *s, char **line)
 {
 	int		i;
+	int		len;
 
 	i = 0;
-	while (s[i])
+	len = ft_strlen(s);
+	while (s[i] != '\n' && i < len)
 	{
-		if (s[i] == '\n')
-		{
-			*line = ft_strsub(s, 0, i);
-			s = ft_resize_str(s, i);
-			i = 0;
-			return (1);
-		}
-		if (s[i] == '\0')
-		{
-			*line = ft_strdup("");
-			return (0);
-		}
 		i++;
 	}
-	return (0);
+	if (i > 0)
+	{
+		*line = ft_strsub(s, 0, i);
+		s = ft_strsub(s, i + 1, len - i);
+		return (1);
+	}
+	else
+		return (0);
 }
 
 static char		*ft_realloc(char *str, int size)
@@ -89,17 +71,17 @@ int				get_next_line(const int fd, char **line)
 {
 	static char		*s;
 	char			buff[BUFF_SIZE + 1];
+	int				retour;
 
 	if (fd < 0 || !line)
 		return (-1);
-	if (ft_strlen(s) == 0)
+	if (!s)
 	{
 		s = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 		if (s == NULL)
 			return (-1);
 		s = ft_read_doc(fd, s, buff);
 	}
-	if (ft_get_nl(s, line) == 1)
-		return (1);
-	return (0);
+	retour = ft_get_nl(s, line);
+	return (retour);
 }
