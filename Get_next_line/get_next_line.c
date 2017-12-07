@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/07 13:21:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/07 15:03:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@ static int		ft_get_nl(char **s, char **line, int i)
 
 	cpy = ft_strdup(*s);
 	len = ft_strlen(cpy);
+	ft_strdel(s);
 	while (i < len + 1 && cpy[i] != '\n')
 		i++;
 	if (len == 0)
@@ -27,18 +28,14 @@ static int		ft_get_nl(char **s, char **line, int i)
 	else if (i > 0)
 	{
 		*line = ft_strsub(cpy, 0, i);
-		ft_strdel(s);
 		*s = ft_strsub(cpy, i + 1, len - i);
-		ft_strdel(&cpy);
-		ft_strdel(&cpy);
 	}
 	else
 	{
 		*line = ft_strdup("");
-		ft_strdel(s);
 		*s = ft_strsub(cpy, 1, len - 1);
-		ft_strdel(&cpy);
 	}
+	ft_strdel(&cpy);
 	return (1);
 }
 
@@ -52,7 +49,7 @@ static char		*ft_realloc(char *str, int size)
 	if (!(str = (char *)malloc(sizeof(char) * size)))
 		return (NULL);
 	ft_strcpy(str, cpy);
-	free(cpy);
+	ft_strdel(&cpy);
 	str[size] = '\0';
 	return (str);
 }
@@ -89,5 +86,7 @@ int				get_next_line(const int fd, char **line)
 	if (!s)
 		s = ft_read_doc(fd, s, buff);
 	retour = ft_get_nl(&s, line, i);
+	if (retour == 0 && s)
+		ft_strdel(&s);
 	return (retour);
 }
