@@ -6,28 +6,40 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/06 16:10:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/07 12:06:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-static int		ft_get_nl(char *s, char **line)
+static int		ft_get_nl(char **s, char **line)
 {
 	int		i;
 	int		len;
+	char	*cpy;
 
 	i = 0;
-	len = ft_strlen(s);
-	while (s[i] != '\n' && i < len)
-	{
+	cpy = ft_strdup(*s);
+	len = ft_strlen(cpy);
+	//printf("Valeur de cpy : \n\n|%s|\n\n\n", cpy);
+	while (i < len + 1 && cpy[i] != '\n')
 		i++;
-	}
 	if (i > 0)
 	{
-		*line = ft_strsub(s, 0, i);
-		s = ft_strsub(s, i + 1, len - i);
+		*line = ft_strsub(cpy, 0, i);
+		ft_strdel(s);
+		*s = ft_strsub(cpy, i + 1, len - i);
+		ft_strdel(&cpy);
+		return (1);
+	}
+	else if (i == 0 && len != 0)
+	{
+		*line = ft_strdup("");
+		ft_strdel(s);
+		*s = ft_strsub(cpy, 1, len - 1);
+		ft_strdel(&cpy);
 		return (1);
 	}
 	else
@@ -40,12 +52,13 @@ static char		*ft_realloc(char *str, int size)
 
 	if (size == 0 || !str)
 		return (NULL);
-	if (!(cpy = (char *)malloc(sizeof(char) * size)))
+	cpy = ft_strdup(str);
+	if (!(str = (char *)malloc(sizeof(char) * size)))
 		return (NULL);
-	ft_strcpy(cpy, str);
-	free(str);
-	cpy[size] = '\0';
-	return (cpy);
+	ft_strcpy(str, cpy);
+	free(cpy);
+	str[size] = '\0';
+	return (str);
 }
 
 static char		*ft_read_doc(const int fd, char *s, char *buf)
@@ -76,12 +89,7 @@ int				get_next_line(const int fd, char **line)
 	if (fd < 0 || !line)
 		return (-1);
 	if (!s)
-	{
-		s = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
-		if (s == NULL)
-			return (-1);
 		s = ft_read_doc(fd, s, buff);
-	}
-	retour = ft_get_nl(s, line);
+	retour = ft_get_nl(&s, line);
 	return (retour);
 }

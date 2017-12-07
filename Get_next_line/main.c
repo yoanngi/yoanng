@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:30:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/06 13:36:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/07 12:01:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,11 @@ int		main(int argc, char **argv)
 			printf("Ouverture ok\n\n\n");
 			while (get_next_line(fd, &line) == 1)
 			{
+				printf("==============================================================\n");
 				printf("Line (%d) = |%s|\n", i, line);
 				i++;
+				//if (i == 150)
+				//	break;
 			}
 			close(fd);
 			printf("\n\n\nFermeture ok\n");
