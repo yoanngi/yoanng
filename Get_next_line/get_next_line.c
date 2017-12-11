@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.c                                  .::    .:/ .      .::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/07 15:03:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/11 16:21:00 by yoginet          ###   ########.fr       */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,6 +70,7 @@ static char		*ft_read_doc(const int fd, char *s, char *buf)
 		index += BUFF_SIZE;
 		ft_realloc(s, (index + BUFF_SIZE));
 	}
+    free(buf);
 	return (s);
 }
 
@@ -81,7 +82,7 @@ int				get_next_line(const int fd, char **line)
 	int				i;
 
 	i = 0;
-	if (fd < 0 || !line)
+	if (fd < 0 || !line || BUFF_SIZE <= 0)
 		return (-1);
 	if (!s)
 		s = ft_read_doc(fd, s, buff);
