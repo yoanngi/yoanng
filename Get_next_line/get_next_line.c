@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 10:05:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/12 11:54:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/12 16:04:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,12 +69,16 @@ int				get_next_line(const int fd, char **line)
 	int				ret;
 
 	i = 0;
+	retour = 0;
 	if (fd < 0 || !line || BUFF_SIZE <= 0 || (read(fd, buff, 0)) < 0)
 		return (-1);
-	while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
+	if (!s)
 	{
-		buff[ret] = '\0';
-		s = ft_strjoin_free(s, buff);
+		while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
+		{
+			buff[ret] = '\0';
+			s = ft_strjoin_free(s, buff);
+		}
 	}
 	retour = ft_get_nl(&s, line, i);
 	return (retour);
