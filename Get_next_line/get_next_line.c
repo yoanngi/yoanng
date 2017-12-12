@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 10:05:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/12 11:31:15 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/12 11:54:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,36 +60,22 @@ static	char	*ft_strjoin_free(char *buf, char *s)
 	return (str);
 }
 
-static char		*ft_read_doc(const int fd, char **s, char *buf)
-{
-	int	ret;
-	int	index;
-
-	index = 0;
-	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
-	{
-		buf[ret] = '\0';
-		if (index == 0)
-			*s = ft_strdup(buf);
-		else
-			*s = ft_strjoin_free(*s, buf);
-		index += BUFF_SIZE;
-	}
-	return (*s);
-}
-
 int				get_next_line(const int fd, char **line)
 {
 	static char		*s;
 	char			buff[BUFF_SIZE + 1];
 	int				retour;
 	int				i;
+	int				ret;
 
 	i = 0;
 	if (fd < 0 || !line || BUFF_SIZE <= 0 || (read(fd, buff, 0)) < 0)
 		return (-1);
-	if (!s)
-		s = ft_read_doc(fd, &s, buff);
+	while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
+	{
+		buff[ret] = '\0';
+		s = ft_strjoin_free(s, buff);
+	}
 	retour = ft_get_nl(&s, line, i);
 	return (retour);
 }
