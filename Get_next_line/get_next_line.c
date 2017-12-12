@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/07 15:29:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/12 10:05:39 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/12 11:31:15 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,22 +39,28 @@ static int		ft_get_nl(char **s, char **line, int i)
 	return (1);
 }
 
-static char		*ft_realloc(char *str, int size)
+static	char	*ft_strjoin_free(char *buf, char *s)
 {
-	char	*cpy;
+	size_t	len_buf;
+	size_t	len_s;
+	char	*str;
 
-	if (size == 0 || !str)
-		return (NULL);
-	cpy = ft_strdup(str);
-	if (!(str = (char *)malloc(sizeof(char) * size)))
-		return (NULL);
-	ft_strcpy(str, cpy);
-	ft_strdel(&cpy);
-	str[size] = '\0';
+	len_buf = 0;
+	len_s = 0;
+	if (buf)
+		len_buf = ft_strlen(buf);
+	if (s)
+		len_s = ft_strlen(s);
+	str = (char *)malloc(sizeof(*str) * (len_buf + len_s + 1));
+	ft_memcpy(str, buf, len_buf);
+	ft_memcpy(str + len_buf, s, len_s);
+	str[len_buf + len_s] = '\0';
+	free(buf);
+	ft_bzero(s, BUFF_SIZE + 1);
 	return (str);
 }
 
-static char		*ft_read_doc(const int fd, char *s, char *buf)
+static char		*ft_read_doc(const int fd, char **s, char *buf)
 {
 	int	ret;
 	int	index;
@@ -64,13 +70,12 @@ static char		*ft_read_doc(const int fd, char *s, char *buf)
 	{
 		buf[ret] = '\0';
 		if (index == 0)
-			s = ft_strdup(buf);
+			*s = ft_strdup(buf);
 		else
-			s = ft_strjoin(s, buf);
+			*s = ft_strjoin_free(*s, buf);
 		index += BUFF_SIZE;
-		ft_realloc(s, (index + BUFF_SIZE));
 	}
-	return (s);
+	return (*s);
 }
 
 int				get_next_line(const int fd, char **line)
@@ -81,12 +86,10 @@ int				get_next_line(const int fd, char **line)
 	int				i;
 
 	i = 0;
-	if (fd < 0 || !line)
+	if (fd < 0 || !line || BUFF_SIZE <= 0 || (read(fd, buff, 0)) < 0)
 		return (-1);
 	if (!s)
-		s = ft_read_doc(fd, s, buff);
+		s = ft_read_doc(fd, &s, buff);
 	retour = ft_get_nl(&s, line, i);
-	if (retour == 0 && s)
-		ft_strdel(&s);
 	return (retour);
 }
