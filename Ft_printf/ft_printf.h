@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_printf.c                                      .::    .:/ .      .::   */
+/*   ft_printf.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/12 16:34:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/12 16:34:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int		ft_printf(const char *format, ...)
-{
-	return (0);
-}
+# include <libft/libft.h>
+
+/*
+** Prototypes des fonctions
+*/
+
+int		ft_printf(const char *format, ...);
+
+#endif
