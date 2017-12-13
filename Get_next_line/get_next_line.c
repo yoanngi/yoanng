@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 10:05:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/13 14:21:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/13 15:48:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,12 +21,11 @@ static int		ft_no_return(char **s, char **line)
 	if (ft_strlen(*s) > 0)
 	{
 		*line = ft_strdup(cpy);
-		*s = ft_strdup("");
+		ft_strdel(s);
 		ft_strdel(&cpy);
 		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 static int		ft_check_return(char **s, char **line, size_t i)
@@ -45,13 +44,15 @@ static int		ft_check_return(char **s, char **line, size_t i)
 			ft_strdel(s);
 			*line = ft_strsub(cpy, 0, i);
 			*s = ft_strsub(cpy, i + 1, len - i);
+			ft_putstr(*s);
 			ft_strdel(&cpy);
 			return (1);
 		}
 		i++;
 	}
 	ft_strdel(&cpy);
-	return (0);
+	len = ft_no_return(&s, line);
+	return (len);
 }
 
 static	char	*ft_strjoin_free(char *buf, char *s)
@@ -77,7 +78,7 @@ static	char	*ft_strjoin_free(char *buf, char *s)
 
 int				get_next_line(const int fd, char **line)
 {
-	static char		*s;
+	static char		*s = NULL;
 	char			buff[BUFF_SIZE + 1];
 	int				retour;
 	size_t			i;
@@ -89,10 +90,13 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
+		buff[BUFF_SIZE] = '\0';
 		s = ft_strjoin_free(s, buff);
 		if ((retour = ft_check_return(&s, line, i) == 1))
 			return (1);
 	}
+	if (!s)
+		return (0);
 	if ((retour = ft_check_return(&s, line, i)) == 1)
 		return (1);
 	retour = ft_no_return(&s, line);
