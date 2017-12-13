@@ -6,14 +6,14 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 11:55:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/12 15:57:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/13 13:21:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 9
+# define BUFF_SIZE 25
 
 # include <unistd.h>
 # include <stdlib.h>

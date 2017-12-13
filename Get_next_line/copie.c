@@ -6,52 +6,37 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 10:05:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/13 13:25:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/13 10:21:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		ft_no_return(char **s, char **line)
+static int		ft_get_nl(char **s, char **line, int i)
 {
-	char	*cpy;
-
-	cpy = ft_strdup(*s);
-	if (ft_strlen(*s) > 0)
-	{
-		*line = ft_strdup(cpy);
-		*s = ft_strdup("");
-		ft_strdel(&cpy);
-		return (1);
-	}
-	else
-		return (0);
-}
-
-static int		ft_check_return(char **s, char **line, size_t i)
-{
-	size_t	len;
+	int		len;
 	char	*cpy;
 
 	cpy = ft_strdup(*s);
 	len = ft_strlen(cpy);
+	ft_strdel(s);
+	while (i < len + 1 && cpy[i] != '\n')
+		i++;
 	if (len == 0)
 		return (0);
-	while (i < len + 1)
+	else if (i > 0)
 	{
-		if (cpy[i] == '\n')
-		{
-			ft_strdel(s);
-			*line = ft_strsub(cpy, 0, i);
-			*s = ft_strsub(cpy, i + 1, len - i);
-			ft_strdel(&cpy);
-			return (1);
-		}
-		i++;
+		*line = ft_strsub(cpy, 0, i);
+		*s = ft_strsub(cpy, i + 1, len - i);
+	}
+	else
+	{
+		*line = ft_strdup("");
+		*s = ft_strsub(cpy, 1, len - 1);
 	}
 	ft_strdel(&cpy);
-	return (0);
+	return (1);
 }
 
 static	char	*ft_strjoin_free(char *buf, char *s)
@@ -80,23 +65,21 @@ int				get_next_line(const int fd, char **line)
 	static char		*s;
 	char			buff[BUFF_SIZE + 1];
 	int				retour;
-	size_t			i;
+	int				i;
 	int				ret;
 
 	i = 0;
-	retour = -1;
+	retour = 0;
 	if (fd < 0 || !line || BUFF_SIZE <= 0 || (read(fd, buff, 0)) < 0)
 		return (-1);
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
+	if (!s)
 	{
-		s = ft_strjoin_free(s, buff);
-		if ((retour = ft_check_return(&s, line, i) == 1))
-			return (1);
+		while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
+		{
+			buff[ret] = '\0';
+			s = ft_strjoin_free(s, buff);
+		}
 	}
-	if (retour == -1 && i == 0)
-		return (0);
-	if ((retour = ft_check_return(&s, line, i)) == 1)
-		return (1);
-	retour = ft_no_return(&s, line);
+	retour = ft_get_nl(&s, line, i);
 	return (retour);
 }
