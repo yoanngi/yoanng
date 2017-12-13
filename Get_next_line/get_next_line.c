@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/05 10:29:54 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/11 18:58:46 by yoginet          ###   ########.fr       */
+/*   Updated: 2017/12/11 19:09:48 by yoginet          ###   ########.fr       */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,8 +79,10 @@ static char		*ft_read_doc(const int fd, char **s, char *buf)
 {
 	int	ret;
 	int	index;
+    int i;
 
 	index = 0;
+    i = 0;
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 	{
 		buf[ret] = '\0';
