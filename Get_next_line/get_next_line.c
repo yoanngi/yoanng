@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 10:05:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/13 13:25:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/13 14:21:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,8 +93,6 @@ int				get_next_line(const int fd, char **line)
 		if ((retour = ft_check_return(&s, line, i) == 1))
 			return (1);
 	}
-	if (retour == -1 && i == 0)
-		return (0);
 	if ((retour = ft_check_return(&s, line, i)) == 1)
 		return (1);
 	retour = ft_no_return(&s, line);
