@@ -1,43 +1,25 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   get_next_line.h                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/05 10:30:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/13 11:38:15 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/12 11:55:23 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/13 13:21:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 25
 
-int		main(int argc, char **argv)
-{
-	char	*line;
-	int		fd;
-	int		i;
-	int		ret;
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include "libft/libft.h"
 
-	i = 0;
-	if (argc == 2)
-	{
-		fd = open(argv[1], O_RDONLY);
-		line = NULL;
-		if (fd)
-		{
-			printf("Ouverture ok\n");
-			while ((ret = get_next_line(fd, &line)) == 1)
-			{
-				printf("ret = |%d| Line (%d) = |%s|\n", ret, i, line);
-				i++;
-			}
-			printf("ret = |%d|", ret);
-			close(fd);
-			printf("\nFermeture ok\n");
-		}
-	}
-	return (0);
-}
+int		get_next_line(const int fd, char **line);
+
+#endif
