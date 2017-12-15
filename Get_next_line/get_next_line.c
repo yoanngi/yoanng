@@ -6,13 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/15 12:28:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/15 15:05:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/15 15:49:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static int		ft_get_nl(char **s, char **line, int i)
 {
@@ -71,7 +70,8 @@ int				get_next_line(const int fd, char **line)
 
 	i = 0;
 	retour = 0;
-	if (fd < 0 || !line || BUFF_SIZE <= 0 || (read(fd, buff, 0)) < 0)
+	if (fd < 0 || fd > 4098 || !line || BUFF_SIZE <= 0
+	|| (read(fd, buff, 0)) < 0)
 		return (-1);
 	if (!s[fd])
 	{
