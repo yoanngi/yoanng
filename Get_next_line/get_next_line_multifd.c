@@ -1,43 +1,17 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.c                                  .::    .:/ .      .::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/15 12:28:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/15 12:28:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/12 10:05:39 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/15 09:53:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static int		ft_get_nl(char **s, char **line, int i)
-{
-	int		len;
-	char	*cpy;
-
-	cpy = ft_strdup(*s);
-	len = ft_strlen(cpy);
-	ft_strdel(s);
-	while (i < len + 1 && cpy[i] != '\n')
-		i++;
-	if (len == 0)
-		return (0);
-	else if (i > 0)
-	{
-		*line = ft_strsub(cpy, 0, i);
-		*s = ft_strsub(cpy, i + 1, len - i);
-	}
-	else
-	{
-		*line = ft_strdup("");
-		*s = ft_strsub(cpy, 1, len - 1);
-	}
-	ft_strdel(&cpy);
-	return (1);
-}
 
 static	char	*ft_strjoin_free(char *buf, char *s)
 {
@@ -60,26 +34,65 @@ static	char	*ft_strjoin_free(char *buf, char *s)
 	return (str);
 }
 
-int				get_next_line(const int fd, char **line)
+static int		ft_check_n(char *s)
 {
-	static char		*s;
-	char			buff[BUFF_SIZE + 1];
-	int				retour;
-	int				i;
-	int				ret;
+	int i;
 
 	i = 0;
-	retour = 0;
+	while (s[i] != '\n' && s[i])
+		i++;
+	if (s[i] == '\n')
+	{
+		s[i] = '\0';
+		return (i);
+	}
+	return (-1);
+}
+
+static	int		ft_check_return(char **s, char **buf, char **line)
+{
+	char	*cpy;
+	int		i;
+
+	*s = ft_strjoin_free(*s, *buf);
+	i = ft_check_n(*s);
+	if (i > -1)
+	{
+		*line = ft_strdup(*s);
+		cpy = *s;
+		*s = ft_strdup(*s + i + 1);
+		free(cpy);
+		return (1);
+	}
+	return (0);
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	static char		*s[BUFF_SIZE + 1];
+	char			*buff;
+	int				retour;
+	int				ret;
+
+	retour = -1;
+	buff = ft_strnew(BUFF_SIZE + 1);
 	if (fd < 0 || !line || BUFF_SIZE <= 0 || (read(fd, buff, 0)) < 0)
 		return (-1);
-	if (!s)
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
-		{
-			buff[ret] = '\0';
-			s = ft_strjoin_free(s, buff);
-		}
+		retour = ft_check_return(&s[fd], &buff, line);
+		free(buff);
+		if (retour== 1)
+			return (1);
+		buff = ft_strnew(BUFF_SIZE);
 	}
-	retour = ft_get_nl(&s, line, i);
+	if ((retour = ft_check_return(&s[fd], &buff, line)) == 1)
+		return (1);
+	else if (ft_strlen(s[fd]) > 1)
+	{
+		*line = ft_strdup(s[fd]);
+		ft_strdel(&s[fd]);
+		return (1);
+	}
 	return (retour);
 }
