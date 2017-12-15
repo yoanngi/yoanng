@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/15 12:28:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/15 12:28:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/15 14:17:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,11 +21,11 @@ static int		ft_get_nl(char **s, char **line, int i)
 	cpy = ft_strdup(*s);
 	len = ft_strlen(cpy);
 	ft_strdel(s);
-	while (i < len + 1 && cpy[i] != '\n')
+	while (i != len && cpy[i] != '\n')
 		i++;
 	if (len == 0)
 		return (0);
-	else if (i > 0)
+	else if (i > 0 || cpy[i] == '\n')
 	{
 		*line = ft_strsub(cpy, 0, i);
 		*s = ft_strsub(cpy, i + 1, len - i);
@@ -33,7 +33,7 @@ static int		ft_get_nl(char **s, char **line, int i)
 	else
 	{
 		*line = ft_strdup("");
-		*s = ft_strsub(cpy, 1, len - 1);
+		*s = ft_strsub(cpy, 1, len);
 	}
 	ft_strdel(&cpy);
 	return (1);
