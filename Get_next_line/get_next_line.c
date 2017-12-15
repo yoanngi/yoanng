@@ -6,12 +6,13 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/15 12:28:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/15 14:17:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/15 15:04:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 static int		ft_get_nl(char **s, char **line, int i)
 {
@@ -62,7 +63,7 @@ static	char	*ft_strjoin_free(char *buf, char *s)
 
 int				get_next_line(const int fd, char **line)
 {
-	static char		*s;
+	static char		*s[BUFF_SIZE + 1];
 	char			buff[BUFF_SIZE + 1];
 	int				retour;
 	int				i;
@@ -72,14 +73,16 @@ int				get_next_line(const int fd, char **line)
 	retour = 0;
 	if (fd < 0 || !line || BUFF_SIZE <= 0 || (read(fd, buff, 0)) < 0)
 		return (-1);
-	if (!s)
+	if (!s[fd])
 	{
 		while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
 		{
 			buff[ret] = '\0';
-			s = ft_strjoin_free(s, buff);
+			s[fd] = ft_strjoin_free(s[fd], buff);
 		}
+		if (s[fd] == NULL)
+			return (0);
 	}
-	retour = ft_get_nl(&s, line, i);
+	retour = ft_get_nl(&s[fd], line, i);
 	return (retour);
 }
