@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/12 16:34:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/15 15:42:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,15 @@
 # define FT_PRINTF_H
 
 # include <libft/libft.h>
+
+/*
+** Prototypes des structures
+*/
+typedef struc		s_struct
+{
+	int		argc;
+	char	**argv;
+}					s_struct;
 
 /*
 ** Prototypes des fonctions
