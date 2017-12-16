@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/15 15:42:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/16 13:55:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,13 +14,26 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <libft/libft.h>
+# include "Libft/libft.h"
+# include <stdarg.h>
+
+/*
+**	Manuel ft_printf
+**	Etape 1 :	ft_insert_params	-> Stock le nb d'arguments dans argc
+**									-> Stock format dans s
+**									-> Si pas de parametres, on print *fomat.
+**	Etape 2 :	ft_tab_params (Si plusieurs arguments)
+**				Permets de creer un tableau avec les valeurs des parametres
+**				Les parametres sont stocker dans l'ordre.
+**	Etape 3 :	ft_printfargv
+*/
 
 /*
 ** Prototypes des structures
 */
-typedef struc		s_struct
+typedef struct		s_struct
 {
+	char	*s;
 	int		argc;
 	char	**argv;
 }					s_struct;
@@ -29,6 +42,8 @@ typedef struc		s_struct
 ** Prototypes des fonctions
 */
 
-int		ft_printf(const char *format, ...);
+s_struct	*ft_tab_params(s_struct *ma_struct);
+int			ft_printf(const char *format, ...);
+int			ft_printfargv(s_struct *data, char **tab);
 
 #endif
