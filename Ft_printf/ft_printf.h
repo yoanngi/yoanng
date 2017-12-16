@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/16 13:55:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/16 14:31:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ typedef struct		s_struct
 ** Prototypes des fonctions
 */
 
-s_struct	*ft_tab_params(s_struct *ma_struct);
+s_struct	*ft_tab_params(s_struct *ma_struct, int i);
 int			ft_printf(const char *format, ...);
 int			ft_printfargv(s_struct *data, char **tab);
 
