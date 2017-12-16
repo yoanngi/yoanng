@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/16 14:31:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/16 14:53:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,7 +58,7 @@ static s_struct		*ft_insert_params(const char **str)
 
 	new = (s_struct *)malloc(sizeof(s_struct));
 	new->s = ft_strdup(*str);
-	new->argc = ft_count_datas(str, new);
+	new->argc = ft_count_datas(str);
 	new->argv = NULL;
 	if (new->argc > 0)
 		ft_tab_params(new, 0);
@@ -68,16 +68,14 @@ static s_struct		*ft_insert_params(const char **str)
 int		ft_printf(const char *format, ...)
 {
 	s_struct	*data;
-	va_list		ap;
+	//va_list		ap;
 	int			i;
-	char		**tab;
 
 	data = ft_insert_params(&format);
 	i = 0;
-	tab = (char **)malloc(sizeof(char *) * (i + 1));
 	if (data->argc == 0)
 		ft_putstr(data->s);
 	else
-		ft_printfargv(data, tab);
+		ft_printfargv(data);
 	return (0);
 }

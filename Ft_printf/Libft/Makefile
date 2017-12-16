@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2017/11/24 10:04:53 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2017/12/16 15:07:14 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -80,6 +80,7 @@ SRCS = ft_memset.c \
 	   ft_print_bits.c \
 	   ft_isupper.c \
 	   ft_islower.c \
+	   ft_malloc_tab.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,9 +6,9 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/12/16 09:47:21 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2017/12/16 11:03:15 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2017/12/16 14:45:56 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-gcc -Wall -Wextra -Werror main.c Libft/libft.a ft_printf.c ft_printfargv.c
+gcc -Wall -Wextra -Werror main.c Libft/libft.a ft_printf.c ft_printfargv.c ft_tab_params.c
