@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_algo_tetra.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/16 09:44:06 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 13:32:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/28 15:50:47 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/18 11:30:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int		main(void)
+void	ft_print_carre(char **tab, int len)
 {
-	int i;
+	int x;
+	int y;
 
-	i = 48;
-	ft_printf("Hello Wolrd %s, %s\n", i, "test1", "test2");
-	return (0);
+	x = 0;
+	while (x < len)
+	{
+		y = 0;
+		while (y < len)
+		{
+			ft_putchar(tab[x][y]);
+			y++;
+		}
+		ft_putchar('\n');
+		x++;
+	}
 }

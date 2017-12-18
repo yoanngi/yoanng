@@ -6,33 +6,44 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 13:36:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/16 15:28:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/18 14:45:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-s_struct		*ft_tab_params(s_struct *ma_struct, int i)
+char		**ft_tab_argv(s_struct *ma_struct, int i)
 {
-	int		index;
+	int		len;
 	int		compt;
 	char	*cpy;
+	char	**tab;
 
-	index = 0;
 	compt = 0;
-	i = 0;
 	cpy = ft_strdup(ma_struct->s);
-	ft_malloc_tab(ma_struct->argv, ma_struct->argc + 1);
-	while (cpy[index] || compt != ma_struct->argc)
+	if (!(tab = (char **)malloc(sizeof(char *) * (ma_struct->argc + 1))))
+		return (NULL);
+	while (compt != ma_struct->argc)
 	{
-		if (cpy[index] == '%')
-		{
-			ma_struct->argv[compt] = ft_strsub(cpy, index, 3);
-			compt++;
-		}
-		index++;
+		while (cpy[i] != '%')
+			i++;
+		len = i;
+		while (cpy[len] != ' ')
+			len++;
+		tab[compt] = ft_strsub(cpy, i, (len - i + 1));
+		i = len;
+		compt++;
 	}
 	ft_strdel(&cpy);
-	return (ma_struct);
+	return (tab);
+}
+
+char		**ft_tab_params(s_struct *ma_struct)
+{
+	char	**tab;
+
+	if (!(tab = (char **)malloc(sizeof(char *) * (ma_struct->argc + 1))))
+		return (NULL);
+	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/16 15:28:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/18 14:45:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,22 +60,41 @@ static s_struct		*ft_insert_params(const char **str)
 	new->s = ft_strdup(*str);
 	new->argc = ft_count_datas(str);
 	new->argv = NULL;
+	new->params = NULL;
 	if (new->argc > 0)
-		ft_tab_params(new, 0);
+		new->argv = ft_tab_argv(new, 0);
+	// DEBUG ************************************************************
+	ft_print_carre(new->argv, new->argc);
+	// DEBUG ************************************************************
 	return (new);
 }
 
-int		ft_printf(const char *format, ...)
+int					ft_printf(const char *format, ...)
 {
 	s_struct	*data;
-	//va_list		ap;
+	va_list		ap;
 	int			i;
+	char		*tmp;
 
+	tmp = ft_strnew(50);
 	data = ft_insert_params(&format);
 	i = 0;
 	if (data->argc == 0)
 		ft_putstr(data->s);
 	else
+	{
+		va_start(ap, format);
+		while (i != data->argc)
+		{
+			printf("**********DEBUG************\n");
+			printf("Valeur de va_arg = %c\n", *va_arg(ap, char *));
+			//tmp = va_arg(ap, void *);
+			//printf("Valeur de tmp = %s\n", tmp);
+			i++;
+		}
+		va_end(ap);
+		ft_print_carre(data->params, data->argc);
 		ft_printfargv(data);
+	}
 	return (0);
 }

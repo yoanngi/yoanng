@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/24 10:18:55 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/16 15:05:54 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/18 11:29:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -107,5 +107,6 @@ void				ft_print_bits(unsigned char oct);
 int					ft_isupper(int c);
 int					ft_islower(int c);
 char				**ft_malloc_tab(char **tab, int len);
+void				ft_print_carre(char **tab, int len);
 
 #endif
