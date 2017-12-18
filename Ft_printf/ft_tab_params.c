@@ -6,12 +6,17 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 13:36:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 14:45:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/18 19:21:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+**	Man ft_tab_argv
+**	Retourne un tableau qui a split notre chaine (format) de '%' a ' '.
+*/
 
 char		**ft_tab_argv(s_struct *ma_struct, int i)
 {
@@ -36,14 +41,5 @@ char		**ft_tab_argv(s_struct *ma_struct, int i)
 		compt++;
 	}
 	ft_strdel(&cpy);
-	return (tab);
-}
-
-char		**ft_tab_params(s_struct *ma_struct)
-{
-	char	**tab;
-
-	if (!(tab = (char **)malloc(sizeof(char *) * (ma_struct->argc + 1))))
-		return (NULL);
 	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 13:25:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/18 19:48:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,11 +21,16 @@
 **	Manuel ft_printf
 **	Etape 1 :	ft_insert_params	-> Stock le nb d'arguments dans argc
 **									-> Stock format dans s
-**									-> Si pas de parametres, on print *fomat.
-**	Etape 2 :	ft_tab_params (Si plusieurs arguments)
-**				Permets de creer un tableau avec les valeurs des parametres
+**									-> ft_tab_argv
+**									-> Si pas de parametres, on print *format.
+**	Etape 2 :	ft_tab_argv  (Si plusieurs arguments)
+**				Permets de creer un tableau avec les "regex" des parametres
+**				Stock de % jusau'au premier espace.
 **				Les parametres sont stocker dans l'ordre.
-**	Etape 3 :	ft_printfargv
+**	Etape 3 :	ft_printf (si plusieurs arguments)
+**				On stock les valeurs des params dans un tableau de void
+**	Etape 4 :	ft_printargv.
+**
 */
 
 /*
@@ -33,10 +38,10 @@
 */
 typedef struct		s_struct
 {
-	char	*s;
 	int		argc;
+	char	*s;
 	char	**argv;
-	char	**params;
+	void	**params;
 }					s_struct;
 
 /*
@@ -44,7 +49,6 @@ typedef struct		s_struct
 */
 
 char		**ft_tab_argv(s_struct *ma_struct, int i);
-char		**ft_tab_params(s_struct *ma_struct);
 int			ft_printf(const char *format, ...);
 int			ft_printfargv(s_struct *data);
 

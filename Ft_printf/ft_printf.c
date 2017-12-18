@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 14:45:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/18 19:52:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,8 +20,8 @@ static int			ft_argv_valid(char *str, int index)
 	char	*c;
 
 	pvalid = 0;
-	c = "sSpdDioOuUxXcC";
-	while (pvalid != 14)
+	c = "sSpdDioOuUxXcChljz%#0-+ ";
+	while (pvalid != 24)
 	{
 		if (str[index] == '%' && str[index + 1] == c[pvalid])
 			return (1);
@@ -63,9 +63,6 @@ static s_struct		*ft_insert_params(const char **str)
 	new->params = NULL;
 	if (new->argc > 0)
 		new->argv = ft_tab_argv(new, 0);
-	// DEBUG ************************************************************
-	ft_print_carre(new->argv, new->argc);
-	// DEBUG ************************************************************
 	return (new);
 }
 
@@ -74,9 +71,8 @@ int					ft_printf(const char *format, ...)
 	s_struct	*data;
 	va_list		ap;
 	int			i;
-	char		*tmp;
+	void		**tmp;
 
-	tmp = ft_strnew(50);
 	data = ft_insert_params(&format);
 	i = 0;
 	if (data->argc == 0)
@@ -84,16 +80,21 @@ int					ft_printf(const char *format, ...)
 	else
 	{
 		va_start(ap, format);
-		while (i != data->argc)
+		if (!(tmp = (void **)malloc(sizeof(void *) * (data->argc + 1))))
+			return (0);
+		while (i < data->argc + 1)
 		{
-			printf("**********DEBUG************\n");
-			printf("Valeur de va_arg = %c\n", *va_arg(ap, char *));
-			//tmp = va_arg(ap, void *);
-			//printf("Valeur de tmp = %s\n", tmp);
+			tmp[i] = va_arg(ap, void *);
 			i++;
 		}
 		va_end(ap);
-		ft_print_carre(data->params, data->argc);
+		data->params = tmp;
+		// DEBUG ************************************************************
+		// Attention au stdio.h !!!!
+		printf("%s\n", tmp[0]);
+		printf("%s\n", tmp[1]);
+		printf("%d\n", (int)tmp[2]);
+		// DEBUG ************************************************************
 		ft_printfargv(data);
 	}
 	return (0);

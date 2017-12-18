@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 09:44:06 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 13:32:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/18 16:54:54 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,6 @@ int		main(void)
 	int i;
 
 	i = 48;
-	ft_printf("Hello Wolrd %s, %s\n", i, "test1", "test2");
+	ft_printf("Hello Wolrd %s, %s, %d \n", "test1", "test2", i);
 	return (0);
 }
