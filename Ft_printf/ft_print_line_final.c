@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/19 09:11:10 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 09:14:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/19 13:40:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,5 +15,5 @@
 
 void	ft_print_line_final(s_struct *data)
 {
-	data = NULL;
+	ft_putstr(data->s);
 }
