@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 19:52:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/19 10:59:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ static int			ft_argv_valid(char *str, int index)
 	char	*c;
 
 	pvalid = 0;
-	c = "sSpdDioOuUxXcChljz%#0-+ ";
+	c = "sSpdDioOuUxXcChljz%#0- +";
 	while (pvalid != 24)
 	{
 		if (str[index] == '%' && str[index + 1] == c[pvalid])
@@ -91,11 +91,13 @@ int					ft_printf(const char *format, ...)
 		data->params = tmp;
 		// DEBUG ************************************************************
 		// Attention au stdio.h !!!!
+		printf("------------------------------- DEGUG ----------------------------------\n");
 		printf("%s\n", tmp[0]);
 		printf("%s\n", tmp[1]);
 		printf("%d\n", (int)tmp[2]);
+		printf("------------------------------- DEGUG ----------------------------------\n");
 		// DEBUG ************************************************************
-		ft_printfargv(data);
+		ft_printfargv(data, 0);
 	}
 	return (0);
 }
