@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 13:42:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/19 13:51:53 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 
 # include "Libft/libft.h"
 # include <stdarg.h>
+# include <stdio.h>
 /*
 **	Manuel ft_printf
 **	Etape 1 :	ft_insert_params	-> Stock le nb d'arguments dans argc
