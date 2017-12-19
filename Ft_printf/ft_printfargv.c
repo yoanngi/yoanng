@@ -6,32 +6,48 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 10:57:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/19 13:35:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*
-static	char	*ft_add_int(s_struct *data, char *cpy, int i, int flag)
+
+static	char	*ft_add_int(s_struct *data, int i, int flag)
 {
-	
-}*/
+	int		index;
+	char	*tmp;
+	char	*in_t;
+
+	// FLAG a GERER
+	flag = 0;
+	index = 0;
+	in_t = ft_itoa((char)data->params[i]);
+	tmp = ft_strnew(ft_strlen(data->s) + ft_strlen(in_t));
+	while (data->s[index] != '%')
+		index++;
+	tmp = ft_insert_int(tmp, data, index, in_t);
+	ft_delete_one_colun(data->argv, data->argc);
+	data->s = ft_strdup(tmp);
+	ft_strdel(&in_t);
+	ft_strdel(&tmp);
+	return (data->s);
+}
 
 static	char	*ft_add_string(s_struct *data, int i, int flag)
 {
-	int index;
-	char *tmp;
+	int		index;
+	char	*tmp;
+
 	// FLAG a GERER
 	flag = 0;
-
 	index = 0;
 	tmp = ft_strnew(ft_strlen(data->s) + ft_strlen(data->params[i]));
 	while (data->s[index] != '%')
 		index++;
 	tmp = ft_insert_word(tmp, data, index, data->params[i]);
 	ft_delete_one_colun(data->argv, data->argc);
-	data->s = tmp;
+	data->s = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (data->s);
 
@@ -72,22 +88,25 @@ int				ft_printfargv(s_struct *data, int i)
 		retour = ft_analyse_data(cpy, compt + 1, flag);
 		if (retour == 1)
 		{
-			ft_putstr("Un int !");
-			//data->s = ft_add_int(data, cpy, i, flag);
+			ft_putstr("ft_add_int\n");
+			data->s = ft_add_int(data, i, flag);
 		}
 		else if (retour == 2)
+		{
+			ft_putstr("ft_add_string\n");
 			data->s = ft_add_string(data, i, flag);
+		}
 		else if (retour == 3)
 		{
+			ft_putstr("On a un flag !");
 			flag = 1;
 			retour = ft_analyse_data(cpy, compt + 1, flag);
 		}
 		else
 			ft_putstr("ERROR\n");
-		ft_strdel(&cpy);
 		i++;
 	}
-	ft_putstr(data->s);
+	ft_strdel(&cpy);
 	//ft_print_line_final(data);
 	return (0);
 }
