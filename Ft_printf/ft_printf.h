@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 13:51:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/19 15:18:01 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,7 @@ typedef struct		s_struct
 	char	*s;
 	char	**argv;
 	void	**params;
+	int		flag;
 }					s_struct;
 
 /*

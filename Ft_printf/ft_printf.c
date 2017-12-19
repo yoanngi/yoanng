@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 13:52:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/19 16:10:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,17 +19,19 @@ static int			ft_argv_valid(char *str, int index)
 	char	*c;
 
 	pvalid = 0;
-	c = "sSpdDioOuUxXcChljz%#0- +";
-	while (pvalid != 24)
+	c = "sSpdDioOuUxXcChljz#0-+";
+	while (pvalid != 22)
 	{
 		if (str[index] == '%' && str[index + 1] == c[pvalid])
 			return (1);
+		else if (str[index] == '%' && str[index + 1] == '%')
+			return (2);
 		pvalid++;
 	}
 	return (0);
 }
 
-static int			ft_count_datas(const char **str)
+static int			ft_count_datas(const char **str, s_struct *data)
 {
 	int		i;
 	int		count;
@@ -44,6 +46,8 @@ static int			ft_count_datas(const char **str)
 		{
 			if (ft_argv_valid(cpy, i) == 1)
 				count++;
+			else if (ft_argv_valid(cpy, i) == 2)
+				data->flag = i;
 		}
 		i++;
 	}
@@ -57,7 +61,8 @@ static s_struct		*ft_insert_params(const char **str)
 
 	new = (s_struct *)malloc(sizeof(s_struct));
 	new->s = ft_strdup(*str);
-	new->argc = ft_count_datas(str);
+	new->flag = 0;
+	new->argc = ft_count_datas(str, new);
 	new->argv = NULL;
 	new->params = NULL;
 	if (new->argc > 0)
@@ -88,11 +93,11 @@ int					ft_printf(const char *format, ...)
 		}
 		va_end(ap);
 		data->params = tmp;
-		printf("------------------------------- DEGUG ----------------------------------\n");
+		/*printf("------------------------------- DEGUG ----------------------------------\n");
 		printf("%s\n", tmp[0]);
 		printf("%s\n", tmp[1]);
 		printf("%d\n", (int)tmp[2]);
-		printf("------------------------------- DEGUG ----------------------------------\n");
+		printf("------------------------------------------------------------------------\n\n");*/
 		ft_printfargv(data, 0);
 	}
 	return (0);

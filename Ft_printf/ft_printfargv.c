@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 13:57:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/19 17:13:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,8 +52,11 @@ static char		*ft_add_string(s_struct *data, int i, int flag)
 
 static int		ft_analyse_data(char *cpy, int compt, int flag)
 {
-	if (flag == 0 && (cpy[compt] == '%' || cpy[compt] == '+'))
+	if (flag == 0 && (cpy[compt] == '+' || cpy[compt] == '#' ||
+	cpy[compt] == '0' || cpy[compt] == '-' || cpy[compt] == ' '))
 		return (3);
+	else if (flag == 0 && cpy[compt] == '%')
+		return (2);
 	else if (cpy[compt] == 's')
 		return (2);
 	else if (cpy[compt] == 'd' || cpy[compt] == 'i')
