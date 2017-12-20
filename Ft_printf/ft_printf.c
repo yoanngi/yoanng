@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 18:44:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/20 08:29:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,11 +76,15 @@ int					ft_printf(const char *format, ...)
 	va_list		ap;
 	int			i;
 	void		**tmp;
+	int			ret;
 
 	data = ft_insert_params(&format);
 	i = 0;
 	if (data->argc == 0)
+	{
 		ft_putstr(data->s);
+		ret = ft_strlen(data->s);
+	}
 	else
 	{
 		va_start(ap, format);
@@ -93,12 +97,7 @@ int					ft_printf(const char *format, ...)
 		}
 		va_end(ap);
 		data->params = tmp;
-		/*printf("------------------------------- DEGUG ----------------------------------\n");
-		printf("%s\n", tmp[0]);
-		printf("%s\n", tmp[1]);
-		printf("%d\n", (int)tmp[2]);
-		printf("------------------------------------------------------------------------\n\n");*/
-		ft_printfargv(data, 0);
+		ret = ft_printfargv(data, 0);
 	}
-	return (0);
+	return (ret);
 }

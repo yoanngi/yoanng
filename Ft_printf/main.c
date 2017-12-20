@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 09:44:06 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 14:55:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/20 08:25:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,16 +16,21 @@
 int		main(void)
 {
 	int i;
+	int retv;
+	int retc;
 
 	i = 48;
 	ft_printf("\n[+]-------------------------------------------->		Basic test :\n");
-	printf("V: Hello Wolrd |%s| |%s| |%d| \n", "test1", "test2" , i);
-	ft_printf("C: Hello Wolrd |%s| |%s| |%d| \n", "test1", "test2" , i);
+	retv = printf("V: Hello Wolrd |%s| |%s| |%d|\n", "test1", "test2" , i);
+	retc = ft_printf("C: Hello Wolrd |%s| |%s| |%d|\n", "test1", "test2" , i);
+	printf("Valeur de retour : V = %d || C = %d\n", retv, retc);
 	ft_printf("\n[+]----------------------------------------->	Test modulo modulo :\n");
-	printf("V = %%\n");
-	ft_printf("C = %%\n");
+	retv = printf("V = %%\n");
+	retc = ft_printf("C = %%\n");
+	printf("Valeur de retour : V = %d || C = %d\n", retv, retc);
 	ft_printf("\n[+]--------------------------------->	Test modulo modulo + string :\n");
-	printf("V = %% test\n");
-	ft_printf("C = %% test\n");
+	retv = printf("V = %% test\n");
+	retc = ft_printf("C = %% test\n");
+	printf("Valeur de retour : V = %d || C = %d\n", retv, retc);
 	return (0);
 }
