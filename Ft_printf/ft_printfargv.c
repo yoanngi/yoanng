@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 08:29:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/20 08:37:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,6 @@ int				ft_printfargv(s_struct *data, int i)
 	int		compt;
 	int		retour;
 	int		flag;
-	int		ret;
 	char	*cpy;
 
 	flag = 0;
@@ -100,7 +99,6 @@ int				ft_printfargv(s_struct *data, int i)
 		i++;
 	}
 	ft_strdel(&cpy);
-	ret = ft_strlen(data->s);
 	ft_print_line_final(data);
-	return (ret);
+	return (ft_strlen(data->s));
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 08:29:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/20 08:33:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,15 +76,11 @@ int					ft_printf(const char *format, ...)
 	va_list		ap;
 	int			i;
 	void		**tmp;
-	int			ret;
 
 	data = ft_insert_params(&format);
 	i = 0;
 	if (data->argc == 0)
-	{
 		ft_putstr(data->s);
-		ret = ft_strlen(data->s);
-	}
 	else
 	{
 		va_start(ap, format);
@@ -97,7 +93,7 @@ int					ft_printf(const char *format, ...)
 		}
 		va_end(ap);
 		data->params = tmp;
-		ret = ft_printfargv(data, 0);
+		ft_printfargv(data, 0);
 	}
-	return (ret);
+	return (ft_strlen(data->s));
 }

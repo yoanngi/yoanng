@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 15:18:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/20 08:36:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@
 # include "Libft/libft.h"
 # include <stdarg.h>
 # include <stdio.h>
+
 /*
 **	Manuel ft_printf
 **	Etape 1 :	ft_insert_params	-> Stock le nb d'arguments dans argc
@@ -31,11 +32,11 @@
 **				On stock les valeurs des params dans un tableau de void
 **	Etape 4 :	ft_printargv.
 **
-*/
-
-/*
+**
+**
 ** Prototypes des structures
 */
+
 typedef struct		s_struct
 {
 	int		argc;
