@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 10:38:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/20 13:55:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@
 **									-> Si pas de parametres, on print *format.
 **	Etape 2 :	ft_tab_argv  (Si plusieurs arguments)
 **				Permets de creer un tableau avec les "regex" des parametres
-**				Stock de % jusau'au premier espace.
+**				Stock de % jusau'au suivant %.
 **				Les parametres sont stocker dans l'ordre.
 **	Etape 3 :	ft_printf (si plusieurs arguments)
 **				On stock les valeurs des params dans un tableau de void
@@ -42,6 +42,7 @@ typedef struct		s_struct
 	int		argc;
 	char	*s;
 	char	**argv;
+	int		**no_valid;
 	void	**params;
 	int		flag;
 }					s_struct;
@@ -55,5 +56,6 @@ char				**ft_delete_one_colun(char **tab, int len);
 char				*ft_insert_word(char *new, s_struct *data, int index, char *word);
 int					ft_printf(const char *format, ...);
 int					ft_printfargv(s_struct *data, int i);
+int					**ft_size_tab(int nb);
 
 #endif

@@ -11,4 +11,4 @@
 #                                                         /                    #
 # **************************************************************************** #
 
-gcc -Wall -Wextra -Werror main.c Libft/libft.a ft_printf.c ft_printfargv.c ft_tab_argv.c ft_print_line_final.c ft_insert_word.c ft_delete_one_colun.c
+gcc -Wall -Wextra -Werror -ggdb main.c Libft/libft.a ft_printf.c ft_printfargv.c ft_tab_argv.c ft_print_line_final.c ft_insert_word.c ft_delete_one_colun.c ft_size_tab.c
