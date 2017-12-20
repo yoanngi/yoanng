@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_tab_params.c                                  .::    .:/ .      .::   */
+/*   ft_tab_argv.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/12/16 13:36:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 19:21:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/20 08:44:59 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/20 10:44:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,10 +15,11 @@
 
 /*
 **	Man ft_tab_argv
-**	Retourne un tableau qui a split notre chaine (format) de '%' a ' '.
+**	Retourne un tableau qui a split notre chaine (format) de '%' au
+**	prochain '%' ou fin de chaine.
 */
 
-char		**ft_tab_argv(s_struct *ma_struct, int i)
+char		**ft_tab_argv(s_struct *ma_struct, int i, int x)
 {
 	int		len;
 	int		compt;
@@ -34,10 +35,13 @@ char		**ft_tab_argv(s_struct *ma_struct, int i)
 		while (cpy[i] != '%')
 			i++;
 		len = i;
-		while (cpy[len] != ' ')
-			len++;
-		tab[compt] = ft_strsub(cpy, i, (len - i + 1));
-		i = len;
+		i = i + 1;
+		while (cpy[i] != '%' && x == 1)
+		{
+			x = (size_t)i == ft_strlen(cpy) ? 0 : 1;
+			i++;
+		}
+		tab[compt] = ft_strsub(cpy, len, (i - len - x));
 		compt++;
 	}
 	ft_strdel(&cpy);
