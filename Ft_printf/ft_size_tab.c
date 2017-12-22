@@ -13,18 +13,20 @@
 
 #include "ft_printf.h"
 
-int		**ft_size_tab(int nb)
+char	**ft_size_tab(int nb)
 {
-	int		**tab;
+	char	**tab;
 	int		boucle;
 	int		index;
 
 	boucle = 0;
 	index = 0;
-	tab = (int **)malloc(sizeof(int *) * nb);
-	while (boucle != 2)
+	if (!(tab = (char **)malloc(sizeof(char *) * (nb + 1))))
+		return (NULL);
+	while (boucle != nb)
 	{
-		*tab = (int *)malloc(sizeof(int) * 2);
+		if (!(tab[boucle] = (char *)malloc(sizeof(char) * 3)))
+			return (NULL);
 		boucle++;
 	}
 	while (index != nb)

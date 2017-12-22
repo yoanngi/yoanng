@@ -42,7 +42,7 @@ typedef struct		s_struct
 	int		argc;
 	char	*s;
 	char	**argv;
-	int		**no_valid;
+	char	**no_valid;
 	void	**params;
 	int		flag;
 }					s_struct;

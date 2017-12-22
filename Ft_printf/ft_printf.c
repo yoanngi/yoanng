@@ -56,15 +56,15 @@ static int			ft_argv_valid(char *str, int index)
 	return (0);
 }
 
-static int			ft_count_datas(const char **str, s_struct *data, int c)
+static int			ft_count_datas(const char **str, s_struct *data, int count)
 {
 	int		i;
-	int		c2;
+	int		c;
 	int		ret;
 	char	*cpy;
 
 	i = 0;
-	c2 = 0;
+	c = 0;
 	cpy = ft_strdup(*str);
 	data->no_valid = ft_size_tab(data->argc);
 	while (cpy[i] != '\0')
@@ -73,20 +73,21 @@ static int			ft_count_datas(const char **str, s_struct *data, int c)
 		{
 			if ((ret =ft_argv_valid(cpy, i)) == 1)
 			{
-				data->no_valid[c][2] = 0;
-				c++;
-				c2++;
+				data->no_valid[c][0] = i;
+				data->no_valid[c][1] = 0;
+				count++;
 			}
 			else
 			{
-				data->no_valid[c2][2] = 1;
-				c2++;
+				data->no_valid[c][0] = i;
+				data->no_valid[c][1] = 1;
 			}
+			c++;
 		}
 		i++;
 	}
 	ft_strdel(&cpy);
-	return (c);
+	return (count);
 }
 
 static s_struct		*ft_insert_params(const char **str, int i)
@@ -119,10 +120,7 @@ int					ft_printf(const char *format, ...)
 	data = ft_insert_params(&format, 0);
 	i = 0;
 	if (data->argc == 0)
-	{
-		ft_putstr("DEBUG_PAS D'ARGUMENTS\n");
 		ft_putstr(data->s);
-	}
 	else
 	{
 		va_start(ap, format);
