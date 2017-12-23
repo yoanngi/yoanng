@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/20 13:51:29 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 13:54:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/23 10:29:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,11 +28,6 @@ char	**ft_size_tab(int nb)
 		if (!(tab[boucle] = (char *)malloc(sizeof(char) * 3)))
 			return (NULL);
 		boucle++;
-	}
-	while (index != nb)
-	{
-		*tab[index] = index;
-		index++;
 	}
 	return (tab);
 }

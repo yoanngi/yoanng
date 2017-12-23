@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 13:55:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/23 11:24:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,6 @@ char				**ft_delete_one_colun(char **tab, int len);
 char				*ft_insert_word(char *new, s_struct *data, int index, char *word);
 int					ft_printf(const char *format, ...);
 int					ft_printfargv(s_struct *data, int i);
-int					**ft_size_tab(int nb);
+char				**ft_size_tab(int nb);
 
 #endif

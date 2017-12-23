@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 13:15:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/23 11:37:41 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,7 @@ static int		ft_analyse_data(char *cpy, int compt, int flag)
 **	data->argc		= Nombre de parametre
 **	data->s			= String format
 **	data->argv		= Tab (format)
+**	data->no_valid	= Argument valide ou pas
 **	data->params	= Tab(valeur de format)
 */
 
@@ -82,19 +83,27 @@ int				ft_printfargv(s_struct *data, int i)
 	char	*cpy;
 
 	flag = 0;
+	compt = 0;
 	while (i != data->argc)
 	{
-		compt = 0;
-		cpy = ft_strdup(data->argv[compt]);
+		cpy = ft_strdup(data->argv[i]);
+		ft_putstr("Here analyse data\n");
 		retour = ft_analyse_data(cpy, compt + 1, flag);
+		ft_putstr("Here after analyse data\n");
 		if (retour == 1)
+		{
+			ft_putstr("Here int\n");
 			data->s = ft_add_int(data, i, flag);
+		}
 		else if (retour == 2)
+		{
+			ft_putstr("Here string\n");
 			data->s = ft_add_string(data, i, flag);
+		}
 		else if (retour == 3)
 		{
 			flag = 1;
-			retour = ft_analyse_data(cpy, compt + 1, flag);
+			retour = ft_analyse_data(cpy, compt + 2, flag);
 		}
 		i++;
 	}

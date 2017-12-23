@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 15:11:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/23 11:27:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@ static int			*ft_modif_str(s_struct *data, int i)
 	char	*tmp;
 	int		ind;
 
+	ft_putstr("Seg\n");
 	cpy = ft_strdup(data->s);
 	tmp = ft_strdup(data->s);
 	ind = 0;
@@ -73,14 +74,12 @@ static int			ft_count_datas(const char **str, s_struct *data, int count)
 		{
 			if ((ret =ft_argv_valid(cpy, i)) == 1)
 			{
-				data->no_valid[c][0] = i;
-				data->no_valid[c][1] = 0;
+				data->no_valid[c] = ft_strdup("1");
 				count++;
 			}
 			else
 			{
-				data->no_valid[c][0] = i;
-				data->no_valid[c][1] = 1;
+				data->no_valid[c] = ft_strdup("0");
 			}
 			c++;
 		}
@@ -104,8 +103,12 @@ static s_struct		*ft_insert_params(const char **str, int i)
 		new->argv = ft_tab_argv(new, 0, 0);
 	while (i != new->argc)
 	{
-		if (new->no_valid[i][1] == 1 && new->argc == 0)
+		if (ft_strcmp(new->no_valid[i], "0") == 0 && new->argc == 0)
+		{
 			ft_modif_str(new, i);
+			ft_putstr("modif_str\n");
+		}
+		i++;
 	}
 	return (new);
 }
@@ -133,6 +136,7 @@ int					ft_printf(const char *format, ...)
 		}
 		va_end(ap);
 		data->params = tmp;
+		ft_putstr("Go printargv\n");
 		ft_printfargv(data, 0);
 	}
 	return (ft_strlen(data->s));
