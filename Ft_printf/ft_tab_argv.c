@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/20 08:44:59 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/20 10:44:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/08 11:07:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,9 +19,25 @@
 **	prochain '%' ou fin de chaine.
 */
 
-char		**ft_tab_argv(s_struct *ma_struct, int i, int x)
+static int	ft_long(char *cpy, int i)
 {
-	int		len;
+	int compt;
+	int j;
+
+	compt = 0;
+	j = i;
+	while (cpy[i])
+	{
+		i++;
+		compt++;
+		if(cpy[i] == '%' && cpy[i + 1] != '%')
+			return (compt);
+	}
+	return (ft_strlen(cpy) - j);
+}
+
+char		**ft_tab_argv(s_struct *ma_struct, int i, int len)
+{
 	int		compt;
 	char	*cpy;
 	char	**tab;
@@ -32,16 +48,15 @@ char		**ft_tab_argv(s_struct *ma_struct, int i, int x)
 		return (NULL);
 	while (compt != ma_struct->argc)
 	{
-		while (cpy[i] != '%')
-			i++;
-		len = i;
-		i = i + 1;
-		while (cpy[i] != '%' && x == 1)
+		while (cpy[i] != '\0')
 		{
-			x = (size_t)i == ft_strlen(cpy) ? 0 : 1;
+			if (cpy[i] == '%')
+				break ;
 			i++;
 		}
-		tab[compt] = ft_strsub(cpy, len, (i - len - x));
+		len = ft_long(cpy, i);
+		tab[compt] = ft_strsub(cpy, i, len);
+		i += len;
 		compt++;
 	}
 	ft_strdel(&cpy);

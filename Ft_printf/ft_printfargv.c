@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/23 11:37:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/08 11:53:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,8 @@ static char		*ft_add_string(s_struct *data, int i, int flag)
 
 static int		ft_analyse_data(char *cpy, int compt, int flag)
 {
+	if (ft_strlen(cpy) == (size_t)compt)
+		return (0);
 	if (flag == 0 && (cpy[compt] == '+' || cpy[compt] == '#' ||
 	cpy[compt] == '0' || cpy[compt] == '-' || cpy[compt] == ' '))
 		return (3);
@@ -84,30 +86,27 @@ int				ft_printfargv(s_struct *data, int i)
 
 	flag = 0;
 	compt = 0;
+	printf("Valeur de data->argv = %s\n", data->argv[0]);
+	printf("Valeur de data->argv = %s\n", data->argv[1]);
+	printf("Valeur de data->argv = %s\n", data->argv[2]);
 	while (i != data->argc)
 	{
+		printf("i = %d\n", i);
 		cpy = ft_strdup(data->argv[i]);
-		ft_putstr("Here analyse data\n");
+		printf("Valeur de cpy = %s\n", cpy);
 		retour = ft_analyse_data(cpy, compt + 1, flag);
-		ft_putstr("Here after analyse data\n");
 		if (retour == 1)
-		{
-			ft_putstr("Here int\n");
 			data->s = ft_add_int(data, i, flag);
-		}
 		else if (retour == 2)
-		{
-			ft_putstr("Here string\n");
 			data->s = ft_add_string(data, i, flag);
-		}
 		else if (retour == 3)
 		{
 			flag = 1;
 			retour = ft_analyse_data(cpy, compt + 2, flag);
 		}
+		ft_strdel(&cpy);
 		i++;
 	}
-	ft_strdel(&cpy);
 	ft_print_line_final(data);
 	return (ft_strlen(data->s));
 }
