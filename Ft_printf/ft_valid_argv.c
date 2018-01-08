@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/08 13:07:01 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 14:34:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/08 15:22:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,9 +60,10 @@ void		ft_valid_argv(char **tab, s_struct *data)
 				ft_resize(cpy, y);
 			x--;
 		}
-		tab[j] = ft_strdup(cpy);
+		tab[j] = ft_strsub(cpy, 0, y + 1);
+		printf("%s\n", tab[j]);
 		ft_strdel(&cpy);
 		j++;
 	}
-	data->argv = t = tab;;
+	data->argv = tab;;
 }
