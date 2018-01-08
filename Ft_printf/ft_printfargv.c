@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 11:53:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/08 13:31:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,6 @@ static char		*ft_add_int(s_struct *data, int i, int flag)
 	while (data->s[index] != '%')
 		index++;
 	tmp = ft_insert_word(tmp, data, index, in_t);
-	ft_delete_one_colun(data->argv, data->argc);
 	data->s = ft_strdup(tmp);
 	ft_strdel(&in_t);
 	ft_strdel(&tmp);
@@ -44,7 +43,6 @@ static char		*ft_add_string(s_struct *data, int i, int flag)
 	while (data->s[index] != '%')
 		index++;
 	tmp = ft_insert_word(tmp, data, index, data->params[i]);
-	ft_delete_one_colun(data->argv, data->argc);
 	data->s = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (data->s);
@@ -86,9 +84,6 @@ int				ft_printfargv(s_struct *data, int i)
 
 	flag = 0;
 	compt = 0;
-	printf("Valeur de data->argv = %s\n", data->argv[0]);
-	printf("Valeur de data->argv = %s\n", data->argv[1]);
-	printf("Valeur de data->argv = %s\n", data->argv[2]);
 	while (i != data->argc)
 	{
 		printf("i = %d\n", i);

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/20 08:44:59 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 11:07:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/08 13:37:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,5 +60,6 @@ char		**ft_tab_argv(s_struct *ma_struct, int i, int len)
 		compt++;
 	}
 	ft_strdel(&cpy);
+	ft_valid_argv(tab, ma_struct);
 	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 11:02:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/08 13:27:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,7 +136,6 @@ int					ft_printf(const char *format, ...)
 		}
 		va_end(ap);
 		data->params = tmp;
-		ft_putstr("Go printargv\n");
 		ft_printfargv(data, 0);
 	}
 	return (ft_strlen(data->s));
