@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 13:31:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/08 14:20:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,9 +86,7 @@ int				ft_printfargv(s_struct *data, int i)
 	compt = 0;
 	while (i != data->argc)
 	{
-		printf("i = %d\n", i);
 		cpy = ft_strdup(data->argv[i]);
-		printf("Valeur de cpy = %s\n", cpy);
 		retour = ft_analyse_data(cpy, compt + 1, flag);
 		if (retour == 1)
 			data->s = ft_add_int(data, i, flag);
