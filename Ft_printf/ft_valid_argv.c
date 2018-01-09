@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/08 13:07:01 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 15:22:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/09 11:55:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,41 +29,29 @@ static int	ft_valid_inverse(char c)
 	return (0);
 }
 
-static char	ft_resize(char *cpy, int len)
-{
-	char *str;
-
-	str = ft_strdup(cpy);
-	cpy = ft_strsub(str, 0, len);
-	ft_strdel(&str);
-	return (*cpy);
-}
-
 void		ft_valid_argv(char **tab, s_struct *data)
 {
 	char	*cpy;
 	int		j;
 	int		x;
-	int		y;
 
 	j = 0;
-	y = 0;
 	while (j != data->argc)
 	{
 		cpy = ft_strdup(tab[j]);
 		x = ft_strlen(cpy);
 		while (x != 0)
 		{
-			if (ft_valid_inverse(cpy[x]) == 1)
-				y++;
+			if (ft_valid_inverse(cpy[x]) == 0)
+				x--;
 			else
-				ft_resize(cpy, y);
-			x--;
+			{
+				tab[j] = ft_strsub(cpy, 0, x + 1);
+				x = 0;
+			}
 		}
-		tab[j] = ft_strsub(cpy, 0, y + 1);
-		printf("%s\n", tab[j]);
 		ft_strdel(&cpy);
 		j++;
 	}
-	data->argv = tab;;
+	data->argv = tab;
 }

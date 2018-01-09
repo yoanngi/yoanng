@@ -6,40 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 15:22:50 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/09 13:04:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int			*ft_modif_str(s_struct *data, int i)
-{
-	char	*cpy;
-	char	*tmp;
-	int		ind;
-
-	ft_putstr("Seg\n");
-	cpy = ft_strdup(data->s);
-	tmp = ft_strdup(data->s);
-	ind = 0;
-	while (cpy[ind])
-	{
-		if (cpy[ind] == '%' && i != 0)
-			i--;
-		if (cpy[ind] == '%' && i == 0)
-		{
-			tmp = ft_strsub(cpy, 0, ind);
-			data->s = ft_strdup(tmp);
-			tmp = ft_strsub(cpy, ind, ft_strlen(cpy) - ind);
-			ft_strjoin(data->s, tmp);
-		}
-		ind++;
-	}
-	ft_strdel(&tmp);
-	ft_strdel(&cpy);
-	return (0);
-}
 
 static int			ft_argv_valid(char *str, int index)
 {
@@ -89,27 +61,19 @@ static int			ft_count_datas(const char **str, s_struct *data, int count)
 	return (count);
 }
 
-static s_struct		*ft_insert_params(const char **str, int i)
+static s_struct		*ft_insert_params(const char **str)
 {
 	s_struct	*new;
 
 	new = (s_struct *)malloc(sizeof(s_struct));
 	new->s = ft_strdup(*str);
+	new->s_final = NULL;
 	new->flag = 0;
 	new->argc = ft_count_datas(str, new, 0);
 	new->argv = NULL;
 	new->params = NULL;
 	if (new->argc > 0)
 		new->argv = ft_tab_argv(new, 0, 0);
-	while (i != new->argc)
-	{
-		if (ft_strcmp(new->no_valid[i], "0") == 0 && new->argc == 0)
-		{
-			ft_modif_str(new, i);
-			ft_putstr("modif_str\n");
-		}
-		i++;
-	}
 	return (new);
 }
 
@@ -120,7 +84,7 @@ int					ft_printf(const char *format, ...)
 	int			i;
 	void		**tmp;
 
-	data = ft_insert_params(&format, 0);
+	data = ft_insert_params(&format);
 	i = 0;
 	if (data->argc == 0)
 		ft_putstr(data->s);

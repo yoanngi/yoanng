@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/19 09:35:47 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 11:59:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/09 14:47:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,33 @@
 **	word = mot a inserer
 */
 
+char	*ft_insert_word(s_struct *data, int index, int i)
+{
+	char	*tmp;
+	char	*s;
+	char	*word;
+	int		lo;
+
+	len = ft_strlen(data->params[i]) + ft_strlen(data->s) - ft_strlen(data->argv[i]);
+	lo = 0;
+	tmp = ft_strnew(len + 1);
+	s = ft_strdup(data->s);
+	word = ft_strdup(data->argv[i]);
+	while (lo != len)
+	{
+		tmp[lo] = s[lo];
+		lo++;
+		if (lo == index)
+		{
+			;
+		}
+	}
+
+
+	return (new);
+}
+
+/*
 char	*ft_insert_word(char *new, s_struct *data, int index, char *word)
 {
 	int		i;
@@ -48,4 +75,4 @@ char	*ft_insert_word(char *new, s_struct *data, int index, char *word)
 	}
 	ft_strdel(&string);
 	return (new);
-}
+}*/
