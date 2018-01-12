@@ -23,27 +23,30 @@
 
 char	*ft_insert_word(s_struct *data, int index, int i)
 {
-	char	*tmp;
-	char	*s;
-	char	*word;
-	int		lo;
+	size_t	len;
+	char	*new;
+	int		cmp;
+	int		repr;
 
-	len = ft_strlen(data->params[i]) + ft_strlen(data->s) - ft_strlen(data->argv[i]);
-	lo = 0;
-	tmp = ft_strnew(len + 1);
-	s = ft_strdup(data->s);
-	word = ft_strdup(data->argv[i]);
-	while (lo != len)
+	len = ft_strlen(data->s) + ft_strlen(data->params[i]);
+	len -= ft_strlen(data->argv[i]);
+	new = ft_strnew(len + 1);
+	cmp = 0;
+	repr = index;
+	ft_strncpy(new, data->s, index);
+	while (data->params[i][index])
 	{
-		tmp[lo] = s[lo];
-		lo++;
-		if (lo == index)
-		{
-			;
-		}
+		new[index] = data->params[i][cmp];
+		index++;
+		cmp++;
 	}
-
-
+	while (data->s[repr])
+	{
+		new[index] = data->s[repr];
+		index++;
+		repr++;
+	}
+	new[index] = '\0';
 	return (new);
 }
 
