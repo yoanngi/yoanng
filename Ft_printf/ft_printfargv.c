@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 10:20:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/15 11:22:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,8 +53,6 @@ static int		ft_analyse_data(char *cpy, int compt, int flag)
 	if (flag == 0 && (cpy[compt] == '+' || cpy[compt] == '#' ||
 	cpy[compt] == '0' || cpy[compt] == '-' || cpy[compt] == ' '))
 		return (3);
-	else if (flag == 0 && cpy[compt] == '%')
-		return (4);
 	else if (cpy[compt] == 's')
 		return (2);
 	else if (cpy[compt] == 'd' || cpy[compt] == 'i')
@@ -98,10 +96,6 @@ int				ft_printfargv(s_struct *data, int i)
 		{
 			flag = 1;
 			retour = ft_analyse_data(cpy, compt + 2, flag);
-		}
-		else if (retour == 4)
-		{
-			printf("double modulo\n");
 		}
 		ft_strdel(&cpy);
 		i++;

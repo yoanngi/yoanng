@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 10:55:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/15 11:22:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,7 +90,6 @@ static s_struct		*ft_insert_params(const char **str)
 	new->params = NULL;
 	if (new->argc > 0)
 		new->argv = ft_tab_argv(new, 0, 0);
-	printf("Valeur de argc = %d\n", new->argc);
 	return (new);
 }
 
