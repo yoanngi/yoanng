@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/19 09:35:47 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/09 15:25:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/15 10:53:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,56 +23,50 @@
 
 char	*ft_insert_word(s_struct *data, int index, int i)
 {
+	char	*new;
 	char	*tmp;
-	char	*s;
-	char	*word;
-	int		lo;
-
-	len = ft_strlen(data->params[i]) + ft_strlen(data->s) - ft_strlen(data->argv[i]);
-	lo = 0;
-	tmp = ft_strnew(len + 1);
-	s = ft_strdup(data->s);
-	word = ft_strdup(data->argv[i]);
-	while (lo != len)
-	{
-		tmp[lo] = s[lo];
-		lo++;
-		if (lo == index)
-		{
-			;
-		}
-	}
-
-
-	return (new);
-}
-
-/*
-char	*ft_insert_word(char *new, s_struct *data, int index, char *word)
-{
-	int		i;
+	int		len;
 	int		j;
-	int		x;
-	char	*string;
 
-	i = 0;
-	j = index;
-	x = ft_strlen(data->argv[0]);
-	string = ft_strdup(data->s);
-	ft_strncpy(new, string, index);
-	while (word[i])
+	j = 0;
+	tmp = ft_strdup(data->params[i]);
+	len = ft_strlen(data->s) + ft_strlen(data->params[i]);
+	new = ft_strnew(len - ft_strlen(data->argv[i]) + 1);
+	ft_strncpy(new, data->s, index);
+	j = 0;
+	while (tmp[j])
 	{
-		new[index] = word[i];
-		i++;
+		new[index] = tmp[j];
+		j++;
 		index++;
 	}
-	j = j + x - 2;
-	while (string[j])
+	j = index - ft_strlen(data->argv[i]) - 1 ;
+	while (j != len)
 	{
-		new[index] = string[j];
+		new[index] = data->s[j];
 		index++;
 		j++;
 	}
-	ft_strdel(&string);
+	new[index] = '\0';
 	return (new);
-}*/
+}
+
+char	*ft_delete_word(char *data, int index, int len)
+{
+	char	*new;
+	int		j;
+
+	new = ft_strnew(ft_strlen(data) - len);
+	if (index != 0)
+			ft_strncpy(new, data, index);
+	j = index;
+	index = index + len;
+	while (data[index])
+	{
+		new[j] = data[index];
+		index++;
+		j++;
+	}
+	new[j] = '\0';
+	return (new);
+}

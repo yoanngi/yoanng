@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 13:37:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/09 13:04:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/15 10:55:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,12 +61,28 @@ static int			ft_count_datas(const char **str, s_struct *data, int count)
 	return (count);
 }
 
+static char			*ft_check_doublemodulo(const char *str)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = ft_strdup(str);
+	while (new[i])
+	{
+		if (new[i] == '%' && new[i + 1] == '%')
+			new = ft_delete_word(new, i, 1);
+		i++;
+	}
+	return (new);
+}
+
 static s_struct		*ft_insert_params(const char **str)
 {
 	s_struct	*new;
 
 	new = (s_struct *)malloc(sizeof(s_struct));
-	new->s = ft_strdup(*str);
+	new->s = ft_check_doublemodulo(*str);
 	new->s_final = NULL;
 	new->flag = 0;
 	new->argc = ft_count_datas(str, new, 0);
@@ -74,6 +90,7 @@ static s_struct		*ft_insert_params(const char **str)
 	new->params = NULL;
 	if (new->argc > 0)
 		new->argv = ft_tab_argv(new, 0, 0);
+	printf("Valeur de argc = %d\n", new->argc);
 	return (new);
 }
 
