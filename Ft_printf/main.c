@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 09:44:06 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 11:51:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/15 12:00:08 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,5 +60,12 @@ int		main(void)
 		printf("\033[32m Valeur de retour : V = %d || C = %d\n", retv, retc);
 	else
 		printf("\033[31m Valeur de retour : V = %d || C = %d\n", retv, retc);
+
+	printf("Divers Test :\n");
+	printf("%+d\n", i);
+	printf("%+6d\n", i);
+	printf("%+9d\n", i);
+	printf("%+100d\n", i);
+	printf("%-2d\n", i);
 	return (0);
 }

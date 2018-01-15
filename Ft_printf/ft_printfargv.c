@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 11:22:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/15 12:02:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,6 +95,7 @@ int				ft_printfargv(s_struct *data, int i)
 		else if (retour == 3)
 		{
 			flag = 1;
+			flag = ft_analyse_flag(cpy, compt + 1)
 			retour = ft_analyse_data(cpy, compt + 2, flag);
 		}
 		ft_strdel(&cpy);
