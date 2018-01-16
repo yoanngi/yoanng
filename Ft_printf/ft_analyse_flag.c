@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/15 12:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:43:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/16 15:26:54 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 static void		ft_precision(s_struct *data, char c, int i)
 {
 	if (ft_isdigit(c) == 1)
-		data->prebefor = i;
+		data->pre_befor = i;
 	else if (c == '.')
 		data->point = i;
 }
@@ -41,8 +41,10 @@ int				ft_analyse_flag(s_struct *data, int i)
 	while (str[i])
 	{
 		if (str[i] == '%')
+		{
 			ft_precision(data, str[i + 1], i);
 			ft_flag(data, str[i + 1], i);
+		}
 		i++;
 	}
 	return (0);
