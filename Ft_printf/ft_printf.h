@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 14:29:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/16 10:47:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,9 +42,15 @@ typedef struct		s_struct
 	void	**params;
 	int		argc;
 	int		flag;
-	int		flag_plus;
+	int		flag_plus;		// Flag
 	int		flag_moins;
 	int		flag_diese;
+	int		flag_space;
+	int		pre_befor;		// Presision (. ou *)
+	int		pre_behind;
+	int		point;
+	char	conversion;		// Code de conversion (d, i, o u x X f e E)
+	char	modificateur;	// Parametre modificateur (h l L)
 	char	*s;
 	char	*s_final;
 	char	**argv;
