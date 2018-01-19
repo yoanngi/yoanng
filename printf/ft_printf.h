@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 13:40:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/19 08:26:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ typedef struct		s_struct
 {
 	void	**params;		// Params recuperer par va_list
 	int		argc;			// nb arguments
+	int		nb_arg_traiter
 	int		dmodulo;		// Si double modulo
 	int		simple_s;		// Si %s
 	int		simple_d;		// Si %d
@@ -65,5 +66,6 @@ int					ft_printf(const char *format, ...);
 int					ft_argv_valid(char *str, int index);
 char				**ft_tab_argv(s_struct *ma_struct, int i, int x);
 int					ft_parse(s_struct *data);
+int					ft_check_options(s_struct *data, int i);
 
 #endif

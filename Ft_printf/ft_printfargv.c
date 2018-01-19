@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 10:58:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 15:26:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 10:53:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,13 +16,19 @@
 static char		*ft_add_int(s_struct *data, int i, int flag)
 {
 	int		index;
+	int		x;
 	char	*tmp;
 
 	flag = 0;
 	index = 0;
+	x = 0;
 	data->params[i] = ft_itoa((char)data->params[i]);
-	while (data->s[index] != '%')
+	while (data->s[index] != '%' && x != 1)
+	{
+		if (ft_argv_valid(data->s, index) == 1)
+			x = 1;
 		index++;
+	}
 	tmp = ft_insert_word(data, index, i);
 	data->s = ft_strdup(tmp);
 	ft_strdel(&tmp);
@@ -57,8 +63,8 @@ static int		ft_analyse_data(char *cpy, int compt, int flag)
 		return (2);
 	else if (cpy[compt] == 'd' || cpy[compt] == 'i')
 		return (1);
-	else
-		ft_analyse_data(cpy, compt + 1, flag);
+	//else
+	//	ft_analyse_data(cpy, compt + 1, flag);
 	return (0);
 }
 

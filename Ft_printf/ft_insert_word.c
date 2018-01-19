@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/19 09:35:47 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 10:53:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 10:47:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,8 @@ char	*ft_insert_word(s_struct *data, int index, int i)
 	j = 0;
 	tmp = ft_strdup(data->params[i]);
 	len = ft_strlen(data->s) + ft_strlen(data->params[i]);
-	new = ft_strnew(len - ft_strlen(data->argv[i]) + 1);
+	len -= ft_strlen(data->argv[i]);
+	new = ft_strnew(len); // - ft_strlen(data->argv[i]) + 1);
 	ft_strncpy(new, data->s, index);
 	j = 0;
 	while (tmp[j])
@@ -40,7 +41,7 @@ char	*ft_insert_word(s_struct *data, int index, int i)
 		j++;
 		index++;
 	}
-	j = index - ft_strlen(data->argv[i]) - 1 ;
+	j = index - ft_strlen(data->argv[i]) - 1;
 	while (j != len)
 	{
 		new[index] = data->s[j];

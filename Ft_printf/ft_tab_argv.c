@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/20 08:44:59 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/09 11:55:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 10:34:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,7 @@ char		**ft_tab_argv(s_struct *ma_struct, int i, int len)
 	{
 		while (cpy[i] != '\0')
 		{
-			if (cpy[i] == '%')
+			if (ft_argv_valid(cpy, i) == 1 )
 				break ;
 			i++;
 		}

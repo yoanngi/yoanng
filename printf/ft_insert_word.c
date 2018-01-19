@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/19 09:35:47 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/09 15:25:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/19 08:26:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,59 +23,51 @@
 
 char	*ft_insert_word(s_struct *data, int index, int i)
 {
-	size_t	len;
 	char	*new;
-	int		cmp;
-	int		repr;
+	char	*tmp;
+	int		len;
+	int		j;
 
+	j = 0;
+	tmp = ft_strdup(data->params[i]);
 	len = ft_strlen(data->s) + ft_strlen(data->params[i]);
 	len -= ft_strlen(data->argv[i]);
-	new = ft_strnew(len + 1);
-	cmp = 0;
-	repr = index;
+	new = ft_strnew(len); // - ft_strlen(data->argv[i]) + 1);
 	ft_strncpy(new, data->s, index);
-	while (data->params[i][index])
+	j = 0;
+	while (tmp[j])
 	{
-		new[index] = data->params[i][cmp];
+		new[index] = tmp[j];
+		j++;
 		index++;
-		cmp++;
 	}
-	while (data->s[repr])
+	j = index - ft_strlen(data->argv[i]) - 1;
+	while (j != len)
 	{
-		new[index] = data->s[repr];
+		new[index] = data->s[j];
 		index++;
-		repr++;
+		j++;
 	}
 	new[index] = '\0';
 	return (new);
 }
 
-/*
-char	*ft_insert_word(char *new, s_struct *data, int index, char *word)
+char	*ft_delete_word(char *data, int index, int len)
 {
-	int		i;
+	char	*new;
 	int		j;
-	int		x;
-	char	*string;
 
-	i = 0;
+	new = ft_strnew(ft_strlen(data) - len);
+	if (index != 0)
+			ft_strncpy(new, data, index);
 	j = index;
-	x = ft_strlen(data->argv[0]);
-	string = ft_strdup(data->s);
-	ft_strncpy(new, string, index);
-	while (word[i])
+	index = index + len;
+	while (data[index])
 	{
-		new[index] = word[i];
-		i++;
-		index++;
-	}
-	j = j + x - 2;
-	while (string[j])
-	{
-		new[index] = string[j];
+		new[j] = data[index];
 		index++;
 		j++;
 	}
-	ft_strdel(&string);
+	new[j] = '\0';
 	return (new);
-}*/
+}

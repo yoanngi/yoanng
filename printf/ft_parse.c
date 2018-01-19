@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/17 11:37:24 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 13:40:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/19 08:27:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 static void		ft_what_is_params(s_struct *data, int i)
 {
 	if (data->s[i] == '%' && data->s[i + 1] == 's')
-		data->simple_s = 1;
+		ft_insert_word(data, i, data->nb_arg_traiter);
 	else if (data->s[i] == '%' && data->s[i + 1] == 'd')
 		data->simple_d = 1;
 	else if (data->s[i] == '%' && data->s[i + 1] == '+')
@@ -46,6 +46,7 @@ static int		ft_insert_valid(s_struct *data)
 	j = 0;
 	cpy = ft_strdup(data->s);
 	tmp = ft_strnew(ft_strlen(data->s));
+	data->nb_arg_traiter = 0;
 	while (cpy[i])
 	{
 		if (cpy[i] == '%')
@@ -58,6 +59,7 @@ static int		ft_insert_valid(s_struct *data)
 		if (j == 1)
 		{
 			i = ft_check_options(data, i);
+			data->nb_arg_traiter += 1;
 			j = 0;
 		}
 		else

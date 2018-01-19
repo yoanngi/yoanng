@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/12 16:32:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:32:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 10:53:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,6 @@ typedef struct		s_struct
 	char	*s;
 	char	*s_final;
 	char	**argv;
-	char	**no_valid;
 }					s_struct;
 
 /*
@@ -69,6 +68,7 @@ char				*ft_insert_word(s_struct *data, int index, int i);
 char				*ft_delete_word(char *data, int index, int len);
 void				ft_valid_argv(char **tab, s_struct *data);
 int					ft_printfargv(s_struct *data, int i);
+int					ft_argv_valid(char *str, int index);
 char				**ft_size_tab(int nb);
 int					ft_analyse_flag(s_struct *data, int i);
 

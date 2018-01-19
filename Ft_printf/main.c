@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/16 09:44:06 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 15:25:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 10:19:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,8 +64,8 @@ int		main(void)
 		printf("\033[31m Valeur de retour : V = %d || C = %d\n", retv, retc);
 
 	printf("\n \033[0m [+] basic test flag +10d:\n");
-	retv = printf("V: Hello World : % %+10d\n");
-	retc = ft_printf("C: Hello World : % %+10d\n");
+	retv = printf("V: Hello World : %%+10d\n");
+	retc = ft_printf("C: Hello World : %%+10d\n");
 	if (retv == retc)
 		printf("\033[32m Valeur de retour : V = %d || C = %d\n", retv, retc);
 	else
