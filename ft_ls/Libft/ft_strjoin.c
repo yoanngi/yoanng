@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ls.h                                          .::    .:/ .      .::   */
+/*   ft_strjoin.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:14:30 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:14:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <stdarg.h>
-# include <dirent.h>
-# include <sys/types.h>
-
-typedef struct		s_struct
+char			*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*argv;
-	int		tiret;
-	int		rmaj;
-	int		rmin;
-	int		amin;
-	int		tmin;
-	int		lmin;
-}					s_struct;
+	size_t	i;
+	size_t	j;
+	char	*new;
 
-/*
-** Prototypes des fonctions
-*/
-
-void				ft_ls(int argc, char **argv);
-
-#endif
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		new[i] = s2[j];
+		i++;
+		j++;
+	}
+	new[i] = '\0';
+	return (new);
+}

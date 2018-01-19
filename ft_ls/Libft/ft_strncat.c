@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ls.h                                          .::    .:/ .      .::   */
+/*   ft_strncat.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:15:25 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:15:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <stdarg.h>
-# include <dirent.h>
-# include <sys/types.h>
-
-typedef struct		s_struct
+char	*ft_strncat(char *s1, const char *s2, size_t n)
 {
-	char	*argv;
-	int		tiret;
-	int		rmaj;
-	int		rmin;
-	int		amin;
-	int		tmin;
-	int		lmin;
-}					s_struct;
+	size_t i;
+	size_t j;
 
-/*
-** Prototypes des fonctions
-*/
-
-void				ft_ls(int argc, char **argv);
-
-#endif
+	i = 0;
+	j = 0;
+	while (s1[i])
+		i++;
+	while (s2[j] && n > 0)
+	{
+		if (n == 0)
+			return (s1);
+		s1[i] = s2[j];
+		i++;
+		j++;
+		n--;
+	}
+	s1[i] = '\0';
+	return (s1);
+}

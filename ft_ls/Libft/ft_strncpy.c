@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ls.h                                          .::    .:/ .      .::   */
+/*   ft_strncpy.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:15:56 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:15:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <stdarg.h>
-# include <dirent.h>
-# include <sys/types.h>
-
-typedef struct		s_struct
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	char	*argv;
-	int		tiret;
-	int		rmaj;
-	int		rmin;
-	int		amin;
-	int		tmin;
-	int		lmin;
-}					s_struct;
+	size_t	i;
 
-/*
-** Prototypes des fonctions
-*/
-
-void				ft_ls(int argc, char **argv);
-
-#endif
+	i = 0;
+	while ((i != len) && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	while (i < len)
+	{
+		dst[i] = '\0';
+		i++;
+	}
+	return (dst);
+}

@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ls.h                                          .::    .:/ .      .::   */
+/*   ft_strsub.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:17:19 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:17:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <stdarg.h>
-# include <dirent.h>
-# include <sys/types.h>
-
-typedef struct		s_struct
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*argv;
-	int		tiret;
-	int		rmaj;
-	int		rmin;
-	int		amin;
-	int		tmin;
-	int		lmin;
-}					s_struct;
+	char	*new;
+	size_t	i;
 
-/*
-** Prototypes des fonctions
-*/
-
-void				ft_ls(int argc, char **argv);
-
-#endif
+	i = 0;
+	if (s == 0)
+		return (NULL);
+	new = (char *)malloc(sizeof(char) * (len + 1));
+	if (!new)
+		return (NULL);
+	while (s[start] && i != len)
+	{
+		new[i] = s[start];
+		i++;
+		start++;
+	}
+	new[i] = '\0';
+	return (new);
+}

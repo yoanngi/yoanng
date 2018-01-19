@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ls.h                                          .::    .:/ .      .::   */
+/*   ft_strequ.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:13:52 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:13:53 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <stdarg.h>
-# include <dirent.h>
-# include <sys/types.h>
-
-typedef struct		s_struct
+int		ft_strequ(char const *s1, char const *s2)
 {
-	char	*argv;
-	int		tiret;
-	int		rmaj;
-	int		rmin;
-	int		amin;
-	int		tmin;
-	int		lmin;
-}					s_struct;
-
-/*
-** Prototypes des fonctions
-*/
-
-void				ft_ls(int argc, char **argv);
-
-#endif
+	if (s1 == 0 || s2 == 0)
+		return (0);
+	if (ft_strcmp(s1, s2) == 0)
+		return (1);
+	return (0);
+}

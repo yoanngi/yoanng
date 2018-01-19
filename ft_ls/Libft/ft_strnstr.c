@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_ls.h                                          .::    .:/ .      .::   */
+/*   ft_strnstr.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:16:30 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:16:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# include "Libft/libft.h"
-# include <stdarg.h>
-# include <dirent.h>
-# include <sys/types.h>
-
-typedef struct		s_struct
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	*argv;
-	int		tiret;
-	int		rmaj;
-	int		rmin;
-	int		amin;
-	int		tmin;
-	int		lmin;
-}					s_struct;
+	int		i;
+	int		j;
+	size_t	lo;
 
-/*
-** Prototypes des fonctions
-*/
-
-void				ft_ls(int argc, char **argv);
-
-#endif
+	j = 0;
+	lo = ft_strlen(needle);
+	if (lo == 0)
+		return ((char *)haystack);
+	i = 0;
+	while (haystack[j] && len >= lo)
+	{
+		if (haystack[j] == needle[i])
+		{
+			if (ft_strncmp(haystack + j, needle, lo) == 0)
+				return ((char *)haystack + j);
+		}
+		len--;
+		j++;
+	}
+	return (NULL);
+}
