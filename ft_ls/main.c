@@ -15,9 +15,25 @@
 
 int		main(int argc, char **argv)
 {
-	if (argc == 0)
-		ft_putstr("error\n");
+	int		i;
+	int		j;
+	char	**params;
+
+	i = 1;
+	j = 0;
+	if ((params = (char **)malloc(sizeof(char *) * (argc + 1))) == NULL)
+		return (-1);
+	if (argc > 1)
+	{
+		while (i != argc)
+		{
+			params[j] = ft_strdup(argv[i]);
+			i++;
+			j++;
+		}
+		ft_ls(params, argc);
+	}
 	else
-		ft_ls(argc, argv);
+		ft_putstr("ls simple\n");
 	return (0);
 }
