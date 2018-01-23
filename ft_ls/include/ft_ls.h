@@ -28,17 +28,29 @@
 
 # include <stdio.h>
 
+typedef	struct		s_lst
+{
+	char			*name;
+	char			**params;
+	int				size;
+	struct	s_lst	*previous;
+	struct	s_lst	*next;
+}					t_lst;
+
 typedef struct		s_struct
 {
-	char	*argv;
-	int		tiret;
-	int		rmaj;
-	int		rmin;
-	int		amin;
-	int		tmin;
-	int		lmin;
-	char	*invalid;
+	char			*argv;
+	int				nb_options;
+	int				tiret;
+	int				rmaj;
+	int				rmin;
+	int				amin;
+	int				tmin;
+	int				lmin;
+	char			*invalid;
 }					s_struct;
+
+typedef struct dirent	t_dir;
 
 /*
 ** Prototypes des fonctions
@@ -46,5 +58,9 @@ typedef struct		s_struct
 
 void				ft_ls(char **params, int nb);
 void				ft_error(s_struct *data);
+void				ft_ls_simple(void);
+void				ft_check_options(s_struct *data, DIR *dir);
+t_lst				*ft_add_list(void);
+t_lst				ft_list_add_ls(t_lst *data, t_dir *fichierlu);
 
 #endif

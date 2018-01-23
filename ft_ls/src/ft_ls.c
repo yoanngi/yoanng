@@ -13,19 +13,7 @@
 
 #include "ft_ls.h"
 
-void	ft_ls_simple(DIR *dir)
-{
-	if ((dir = opendir(".")) == NULL)
-		exit(1);
-	ft_putstr("c'est ouvert\n");
-	while (readdir(dir) != NULL)
-		ft_putstr("Fichier\n");
-	if (closedir(dir) == -1)
-		exit(1);
-	ft_putstr("c'est fermer\n");
-}
-
-static void	ft_valid_or_not(char *cmp, s_struct *data)
+static void		ft_valid_or_not(char *cmp, s_struct *data)
 {
 	int i;
 	int j;
@@ -52,7 +40,7 @@ static void	ft_valid_or_not(char *cmp, s_struct *data)
 	}
 }
 
-static int	ft_analyse_params(s_struct *data, char **params, int nb)
+static int		ft_analyse_params(s_struct *data, char **params, int nb)
 {
 	int		i;
 
@@ -70,7 +58,7 @@ static int	ft_analyse_params(s_struct *data, char **params, int nb)
 	return (0);
 }
 
-void	ft_ls(char **params, int nb)
+void			ft_ls(char **params, int nb)
 {
 	s_struct	*data;
 	DIR			*dir;
@@ -78,14 +66,12 @@ void	ft_ls(char **params, int nb)
 
 	dir = NULL;
 	data = (s_struct *)malloc(sizeof(s_struct));
+	data->invalid = NULL;
 	valid = ft_analyse_params(data, params, nb);
 	if (valid == 1)
-	{
-		ft_putstr("options\n");
-	}
+		ft_check_options(data, dir);
 	else if (valid == 2)
 		ft_error(data);
 	else
-		ft_ls_simple(dir);
+		ft_ls_simple();
 }
-
