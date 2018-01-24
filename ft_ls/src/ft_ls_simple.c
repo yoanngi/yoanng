@@ -6,21 +6,21 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 11:28:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_ls_simple(void)
+void	ft_ls_simple(char *target)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
 
-	if ((dir = opendir(".")) == NULL)
+	if ((dir = opendir(target)) == NULL)
 	{
-		perror("Error\n");
+		perror("ls: No such file or directory\n");
 		exit(1);
 	}
 	while ((fichierlu = readdir(dir)) != NULL)

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 12:58:11 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,10 +16,8 @@
 static void		ft_valid_or_not(char *cmp, s_struct *data)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
 	while (cmp[i])
 	{
 		if (cmp[i] == '-')
@@ -43,9 +41,14 @@ static void		ft_valid_or_not(char *cmp, s_struct *data)
 static int		ft_analyse_params(s_struct *data, char **params, int nb)
 {
 	int		i;
+	int		j;
 
 	i = 0;
-	while (i < nb - 1)
+	if (data->file != NULL)
+		j = 2;
+	else
+		j = 1;
+	while (i < nb - j)
 	{
 		ft_valid_or_not(params[i], data);
 		i++;
@@ -58,20 +61,38 @@ static int		ft_analyse_params(s_struct *data, char **params, int nb)
 	return (0);
 }
 
+static int		ft_file_exist(char *file_ornot)
+{
+	DIR		*dir;
+
+	if ((dir = opendir(file_ornot)) == NULL)
+		return (0);
+	closedir(dir);
+	return (1);
+}
+
 void			ft_ls(char **params, int nb)
 {
 	s_struct	*data;
 	DIR			*dir;
 	int			valid;
+	char		*cpy;
 
 	dir = NULL;
 	data = (s_struct *)malloc(sizeof(s_struct));
 	data->invalid = NULL;
-	valid = ft_analyse_params(data, params, nb);
-	if (valid == 1)
-		ft_check_options(data, dir);
-	else if (valid == 2)
-		ft_error(data);
+	cpy = ft_strdup(params[nb - 1]);
+	if (ft_file_exist(cpy) == 1)
+		data->file = ft_strdup(params[nb - 1]);
+	ft_strdel(&cpy);
+	if (nb == 2 && data->file != NULL)
+		ft_ls_simple(data->file);
 	else
-		ft_ls_simple();
+	{
+		valid = ft_analyse_params(data, params, nb);
+		if (valid == 1)
+			ft_check_options(data, dir);
+		else if (valid == 2)
+			ft_error(data);
+	}
 }

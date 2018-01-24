@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/19 11:18:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 11:00:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,7 @@ typedef struct		s_struct
 	int				amin;
 	int				tmin;
 	int				lmin;
+	char			*file;
 	char			*invalid;
 }					s_struct;
 
@@ -58,8 +59,8 @@ typedef struct dirent	t_dir;
 
 void				ft_ls(char **params, int nb);
 void				ft_error(s_struct *data);
-void				ft_ls_simple(void);
 void				ft_check_options(s_struct *data, DIR *dir);
+void				ft_ls_simple(char *target);
 t_lst				*ft_add_list(void);
 t_lst				ft_list_add_ls(t_lst *data, t_dir *fichierlu);
 
