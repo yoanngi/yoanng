@@ -93,9 +93,6 @@ SRC_LIB =	lib/ft_bzero.c\
 			lib/ft_strtrim.c\
 			lib/ft_tolower.c\
 			lib/ft_toupper.c\
-			lib/ft_memcpy.c\
-			lib/ft_memcpy.c\
-			lib/ft_memcpy.c\
 
 OBJ =		$(SRC:.c=.o)
 

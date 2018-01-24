@@ -19,21 +19,6 @@
 # include <stdio.h>
 
 /*
-**	Manuel ft_printf
-**	Etape 1 :	ft_insert_params	-> Stock le nb d'arguments dans argc
-**									-> Stock format dans s
-**									-> ft_tab_argv
-**									-> Si pas de parametres, on print *format.
-**	Etape 2 :	ft_tab_argv  (Si plusieurs arguments)
-**				Permets de creer un tableau avec les "regex" des parametres
-**				Stock de % jusau'au suivant %.
-**				Les parametres sont stocker dans l'ordre.
-**	Etape 3 :	ft_printf (si plusieurs arguments)
-**				On stock les valeurs des params dans un tableau de void
-**	Etape 4 :	ft_printargv.
-**
-**
-**
 ** Prototypes des structures
 */
 
