@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 11:00:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 16:03:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ typedef struct		s_struct
 {
 	char			*argv;
 	int				nb_options;
+	int				argc;
 	int				tiret;
 	int				rmaj;
 	int				rmin;

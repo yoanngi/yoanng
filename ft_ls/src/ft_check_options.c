@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 11:29:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 16:03:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ static int		ft_nb_options(s_struct *data)
 	return (i);
 }
 
-static void		ft_ls_r(DIR *dir)
+static void		ft_ls_r(DIR *dir, char *target)
 {
 	t_dir		*fichierlu;
 	t_lst		*data;
@@ -41,11 +41,13 @@ static void		ft_ls_r(DIR *dir)
 	int			i;
 
 	i = 0;
+	if (target == NULL)
+		target = ft_strdup(".");
 	data = ft_add_list();
 	cpy = data;
-	if ((dir = opendir(".")) == NULL)
+	if ((dir = opendir(target)) == NULL)
 	{
-		perror("Error\n");
+		perror("Error, No such file in directory\n");
 		exit(1);
 	}
 	while ((fichierlu = readdir(dir)) != NULL)
@@ -71,5 +73,5 @@ void			ft_check_options(s_struct *data, DIR *dir)
 	i = 0;
 	data->nb_options = ft_nb_options(data);
 	if (data->rmaj == 1)
-		ft_ls_r(dir);
+		ft_ls_r(dir, data->file);
 }

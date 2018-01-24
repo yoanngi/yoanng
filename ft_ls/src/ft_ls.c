@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 12:58:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 14:52:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ static void		ft_valid_or_not(char *cmp, s_struct *data)
 		else if (cmp[i] == 'l')
 			data->lmin = 1;
 		else
-			data->invalid = &cmp[i];
+			data->invalid = ft_strdup(cmp);
 		i++;
 	}
 }
@@ -41,14 +41,9 @@ static void		ft_valid_or_not(char *cmp, s_struct *data)
 static int		ft_analyse_params(s_struct *data, char **params, int nb)
 {
 	int		i;
-	int		j;
 
-	i = 0;
-	if (data->file != NULL)
-		j = 2;
-	else
-		j = 1;
-	while (i < nb - j)
+	i = 1;
+	while (i != nb)
 	{
 		ft_valid_or_not(params[i], data);
 		i++;
@@ -75,24 +70,26 @@ void			ft_ls(char **params, int nb)
 {
 	s_struct	*data;
 	DIR			*dir;
-	int			valid;
 	char		*cpy;
 
 	dir = NULL;
 	data = (s_struct *)malloc(sizeof(s_struct));
 	data->invalid = NULL;
+	data->argc = nb;
 	cpy = ft_strdup(params[nb - 1]);
 	if (ft_file_exist(cpy) == 1)
+	{
 		data->file = ft_strdup(params[nb - 1]);
+		nb -= 1;
+	}
 	ft_strdel(&cpy);
-	if (nb == 2 && data->file != NULL)
+	if (data->argc == 2 && data->file != NULL)
 		ft_ls_simple(data->file);
 	else
 	{
-		valid = ft_analyse_params(data, params, nb);
-		if (valid == 1)
+		if (ft_analyse_params(data, params, nb) == 1)
 			ft_check_options(data, dir);
-		else if (valid == 2)
+		else if (ft_analyse_params(data, params, nb) == 2)
 			ft_error(data);
 	}
 }
