@@ -1,0 +1,1 @@
+echo "163.172.250.11		intra.42.fr" >> /etc/hosts
