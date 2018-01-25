@@ -56,13 +56,12 @@ static void		ft_ls_r(DIR *dir, char *target)
 		if (fichierlu->d_type == 4)
 		{
 			ft_list_add_ls(data, fichierlu);
-			ft_putstr("\n");
 			i++;
 		}
 		else
 			ft_putstr("\n");
 	}
-//	ft_print_lst(cpy);
+	ft_print_lst(cpy);
 	closedir(dir);
 }
 

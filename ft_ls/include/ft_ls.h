@@ -64,5 +64,6 @@ void				ft_check_options(s_struct *data, DIR *dir);
 void				ft_ls_simple(char *target);
 t_lst				*ft_add_list(void);
 t_lst				ft_list_add_ls(t_lst *data, t_dir *fichierlu);
+void				ft_print_lst(t_lst *data);
 
 #endif

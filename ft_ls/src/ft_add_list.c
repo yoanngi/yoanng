@@ -34,6 +34,7 @@ t_lst	ft_list_add_ls(t_lst *data, t_dir *fichierlu)
 
 	if ((dir = opendir(fichierlu->d_name)) == NULL)
 		exit(1);
+	ft_putstr("JE SUIS LA\n");
 	data->name = ft_strdup((const char *)fichierlu);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
@@ -41,5 +42,18 @@ t_lst	ft_list_add_ls(t_lst *data, t_dir *fichierlu)
 		ft_putstr(fichierlu->d_name);
 		ft_putstr("\n");
 	}
+	closedir(dir);
 	return (*data);
+}
+
+void	ft_print_lst(t_lst *data)
+{
+	int i;
+
+	i = 0;
+	while (data)
+	{
+		ft_putstr(data->name);
+		data = data->next;
+	}
 }
