@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 11:28:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 11:33:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ void	ft_ls_simple(char *target)
 
 	if ((dir = opendir(target)) == NULL)
 	{
-		perror("ls: No such file or directory\n");
+		perror("Impossible d'ouvrir le fichier\n");
 		exit(1);
 	}
 	while ((fichierlu = readdir(dir)) != NULL)

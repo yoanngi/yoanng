@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 16:03:43 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 15:25:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,9 +31,8 @@
 typedef	struct		s_lst
 {
 	char			*name;
-	char			**params;
-	int				size;
-	struct	s_lst	*previous;
+	int				type;
+	struct	dirent	*fd;
 	struct	s_lst	*next;
 }					t_lst;
 
@@ -44,6 +43,7 @@ typedef struct		s_struct
 	int				argc;
 	int				tiret;
 	int				rmaj;
+	t_lst			*liste;
 	int				rmin;
 	int				amin;
 	int				tmin;
@@ -59,11 +59,10 @@ typedef struct dirent	t_dir;
 */
 
 void				ft_ls(char **params, int nb);
-void				ft_error(s_struct *data);
-void				ft_check_options(s_struct *data, DIR *dir);
+void				ft_error(s_struct *data, int i);
+void				ft_check_options(s_struct *data);
 void				ft_ls_simple(char *target);
-t_lst				*ft_add_list(void);
-t_lst				ft_list_add_ls(t_lst *data, t_dir *fichierlu);
-void				ft_print_lst(t_lst *data);
+t_lst				*ft_lstnew_ls(void);
+void				ft_print_lst(s_struct *data);
 
 #endif

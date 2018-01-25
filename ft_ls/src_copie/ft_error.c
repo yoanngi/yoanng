@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_error.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:27:00 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 11:51:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 10:48:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		main(int argc, char **argv)
+void	ft_error(s_struct *data)
 {
-	int		i;
-	char	**params;
-
-	i = 1;
-	if (argc == 1)
-		ft_ls_simple((char *)".");
-	else if (argc > 1)
-	{
-		if ((params = (char **)malloc(sizeof(char *) * (argc + 1))) == NULL)
-			return (-1);
-		while (i != argc)
-		{
-			params[i] = ft_strdup(argv[i]);
-			i++;
-		}
-		ft_ls(params, argc);
-	}
-	return (0);
+	ft_putstr("ft_ls : illegal option -- ");
+	ft_putstr(data->invalid);
+	ft_putstr("\nusage: ls [-Rratl] [file...]\n");
 }

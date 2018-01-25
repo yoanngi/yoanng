@@ -6,16 +6,25 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 10:48:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 11:29:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_error(s_struct *data)
+void	ft_error(s_struct *data, int i)
 {
-	ft_putstr("ft_ls : illegal option -- ");
-	ft_putstr(data->invalid);
-	ft_putstr("\nusage: ls [-Rratl] [file...]\n");
+	if (i == 1)
+	{
+		perror("ft_ls : illegal option -- ");
+		perror(data->invalid);
+		perror("\nusage: ls [-Rratl] [file...]\n");
+	}
+	else if (i == 2)
+	{
+		perror("ft_ls:");
+		perror(data->file);
+		perror(": No such file or directory\n");
+	}
 }

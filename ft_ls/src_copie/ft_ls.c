@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 13:14:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 14:52:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,8 +69,10 @@ static int		ft_file_exist(char *file_ornot)
 void			ft_ls(char **params, int nb)
 {
 	s_struct	*data;
+	DIR			*dir;
 	char		*cpy;
 
+	dir = NULL;
 	data = (s_struct *)malloc(sizeof(s_struct));
 	data->invalid = NULL;
 	data->argc = nb;
@@ -86,8 +88,8 @@ void			ft_ls(char **params, int nb)
 	else
 	{
 		if (ft_analyse_params(data, params, nb) == 1)
-			ft_check_options(data);
+			ft_check_options(data, dir);
 		else if (ft_analyse_params(data, params, nb) == 2)
-			ft_error(data, 1);
+			ft_error(data);
 	}
 }

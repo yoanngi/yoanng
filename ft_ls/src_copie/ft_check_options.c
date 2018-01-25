@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:26:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 16:03:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,41 +33,44 @@ static int		ft_nb_options(s_struct *data)
 	return (i);
 }
 
-static void		ft_ls_r(s_struct *data)
+static void		ft_ls_r(DIR *dir, char *target)
 {
-	DIR			*dir;
 	t_dir		*fichierlu;
-	t_lst		*lstdata;
+	t_lst		*data;
+	t_lst		*cpy;
+	int			i;
 
-	lstdata = ft_lstnew_ls();
-	data->liste = lstdata;
-	dir = opendir(data->file);
+	i = 0;
+	if (target == NULL)
+		target = ft_strdup(".");
+	data = ft_add_list();
+	cpy = data;
+	if ((dir = opendir(target)) == NULL)
+	{
+		perror("Error, No such file in directory\n");
+		exit(1);
+	}
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
-		lstdata->name = ft_strdup(fichierlu->d_name);
-		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 &&
-	ft_strcmp(fichierlu->d_name, "..") != 0)
+		ft_putstr(fichierlu->d_name);
+		if (fichierlu->d_type == 4)
 		{
-			lstdata->type = 4;
-			lstdata->fd = fichierlu;
+			ft_list_add_ls(data, fichierlu);
+			i++;
 		}
 		else
-			lstdata->type = 0;
-		lstdata->next = ft_lstnew_ls();
-
+			ft_putstr("\n");
 	}
+	ft_print_lst(cpy);
 	closedir(dir);
 }
 
-void			ft_check_options(s_struct *data)
+void			ft_check_options(s_struct *data, DIR *dir)
 {
 	int		i;
 
 	i = 0;
-	if (data->file == NULL)
-		data->file = ft_strdup(".");
 	data->nb_options = ft_nb_options(data);
 	if (data->rmaj == 1)
-		ft_ls_r(data);
-	ft_print_lst(data);
+		ft_ls_r(dir, data->file);
 }

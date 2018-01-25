@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_ls_simple.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:27:00 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 11:51:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 11:28:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		main(int argc, char **argv)
+void	ft_ls_simple(char *target)
 {
-	int		i;
-	char	**params;
+	DIR			*dir;
+	t_dir		*fichierlu;
 
-	i = 1;
-	if (argc == 1)
-		ft_ls_simple((char *)".");
-	else if (argc > 1)
+	if ((dir = opendir(target)) == NULL)
 	{
-		if ((params = (char **)malloc(sizeof(char *) * (argc + 1))) == NULL)
-			return (-1);
-		while (i != argc)
-		{
-			params[i] = ft_strdup(argv[i]);
-			i++;
-		}
-		ft_ls(params, argc);
+		perror("ls: No such file or directory\n");
+		exit(1);
 	}
-	return (0);
+	while ((fichierlu = readdir(dir)) != NULL)
+	{
+		if ((ft_strcmp(fichierlu->d_name, "..") != 0) &&
+	(fichierlu->d_name[0] != '.'))
+		{
+			ft_putstr(fichierlu->d_name);
+			ft_putstr("\n");
+		}
+	}
+	closedir(dir);
 }
+
