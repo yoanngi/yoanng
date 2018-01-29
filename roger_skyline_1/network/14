@@ -1,0 +1,6 @@
+Server:		192.168.0.254
+Address:	192.168.0.254#53
+
+** server can't find 81.1.51.10.in-addr.arpa: NXDOMAIN
+
+#nslookup 10.51.1.81
