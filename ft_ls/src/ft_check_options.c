@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 14:23:59 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/30 15:40:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,24 +15,27 @@
 
 static void		ft_read_repertoire(t_lst *docs, t_dir *fichierlu)
 {
-	DIR *dir;
+	DIR		*dir;
+	t_lst	*rep;
 
+	rep = ft_lstnew_ls();
+	docs->docs = rep;
 	dir = opendir(docs->name);
 	printf("ft_read_repertoire\n");
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		printf("tour de boucle readrepertoire\n");
-		docs->name = ft_strdup(fichierlu->d_name);
+		rep->name = ft_strdup(fichierlu->d_name);
 		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
 		{
 			printf("Encore un fichier repertoire -> %s\n", fichierlu->d_name);
-			docs->type = 4;
-			docs->next = ft_lstnew_ls();
-			ft_read_repertoire(docs->next, fichierlu);
+			rep->type = 4;
+			rep->next = ft_lstnew_ls();
+			ft_read_repertoire(rep->next, fichierlu);
 		}
 		else
-			docs->type = 0;
-		docs->next = ft_lstnew_ls();
+			rep->type = 0;
+		rep->next = ft_lstnew_ls();
 	}
 	closedir(dir);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 14:58:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/30 15:11:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,18 +24,16 @@ t_lst		*ft_lstnew_ls(void)
 
 void	ft_print_lst(s_struct *data)
 {
-	printf("ft_print_lst\n\n");
+	printf("***********************************Ft_print_lst\n\n");
+	ft_ls_simple(data->file);
+	ft_putstr("\n");
 	while (data->liste)
 	{
-		ft_putstr("tour de boucle\n");
-		ft_putstr("data->liste->name ->>>>>>");
-		ft_putstr(data->liste->name);
-		ft_putstr("\ndata->liste->docs->name ->>>>>  ");
-		ft_putstr(data->liste->docs->name);
-		ft_putstr("\n");
 		if (data->liste->docs != NULL)
 		{
-			printf("data->liste->docs non NULL\n");
+			ft_putstr("data->liste->name ->>>>>>");
+			ft_putstr(data->liste->name);
+			ft_putstr("\n");
 			while (data->liste->docs)
 			{
 				printf("data->liste->docs->name\n");
