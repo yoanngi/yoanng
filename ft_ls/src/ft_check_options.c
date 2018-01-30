@@ -6,31 +6,35 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:26:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/30 14:04:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int		ft_nb_options(s_struct *data)
+static void		ft_read_repertoire(t_lst *docs, t_dir *fichierlu)
 {
-	int i;
+	DIR *dir;
 
-	i = 0;
-	if (data->tiret == 1)
-		i += 1;
-	if (data->rmin == 1)
-		i += 1;
-	if (data->rmaj == 1)
-		i += 1;
-	if (data->amin == 1)
-		i += 1;
-	if (data->tmin == 1)
-		i += 1;
-	if (data->lmin == 1)
-		i += 1;
-	return (i);
+	dir = opendir(docs->name);
+	printf("ft_read_repertoire\n");
+	while ((fichierlu = readdir(dir)) != NULL)
+	{
+		printf("tour de boucle readrepertoire\n");
+		docs->name = ft_strdup(fichierlu->d_name);
+		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
+		{
+			printf("Encore un fichier repertoire -> %s\n", fichierlu->d_name);
+			docs->type = 4;
+			docs->next = ft_lstnew_ls();
+			ft_read_repertoire(docs->next, fichierlu);
+		}
+		else
+			docs->type = 0;
+		docs->next = ft_lstnew_ls();
+	}
+	closedir(dir);
 }
 
 static void		ft_ls_r(s_struct *data)
@@ -38,18 +42,25 @@ static void		ft_ls_r(s_struct *data)
 	DIR			*dir;
 	t_dir		*fichierlu;
 	t_lst		*lstdata;
+	t_lst		*lstsend;
 
+	printf("ft_ls_r\n");
 	lstdata = ft_lstnew_ls();
-	data->liste = lstdata;
+	lstsend = lstdata;
+	data->liste = lstsend;
 	dir = opendir(data->file);
+
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
+		printf("tour de boucle ft_ls_r -> %s\n", fichierlu->d_name);
 		lstdata->name = ft_strdup(fichierlu->d_name);
-		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 &&
-	ft_strcmp(fichierlu->d_name, "..") != 0)
+		lstdata->fd = *dir;
+		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
 		{
 			lstdata->type = 4;
-			lstdata->fd = fichierlu;
+			lstdata->docs = ft_lstnew_ls();
+			lstdata->docs->name = ft_strdup(fichierlu->d_name);
+			ft_read_repertoire(lstdata->docs, fichierlu);
 		}
 		else
 			lstdata->type = 0;
@@ -66,7 +77,6 @@ void			ft_check_options(s_struct *data)
 	i = 0;
 	if (data->file == NULL)
 		data->file = ft_strdup(".");
-	data->nb_options = ft_nb_options(data);
 	if (data->rmaj == 1)
 		ft_ls_r(data);
 	ft_print_lst(data);

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:30:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/30 14:00:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,22 +24,19 @@ t_lst		*ft_lstnew_ls(void)
 
 void	ft_print_lst(s_struct *data)
 {
-	DIR	*cpy;
-
 	printf("ft_print_lst\n\n");
 	while (data->liste)
 	{
 		ft_putstr("tour de boucle\n");
 		ft_putstr(data->liste->name);
-		if (data->liste->type == 4)
+		if (data->liste->docs != NULL)
 		{
-			cpy = opendir(data->liste->name);
-			while ((data->liste->fd = readdir(cpy)) != NULL)
+			while (data->liste->docs)
 			{
-				ft_putstr(data->liste->fd->d_name);
+				ft_putstr(data->liste->name);
 				ft_putstr("\n");
+				data->liste->docs = data->liste->docs->next;
 			}
-			closedir(cpy);
 		}
 		ft_putstr("\n");
 		data->liste = data->liste->next;

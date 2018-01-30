@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:25:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/30 13:18:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,14 +32,15 @@ typedef	struct		s_lst
 {
 	char			*name;
 	int				type;
-	struct	dirent	*fd;
+	DIR				fd;
+	struct	s_lst	*docs;
 	struct	s_lst	*next;
 }					t_lst;
 
 typedef struct		s_struct
 {
 	char			*argv;
-	int				nb_options;
+	//int				nb_options;
 	int				argc;
 	int				tiret;
 	int				rmaj;
