@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/31 13:57:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 15:55:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,6 +82,8 @@ static void		ft_ls_r(s_struct *data)
 	lstsend = lstdata;
 	data->liste = lstsend;
 	dir = opendir(data->file);
+	tmp = ft_path("ceciestuntest", "numerouno");
+	ft_putstr(tmp);
 
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
