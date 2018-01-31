@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/31 15:55:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 16:40:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,21 +23,19 @@ static char		*ft_path(char *before, char *after)
 	lo = ft_strlen(before);
 	len = ft_strlen(after);
 	i = 0;
-	ret = ft_strnew(len + lo + 2);
-	printf("ft_path--------->before------>%s\n", before);
-	printf("ft_path--------->after------>%s\n", after);
+	ret = ft_strnew(len + lo + 4);
 	ft_strcpy(ret, before);
-	printf("ft_path--------->ret------>%s\n", ret);
-	ft_strjoin(ret, "/");
-	printf("ft_path--------->ret------>%s\n", ret);
+	ret[lo] = '/';
 	lo += 1;
 	while (after[i])
 	{
 		ret[lo] = after[i];
-		printf("ft_path--------->ret------>%s\n", ret);
 		lo++;
 		i++;
 	}
+	ret[lo] = '/';
+	lo += 1;
+	ret[lo] = '\0';
 	return (ret);
 }
 
@@ -82,7 +80,6 @@ static void		ft_ls_r(s_struct *data)
 	lstsend = lstdata;
 	data->liste = lstsend;
 	dir = opendir(data->file);
-	tmp = ft_path("ceciestuntest", "numerouno");
 	ft_putstr(tmp);
 
 	while ((fichierlu = readdir(dir)) != NULL)
@@ -96,7 +93,8 @@ static void		ft_ls_r(s_struct *data)
 			lstdata->docs = ft_lstnew_ls();
 			printf("data->file--------->%s\n", data->file);
 			printf("fichierlu->d_name--------->%s\n", fichierlu->d_name);
-			tmp = ft_path(fichierlu->d_name, data->file);
+			//tmp = ft_path(fichierlu->d_name, data->file);
+			tmp = ft_path("~/test", data->file);
 			printf("tmp--------->%s\n", tmp);
 			lstdata->docs->name = ft_strdup(tmp);
 			ft_strdel(&tmp);
