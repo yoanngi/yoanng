@@ -6,12 +6,40 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 15:40:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 13:57:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static char		*ft_path(char *before, char *after)
+{
+	char	*ret;
+	size_t	len;
+	size_t	lo;
+	int		i;
+
+	lo = ft_strlen(before);
+	len = ft_strlen(after);
+	i = 0;
+	ret = ft_strnew(len + lo + 2);
+	printf("ft_path--------->before------>%s\n", before);
+	printf("ft_path--------->after------>%s\n", after);
+	ft_strcpy(ret, before);
+	printf("ft_path--------->ret------>%s\n", ret);
+	ft_strjoin(ret, "/");
+	printf("ft_path--------->ret------>%s\n", ret);
+	lo += 1;
+	while (after[i])
+	{
+		ret[lo] = after[i];
+		printf("ft_path--------->ret------>%s\n", ret);
+		lo++;
+		i++;
+	}
+	return (ret);
+}
 
 static void		ft_read_repertoire(t_lst *docs, t_dir *fichierlu)
 {
@@ -22,6 +50,8 @@ static void		ft_read_repertoire(t_lst *docs, t_dir *fichierlu)
 	docs->docs = rep;
 	dir = opendir(docs->name);
 	printf("ft_read_repertoire\n");
+	printf("DEBUG -> fichierlu %s\n", fichierlu->d_name);
+	printf("DEBUG -> dir %s\n", docs->name);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		printf("tour de boucle readrepertoire\n");
@@ -46,8 +76,8 @@ static void		ft_ls_r(s_struct *data)
 	t_dir		*fichierlu;
 	t_lst		*lstdata;
 	t_lst		*lstsend;
+	char		*tmp;
 
-	printf("ft_ls_r\n");
 	lstdata = ft_lstnew_ls();
 	lstsend = lstdata;
 	data->liste = lstsend;
@@ -62,7 +92,13 @@ static void		ft_ls_r(s_struct *data)
 		{
 			lstdata->type = 4;
 			lstdata->docs = ft_lstnew_ls();
-			lstdata->docs->name = ft_strdup(fichierlu->d_name);
+			printf("data->file--------->%s\n", data->file);
+			printf("fichierlu->d_name--------->%s\n", fichierlu->d_name);
+			tmp = ft_path(fichierlu->d_name, data->file);
+			printf("tmp--------->%s\n", tmp);
+			lstdata->docs->name = ft_strdup(tmp);
+			ft_strdel(&tmp);
+			printf("On est dans un repertoire--------->%s\n", lstdata->docs->name);
 			ft_read_repertoire(lstdata->docs, fichierlu);
 		}
 		else
