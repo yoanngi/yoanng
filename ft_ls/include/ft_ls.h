@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 15:42:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/01 13:59:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,8 +31,8 @@
 typedef	struct		s_lst
 {
 	char			*name;
-	int				type;
-	struct	s_lst	*docs;
+	char			*path;
+	struct	s_lst	*otherfile;
 	struct	s_lst	*next;
 }					t_lst;
 
@@ -64,6 +64,6 @@ void				ft_error(s_struct *data, int i);
 void				ft_check_options(s_struct *data);
 void				ft_ls_simple(char *target);
 t_lst				*ft_lstnew_ls(void);
-void				ft_print_lst(s_struct *data);
+void				ft_print_ls(s_struct *data);
 
 #endif
