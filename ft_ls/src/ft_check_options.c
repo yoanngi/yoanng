@@ -13,33 +13,14 @@
 
 #include "ft_ls.h"
 
-static char		*ft_path(char *before, char *after)
+static t_lst	*ft_path(t_lst *rep, char *file, char *dossier)
 {
-	char	*ret;
-	size_t	len;
-	size_t	lo;
-	int		i;
-
-	lo = ft_strlen(before);
-	len = ft_strlen(after);
-	i = 0;
-	ret = ft_strnew(len + lo + 4);
-	ft_strcpy(ret, before);
-	ret[lo] = '/';
-	lo += 1;
-	while (after[i])
-	{
-		ret[lo] = after[i];
-		lo++;
-		i++;
-	}
-	ret[lo] = '/';
-	lo += 1;
-	ret[lo] = '\0';
-	return (ret);
+	rep->name = ft_strjoin(file, "/");
+	rep->name = ft_strjoin(rep->name, dossier);
+	return *(&rep);
 }
 
-static void		ft_read_repertoire(t_lst *docs, t_dir *fichierlu)
+static t_lst		*ft_read_repertoire(t_lst *docs, t_dir *fichierlu)
 {
 	DIR		*dir;
 	t_lst	*rep;
@@ -47,25 +28,28 @@ static void		ft_read_repertoire(t_lst *docs, t_dir *fichierlu)
 	rep = ft_lstnew_ls();
 	docs->docs = rep;
 	dir = opendir(docs->name);
-	printf("ft_read_repertoire\n");
+	printf("*****************************************ft_read_repertoire\n");
 	printf("DEBUG -> fichierlu %s\n", fichierlu->d_name);
 	printf("DEBUG -> dir %s\n", docs->name);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
-		printf("tour de boucle readrepertoire\n");
+		printf("tour de boucle read_repertoire-> fichierlu = %s\n", fichierlu->d_name);
 		rep->name = ft_strdup(fichierlu->d_name);
 		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
 		{
 			printf("Encore un fichier repertoire -> %s\n", fichierlu->d_name);
 			rep->type = 4;
 			rep->next = ft_lstnew_ls();
-			ft_read_repertoire(rep->next, fichierlu);
+			ft_path(rep, docs->name, fichierlu->d_name);
+			printf("repertoire path--------->%s\n", rep->name);
+			ft_read_repertoire(rep, fichierlu);
 		}
 		else
 			rep->type = 0;
 		rep->next = ft_lstnew_ls();
 	}
 	closedir(dir);
+	return (rep);
 }
 
 static void		ft_ls_r(s_struct *data)
@@ -74,32 +58,25 @@ static void		ft_ls_r(s_struct *data)
 	t_dir		*fichierlu;
 	t_lst		*lstdata;
 	t_lst		*lstsend;
-	char		*tmp;
 
 	lstdata = ft_lstnew_ls();
 	lstsend = lstdata;
-	data->liste = lstsend;
+	data->liste = lstdata;
+	data->listeclean = lstsend;
 	dir = opendir(data->file);
-	ft_putstr(tmp);
 
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		printf("tour de boucle ft_ls_r -> %s\n", fichierlu->d_name);
 		lstdata->name = ft_strdup(fichierlu->d_name);
-		lstdata->fd = *dir;
 		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
 		{
+			printf("C'est un repertoire--------->%s\n", lstdata->name);
 			lstdata->type = 4;
 			lstdata->docs = ft_lstnew_ls();
-			printf("data->file--------->%s\n", data->file);
-			printf("fichierlu->d_name--------->%s\n", fichierlu->d_name);
-			//tmp = ft_path(fichierlu->d_name, data->file);
-			tmp = ft_path("~/test", data->file);
-			printf("tmp--------->%s\n", tmp);
-			lstdata->docs->name = ft_strdup(tmp);
-			ft_strdel(&tmp);
-			printf("On est dans un repertoire--------->%s\n", lstdata->docs->name);
-			ft_read_repertoire(lstdata->docs, fichierlu);
+			ft_path(lstdata, data->file, fichierlu->d_name);
+			printf("repertoire path--------->%s\n", lstdata->name);
+			lstdata->docs = ft_read_repertoire(lstdata, fichierlu);
 		}
 		else
 			lstdata->type = 0;
@@ -111,11 +88,11 @@ static void		ft_ls_r(s_struct *data)
 
 void			ft_check_options(s_struct *data)
 {
-	int		i;
+	s_struct	*tmp;
 
-	i = 0;
 	if (data->file == NULL)
 		data->file = ft_strdup(".");
+	tmp = data;
 	if (data->rmaj == 1)
 		ft_ls_r(data);
 	ft_print_lst(data);

@@ -32,7 +32,6 @@ typedef	struct		s_lst
 {
 	char			*name;
 	int				type;
-	DIR				fd;
 	struct	s_lst	*docs;
 	struct	s_lst	*next;
 }					t_lst;
@@ -45,6 +44,7 @@ typedef struct		s_struct
 	int				tiret;
 	int				rmaj;
 	t_lst			*liste;
+	t_lst			*listeclean;
 	int				rmin;
 	int				amin;
 	int				tmin;
