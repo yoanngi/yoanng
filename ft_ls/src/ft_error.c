@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 11:29:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/02 15:07:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,4 +27,21 @@ void	ft_error(s_struct *data, int i)
 		perror(data->file);
 		perror(": No such file or directory\n");
 	}
+}
+
+int		ft_check_error(char *file)
+{
+	DIR *dir;
+
+	dir = opendir(file);
+	if (EACCES == 0)
+	{
+		printf("Access Denied : %s\n", file);
+		closedir(dir);
+		return (1);
+	}
+	else
+		printf("Access Granted : %s\n", file);
+	closedir(dir);
+	return (0);
 }

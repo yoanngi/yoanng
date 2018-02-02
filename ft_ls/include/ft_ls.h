@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/02 10:32:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/02 14:57:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,9 @@
 
 # include <stdio.h>
 
+/*
+**	---------->	Prototypes des structures
+*/
 typedef	struct		s_lst
 {
 	char			*name;
@@ -56,14 +59,26 @@ typedef struct		s_struct
 typedef struct dirent	t_dir;
 
 /*
-** Prototypes des fonctions
+**	---------->	Prototypes des fonctions
+**
+**	Fonction general
 */
-
 void				ft_ls(char **params, int nb);
-void				ft_error(s_struct *data, int i);
-void				ft_check_options(s_struct *data);
-void				ft_ls_simple(char *target);
 t_lst				*ft_lstnew_ls(void);
+/*
+**	Fonction d'erreurs
+*/
+void				ft_error(s_struct *data, int i);
+int					ft_check_error(char *file);
+/*
+**	Fonction de check des options
+*/
+void				ft_check_options(s_struct *data);
+
+/*
+**	Fonction d'affichage
+*/
+void				ft_ls_simple(char *target);
 void				ft_print_ls(s_struct *data);
 
 #endif
