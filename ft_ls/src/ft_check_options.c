@@ -13,84 +13,6 @@
 
 #include "ft_ls.h"
 
-static int			ft_check_permissions(char *path)
-{
-	if (access(path, R_OK) & EACCES)
-		return (0);
-	else
-		return (1);
-}
-
-static void			ft_insert_data(t_dir *fichierlu, t_lst **data, char *path)
-{
-	(*data)->path = ft_strjoin(path, "/");
-	(*data)->path = ft_strjoin((*data)->path, fichierlu->d_name);
-}
-
-static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path)
-{
-	DIR		*dir;
-	t_lst	*rep;
-	t_lst	*cpy;
-
-	rep = ft_lstnew_ls();
-	cpy	= rep;
-	if (ft_check_permissions(path) == 0)
-	{
-		rep->access = 0;
-		printf("ACCES DENIED\n");
-		return (rep);
-	}
-	dir = opendir(path);
-	rep->path = ft_strdup(path);
-	while ((*fichierlu = readdir(dir)) != NULL)
-	{
-		printf("ft_read : %s\n", (*fichierlu)->d_name);
-		rep->name = ft_strdup((*fichierlu)->d_name);
-		if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0 && ft_strcmp((*fichierlu)->d_name, "..") != 0)
-		{
-			ft_insert_data(*fichierlu, &rep, path);
-			rep->otherfile = ft_read_repertoire(fichierlu, rep->path);
-		}
-		else
-			rep->otherfile = NULL;
-		rep->access = 1;
-		rep->next = ft_lstnew_ls();
-		rep = rep->next;
-	}
-	closedir(dir);
-	return (cpy);
-}
-
-static t_lst		*ft_ls_r(s_struct *data)
-{
-	DIR			*dir;
-	t_dir		*fichierlu;
-	t_lst		*lstdata;
-	t_lst		*lstsend;
-
-	lstdata = ft_lstnew_ls();
-	lstsend = lstdata;
-	dir = opendir(data->file);
-	while ((fichierlu = readdir(dir)) != NULL)
-	{
-		printf("ft_ls_r : %s\n", fichierlu->d_name);
-		lstdata->name = ft_strdup(fichierlu->d_name);
-		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
-		{
-			ft_insert_data(fichierlu, &lstdata, data->file);
-			lstdata->otherfile = ft_read_repertoire(&fichierlu, lstdata->path);
-		}
-		else
-			lstdata->otherfile = NULL;
-		lstdata->access = 1;
-		lstdata->next = ft_lstnew_ls();
-		lstdata = lstdata->next;
-	}
-	closedir(dir);
-	return (lstsend);
-}
-
 void				ft_check_options(s_struct *data)
 {
 	s_struct	*tmp;
@@ -100,16 +22,17 @@ void				ft_check_options(s_struct *data)
 	tmp = data;
 	if (data->rmaj == 1)// -R
 		data->liste = ft_ls_r(data);
-	/*	if (data->rmin == 1)// -r
+/*	if (data->rmin == 1)// -r
 		ft_option_r(data);
-		if (data->tmin == 1)// -t
+	if (data->tmin == 1)// -t
 		ft_sort(data);
-		if (data->amin == 1)// -a
+	if (data->amin == 1)// -a
 		ft_filecacher(data);
 	 */
-	// Plus qu'a gerer le mode d'affichage
-	ft_putstr("*****************Fonction d'affichage*****************\n");
-	ft_print_ls(data);
+	if (data->lmin == 1)
+		ft_print_ls_liste(data);
+	else
+		ft_print_ls(data);
 }
 
 

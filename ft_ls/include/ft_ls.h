@@ -74,11 +74,13 @@ int					ft_check_error(char *file);
 **	Fonction de check des options
 */
 void				ft_check_options(s_struct *data);
+t_lst				*ft_ls_r(s_struct *data);
 
 /*
 **	Fonction d'affichage
 */
 void				ft_ls_simple(char *target);
 void				ft_print_ls(s_struct *data);
+void				ft_print_ls_liste(s_struct *data);
 
 #endif
