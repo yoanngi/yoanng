@@ -35,6 +35,7 @@ typedef	struct		s_lst
 {
 	char			*name;
 	char			*path;
+	int				access;
 	struct	s_lst	*otherfile;
 	struct	s_lst	*next;
 }					t_lst;
@@ -42,21 +43,20 @@ typedef	struct		s_lst
 typedef struct		s_struct
 {
 	char			*argv;
-	//int				nb_options;
 	int				argc;
 	int				tiret;
 	int				rmaj;
-	t_lst			*liste;
-	t_lst			*listeclean;
 	int				rmin;
 	int				amin;
 	int				tmin;
 	int				lmin;
 	char			*file;
 	char			*invalid;
+	t_lst			*liste;
 }					s_struct;
 
 typedef struct dirent	t_dir;
+typedef struct stat		t_stat;
 
 /*
 **	---------->	Prototypes des fonctions

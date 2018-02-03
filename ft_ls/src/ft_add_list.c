@@ -38,26 +38,16 @@ static void		ft_clean(t_lst	*data)
 
 static void		ft_print(t_lst	*recur)
 {
+	if (recur->path == NULL)
+		return ;
+	ft_putstr(recur->path);
+	ft_putstr(":\n");
+	ft_ls_simple(recur->path);
+	ft_putstr("\n");
 	while (recur)
 	{
-		if (recur->path != NULL)
-		{
-			ft_putstr(recur->path);
-			ft_putstr(":\n");
-			ft_ls_simple(recur->path);
-			ft_putstr("\n");
-			if (recur->otherfile != NULL)
-			{
-				while (recur->otherfile->next != NULL)
-				{
-					ft_putstr(recur->otherfile->path);
-					ft_putstr(":\n");
-					ft_ls_simple(recur->otherfile->path);
-					ft_putstr("\n");
-					recur->otherfile = recur->otherfile->next;
-				}
-			}
-		}
+		if (recur->otherfile != NULL)
+			ft_print(recur->otherfile);
 		recur = recur->next;
 	}
 }
@@ -66,11 +56,18 @@ void	ft_print_ls(s_struct *data)
 {
 	t_lst	*recur;
 	t_lst	*clean;
+	int		i;
 
+	i = 0;
 	recur = data->liste;
 	clean = data->liste;
 	ft_ls_simple(data->file);
 	ft_putstr("\n");
-	ft_print(recur);
+	while (recur)
+	{
+		if (recur->otherfile != NULL)
+			ft_print(recur->otherfile);
+		recur = recur->next;
+	}
 	ft_clean(clean);
 }
