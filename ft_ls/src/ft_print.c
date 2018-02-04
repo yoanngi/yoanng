@@ -20,7 +20,6 @@ static void		ft_print(t_lst	*recur)
 	ft_putstr(recur->path);
 	ft_putstr(":\n");
 	ft_ls_simple(recur->path);
-	ft_putstr("\n");
 	while (recur)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)

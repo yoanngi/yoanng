@@ -20,15 +20,15 @@ void				ft_check_options(s_struct *data)
 	if (data->file == NULL)
 		data->file = ft_strdup(".");
 	tmp = data;
-	if (data->rmaj == 1)// -R
+	if (data->rmaj == 1)
 		data->liste = ft_ls_r(data);
-/*	if (data->rmin == 1)// -r
-		ft_option_r(data);
-	if (data->tmin == 1)// -t
+/*	if (data->tmin == 1)// -t
 		ft_sort(data);
 	if (data->amin == 1)// -a
 		ft_filecacher(data);
 	 */
+//	if (data->rmin == 1)
+//		ft_ls_sort(data);
 	if (data->lmin == 1)
 		ft_print_ls_liste(data);
 	else

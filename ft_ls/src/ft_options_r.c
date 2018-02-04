@@ -38,7 +38,7 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path)
 	if (ft_check_permissions(path) == 0)
 	{
 		rep->access = 0;
-		printf("ACCES DENIED\n");
+		printf("ACCES DENIED : %s\n", path);
 		return (rep);
 	}
 	dir = opendir(path);

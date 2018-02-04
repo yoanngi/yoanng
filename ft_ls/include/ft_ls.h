@@ -65,6 +65,7 @@ typedef struct stat		t_stat;
 */
 void				ft_ls(char **params, int nb);
 t_lst				*ft_lstnew_ls(void);
+void				ft_swap_lst(t_lst **s1, t_lst **s2);
 /*
 **	Fonction d'erreurs
 */
