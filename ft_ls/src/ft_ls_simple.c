@@ -36,21 +36,27 @@ static t_lst		*ft_class_print(t_lst **data)
 	i = 0;
 	cpy = *data;
 	ret = *data;
-	if ((*data)->next == NULL)
+	cpy = cpy->next;
+	if (!(*data) || (*data)->name == NULL)
 		return (ret);
-	while(cpy->next != NULL)
+	printf("HERE %s \n", (*data)->name);
+	while((*data)->name != NULL && cpy->name != NULL)
 	{
+		//printf("Avant : %s | %s\n", (*data)->name, cpy->name);
 		if (ft_strcmp((*data)->name, cpy->name) > 0)
 		{
 			ft_swap_lst(data, &cpy);
 			i = 1;
 		}
+		//printf("Apres : %s | %s\n", (*data)->name, cpy->name);
 		cpy = cpy->next;
 		*data = (*data)->next;
 	}
 	if (i == 1)
 		ft_class_print(&ret);
 	return(ret);
+
+	// segfault a gerer
 }
 
 void	ft_ls_simple(char *target)
