@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 15:01:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/05 15:50:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,13 +36,14 @@ typedef	struct		s_lst
 	char			*name;
 	char			*path;
 	int				access;
-
-	char			*droit;
-	int				link;
 	char			*user;
 	char			*groupe;
-	off_t			*size;
 	char			*date;
+	char			*droit;
+
+	int				link;
+	off_t			*size;
+
 	struct	s_lst	*otherfile;
 	struct	s_lst	*next;
 }					t_lst;
@@ -90,6 +91,8 @@ t_lst				*ft_class_print_t(t_lst **data);
 */
 char				*ft_get_user(t_dir **fichierlu);
 char				*ft_get_groupe(t_dir **fichierlu);
+char				*ft_get_time(t_dir **fichierlu);
+char				*ft_get_droit(t_dir **fichierlu);
 /*
 **	Fonction d'affichage
 */
