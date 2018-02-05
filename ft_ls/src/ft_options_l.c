@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 15:53:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/05 16:14:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,9 @@ static t_lst		*ft_recupere_info(s_struct *data, t_lst *ret)
 			ret->groupe = ft_get_groupe(&fichierlu);
 			ret->date = ft_get_time(&fichierlu);
 			ret->droit = ft_get_droit(&fichierlu);
-			printf("Fichierlu = %s, user : %s, groupe : %s, droit = %s ,time = %s", fichierlu->d_name, ret->user, ret->groupe, ret->droit, ret->date);
+			ret->size = ft_get_size(&fichierlu);
+			ret->link = ft_get_link(&fichierlu);
+			printf("\n\nFichierlu = %s\nuser : %s, groupe : %s\ndroit = %s\ntime = %ssize = %d\nlien = %d\n", fichierlu->d_name, ret->user, ret->groupe, ret->droit, ret->date, ret->size, ret->link);
 
 			//ft_add_info(ret, &fichierlu);
 			//(*ret)->user = &mystat.st_uid;

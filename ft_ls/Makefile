@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/02/05 14:41:10 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/02/05 16:11:58 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -31,6 +31,7 @@ SRC = 		src/ft_error.c\
 			src/ft_options_l.c\
 			src/ft_ls_sort.c\
 			src/ft_get_infos.c\
+			src/ft_get_infos_suite.c\
 			src/main.c\
 
 SRC_LIB =	lib/ft_bzero.c\
