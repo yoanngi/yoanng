@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 12:57:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/05 16:35:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,6 @@ static void		ft_print_ls_in_order(t_lst **print)
 		ft_putstr("\n");
 		*print = (*print)->next;
 	}
-	//ft_clean(&clear);
 }
 
 static t_lst		*ft_class_print(t_lst **data)
@@ -90,9 +89,6 @@ void	ft_ls_simple(char *target)
 		}
 	}
 	closedir(dir);
-//	if (data->tmin == 1)
-//		ft_class_print_t(&print);
-//	if (data->rmin == 0)
 	ft_class_print(&print);
 	ft_print_ls_in_order(&print2);
 }
