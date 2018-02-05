@@ -13,14 +13,6 @@
 
 #include "ft_ls.h"
 
-static int			ft_check_permissions(char *path)
-{
-	if (access(path, R_OK) & EACCES)
-		return (0);
-	else
-		return (1);
-}
-
 static void			ft_insert_data(t_dir *fichierlu, t_lst **data, char *path)
 {
 	(*data)->path = ft_strjoin(path, "/");
@@ -35,12 +27,8 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path)
 
 	rep = ft_lstnew_ls();
 	cpy	= rep;
-	if (ft_check_permissions(path) == 0)
-	{
-		rep->access = 0;
-		printf("ACCES DENIED : %s\n", path);
+	if (ft_check_permissions(path, &rep) == 0)
 		return (rep);
-	}
 	dir = opendir(path);
 	rep->path = ft_strdup(path);
 	while ((*fichierlu = readdir(dir)) != NULL)

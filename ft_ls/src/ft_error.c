@@ -29,19 +29,16 @@ void	ft_error(s_struct *data, int i)
 	}
 }
 
-int		ft_check_error(char *file)
+int		ft_check_permissions(char *path, t_lst **rep)
 {
-	DIR *dir;
-
-	dir = opendir(file);
-	if (EACCES == 0)
+	if (access(path, R_OK) & EACCES)
 	{
-		printf("Access Denied : %s\n", file);
-		closedir(dir);
-		return (1);
+		(*rep)->access = 0;
+		perror("./ft_ls :");
+		perror(path);
+		perror("Access Denied\n");
+		return (0);
 	}
 	else
-		printf("Access Granted : %s\n", file);
-	closedir(dir);
-	return (0);
+		return (1);
 }

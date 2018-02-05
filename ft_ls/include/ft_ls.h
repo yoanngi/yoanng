@@ -70,7 +70,7 @@ void				ft_swap_lst(t_lst **s1, t_lst **s2);
 **	Fonction d'erreurs
 */
 void				ft_error(s_struct *data, int i);
-int					ft_check_error(char *file);
+int					ft_check_permissions(char *path, t_lst **rep);
 /*
 **	Fonction de check des options
 */
