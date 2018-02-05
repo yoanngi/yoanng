@@ -32,28 +32,44 @@ static t_lst		*ft_class_print(t_lst **data)
 	t_lst	*cpy;
 	t_lst	*ret;
 	int		i;
+	int		cmp;
 
 	i = 0;
+	cmp = 0;
 	cpy = *data;
 	ret = *data;
 	cpy = cpy->next;
-	if (!(*data) || (*data)->name == NULL)
+	if (!(*data) || (*data)->name == NULL || (cpy->name == NULL && cpy->next == NULL))
 		return (ret);
-	printf("HERE %s \n", (*data)->name);
+//	printf("HERE %s \n", (*data)->name);
 	while((*data)->name != NULL && cpy->name != NULL)
 	{
-		//printf("Avant : %s | %s\n", (*data)->name, cpy->name);
+//		printf("Avant : data-> %s | cpy-> %s\n", (*data)->name, cpy->name);
 		if (ft_strcmp((*data)->name, cpy->name) > 0)
 		{
+//			printf("SWAP\n");
 			ft_swap_lst(data, &cpy);
 			i = 1;
 		}
-		//printf("Apres : %s | %s\n", (*data)->name, cpy->name);
-		cpy = cpy->next;
-		*data = (*data)->next;
+//		printf("Apres : data-> %s | cpy-> %s\n", (*data)->name, cpy->name);
+		cmp++;
+		if (cpy->next != NULL || (*data)->next != NULL)
+		{
+//			printf("cpy->next != NULL\n");
+			cpy = cpy->next;
+//			printf ("cpy->next->name = %s\n", cpy->name);
+			*data = (*data)->next;
+		}
+		else if (cmp > 2 && i == 1)
+		{
+			free(cpy);
+			ft_class_print(&ret);
+		}
 	}
-	if (i == 1)
+//	printf("i = %d, cmp = %d\n", i, cmp);
+	if (cmp > 2 && i == 1)
 		ft_class_print(&ret);
+//	printf("Sortie de la fonction\n");
 	return(ret);
 
 	// segfault a gerer
@@ -87,5 +103,6 @@ void	ft_ls_simple(char *target)
 	}
 	closedir(dir);
 	ft_class_print(&print);
+//	printf("Fonction qui print !\n");
 	ft_print_ls_in_order(&print2);
 }

@@ -18,6 +18,7 @@ t_lst		*ft_lstnew_ls(void)
 	t_lst	*new;
 
 	new = (t_lst *)malloc(sizeof(t_lst));
+	new->name = NULL;
 	new->path = NULL;
 	new->next = NULL;
 	if (!new)
