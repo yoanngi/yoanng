@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/02 15:23:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/05 12:40:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,24 +15,19 @@
 
 void				ft_check_options(s_struct *data)
 {
-	s_struct	*tmp;
-
 	if (data->file == NULL)
 		data->file = ft_strdup(".");
-	tmp = data;
 	if (data->rmaj == 1)
 		data->liste = ft_ls_r(data);
+	if (data->lmin == 1)
+		data->liste = ft_ls_l(data);
+
 /*	if (data->tmin == 1)// -t
 		ft_sort(data);
 	if (data->amin == 1)// -a
 		ft_filecacher(data);
-	 */
-//	if (data->rmin == 1)
-//		ft_ls_sort(data);
-	if (data->lmin == 1)
+*/
 		ft_print_ls_liste(data);
-	else
-		ft_print_ls(data);
 }
 
 
@@ -42,78 +37,7 @@ void				ft_check_options(s_struct *data)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*		printf("Fichier lu = %s\n", fichierlu->d_name);
-		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
-		{
-		lstdata->name = ft_strdup(fichierlu->d_name);
-		ft_path(lstdata, data->file, fichierlu->d_name);
-		lstdata->otherfile = ft_read_repertoire(lstdata, fichierlu);
-		lstdata->next = ft_lstnew_ls();
-		lstdata = lstdata->next;
-		}
-		}
-		closedir(dir);
-		return (lstsend);
-		}*/
 /*
-   static t_lst		*ft_read_repertoire(t_lst *data, t_dir *fichierlu)
-   {
-   DIR		*dir;
-   int		i;
-   t_lst	*rep;
-   t_lst	*cpy;
-
-   i = 0;
-   dir = opendir(data->path);
-   printf("%s:\n", data->path);
-   if (ft_access_dir(data->path) == 0)
-   {
-   perror("Acces Denied\n");
-   return (NULL);
-   }
-   ft_ls_simple(data->path);
-   rep = ft_lstnew_ls();
-   cpy	= rep;
-   while ((fichierlu = readdir(dir)) != NULL)
-   {
-//printf("%s\n", fichierlu->d_name);
-if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
-{
-i = 1;
-rep->name = ft_strdup(fichierlu->d_name);
-ft_path(rep, data->path, fichierlu->d_name);
-rep->otherfile = ft_read_repertoire(rep, fichierlu);
-rep->next = ft_lstnew_ls();
-}
-}
-closedir(dir);
-if (i == 0)
-return (NULL);
-return (cpy);
-}
-
 
 static int			ft_access_dir(char *path)
 {

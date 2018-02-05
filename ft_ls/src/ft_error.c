@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/02 15:07:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/05 12:48:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,12 +20,14 @@ void	ft_error(s_struct *data, int i)
 		perror("ft_ls : illegal option -- ");
 		perror(data->invalid);
 		perror("\nusage: ls [-Rratl] [file...]\n");
+		exit(1);
 	}
 	else if (i == 2)
 	{
 		perror("ft_ls:");
 		perror(data->file);
 		perror(": No such file or directory\n");
+		exit(1);
 	}
 }
 
