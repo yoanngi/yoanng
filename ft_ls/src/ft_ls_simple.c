@@ -95,21 +95,34 @@ void			ft_ls_simple(char *target)
 
 void			ft_ls_liste(t_lst *data)
 {
+	int len;
+	int size;
+	int link;
+
+	size = ft_checklongmax_size(&data);
+	link = ft_checklongmax_link(&data);
 	while (data)
 	{
-		printf("tour de boucle\n");
 		ft_putstr(data->droit);
 		ft_putstr("  ");
+		len = ft_strlen(ft_itoa(data->link));
+		while (len++ != link)
+			ft_putchar(' ');
 		ft_putnbr(data->link);
-		ft_putstr("  ");
+		ft_putstr(" ");
 		ft_putstr(data->user);
 		ft_putstr("  ");
 		ft_putstr(data->groupe);
 		ft_putstr("  ");
+		len = ft_strlen(ft_itoa(data->size));
+		while (len++ != size)
+			ft_putchar(' ');
 		ft_putnbr(data->size);
-		ft_putstr("  ");
-		ft_putstr(data->date);
-		ft_putstr("  ");
+		ft_putstr(" ");
+		ft_putstr(data->month);
+		ft_putstr(" ");
+		ft_putstr(data->time);
+		ft_putstr(" ");
 		ft_putstr(data->name);
 		ft_putstr("\n");
 		data = data->next;

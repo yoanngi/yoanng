@@ -13,6 +13,28 @@
 
 #include "ft_ls.h"
 
+char	*ft_return_time(char *str)
+{
+	char *cpy;
+	char *ret;
+
+	cpy = ft_strdup(str);
+	ret = ft_strsub(cpy, 12, 4);
+	ft_strdel(&cpy);
+	return (ret);
+}
+
+char	*ft_return_month(char *str)
+{
+	char *cpy;
+	char *ret;
+
+	cpy = ft_strdup(str);
+	ret = ft_strsub(str, 4, 3);
+	ft_strdel(&cpy);
+	return (ret);
+}
+
 char	*ft_get_time(t_dir **fichierlu)
 {
 	t_stat			buf;

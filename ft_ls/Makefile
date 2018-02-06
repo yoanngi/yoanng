@@ -29,9 +29,9 @@ SRC = 		src/ft_error.c\
 			src/ft_print.c\
 			src/ft_options_r.c\
 			src/ft_options_l.c\
-			src/ft_ls_sort.c\
 			src/ft_get_infos.c\
 			src/ft_get_infos_suite.c\
+			src/ft_check_space.c\
 			src/main.c\
 
 SRC_LIB =	lib/ft_bzero.c\

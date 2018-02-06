@@ -39,6 +39,8 @@ typedef	struct		s_lst
 	char			*user;
 	char			*groupe;
 	char			*date;
+	char			*month;
+	char			*time;
 	char			*droit;
 	int				size;
 	int				link;
@@ -94,6 +96,10 @@ char				*ft_get_time(t_dir **fichierlu);
 char				*ft_get_droit(t_dir **fichierlu);
 int					ft_get_size(t_dir **fichierlu);
 int					ft_get_link(t_dir **fichierlu);
+char				*ft_return_time(char *str);
+char				*ft_return_month(char *str);
+int					ft_checklongmax_link(t_lst **data);
+int					ft_checklongmax_size(t_lst **data);
 /*
 **	Fonction d'affichage
 */
