@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 16:35:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 16:03:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ static void		ft_print_ls_in_order(t_lst **print)
 	}
 }
 
-static t_lst		*ft_class_print(t_lst **data)
+t_lst			*ft_class_print(t_lst **data)
 {
 	t_lst	*cpy;
 	t_lst	*ret;
@@ -64,7 +64,7 @@ static t_lst		*ft_class_print(t_lst **data)
 	return(ret);
 }
 
-void	ft_ls_simple(char *target)
+void			ft_ls_simple(char *target)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -91,4 +91,27 @@ void	ft_ls_simple(char *target)
 	closedir(dir);
 	ft_class_print(&print);
 	ft_print_ls_in_order(&print2);
+}
+
+void			ft_ls_liste(t_lst *data)
+{
+	while (data)
+	{
+		printf("tour de boucle\n");
+		ft_putstr(data->droit);
+		ft_putstr("  ");
+		ft_putnbr(data->link);
+		ft_putstr("  ");
+		ft_putstr(data->user);
+		ft_putstr("  ");
+		ft_putstr(data->groupe);
+		ft_putstr("  ");
+		ft_putnbr(data->size);
+		ft_putstr("  ");
+		ft_putstr(data->date);
+		ft_putstr("  ");
+		ft_putstr(data->name);
+		ft_putstr("\n");
+		data = data->next;
+	}
 }

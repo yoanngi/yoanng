@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 16:45:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 16:29:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 	(*data)->path = ft_strjoin((*data)->path, fichierlu->d_name);
 }
 
-static t_lst		ft_insert_data_hard(t_dir **fichierlu)
+/*static t_lst		ft_insert_data_hard(t_dir **fichierlu)
 {
 	t_lst	*cpy;
 
@@ -30,7 +30,7 @@ static t_lst		ft_insert_data_hard(t_dir **fichierlu)
 	cpy->size = ft_get_size(&fichierlu);
 	cpy->link = ft_get_link(&fichierlu);
 	return (cpy);
-}
+}*/
 
 static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path)
 {
@@ -76,10 +76,10 @@ t_lst				*ft_ls_r(s_struct *data)
 	{
 
 		// A modifier, pas fini
-		if (data->lmin == 1)
-			lstdata = ft_insert_data_hard(&fichierlu, &lstdata);
-		else
-			lstdata = ft_insert_data_simple(&fichierlu, &)
+	//	if (data->lmin == 1)
+	//		lstdata = ft_insert_data_hard(&fichierlu, &lstdata);
+	//	else
+	//		lstdata = ft_insert_data_simple(&fichierlu, &)
 		lstdata->name = ft_strdup(fichierlu->d_name);
 		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
 		{

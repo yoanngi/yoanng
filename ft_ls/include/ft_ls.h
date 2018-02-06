@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/05 16:11:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/06 16:03:01 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,6 +72,7 @@ typedef struct stat		t_stat;
 void				ft_ls(char **params, int nb);
 t_lst				*ft_lstnew_ls(void);
 void				ft_swap_lst(t_lst **s1, t_lst **s2);
+t_lst				*ft_class_print(t_lst **data);
 /*
 **	Fonction d'erreurs
 */
@@ -97,6 +98,7 @@ int					ft_get_link(t_dir **fichierlu);
 **	Fonction d'affichage
 */
 void				ft_ls_simple(char *target);
+void				ft_ls_liste(t_lst *data);
 void				ft_print_ls(s_struct *data);
 void				ft_print_ls_liste(s_struct *data);
 
