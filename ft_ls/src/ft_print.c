@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 16:14:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 16:14:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ static void		ft_print(t_lst	*recur)
 		recur = recur->next;
 	}
 }
-/*
+
 static void			ft_print_liste(t_lst *recur)
 {
 	ft_putstr(recur->path);
@@ -39,15 +39,13 @@ static void			ft_print_liste(t_lst *recur)
 			ft_print_liste(recur->otherfile);
 		recur = recur->next;
 	}
-}*/
+}
 
 void			ft_print_ls(s_struct *data)
 {
 	t_lst	*recur;
-	t_lst	*clean;
 
 	recur = data->liste;
-	clean = data->liste;
 	ft_ls_simple(data->file);
 	ft_putstr("\n");
 	while (recur)
@@ -60,7 +58,6 @@ void			ft_print_ls(s_struct *data)
 
 void			ft_print_ls_liste(s_struct *data)
 {
-//	t_lst	*cpy;
 	t_lst	*rep;
 
 	if (data->lmin == 0)
@@ -69,16 +66,13 @@ void			ft_print_ls_liste(s_struct *data)
 		return ;
 	}
 	rep = data->liste;
-	//rep = ft_class_print(&cpy);
-	printf("On va imprimer\n");
-	ft_ls_liste(rep);
-//	if (data->rmaj == 1)
-//	{
-//		while (cpy)
-//		{
-//			if (cpy->otherfile != NULL && cpy->access == 1)
-//				ft_print_liste(cpy->otherfile);
-//			cpy = cpy->next;
-//		}
-//	}
+	printf("HERE, ft_print_liste\n");
+	ft_ls_liste(&rep);
+	while (rep)
+	{
+		if (rep->otherfile != NULL && rep->access == 1)
+			ft_print_liste(rep->otherfile);
+		rep = rep->next;
+	}
+
 }

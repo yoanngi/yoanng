@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 13:26:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 13:45:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,6 @@ static t_lst		*ft_recupere_info(s_struct *data)
 		ret->droit = ft_get_droit(&fichierlu);
 		ret->size = ft_get_size(&fichierlu);
 		ret->link = ft_get_link(&fichierlu);
-		ret->otherfile = NULL;
 		ret->next = ft_lstnew_ls();
 		ret = ret->next;
 	}
@@ -45,9 +44,12 @@ static t_lst		*ft_recupere_info(s_struct *data)
 
 t_lst				*ft_ls_l(s_struct *data)
 {
-	t_lst *rep;
+	t_lst	*rep;
 
-	printf("ft_ls_l\n");
-	rep = ft_recupere_info(data);
-	return (rep);
+	if (data->liste == NULL)
+	{
+		rep = ft_recupere_info(data);
+		return (rep);
+	}
+	return (data->liste);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 13:28:48 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 15:00:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,40 +93,40 @@ void			ft_ls_simple(char *target)
 	ft_print_ls_in_order(&print2);
 }
 
-void			ft_ls_liste(t_lst *data)
+void			ft_ls_liste(t_lst **data)
 {
 	int len;
 	int size;
 	int link;
 
-	size = ft_checklongmax_size(&data);
-	link = ft_checklongmax_link(&data);
-	while (data)
+	size = ft_checklongmax_size(data);
+	link = ft_checklongmax_link(data);
+	while (*data)
 	{
-		ft_putstr(data->droit);
+		ft_putstr((*data)->droit);
 		ft_putstr("  ");
-		len = ft_strlen(ft_itoa(data->link));
+		len = ft_strlen(ft_itoa((*data)->link));
 		while (len++ != link)
 			ft_putchar(' ');
-		ft_putnbr(data->link);
+		ft_putnbr((*data)->link);
 		ft_putstr(" ");
-		ft_putstr(data->user);
+		ft_putstr((*data)->user);
 		ft_putstr("  ");
-		ft_putstr(data->groupe);
+		ft_putstr((*data)->groupe);
 		ft_putstr("  ");
-		len = ft_strlen(ft_itoa(data->size));
+		len = ft_strlen(ft_itoa((*data)->size));
 		while (len++ != size)
 			ft_putchar(' ');
-		ft_putnbr(data->size);
+		ft_putnbr((*data)->size);
 		ft_putstr(" ");
-		ft_putstr(data->month);
+		ft_putstr((*data)->month);
 		ft_putstr(" ");
-		ft_putstr(data->day);
+		ft_putstr((*data)->day);
 		ft_putstr(" ");
-		ft_putstr(data->time);
+		ft_putstr((*data)->time);
 		ft_putstr(" ");
-		ft_putstr(data->name);
+		ft_putstr((*data)->name);
 		ft_putstr("\n");
-		data = data->next;
+		*data = (*data)->next;
 	}
 }

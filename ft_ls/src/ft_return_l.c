@@ -1,41 +1,47 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_check_options.c                               .::    .:/ .      .::   */
+/*   ft_return_l.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 14:44:00 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/07 13:48:43 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/07 13:49:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-/*
-static t_lst		ft_sort_liste(s_strcut *data)
+
+char	*ft_return_time(char *str)
 {
-	if (data->tmin == 1)
-	{
+	char *cpy;
+	char *ret;
 
-	}
-	if (data->rmin == 1)
-	{
-
-	}
-	return ();
+	cpy = ft_strdup(str);
+	ret = ft_strsub(cpy, 12, 4);
+	ft_strdel(&cpy);
+	return (ret);
 }
-*/
-void	ft_check_options(s_struct *data)
+
+char	*ft_return_month(char *str)
 {
-	data->liste = NULL;
-	if (data->file == NULL)
-		data->file = ft_strdup(".");
-	if (data->rmaj == 1)
-		data->liste = ft_ls_r(data);
-	if (data->lmin == 1)
-		data->liste = ft_ls_l(data);
-//	data->liste = ft_sort_liste(data);
-	printf("***********************AFFICHAGE******************************\n");
-	ft_print_ls_liste(data);
+	char *cpy;
+	char *ret;
+
+	cpy = ft_strdup(str);
+	ret = ft_strsub(str, 4, 3);
+	ft_strdel(&cpy);
+	return (ret);
+}
+
+char	*ft_return_day(char *str)
+{
+	char *cpy;
+	char *ret;
+
+	cpy = ft_strdup(str);
+	ret = ft_strsub(str, 8, 2);
+	ft_strdel(&cpy);
+	return (ret);
 }
