@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 16:03:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 13:28:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -120,6 +120,8 @@ void			ft_ls_liste(t_lst *data)
 		ft_putnbr(data->size);
 		ft_putstr(" ");
 		ft_putstr(data->month);
+		ft_putstr(" ");
+		ft_putstr(data->day);
 		ft_putstr(" ");
 		ft_putstr(data->time);
 		ft_putstr(" ");

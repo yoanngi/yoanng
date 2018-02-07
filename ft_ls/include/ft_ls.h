@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 16:03:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 11:45:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,7 @@ typedef	struct		s_lst
 	char			*groupe;
 	char			*date;
 	char			*month;
+	char			*day;
 	char			*time;
 	char			*droit;
 	int				size;
@@ -98,6 +99,7 @@ int					ft_get_size(t_dir **fichierlu);
 int					ft_get_link(t_dir **fichierlu);
 char				*ft_return_time(char *str);
 char				*ft_return_month(char *str);
+char				*ft_return_day(char *str);
 int					ft_checklongmax_link(t_lst **data);
 int					ft_checklongmax_size(t_lst **data);
 /*

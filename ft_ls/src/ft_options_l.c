@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/06 16:31:50 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/07 13:26:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,6 +31,7 @@ static t_lst		*ft_recupere_info(s_struct *data)
 		ret->date = ft_get_time(&fichierlu);
 		ret->time = ft_return_time(ret->date);
 		ret->month = ft_return_month(ret->date);
+		ret->day = ft_return_day(ret->date);
 		ret->droit = ft_get_droit(&fichierlu);
 		ret->size = ft_get_size(&fichierlu);
 		ret->link = ft_get_link(&fichierlu);
