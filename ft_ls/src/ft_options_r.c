@@ -19,10 +19,11 @@ static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 	(*data)->path = ft_strjoin((*data)->path, fichierlu->d_name);
 }
 
-static t_lst		*ft_insert_data_hard(t_dir **fichierlu, t_lst **ret)
+static t_lst		*ft_insert_data_hard(t_dir **fichierlu, t_lst **ret, char *path)
 {
 	(*ret)->name = ft_strdup((*fichierlu)->d_name);
-	(*ret)->user = ft_get_user(fichierlu);
+	(*ret)->user = ft_get_user(fichierlu, path);
+	printf("test\n");
 	(*ret)->groupe = ft_get_groupe(fichierlu);
 	(*ret)->date = ft_get_time(fichierlu);
 	(*ret)->time = ft_return_time((*ret)->date);
@@ -47,16 +48,20 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 		return (rep);
 	dir = opendir(path);
 	rep->path = ft_strdup(path);
-	printf("PATH = %s\n", rep->path);
+	printf("DOSSIER -> PATH = %s\n", rep->path);
 	while ((*fichierlu = readdir(dir)) != NULL)
 	{
-		printf("Fichier lu = %s |", (*fichierlu)->d_name);
+		printf("***************************************\n");
+		printf("Fichier lu = %s |\n", (*fichierlu)->d_name);
+		printf("***************************************\n");
 		if (nb == 1)
-		//	printf("test\n");
-			ft_insert_data_hard(fichierlu, &rep);
+		{
+		//	printf("read repertoire\n");
+			ft_insert_data_hard(fichierlu, &rep, rep->path);
+		}
 		else
 			rep->name = ft_strdup((*fichierlu)->d_name);
-		printf("ret->droit = %s\n", rep->droit);
+		printf("rep->name = %s| ret->droit = %s|\n", rep->name, rep->droit);
 		if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0 && ft_strcmp((*fichierlu)->d_name, "..") != 0)
 		{
 			ft_insert_path(*fichierlu, &rep, path);
@@ -83,13 +88,15 @@ t_lst				*ft_ls_r(s_struct *data)
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		if (data->lmin == 1)
-			ft_insert_data_hard(&fichierlu, &lstdata);
+		{
+			ft_insert_data_hard(&fichierlu, &lstdata, data->path);
+		//	printf("ft_ls_r\n");
+		}
 		else
 			lstdata->name = ft_strdup(fichierlu->d_name);
 		printf("DEBUG :fichier lu = %s | ret->droit = %s\n", fichierlu->d_name,lstdata->droit);
 		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
 		{
-			printf("Un dossier\n");
 			ft_insert_path(fichierlu, &lstdata, data->file);
 			lstdata->otherfile = ft_read_repertoire(&fichierlu, lstdata->path, data->lmin);
 		}
