@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 10:21:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 16:13:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,9 @@ typedef struct		s_struct
 	int				amin;
 	int				tmin;
 	int				lmin;
+	int				nb_file;
 	char			*file;
+	char			**multifile;
 	char			*invalid;
 	t_lst			*liste;
 }					s_struct;
@@ -76,10 +78,13 @@ void				ft_ls(char **params, int nb);
 t_lst				*ft_lstnew_ls(void);
 void				ft_swap_lst(t_lst **s1, t_lst **s2);
 t_lst				*ft_class_print(t_lst **data);
+char				*ft_one_argv(int nb, char **argv);
+char				**ft_multi_argv(int nb, char **argv, int i);
+int					ft_file_exist(char *file_ornot);
 /*
 **	Fonction d'erreurs
 */
-void				ft_error(s_struct *data, int i);
+void				ft_error(char *file, int i);
 int					ft_check_permissions(char *path, t_lst **rep);
 /*
 **	Fonction de check des options
