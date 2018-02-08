@@ -91,12 +91,12 @@ t_lst				*ft_class_print_t(t_lst **data);
 /*
 **	Recuperation d'infos
 */
-char				*ft_get_user(t_dir **fichierlu);
-char				*ft_get_groupe(t_dir **fichierlu);
-char				*ft_get_time(t_dir **fichierlu);
-char				*ft_get_droit(t_dir **fichierlu);
-int					ft_get_size(t_dir **fichierlu);
-int					ft_get_link(t_dir **fichierlu);
+char				*ft_get_user(char **path);
+char				*ft_get_groupe(char **path);
+char				*ft_get_time(char **path);
+char				*ft_get_droit(char **path);
+int					ft_get_size(char **path);
+int					ft_get_link(char **path);
 char				*ft_return_time(char *str);
 char				*ft_return_month(char *str);
 char				*ft_return_day(char *str);

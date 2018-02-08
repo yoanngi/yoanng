@@ -13,21 +13,21 @@
 
 #include "ft_ls.h"
 
-char			*ft_get_time(t_dir **fichierlu)
+char			*ft_get_time(char **path)
 {
 	t_stat			buf;
 	char			*cpy;
 
-	stat(((*fichierlu)->d_name), &buf);
+	stat(*path, &buf);
 	cpy = ft_strdup(ctime(&buf.st_mtime));
 	return (cpy);
 }
 
-static char		ft_get_droit_two(t_dir **fichierlu)
+static char		ft_get_droit_two(char **path)
 {
 	t_stat	buf;
 
-	stat(((*fichierlu)->d_name), &buf);
+	stat(*path, &buf);
 	if ((S_ISDIR(buf.st_mode)) == 1)
 		return ('d');
 	else if ((S_ISLNK(buf.st_mode)) == 1)
@@ -42,14 +42,14 @@ static char		ft_get_droit_two(t_dir **fichierlu)
 		return ('-');
 }
 
-char			*ft_get_droit(t_dir **fichierlu)
+char			*ft_get_droit(char **path)
 {
 	t_stat			buf;
 	char			*cpy;
 
 	cpy = ft_strnew(10);
-	stat(((*fichierlu)->d_name), &buf);
-	cpy[0] = ft_get_droit_two(fichierlu);
+	stat(*path, &buf);
+	cpy[0] = ft_get_droit_two(path);
 	cpy[1] = *((buf.st_mode & S_IRUSR) ? "r" : "-");
 	cpy[2] = *((buf.st_mode & S_IWUSR) ? "w" : "-");
 	cpy[3] = *((buf.st_mode & S_IXUSR) ? "x" : "-");

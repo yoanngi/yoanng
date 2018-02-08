@@ -19,23 +19,26 @@ static t_lst		*ft_recupere_info(s_struct *data)
 	t_dir		*fichierlu;
 	t_lst		*cpy;
 	t_lst		*ret;
+	char		*tmp;
 
 	ret = ft_lstnew_ls();
 	cpy = ret;
 	dir = opendir(data->file);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
+		tmp = ft_strdup(fichierlu->d_name);
 		ret->name = ft_strdup(fichierlu->d_name);
-		ret->user = ft_get_user(&fichierlu);
-		ret->groupe = ft_get_groupe(&fichierlu);
-		ret->date = ft_get_time(&fichierlu);
+		ret->user = ft_get_user(&tmp);
+		ret->groupe = ft_get_groupe(&tmp);
+		ret->date = ft_get_time(&tmp);
 		ret->time = ft_return_time(ret->date);
 		ret->month = ft_return_month(ret->date);
 		ret->day = ft_return_day(ret->date);
-		ret->droit = ft_get_droit(&fichierlu);
-		ret->size = ft_get_size(&fichierlu);
-		ret->link = ft_get_link(&fichierlu);
+		ret->droit = ft_get_droit(&tmp);
+		ret->size = ft_get_size(&tmp);
+		ret->link = ft_get_link(&tmp);
 		ret->next = ft_lstnew_ls();
+		ft_strdel(&tmp);
 		ret = ret->next;
 	}
 	closedir(dir);

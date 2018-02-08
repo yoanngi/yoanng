@@ -59,6 +59,7 @@ void			ft_print_ls(s_struct *data)
 void			ft_print_ls_liste(s_struct *data)
 {
 	t_lst	*rep;
+	t_lst	*cpy;
 
 	if (data->lmin == 0)
 	{
@@ -66,13 +67,13 @@ void			ft_print_ls_liste(s_struct *data)
 		return ;
 	}
 	rep = data->liste;
-	printf("HERE, ft_print_liste\n");
+	cpy = data->liste;
 	ft_ls_liste(&rep);
-	while (rep)
+	while (cpy)
 	{
-		if (rep->otherfile != NULL && rep->access == 1)
-			ft_print_liste(rep->otherfile);
-		rep = rep->next;
+		if (cpy->otherfile != NULL && cpy->access == 1)
+			ft_print_liste(cpy->otherfile);
+		cpy = cpy->next;
 	}
 
 }
