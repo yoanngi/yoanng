@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 16:37:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 16:45:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,22 +38,18 @@ static void		ft_valid_or_not(char *cmp, s_struct **data)
 	}
 }
 
-static int		ft_analyse_params(s_struct **data, char **params, int nb)
+static void		ft_analyse_params(s_struct **data, char **params, int nb)
 {
 	int		i;
 
-	i = 1;
+	i = 0;
 	while (i != nb)
 	{
 		ft_valid_or_not(params[i], data);
 		i++;
 	}
 	if ((*data)->invalid != NULL)
-		return (2);
-	if ((*data)->tiret == 1 || (*data)->rmaj == 1 || (*data)->rmin == 1 ||
-	(*data)->amin == 1 || (*data)->tmin == 1 || (*data)->lmin == 1)
-		return (1);
-	return (0);
+		ft_error((*data)->invalid, 1);
 }
 
 static int		ft_files_valid(int argc, char **argv)
@@ -81,7 +77,7 @@ static int		ft_files_valid(int argc, char **argv)
 void			ft_ls(char **params, int nb)
 {
 	s_struct	*data;
-	char		*arg;
+	char		**arg;
 
 	data = (s_struct *)malloc(sizeof(s_struct));
 	data->invalid = NULL;

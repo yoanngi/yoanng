@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 16:13:43 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 16:44:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,6 +80,7 @@ void				ft_swap_lst(t_lst **s1, t_lst **s2);
 t_lst				*ft_class_print(t_lst **data);
 char				*ft_one_argv(int nb, char **argv);
 char				**ft_multi_argv(int nb, char **argv, int i);
+char				**ft_add_option(int argc, char **params, int param_valid);
 int					ft_file_exist(char *file_ornot);
 /*
 **	Fonction d'erreurs

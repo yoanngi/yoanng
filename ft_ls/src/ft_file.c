@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 16:37:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 16:45:41 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,7 @@ char	**ft_add_option(int argc, char **params, int param_valid)
 		return (NULL);
 	while (nb2 != 2)
 	{
-		cpy = ft_strdup(argv[nb2 - 1]);
+		cpy = ft_strdup(params[nb2 - 1]);
 		if (ft_file_exist(cpy) == 0)
 		{
 			tab[i] = ft_strdup(cpy);
