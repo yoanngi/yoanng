@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 11:06:15 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 11:57:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,9 +38,10 @@ t_lst			*ft_class_print(t_lst **data)
 	cpy = *data;
 	ret = *data;
 	cpy = cpy->next;
-	if (!(*data) || (*data)->name == NULL || (cpy->name == NULL && cpy->next == NULL))
+	if (!(*data) || (*data)->name == NULL || (cpy->name == NULL &&
+	cpy->next == NULL))
 		return (ret);
-	while((*data)->name != NULL && cpy->name != NULL)
+	while ((*data)->name != NULL && cpy->name != NULL)
 	{
 		if (ft_strcmp((*data)->name, cpy->name) > 0)
 		{
@@ -61,7 +62,7 @@ t_lst			*ft_class_print(t_lst **data)
 	}
 	if (cmp > 2 && i == 1)
 		ft_class_print(&ret);
-	return(ret);
+	return (ret);
 }
 
 void			ft_ls_simple(char *target)
@@ -77,7 +78,6 @@ void			ft_ls_simple(char *target)
 	print2 = data;
 	if ((dir = opendir(target)) == NULL)
 		ft_putstr("ERROR\n");
-	//ft_error(target, 2);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		if ((ft_strcmp(fichierlu->d_name, "..") != 0) &&
@@ -135,7 +135,8 @@ void			ft_ls_liste(t_lst **data, int secret)
 			return ;
 		if (secret == 0)
 		{
-			if ((*data)->name[0] == '.' || ft_strcmp((*data)->name, "..") == 0)
+			if ((*data)->name[0] == '.' || ft_strcmp((*data)->name,
+	"..") == 0)
 				*data = (*data)->next;
 			else
 			{
@@ -152,4 +153,3 @@ void			ft_ls_liste(t_lst **data, int secret)
 		}
 	}
 }
-

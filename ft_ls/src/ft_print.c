@@ -6,14 +6,14 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 11:03:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 11:56:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		ft_print(t_lst	*recur)
+static void		ft_print(t_lst *recur)
 {
 	if (recur->path == NULL)
 		return ;
@@ -28,7 +28,7 @@ static void		ft_print(t_lst	*recur)
 	}
 }
 
-static void			ft_print_liste(t_lst *recur, int secret)
+static void		ft_print_liste(t_lst *recur, int secret)
 {
 	t_lst	*cpy;
 

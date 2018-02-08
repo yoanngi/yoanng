@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 11:15:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 11:55:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,11 +19,11 @@ static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 	(*data)->path = ft_strjoin((*data)->path, fichierlu->d_name);
 }
 
-static t_lst		*ft_insert_data_hard(t_dir **fichierlu, t_lst **ret, char *path)
+static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 {
 	if (ft_check_permissions(path, ret) == 1)
 	{
-		(*ret)->name = ft_strdup((*fichierlu)->d_name);
+		(*ret)->name = ft_strdup((*fd)->d_name);
 		(*ret)->user = ft_get_user(&path);
 		(*ret)->groupe = ft_get_groupe(&path);
 		(*ret)->date = ft_get_time(&path);
@@ -46,7 +46,7 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 	t_lst	*cpy;
 
 	rep = ft_lstnew_ls();
-	cpy	= rep;
+	cpy = rep;
 	if (ft_check_permissions(path, &rep) == 0)
 		return (rep);
 	dir = opendir(path);
@@ -58,7 +58,8 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 			ft_insert_data_hard(fichierlu, &rep, rep->path);
 		else
 			rep->name = ft_strdup((*fichierlu)->d_name);
-		if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0 && ft_strcmp((*fichierlu)->d_name, "..") != 0)
+		if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".")
+	!= 0 && ft_strcmp((*fichierlu)->d_name, "..") != 0)
 			rep->otherfile = ft_read_repertoire(fichierlu, rep->path, nb);
 		rep->access = 1;
 		rep->next = ft_lstnew_ls();
@@ -87,8 +88,10 @@ t_lst				*ft_ls_r(s_struct *data)
 			ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		else
 			lstdata->name = ft_strdup(fichierlu->d_name);
-		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0 && ft_strcmp(fichierlu->d_name, "..") != 0)
-			lstdata->otherfile = ft_read_repertoire(&fichierlu, lstdata->path, data->lmin);
+		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0
+	&& ft_strcmp(fichierlu->d_name, "..") != 0)
+			lstdata->otherfile = ft_read_repertoire(&fichierlu, lstdata->path,
+	data->lmin);
 		lstdata->access = 1;
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
