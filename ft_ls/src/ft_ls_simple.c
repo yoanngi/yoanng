@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 15:00:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 11:06:15 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,7 @@ void			ft_ls_simple(char *target)
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		if ((ft_strcmp(fichierlu->d_name, "..") != 0) &&
-	(fichierlu->d_name[0] != '.'))
+				(fichierlu->d_name[0] != '.'))
 		{
 			data->name = ft_strdup(fichierlu->d_name);
 			data->next = ft_lstnew_ls();
@@ -93,9 +93,37 @@ void			ft_ls_simple(char *target)
 	ft_print_ls_in_order(&print2);
 }
 
-void			ft_ls_liste(t_lst **data)
+static void			ft_print_liste_ls(t_lst **data, int size, int link)
 {
 	int len;
+
+	ft_putstr((*data)->droit);
+	ft_putstr("  ");
+	len = ft_strlen(ft_itoa((*data)->link));
+	while (len++ != link)
+		ft_putchar(' ');
+	ft_putnbr((*data)->link);
+	ft_putstr(" ");
+	ft_putstr((*data)->user);
+	ft_putstr("  ");
+	ft_putstr((*data)->groupe);
+	ft_putstr("  ");
+	len = ft_strlen(ft_itoa((*data)->size));
+	while (len++ != size)
+		ft_putchar(' ');
+	ft_putnbr((*data)->size);
+	ft_putstr(" ");
+	ft_putstr((*data)->month);
+	ft_putstr(" ");
+	ft_putstr((*data)->day);
+	ft_putstr(" ");
+	ft_putstr((*data)->time);
+	ft_putstr(" ");
+	ft_putstr((*data)->name);
+}
+
+void			ft_ls_liste(t_lst **data, int secret)
+{
 	int size;
 	int link;
 
@@ -103,30 +131,25 @@ void			ft_ls_liste(t_lst **data)
 	link = ft_checklongmax_link(data);
 	while (*data)
 	{
-		ft_putstr((*data)->droit);
-		ft_putstr("  ");
-		len = ft_strlen(ft_itoa((*data)->link));
-		while (len++ != link)
-			ft_putchar(' ');
-		ft_putnbr((*data)->link);
-		ft_putstr(" ");
-		ft_putstr((*data)->user);
-		ft_putstr("  ");
-		ft_putstr((*data)->groupe);
-		ft_putstr("  ");
-		len = ft_strlen(ft_itoa((*data)->size));
-		while (len++ != size)
-			ft_putchar(' ');
-		ft_putnbr((*data)->size);
-		ft_putstr(" ");
-		ft_putstr((*data)->month);
-		ft_putstr(" ");
-		ft_putstr((*data)->day);
-		ft_putstr(" ");
-		ft_putstr((*data)->time);
-		ft_putstr(" ");
-		ft_putstr((*data)->name);
-		ft_putstr("\n");
-		*data = (*data)->next;
+		if (!(*data)->droit)
+			return ;
+		if (secret == 0)
+		{
+			if ((*data)->name[0] == '.' || ft_strcmp((*data)->name, "..") == 0)
+				*data = (*data)->next;
+			else
+			{
+				ft_print_liste_ls(data, size, link);
+				ft_putstr("\n");
+				*data = (*data)->next;
+			}
+		}
+		if (secret == 1)
+		{
+			ft_print_liste_ls(data, size, link);
+			ft_putstr("\n");
+			*data = (*data)->next;
+		}
 	}
 }
+

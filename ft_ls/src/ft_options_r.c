@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 16:44:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 11:15:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,17 +21,21 @@ static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 
 static t_lst		*ft_insert_data_hard(t_dir **fichierlu, t_lst **ret, char *path)
 {
-	(*ret)->name = ft_strdup((*fichierlu)->d_name);
-	(*ret)->user = ft_get_user(&path);
-	(*ret)->groupe = ft_get_groupe(&path);
-	(*ret)->date = ft_get_time(&path);
-	(*ret)->time = ft_return_time((*ret)->date);
-	(*ret)->month = ft_return_month((*ret)->date);
-	(*ret)->day = ft_return_day((*ret)->date);
-	(*ret)->droit = ft_get_droit(&path);
-	(*ret)->size = ft_get_size(&path);
-	(*ret)->link = ft_get_link(&path);
-	(*ret)->otherfile = NULL;
+	if (ft_check_permissions(path, ret) == 1)
+	{
+		(*ret)->name = ft_strdup((*fichierlu)->d_name);
+		(*ret)->user = ft_get_user(&path);
+		(*ret)->groupe = ft_get_groupe(&path);
+		(*ret)->date = ft_get_time(&path);
+		(*ret)->time = ft_return_time((*ret)->date);
+		(*ret)->month = ft_return_month((*ret)->date);
+		(*ret)->day = ft_return_day((*ret)->date);
+		(*ret)->droit = ft_get_droit(&path);
+		(*ret)->size = ft_get_size(&path);
+		(*ret)->link = ft_get_link(&path);
+		(*ret)->otherfile = NULL;
+		return (*ret);
+	}
 	return (*ret);
 }
 
@@ -73,6 +77,8 @@ t_lst				*ft_ls_r(s_struct *data)
 
 	lstdata = ft_lstnew_ls();
 	lstsend = lstdata;
+	if (ft_check_permissions(data->file, &lstdata) == 0)
+		return (lstsend);
 	dir = opendir(data->file);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{

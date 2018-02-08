@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 16:14:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/08 11:03:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,16 +28,20 @@ static void		ft_print(t_lst	*recur)
 	}
 }
 
-static void			ft_print_liste(t_lst *recur)
+static void			ft_print_liste(t_lst *recur, int secret)
 {
+	t_lst	*cpy;
+
+	cpy = recur;
 	ft_putstr(recur->path);
 	ft_putstr(":\n");
-	ft_ls_liste(&recur);
-	while (recur)
+	ft_ls_liste(&recur, secret);
+	ft_putstr("\n");
+	while (cpy)
 	{
-		if (recur->otherfile != NULL && recur->access == 1)
-			ft_print_liste(recur->otherfile);
-		recur = recur->next;
+		if (cpy->otherfile != NULL && cpy->access == 1)
+			ft_print_liste(cpy->otherfile, secret);
+		cpy = cpy->next;
 	}
 }
 
@@ -68,12 +72,12 @@ void			ft_print_ls_liste(s_struct *data)
 	}
 	rep = data->liste;
 	cpy = data->liste;
-	ft_ls_liste(&rep);
+	ft_ls_liste(&rep, data->amin);
+	ft_putstr("\n");
 	while (cpy)
 	{
 		if (cpy->otherfile != NULL && cpy->access == 1)
-			ft_print_liste(cpy->otherfile);
+			ft_print_liste(cpy->otherfile, data->amin);
 		cpy = cpy->next;
 	}
-
 }
