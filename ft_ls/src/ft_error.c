@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 15:10:30 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 16:40:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,14 +33,17 @@ void	ft_error(char *file, int i)
 
 int		ft_check_permissions(char *path, t_lst **rep)
 {
+
+	// Autoriser ? access
 	if (access(path, R_OK) & EACCES)
 	{
 		(*rep)->access = 0;
-		perror("./ft_ls :");
-		perror(path);
-		perror("Access Denied\n");
+	//	perror(path);
 		return (0);
 	}
 	else
+	{
+		(*rep)->access = 1;
 		return (1);
+	}
 }

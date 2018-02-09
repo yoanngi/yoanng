@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 14:41:59 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 16:40:15 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,9 +64,9 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 		else
 			rep->name = ft_strdup((*fichierlu)->d_name);
 		if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".")
-	!= 0 && ft_strcmp((*fichierlu)->d_name, "..") != 0)
+				!= 0 && ft_strcmp((*fichierlu)->d_name, "..") != 0 && ft_check_permissions(path, &rep) == 1)
 			rep->otherfile = ft_read_repertoire(fichierlu, rep->path, nb);
-		rep->access = 1;
+		//		rep->access = 1;
 		rep->next = ft_lstnew_ls();
 		rep = rep->next;
 	}
@@ -94,9 +94,9 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 		else
 			lstdata->name = ft_strdup(fichierlu->d_name);
 		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0
-	&& ft_strcmp(fichierlu->d_name, "..") != 0)
+				&& ft_strcmp(fichierlu->d_name, "..") != 0)
 			lstdata->otherfile = ft_read_repertoire(&fichierlu, lstdata->path,
-	data->lmin);
+					data->lmin);
 		lstdata->access = 1;
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
