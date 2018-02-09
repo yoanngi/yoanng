@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:30:43 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:46:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,6 +82,7 @@ char				*ft_one_argv(int nb, char **argv);
 char				**ft_multi_argv(int nb, char **argv, int count);
 char				**ft_add_option(int argc, char **params, int param_valid);
 int					ft_file_exist(char *file_ornot);
+void				ft_clean_data(t_lst **data);
 /*
 **	Fonction d'erreurs
 */

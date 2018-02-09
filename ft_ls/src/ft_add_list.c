@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 14:00:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:50:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,4 +51,15 @@ void		ft_swap_lst(t_lst **s1, t_lst **s2)
 	(*s2)->access = tmp->access;
 	(*s2)->otherfile = tmp->otherfile;
 	free(tmp);
+}
+
+void		ft_clean_data(t_lst **data)
+{
+	ft_strdel(&(*data)->droit);
+	ft_strdel(&(*data)->user);
+	ft_strdel(&(*data)->groupe);
+	ft_strdel(&(*data)->month);
+	ft_strdel(&(*data)->day);
+	ft_strdel(&(*data)->time);
+	ft_strdel(&(*data)->name);
 }

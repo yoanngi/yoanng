@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/24 10:18:55 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/18 11:29:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 14:15:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,5 +108,6 @@ int					ft_isupper(int c);
 int					ft_islower(int c);
 char				**ft_malloc_tab(char **tab, int len);
 void				ft_print_carre(char **tab, int len);
+char				*ft_strjoin_clean(char const *s1, char const *s2);
 
 #endif

@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_strjoin_clean.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:27:00 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:39:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/09 14:10:45 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/09 14:34:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		main(int argc, char **argv)
+char			*ft_strjoin_clean(char const *s1, char const *s2)
 {
-	int		i;
-	char	**params;
-	int		dir;
-	int		end;
+	size_t	i;
+	size_t	j;
+	char	*new;
 
-	i = 1;
-	dir = 0;
-	end = 0;
-	if (argc == 1)
-		ft_ls_simple((char *)".");
-	else if (argc > 1)
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	if ((new = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
 	{
-		if ((params = (char **)malloc(sizeof(char *) * (argc + 1))) == NULL)
-			return (-1);
-		while (i != argc)
-		{
-			params[i] = ft_strdup(argv[i]);
-			i++;
-		}
-		ft_ls(params, argc, dir, end);
+		new[i] = s1[i];
+		i++;
 	}
-	return (0);
+	while (s2[j])
+	{
+		new[i] = s2[j];
+		i++;
+		j++;
+	}
+	new[i] = '\0';
+//	free(&s1);
+//	free(&s2);
+	return (new);
 }

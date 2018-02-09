@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:36:43 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:50:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,7 @@ static void			ft_print_ls_in_order(t_lst **print)
 	{
 		ft_putstr((*print)->name);
 		ft_putstr("\n");
+		ft_strdel(&(*print)->name);
 		*print = (*print)->next;
 	}
 }
@@ -120,6 +121,7 @@ static void			ft_print_liste_ls(t_lst **data, int size, int link)
 	ft_putstr((*data)->time);
 	ft_putstr(" ");
 	ft_putstr((*data)->name);
+//	ft_clean_data(data);
 }
 
 void				ft_ls_liste(t_lst **data, int secret)

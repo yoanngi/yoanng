@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/02/08 14:29:28 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/02/09 14:22:59 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -83,6 +83,7 @@ SRC_LIB =	lib/ft_bzero.c\
 			lib/ft_striter.c\
 			lib/ft_striteri.c\
 			lib/ft_strjoin.c\
+			lib/ft_strjoin_clean.c\
 			lib/ft_strlcat.c\
 			lib/ft_strlen.c\
 			lib/ft_strmap.c\
