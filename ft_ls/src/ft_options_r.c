@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 13:55:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 11:38:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 
 	lstdata = ft_lstnew_ls();
 	lstsend = lstdata;
-	if (ft_check_permissions(data->file, &lstdata) == 0)
+	if (ft_check_permissions(data->multifile[indexfile], &lstdata) == 0)
 		return (lstsend);
 	dir = opendir(data->multifile[indexfile]);
 	while ((fichierlu = readdir(dir)) != NULL)

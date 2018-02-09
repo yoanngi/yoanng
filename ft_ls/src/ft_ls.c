@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 16:45:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 11:47:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,10 +20,7 @@ static int		ft_is_option_valid(char *str)
 	i = 0;
 	while (str[i] == '-' || str[i] == ' ' || str[i] == 'R' || str[i] == 'r' ||
 	str[i] == 'l' || str[i] == 't' || str[i] == 'a')
-		{
-			i++;
-		}
-		printf("str = %s| i = %d, lenstr = %zu\n", str, i, ft_strlen(str));
+		i++;
 	if ((size_t)i != ft_strlen(str))
 		return (0);
 	return (1);
@@ -76,6 +73,24 @@ static int		ft_count_files_valid(int argc, char **argv)
 	return (nb);
 }
 
+static void		ft_initialise_struct(s_struct **data, int nb, char **params)
+{
+	(*data)->tiret = 0;
+	(*data)->rmaj = 0;
+	(*data)->rmin = 0;
+	(*data)->amin = 0;
+	(*data)->tmin = 0;
+	(*data)->lmin = 0;
+	(*data)->invalid = NULL;
+	(*data)->nb_file = ft_count_files_valid(nb, params);
+	(*data)->multifile = (char **)malloc(sizeof(char *) * ((*data)->nb_file + 1));
+	if ((*data)->nb_file == 0)
+	{
+		(*data)->multifile[0] = ft_strdup(".");
+		(*data)->nb_file = 1;
+	}
+}
+
 void			ft_ls(char **params, int nb)
 {
 	s_struct	*data;
@@ -87,41 +102,26 @@ void			ft_ls(char **params, int nb)
 	i = 1;
 	dir = 0;
 	end = 0;
-	data->nb_file = ft_count_files_valid(nb, params);
-	data->multifile = (char **)malloc(sizeof(char *) * data->nb_file);
-	data->invalid = NULL;
+	ft_initialise_struct(&data, nb, params);
 	if (!data->multifile)
 		return ;
 	while (i != nb)
 	{
-		printf("tour de boucle\n");
 		if (ft_is_option_valid(params[i]) == 1 && end == 0)
 		{
-			printf("Options is valid = %s\n", params[i]);
 			ft_valid_or_not(params[i], &data);
 			if (data->invalid != NULL)
-			{
-				printf("data->invalid = %s\n", data->invalid);
 				ft_error(data->invalid, 2);
-			}
 		}
 		else if (ft_file_exist(params[i]) == 1)
 		{
 			end = 1;
 			data->multifile[dir] = ft_strdup(params[i]);
-			data->multifile[dir] = ft_strjoin(data->multifile[dir], "/");
-			printf("data->multifile[%d] = %s\n", dir, data->multifile[dir]);
 			dir++;
 		}
 		else
-		{
-			printf("***********************error\n");
 			ft_error(params[i], 1);
-		}
 		i++;
 	}
-	printf("End parse arg, ft_check_options\n");
 	ft_check_options(data);
 }
-// Not good !
-// Parsing = ./ft_ls (options) (files) (options non compter) (otherfile...)

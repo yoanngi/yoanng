@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 11:56:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 11:38:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,12 +45,12 @@ static void		ft_print_liste(t_lst *recur, int secret)
 	}
 }
 
-void			ft_print_ls(s_struct *data)
+void			ft_print_ls(s_struct *data, int indexfile)
 {
 	t_lst	*recur;
 
 	recur = data->liste;
-	ft_ls_simple(data->file);
+	ft_ls_simple(data->multifile[indexfile]);
 	ft_putstr("\n");
 	while (recur)
 	{
@@ -60,20 +60,18 @@ void			ft_print_ls(s_struct *data)
 	}
 }
 
-void			ft_print_ls_liste(s_struct *data)
+void			ft_print_ls_liste(s_struct *data, int indexfile)
 {
 	t_lst	*rep;
 	t_lst	*cpy;
 
 	if (data->lmin == 0)
 	{
-		printf("data->lmin == 0 ----------> ft_print_ls\n");
-		ft_print_ls(data);
+		ft_print_ls(data, indexfile);
 		return ;
 	}
 	rep = data->liste;
 	cpy = data->liste;
-	printf("ft_ls_liste :\n");
 	ft_ls_liste(&rep, data->amin);
 	ft_putstr("\n");
 	while (cpy)

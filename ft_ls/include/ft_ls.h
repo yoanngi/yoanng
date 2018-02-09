@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 16:44:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 11:38:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,7 +113,7 @@ int					ft_checklongmax_size(t_lst **data);
 */
 void				ft_ls_simple(char *target);
 void				ft_ls_liste(t_lst **data, int secret);
-void				ft_print_ls(s_struct *data);
-void				ft_print_ls_liste(s_struct *data);
+void				ft_print_ls(s_struct *data, int indexfile);
+void				ft_print_ls_liste(s_struct *data, int indexfile);
 
 #endif

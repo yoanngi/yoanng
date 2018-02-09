@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 15:09:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 11:46:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,19 +16,24 @@
 void	ft_check_options(s_struct *data)
 {
 	int i;
+	int path;
 
 	i = 0;
+	path = data->nb_file;
 	data->liste = NULL;
-	printf("DEBUG :\n");
-	printf("data->rmaj = %d\n", data->rmaj);
-	printf("data->lmin = %d\n", data->lmin);
 	while (data->nb_file != 0)
 	{
 		if (data->rmaj == 1)
 			data->liste = ft_ls_r(data, i);
 		if (data->lmin == 1)
 			data->liste = ft_ls_l(data, i);
-		ft_print_ls_liste(data);
+		if (path > 1)
+		{
+			ft_putstr(data->multifile[i]);
+			ft_putstr(":\n");
+		}
+		ft_print_ls_liste(data, i);
 		data->nb_file--;
+		i++;
 	}
 }
