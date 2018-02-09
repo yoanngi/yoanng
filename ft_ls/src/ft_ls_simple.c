@@ -6,14 +6,14 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 11:35:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:36:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		ft_print_ls_in_order(t_lst **print)
+static void			ft_print_ls_in_order(t_lst **print)
 {
 	t_lst *clear;
 
@@ -26,7 +26,7 @@ static void		ft_print_ls_in_order(t_lst **print)
 	}
 }
 
-t_lst			*ft_class_print(t_lst **data)
+t_lst				*ft_class_print(t_lst **data)
 {
 	t_lst	*cpy;
 	t_lst	*ret;
@@ -65,7 +65,7 @@ t_lst			*ft_class_print(t_lst **data)
 	return (ret);
 }
 
-void			ft_ls_simple(char *target)
+void				ft_ls_simple(char *target)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -122,7 +122,7 @@ static void			ft_print_liste_ls(t_lst **data, int size, int link)
 	ft_putstr((*data)->name);
 }
 
-void			ft_ls_liste(t_lst **data, int secret)
+void				ft_ls_liste(t_lst **data, int secret)
 {
 	int size;
 	int link;

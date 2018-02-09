@@ -6,12 +6,25 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 11:25:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:26:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void			ft_insert_infos(t_lst **ret, char *tmp)
+{
+	(*ret)->user = ft_get_user(&tmp);
+	(*ret)->groupe = ft_get_groupe(&tmp);
+	(*ret)->date = ft_get_time(&tmp);
+	(*ret)->time = ft_return_time((*ret)->date);
+	(*ret)->month = ft_return_month((*ret)->date);
+	(*ret)->day = ft_return_day((*ret)->date);
+	(*ret)->droit = ft_get_droit(&tmp);
+	(*ret)->size = ft_get_size(&tmp);
+	(*ret)->link = ft_get_link(&tmp);
+}
 
 static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
 {
@@ -30,17 +43,9 @@ static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
 		tmp = ft_strdup(data->multifile[indexfile]);
 		tmp = ft_strjoin(tmp, fichierlu->d_name);
 		ret->name = ft_strdup(fichierlu->d_name);
-		ret->user = ft_get_user(&tmp);
-		ret->groupe = ft_get_groupe(&tmp);
-		ret->date = ft_get_time(&tmp);
-		ret->time = ft_return_time(ret->date);
-		ret->month = ft_return_month(ret->date);
-		ret->day = ft_return_day(ret->date);
-		ret->droit = ft_get_droit(&tmp);
-		ret->size = ft_get_size(&tmp);
-		ret->link = ft_get_link(&tmp);
-		ret->next = ft_lstnew_ls();
+		ft_insert_infos(&ret, tmp);
 		ft_strdel(&tmp);
+		ret->next = ft_lstnew_ls();
 		ret = ret->next;
 	}
 	closedir(dir);

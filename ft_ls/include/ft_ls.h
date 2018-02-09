@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 11:38:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:30:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,7 @@ typedef struct stat		t_stat;
 **
 **	Fonction general
 */
-void				ft_ls(char **params, int nb);
+void				ft_ls(char **params, int nb, int dir, int end);
 t_lst				*ft_lstnew_ls(void);
 void				ft_swap_lst(t_lst **s1, t_lst **s2);
 t_lst				*ft_class_print(t_lst **data);

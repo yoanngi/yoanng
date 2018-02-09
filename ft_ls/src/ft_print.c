@@ -6,18 +6,34 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 11:38:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:18:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+static void		ft_resize_path(char *str)
+{
+	int		i;
+	int		end;
+
+	i = 0;
+	end = ft_strlen(str);
+	while (str[i])
+	{
+		if (i == (end - 2))
+			return ;
+		ft_putchar(str[i]);
+		i++;
+	}
+}
+
 static void		ft_print(t_lst *recur)
 {
 	if (recur->path == NULL)
 		return ;
-	ft_putstr(recur->path);
+	ft_resize_path(recur->path);
 	ft_putstr(":\n");
 	ft_ls_simple(recur->path);
 	while (recur)
@@ -33,7 +49,7 @@ static void		ft_print_liste(t_lst *recur, int secret)
 	t_lst	*cpy;
 
 	cpy = recur;
-	ft_putstr(recur->path);
+	ft_resize_path(recur->path);
 	ft_putstr(":\n");
 	ft_ls_liste(&recur, secret);
 	ft_putstr("\n");

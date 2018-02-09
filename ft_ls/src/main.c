@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:27:00 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 14:41:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:30:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,8 +17,12 @@ int		main(int argc, char **argv)
 {
 	int		i;
 	char	**params;
+	int		dir;
+	int		end;
 
 	i = 1;
+	dir = 0;
+	end = 0;
 	if (argc == 1)
 		ft_ls_simple((char *)".");
 	else if (argc > 1)
@@ -30,7 +34,7 @@ int		main(int argc, char **argv)
 			params[i] = ft_strdup(argv[i]);
 			i++;
 		}
-		ft_ls(params, argc);
+		ft_ls(params, argc, dir, end);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 11:47:00 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/09 13:36:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,7 +83,8 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	(*data)->lmin = 0;
 	(*data)->invalid = NULL;
 	(*data)->nb_file = ft_count_files_valid(nb, params);
-	(*data)->multifile = (char **)malloc(sizeof(char *) * ((*data)->nb_file + 1));
+	(*data)->multifile = (char **)malloc(sizeof(char *) *
+	((*data)->nb_file + 1));
 	if ((*data)->nb_file == 0)
 	{
 		(*data)->multifile[0] = ft_strdup(".");
@@ -91,20 +92,14 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	}
 }
 
-void			ft_ls(char **params, int nb)
+void			ft_ls(char **params, int nb, int dir, int end)
 {
 	s_struct	*data;
 	int			i;
-	int			dir;
-	int			end;
 
 	data = (s_struct *)malloc(sizeof(s_struct));
 	i = 1;
-	dir = 0;
-	end = 0;
 	ft_initialise_struct(&data, nb, params);
-	if (!data->multifile)
-		return ;
 	while (i != nb)
 	{
 		if (ft_is_option_valid(params[i]) == 1 && end == 0)
