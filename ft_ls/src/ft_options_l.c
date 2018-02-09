@@ -13,7 +13,7 @@
 
 #include "ft_ls.h"
 
-static t_lst		*ft_recupere_info(s_struct *data)
+static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -23,7 +23,9 @@ static t_lst		*ft_recupere_info(s_struct *data)
 
 	ret = ft_lstnew_ls();
 	cpy = ret;
-	dir = opendir(data->file);
+	data->multifile[indexfile] = ft_strdup(".");
+//	dir = opendir(data->multifile[indexfile]);
+	dir = opendir("./src");
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		tmp = ft_strdup(fichierlu->d_name);
@@ -45,14 +47,17 @@ static t_lst		*ft_recupere_info(s_struct *data)
 	return (cpy);
 }
 
-t_lst				*ft_ls_l(s_struct *data)
+t_lst				*ft_ls_l(s_struct *data, int indexfile)
 {
 	t_lst	*rep;
 
+	printf("fichier option l\n");
+	printf("data->multifile[%d] = %s\n", indexfile, data->multifile[indexfile]);
 	if (data->liste == NULL)
 	{
-		rep = ft_recupere_info(data);
+		rep = ft_recupere_info(data, indexfile);
 		return (rep);
 	}
+	printf("end fichier option l\n");
 	return (data->liste);
 }

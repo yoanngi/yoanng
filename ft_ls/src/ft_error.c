@@ -24,9 +24,9 @@ void	ft_error(char *file, int i)
 	}
 	else if (i == 2)
 	{
-		perror("ft_ls:");
+		perror("ft_ls :");
 		perror(file);
-		perror(": No such file or directory\n");
+		perror("No such file or directory\n");
 		exit(EXIT_SUCCESS);
 	}
 }

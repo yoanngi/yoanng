@@ -67,11 +67,13 @@ void			ft_print_ls_liste(s_struct *data)
 
 	if (data->lmin == 0)
 	{
+		printf("data->lmin == 0 ----------> ft_print_ls\n");
 		ft_print_ls(data);
 		return ;
 	}
 	rep = data->liste;
 	cpy = data->liste;
+	printf("ft_ls_liste :\n");
 	ft_ls_liste(&rep, data->amin);
 	ft_putstr("\n");
 	while (cpy)

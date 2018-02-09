@@ -77,7 +77,7 @@ void			ft_ls_simple(char *target)
 	print = data;
 	print2 = data;
 	if ((dir = opendir(target)) == NULL)
-		ft_putstr("ERROR\n");
+		printf("ERROR, ft_ls_simple, target = %s\n", target);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		if ((ft_strcmp(fichierlu->d_name, "..") != 0) &&

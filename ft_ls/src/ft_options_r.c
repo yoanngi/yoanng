@@ -69,7 +69,7 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 	return (cpy);
 }
 
-t_lst				*ft_ls_r(s_struct *data)
+t_lst				*ft_ls_r(s_struct *data, int indexfile)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -80,10 +80,10 @@ t_lst				*ft_ls_r(s_struct *data)
 	lstsend = lstdata;
 	if (ft_check_permissions(data->file, &lstdata) == 0)
 		return (lstsend);
-	dir = opendir(data->file);
+	dir = opendir(data->multifile[indexfile]);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
-		ft_insert_path(fichierlu, &lstdata, data->file);
+		ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
 		if (data->lmin == 1)
 			ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		else

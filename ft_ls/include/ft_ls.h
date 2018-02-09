@@ -79,7 +79,7 @@ t_lst				*ft_lstnew_ls(void);
 void				ft_swap_lst(t_lst **s1, t_lst **s2);
 t_lst				*ft_class_print(t_lst **data);
 char				*ft_one_argv(int nb, char **argv);
-char				**ft_multi_argv(int nb, char **argv, int i);
+char				**ft_multi_argv(int nb, char **argv, int count);
 char				**ft_add_option(int argc, char **params, int param_valid);
 int					ft_file_exist(char *file_ornot);
 /*
@@ -91,8 +91,8 @@ int					ft_check_permissions(char *path, t_lst **rep);
 **	Fonction de check des options
 */
 void				ft_check_options(s_struct *data);
-t_lst				*ft_ls_r(s_struct *data);
-t_lst				*ft_ls_l(s_struct *data);
+t_lst				*ft_ls_r(s_struct *data, int indexfile);
+t_lst				*ft_ls_l(s_struct *data, int indexfile);
 t_lst				*ft_class_print_t(t_lst **data);
 /*
 **	Recuperation d'infos
