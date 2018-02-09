@@ -24,8 +24,9 @@ static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
 	ret = ft_lstnew_ls();
 	cpy = ret;
 	data->multifile[indexfile] = ft_strdup(".");
+	printf("OUverture du fichier\n");
 //	dir = opendir(data->multifile[indexfile]);
-	dir = opendir("./src");
+	dir = opendir("src");
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		tmp = ft_strdup(fichierlu->d_name);
@@ -44,6 +45,7 @@ static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
 		ret = ret->next;
 	}
 	closedir(dir);
+	printf("end fonction\n");
 	return (cpy);
 }
 
