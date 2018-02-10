@@ -106,7 +106,7 @@ void			ft_ls(char **params, int nb, int dir, int end)
 		{
 			ft_valid_or_not(params[i], &data);
 			if (data->invalid != NULL)
-				ft_error(data->invalid, 2);
+				ft_error(*data->invalid);
 		}
 		else if (ft_file_exist(params[i]) == 1)
 		{
@@ -115,7 +115,7 @@ void			ft_ls(char **params, int nb, int dir, int end)
 			dir++;
 		}
 		else
-			ft_error(params[i], 1);
+			ft_error(*params[i]);
 		i++;
 	}
 	ft_check_options(data);

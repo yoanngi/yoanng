@@ -77,16 +77,19 @@ typedef struct stat		t_stat;
 void				ft_ls(char **params, int nb, int dir, int end);
 t_lst				*ft_lstnew_ls(void);
 void				ft_swap_lst(t_lst **s1, t_lst **s2);
+void				ft_swap_lst2(t_lst **s2, t_lst **tmp);
 t_lst				*ft_class_print(t_lst **data);
 char				*ft_one_argv(int nb, char **argv);
 char				**ft_multi_argv(int nb, char **argv, int count);
 char				**ft_add_option(int argc, char **params, int param_valid);
 int					ft_file_exist(char *file_ornot);
 void				ft_clean_data(t_lst **data);
+void				ft_clean_list(t_lst **data);
 /*
 **	Fonction d'erreurs
 */
-void				ft_error(char *file, int i);
+void				ft_error(char arg);
+void				basic_error(char *name, char *error, int ex);
 int					ft_check_permissions(char *path, t_lst **rep);
 /*
 **	Fonction de check des options

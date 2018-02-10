@@ -21,8 +21,8 @@ char	*ft_get_user(char **path)
 
 	if (stat(*path, &buf) == -1)
 	{
-		perror(*path);
-		exit(EXIT_SUCCESS);
+		basic_error("ft_ls: ", *path, 1);
+		return (NULL);
 	}
 	user = getpwuid(buf.st_uid);
 	cpy = ft_strdup(user->pw_name);
@@ -37,8 +37,8 @@ char	*ft_get_groupe(char **path)
 
 	if (stat(*path, &buf) == -1)
 	{
-		perror(*path);
-		exit(EXIT_SUCCESS);
+		basic_error("ft_ls: ", *path, 1);
+		return (NULL);
 	}
 	groupe = getgrgid(buf.st_gid);
 	cpy = ft_strdup(groupe->gr_name);
@@ -52,8 +52,8 @@ int		ft_get_size(char **path)
 
 	if (stat(*path, &buf) == -1)
 	{
-		perror(*path);
-		exit(EXIT_SUCCESS);
+		basic_error("ft_ls: ", *path, 1);
+		return (0);
 	}
 	cpy = buf.st_size;
 	return (cpy);
@@ -66,8 +66,8 @@ int		ft_get_link(char **path)
 
 	if (stat(*path, &buf) == -1)
 	{
-		perror(*path);
-		exit(EXIT_SUCCESS);
+		basic_error("ft_ls: ", *path, 1);
+		return (0);
 	}
 	cpy = buf.st_nlink;
 	return (cpy);

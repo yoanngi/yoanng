@@ -13,22 +13,20 @@
 
 #include "ft_ls.h"
 
-void	ft_error(char *file, int i)
+void	ft_error(char arg)
 {
-	if (i == 1)
-	{
-		perror("ft_ls : illegal option");
-		perror(file);
-		perror("\nusage: ls [-Rratl] [file...]\n");
-		exit(EXIT_SUCCESS);
-	}
-	else if (i == 2)
-	{
-		perror("ft_ls :");
-		perror(file);
-		perror("No such file or directory\n");
-		exit(EXIT_SUCCESS);
-	}
+	ft_putstr_fd("ft_ls: illegal option -- ", 2);
+	ft_putchar_fd(arg, 2);
+	ft_putstr_fd("\nusage: ft_ls [-Rratl] [file ...]\n", 2);
+	exit(EXIT_FAILURE);
+}
+
+void	basic_error(char *name, char *error, int ex)
+{
+	ft_putstr_fd(name, 2);
+	perror(error);
+	if (ex)
+		exit(EXIT_FAILURE);
 }
 
 int		ft_check_permissions(char *path, t_lst **rep)

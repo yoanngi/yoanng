@@ -13,7 +13,7 @@
 
 #include "ft_ls.h"
 
-t_lst		*ft_lstnew_ls(void)
+t_lst			*ft_lstnew_ls(void)
 {
 	t_lst	*new;
 
@@ -33,33 +33,63 @@ t_lst		*ft_lstnew_ls(void)
 	return (new);
 }
 
-void		ft_swap_lst(t_lst **s1, t_lst **s2)
+void			ft_swap_lst(t_lst **s1, t_lst **s2)
 {
 	t_lst *tmp;
 
 	tmp = ft_lstnew_ls();
 	tmp->name = (*s1)->name;
 	tmp->path = (*s1)->path;
-	tmp->access = (*s1)->access;
+	tmp->user = (*s1)->user;
+	tmp->groupe = (*s1)->groupe;
+	tmp->date = (*s1)->date;
+	tmp->droit = (*s1)->droit;
+	tmp->size = (*s1)->size;
+	tmp->link = (*s1)->link;
 	tmp->otherfile = (*s1)->otherfile;
 	(*s1)->name = (*s2)->name;
 	(*s1)->path = (*s2)->path;
-	(*s1)->access = (*s2)->access;
+	(*s1)->user = (*s2)->user;
+	(*s1)->groupe = (*s2)->groupe;
+	(*s1)->date = (*s2)->date;
+	(*s1)->droit = (*s2)->droit;
+	(*s1)->size = (*s2)->size;
+	(*s1)->link = (*s2)->link;
 	(*s1)->otherfile = (*s2)->otherfile;
-	(*s2)->name = tmp->name;
-	(*s2)->path = tmp->path;
-	(*s2)->access = tmp->access;
-	(*s2)->otherfile = tmp->otherfile;
+	ft_swap_lst2(s2, &tmp);
 	free(tmp);
 }
 
-void		ft_clean_data(t_lst **data)
+void		ft_swap_lst2(t_lst **s2, t_lst **tmp)
 {
-	ft_strdel(&(*data)->droit);
-	ft_strdel(&(*data)->user);
-	ft_strdel(&(*data)->groupe);
-	ft_strdel(&(*data)->month);
-	ft_strdel(&(*data)->day);
-	ft_strdel(&(*data)->time);
-	ft_strdel(&(*data)->name);
+	(*s2)->name = (*tmp)->name;
+	(*s2)->path = (*tmp)->path;
+	(*s2)->user = (*tmp)->user;
+	(*s2)->groupe = (*tmp)->groupe;
+	(*s2)->date = (*tmp)->date;
+	(*s2)->droit = (*tmp)->droit;
+	(*s2)->size = (*tmp)->size;
+	(*s2)->link = (*tmp)->link;
+	(*s2)->otherfile = (*tmp)->otherfile;
+}
+
+void		ft_clean_list(t_lst **data)
+{
+	t_lst	*tmp;
+	t_lst	*tmp_next;
+
+	tmp = *data;
+	while (tmp)
+	{
+		tmp_next = tmp->next;
+		free(tmp->name);
+		free(tmp->user);
+		free(tmp->droit);
+		free(tmp->groupe);
+		free(tmp->month);
+		free(tmp->day);
+		free(tmp->time);
+		free(tmp);
+		tmp = tmp_next;
+	}
 }

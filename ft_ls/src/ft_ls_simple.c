@@ -128,30 +128,33 @@ void				ft_ls_liste(t_lst **data, int secret)
 {
 	int size;
 	int link;
+	t_lst *cpy;
 
 	size = ft_checklongmax_size(data);
 	link = ft_checklongmax_link(data);
-	while (*data)
+	cpy = *data;
+	ft_class_print(data);
+	while (cpy)
 	{
-		if (!(*data)->droit)
-			return ;
 		if (secret == 0)
 		{
-			if ((*data)->name[0] == '.' || ft_strcmp((*data)->name,
+			if (cpy->name[0] == '.' || ft_strcmp(cpy->name,
 	"..") == 0)
-				*data = (*data)->next;
+				cpy = cpy->next;
 			else
 			{
-				ft_print_liste_ls(data, size, link);
+				ft_print_liste_ls(&cpy, size, link);
 				ft_putstr("\n");
-				*data = (*data)->next;
+				cpy = cpy->next;
+				if (cpy->droit == NULL)
+					return ;
 			}
 		}
 		if (secret == 1)
 		{
-			ft_print_liste_ls(data, size, link);
+			ft_print_liste_ls(&cpy, size, link);
 			ft_putstr("\n");
-			*data = (*data)->next;
+			cpy = cpy->next;
 		}
 	}
 }
