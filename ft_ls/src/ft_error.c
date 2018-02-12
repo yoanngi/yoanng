@@ -21,12 +21,11 @@ void	ft_error(char arg)
 	exit(EXIT_FAILURE);
 }
 
-void	basic_error(char *name, char *error, int ex)
+void	basic_error(char *error)
 {
-	ft_putstr_fd(name, 2);
+	ft_putstr_fd("ls:", 2);
 	perror(error);
-	if (ex)
-		exit(EXIT_FAILURE);
+	ft_putstr_fd(" No such file or directory\n", 2);
 }
 
 int		ft_check_permissions(char *path, t_lst **rep)

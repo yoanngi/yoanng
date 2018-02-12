@@ -82,14 +82,15 @@ t_lst				*ft_class_print(t_lst **data);
 char				*ft_one_argv(int nb, char **argv);
 char				**ft_multi_argv(int nb, char **argv, int count);
 char				**ft_add_option(int argc, char **params, int param_valid);
-int					ft_file_exist(char *file_ornot);
+int					ft_file_exist(char *file_ornot, int silent);
+int					ft_file_exist_malloc(char *file_ornot);
 void				ft_clean_data(t_lst **data);
 void				ft_clean_list(t_lst **data);
 /*
 **	Fonction d'erreurs
 */
 void				ft_error(char arg);
-void				basic_error(char *name, char *error, int ex);
+void				basic_error(char *error);
 int					ft_check_permissions(char *path, t_lst **rep);
 /*
 **	Fonction de check des options

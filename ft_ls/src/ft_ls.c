@@ -21,6 +21,8 @@ static int		ft_is_option_valid(char *str)
 	while (str[i] == '-' || str[i] == ' ' || str[i] == 'R' || str[i] == 'r' ||
 	str[i] == 'l' || str[i] == 't' || str[i] == 'a')
 		i++;
+	if (str[i] != '\0' && ft_file_exist(str, 0) == 0)
+		ft_error(str[i]);
 	if ((size_t)i != ft_strlen(str))
 		return (0);
 	return (1);
@@ -45,8 +47,6 @@ static void		ft_valid_or_not(char *cmp, s_struct **data)
 			(*data)->tmin = 1;
 		else if (cmp[i] == 'l')
 			(*data)->lmin = 1;
-		else
-			(*data)->invalid = ft_strdup(cmp);
 		i++;
 	}
 }
@@ -64,7 +64,7 @@ static int		ft_count_files_valid(int argc, char **argv)
 	while (i != (argc - 1))
 	{
 		cpy = ft_strdup(argv[tmp - 1]);
-		if (ft_file_exist(cpy) == 1)
+		if (ft_file_exist_malloc(cpy) == 1)
 			nb += 1;
 		ft_strdel(&cpy);
 		i++;
@@ -103,20 +103,17 @@ void			ft_ls(char **params, int nb, int dir, int end)
 	while (i != nb)
 	{
 		if (ft_is_option_valid(params[i]) == 1 && end == 0)
-		{
 			ft_valid_or_not(params[i], &data);
-			if (data->invalid != NULL)
-				ft_error(*data->invalid);
-		}
-		else if (ft_file_exist(params[i]) == 1)
+		else if (ft_file_exist(params[i], 1) == 1)
 		{
 			end = 1;
 			data->multifile[dir] = ft_strdup(params[i]);
 			dir++;
 		}
 		else
-			ft_error(*params[i]);
+			basic_error(params[i]);
+		ft_strdel(&params[i]);
 		i++;
 	}
-	ft_check_options(data);
+	//ft_check_options(data);
 }
