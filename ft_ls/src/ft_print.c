@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:18:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 13:19:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,7 @@ static void		ft_print(t_lst *recur)
 static void		ft_print_liste(t_lst *recur, int secret)
 {
 	t_lst	*cpy;
+	char	*error;
 
 	cpy = recur;
 	ft_resize_path(recur->path);
@@ -57,7 +58,14 @@ static void		ft_print_liste(t_lst *recur, int secret)
 	{
 		if (cpy->otherfile != NULL && cpy->access == 1)
 			ft_print_liste(cpy->otherfile, secret);
+		if (cpy->otherfile == NULL && cpy->access == 0)
+			error = ft_strdup(cpy->name);
 		cpy = cpy->next;
+	}
+	if (error != NULL)
+	{
+		ft_error_access(error);
+		ft_strdel(&error);
 	}
 }
 
@@ -80,20 +88,28 @@ void			ft_print_ls_liste(s_struct *data, int indexfile)
 {
 	t_lst	*rep;
 	t_lst	*cpy;
+	char	*error;
 
 	if (data->lmin == 0)
-	{
 		ft_print_ls(data, indexfile);
-		return ;
-	}
-	rep = data->liste;
-	cpy = data->liste;
-	ft_ls_liste(&rep, data->amin);
-	ft_putstr("\n");
-	while (cpy)
+	else
 	{
-		if (cpy->otherfile != NULL && cpy->access == 1)
-			ft_print_liste(cpy->otherfile, data->amin);
-		cpy = cpy->next;
+		rep = data->liste;
+		cpy = data->liste;
+		ft_ls_liste(&rep, data->amin);
+		ft_putstr("\n");
+		while (cpy)
+		{
+			if (cpy->otherfile != NULL && cpy->access != 0)
+				ft_print_liste(cpy->otherfile, data->amin);
+			if (cpy->otherfile == NULL && cpy->access == 0)
+				error = ft_strdup(cpy->name);
+			cpy = cpy->next;
+		}
+		if (error != NULL)
+		{
+			ft_error_access(error);
+			ft_strdel(&error);
+		}
 	}
 }

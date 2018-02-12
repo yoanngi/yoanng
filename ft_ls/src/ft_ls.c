@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:43:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 10:20:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -115,5 +115,5 @@ void			ft_ls(char **params, int nb, int dir, int end)
 		ft_strdel(&params[i]);
 		i++;
 	}
-	//ft_check_options(data);
+	ft_check_options(data);
 }

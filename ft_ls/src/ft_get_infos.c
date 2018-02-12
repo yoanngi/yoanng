@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 14:25:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 13:38:00 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 16:31:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ char	*ft_get_user(char **path)
 	t_stat			buf;
 	char			*cpy;
 
-	if (stat(*path, &buf) == -1)
+	if (lstat(*path, &buf) == -1)
 	{
 		basic_error(*path);
 		return (NULL);
@@ -35,7 +35,7 @@ char	*ft_get_groupe(char **path)
 	t_stat			buf;
 	char			*cpy;
 
-	if (stat(*path, &buf) == -1)
+	if (lstat(*path, &buf) == -1)
 	{
 		basic_error(*path);
 		return (NULL);
@@ -50,7 +50,7 @@ int		ft_get_size(char **path)
 	t_stat			buf;
 	int				cpy;
 
-	if (stat(*path, &buf) == -1)
+	if (lstat(*path, &buf) == -1)
 	{
 		basic_error(*path);
 		return (0);
@@ -64,7 +64,7 @@ int		ft_get_link(char **path)
 	t_stat			buf;
 	int				cpy;
 
-	if (stat(*path, &buf) == -1)
+	if (lstat(*path, &buf) == -1)
 	{
 		basic_error(*path);
 		return (0);

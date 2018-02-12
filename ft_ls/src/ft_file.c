@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 16:45:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 13:17:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ static int		ft_test_father(char *str, int silent)
 	return (0);
 }
 
-int		ft_file_exist(char *file_ornot, int silent)
+int				ft_file_exist(char *file_ornot, int silent)
 {
 	DIR		*dir;
 	int		i;
@@ -81,7 +81,7 @@ int		ft_file_exist(char *file_ornot, int silent)
 	return (ft_test_curent(".", file_ornot, silent));
 }
 
-int		ft_file_exist_malloc(char *file_ornot)
+int				ft_file_exist_malloc(char *file_ornot)
 {
 	DIR		*dir;
 

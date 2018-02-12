@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:46:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 16:29:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,11 +38,12 @@ typedef	struct		s_lst
 	int				access;
 	char			*user;
 	char			*groupe;
-	char			*date;
+	time_t			date;
 	char			*month;
 	char			*day;
 	char			*time;
 	char			*droit;
+	char			*symbol;
 	int				size;
 	int				link;
 	struct	s_lst	*otherfile;
@@ -91,6 +92,7 @@ void				ft_clean_list(t_lst **data);
 */
 void				ft_error(char arg);
 void				basic_error(char *error);
+void				ft_error_access(char *error);
 int					ft_check_permissions(char *path, t_lst **rep);
 /*
 **	Fonction de check des options
@@ -104,15 +106,20 @@ t_lst				*ft_class_print_t(t_lst **data);
 */
 char				*ft_get_user(char **path);
 char				*ft_get_groupe(char **path);
-char				*ft_get_time(char **path);
+time_t				ft_get_time(char **path);
 char				*ft_get_droit(char **path);
+char				ft_get_droit_two(char **path);
+char				*ft_get_droit_symbolique(char **path, size_t size);
+char				*ft_get_new_path(char **path);
 int					ft_get_size(char **path);
 int					ft_get_link(char **path);
-char				*ft_return_time(char *str);
-char				*ft_return_month(char *str);
-char				*ft_return_day(char *str);
+char				*ft_return_time(time_t str);
+char				*ft_return_month(time_t str);
+char				*ft_return_day(time_t str);
 int					ft_checklongmax_link(t_lst **data);
 int					ft_checklongmax_size(t_lst **data);
+int					ft_checklongmax_user(t_lst **data);
+int					ft_checklongmax_group(t_lst **data);
 /*
 **	Fonction d'affichage
 */

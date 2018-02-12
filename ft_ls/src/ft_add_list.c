@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:50:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 14:45:53 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,10 +19,10 @@ t_lst			*ft_lstnew_ls(void)
 
 	new = (t_lst *)malloc(sizeof(t_lst));
 	new->name = NULL;
+	new->symbol = NULL;
 	new->path = NULL;
 	new->user = NULL;
 	new->groupe = NULL;
-	new->date = NULL;
 	new->droit = NULL;
 	new->size = 0;
 	new->link = 0;
@@ -46,6 +46,7 @@ void			ft_swap_lst(t_lst **s1, t_lst **s2)
 	tmp->droit = (*s1)->droit;
 	tmp->size = (*s1)->size;
 	tmp->link = (*s1)->link;
+	tmp->symbol = (*s1)->symbol;
 	tmp->otherfile = (*s1)->otherfile;
 	(*s1)->name = (*s2)->name;
 	(*s1)->path = (*s2)->path;
@@ -55,12 +56,13 @@ void			ft_swap_lst(t_lst **s1, t_lst **s2)
 	(*s1)->droit = (*s2)->droit;
 	(*s1)->size = (*s2)->size;
 	(*s1)->link = (*s2)->link;
+	(*s1)->symbol = (*s2)->symbol;
 	(*s1)->otherfile = (*s2)->otherfile;
 	ft_swap_lst2(s2, &tmp);
 	free(tmp);
 }
 
-void		ft_swap_lst2(t_lst **s2, t_lst **tmp)
+void			ft_swap_lst2(t_lst **s2, t_lst **tmp)
 {
 	(*s2)->name = (*tmp)->name;
 	(*s2)->path = (*tmp)->path;
@@ -69,11 +71,12 @@ void		ft_swap_lst2(t_lst **s2, t_lst **tmp)
 	(*s2)->date = (*tmp)->date;
 	(*s2)->droit = (*tmp)->droit;
 	(*s2)->size = (*tmp)->size;
+	(*s2)->symbol = (*tmp)->symbol;
 	(*s2)->link = (*tmp)->link;
 	(*s2)->otherfile = (*tmp)->otherfile;
 }
 
-void		ft_clean_list(t_lst **data)
+void			ft_clean_list(t_lst **data)
 {
 	t_lst	*tmp;
 	t_lst	*tmp_next;
@@ -86,9 +89,9 @@ void		ft_clean_list(t_lst **data)
 		free(tmp->user);
 		free(tmp->droit);
 		free(tmp->groupe);
-		free(tmp->month);
-		free(tmp->day);
-		free(tmp->time);
+		free(&tmp->month);
+		free(&tmp->day);
+		free(&tmp->time);
 		free(tmp);
 		tmp = tmp_next;
 	}

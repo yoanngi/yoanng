@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 13:50:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 16:44:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,19 +96,24 @@ void				ft_ls_simple(char *target)
 
 static void			ft_print_liste_ls(t_lst **data, int size, int link)
 {
+
+	// Fonction d'affichage a checker
 	int len;
 
 	ft_putstr((*data)->droit);
-	ft_putstr("  ");
+	ft_putstr(" ");
 	len = ft_strlen(ft_itoa((*data)->link));
-	while (len++ != link)
+	while (len++ != link + 1)
 		ft_putchar(' ');
 	ft_putnbr((*data)->link);
 	ft_putstr(" ");
 	ft_putstr((*data)->user);
-	ft_putstr("  ");
+
+	len = ft_strlen((*data)->user);
+	while (len++ < ft_checklongmax_user(data) + 2)
+		ft_putchar(' ');
 	ft_putstr((*data)->groupe);
-	ft_putstr("  ");
+
 	len = ft_strlen(ft_itoa((*data)->size));
 	while (len++ != size)
 		ft_putchar(' ');
@@ -121,7 +126,11 @@ static void			ft_print_liste_ls(t_lst **data, int size, int link)
 	ft_putstr((*data)->time);
 	ft_putstr(" ");
 	ft_putstr((*data)->name);
-//	ft_clean_data(data);
+	if ((*data)->symbol != NULL)
+	{
+		ft_putstr(" -> ");
+		ft_putstr((*data)->symbol);
+	}
 }
 
 void				ft_ls_liste(t_lst **data, int secret)

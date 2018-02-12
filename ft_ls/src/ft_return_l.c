@@ -6,42 +6,59 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 13:48:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/07 13:49:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 16:17:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	*ft_return_time(char *str)
+static int		ft_yearornot(time_t str)
+{
+	time_t	now;
+	size_t	dif;
+
+	time(&now);
+	dif = now - str;
+	if (dif > 15778800)
+		return (1);
+	return (0);
+
+}
+
+char			*ft_return_time(time_t str)
 {
 	char *cpy;
 	char *ret;
 
-	cpy = ft_strdup(str);
-	ret = ft_strsub(cpy, 12, 4);
+	cpy = ft_strdup(ctime(&str));
+	printf("%s\n", cpy);
+	if (ft_yearornot(str) == 1)
+		ret = ft_strsub(cpy, 19, 5);
+	else
+		ret = ft_strsub(cpy, 11, 5);
 	ft_strdel(&cpy);
 	return (ret);
 }
 
-char	*ft_return_month(char *str)
+char			*ft_return_month(time_t str)
 {
 	char *cpy;
 	char *ret;
 
-	cpy = ft_strdup(str);
-	ret = ft_strsub(str, 4, 3);
+	cpy = ft_strdup(ctime(&str));
+	ret = ft_strsub(cpy, 4, 3);
 	ft_strdel(&cpy);
 	return (ret);
 }
 
-char	*ft_return_day(char *str)
+char			*ft_return_day(time_t str)
 {
 	char *cpy;
 	char *ret;
 
-	cpy = ft_strdup(str);
-	ret = ft_strsub(str, 8, 2);
+	cpy = ft_strdup(ctime(&str));
+	ret = ft_strsub(cpy, 8, 2);
 	ft_strdel(&cpy);
 	return (ret);
 }

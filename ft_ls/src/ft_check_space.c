@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 11:55:52 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/08 11:55:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 16:44:23 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,44 @@ int		ft_checklongmax_link(t_lst **data)
 	while (cpy)
 	{
 		compt = ft_strlen(ft_itoa(cpy->link));
+		if (compt > ret)
+			ret = compt;
+		cpy = cpy->next;
+	}
+	return (ret);
+}
+
+int		ft_checklongmax_user(t_lst **data)
+{
+	t_lst	*cpy;
+	int		compt;
+	int		ret;
+
+	compt = 0;
+	cpy = (*data);
+	ret = ft_strlen(cpy->user);
+	while (cpy)
+	{
+		compt = ft_strlen(cpy->user);
+		if (compt > ret)
+			ret = compt;
+		cpy = cpy->next;
+	}
+	return (ret);
+}
+
+int		ft_checklongmax_group(t_lst **data)
+{
+	t_lst	*cpy;
+	int		compt;
+	int		ret;
+
+	compt = 0;
+	cpy = (*data);
+	ret = ft_strlen(cpy->groupe);
+	while (cpy)
+	{
+		compt = ft_strlen(cpy->groupe);
 		if (compt > ret)
 			ret = compt;
 		cpy = cpy->next;

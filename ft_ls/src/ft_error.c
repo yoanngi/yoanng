@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 16:40:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/12 10:38:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,13 @@ void	basic_error(char *error)
 	ft_putstr_fd("ls:", 2);
 	perror(error);
 	ft_putstr_fd(" No such file or directory\n", 2);
+}
+
+void	ft_error_access(char *error)
+{
+	ft_putstr_fd("ls:", 2);
+	perror(error);
+	ft_putstr_fd(" Permission denied -> perso\n", 2);
 }
 
 int		ft_check_permissions(char *path, t_lst **rep)
