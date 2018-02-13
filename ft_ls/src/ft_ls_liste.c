@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/13 12:02:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 13:35:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 16:46:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ static void			ft_ls_liste_two(t_lst **data, int size, int link)
 	use = ft_checklongmax_user(data);
 	grp = ft_checklongmax_group(data);
 	cpy = *data;
-	ft_class_print(data, 0, 0);
+//	ft_class_print(data, 0, 0);
 	while (cpy)
 	{
 		ft_print_liste_ls(&cpy, grp, link, use);
@@ -85,7 +85,7 @@ static void			ft_ls_liste_three(t_lst **data, int size, int link)
 	use = ft_checklongmax_user(data);
 	grp = ft_checklongmax_group(data);
 	cpy = *data;
-	ft_class_print(data, 0, 0);
+//	ft_class_print(data, 0, 0);
 	while (cpy)
 	{
 		if (cpy->name[0] == '.' || ft_strcmp(cpy->name,

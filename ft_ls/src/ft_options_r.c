@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 15:30:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 16:35:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,6 +53,7 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 
 static void			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
 {
+	printf("CHECK ---> Fichier lu = %s, path = %s\n", (*fichierlu)->d_name, (*data)->path);
 	if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0
 	&& ft_strcmp((*fichierlu)->d_name, "..") != 0)
 	{
@@ -62,6 +63,9 @@ static void			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
 		else
 			(*data)->access = 1;
 	}
+	else
+		(*data)->otherfile = NULL;
+
 }
 
 t_lst				*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
@@ -85,9 +89,12 @@ t_lst				*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 		else
 			rep->name = ft_strdup((*fichierlu)->d_name);
 		ft_check_repertory(fichierlu, &rep, nb);
+		printf("apres check read\n");
 		rep->next = ft_lstnew_ls();
 		rep = rep->next;
+		printf("next read\n");
 	}
+	printf("Here\n");
 	closedir(dir);
 	return (cpy);
 }
@@ -108,13 +115,17 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 	{
 		printf("\nLS_R -> Fichier lu = %s || type = %d\n", fichierlu->d_name, fichierlu->d_type);
 		ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
+		printf("insert path ok ls\n");
 		if (data->lmin == 1)
 			ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		else
 			lstdata->name = ft_strdup(fichierlu->d_name);
+		printf("insert data ok ls\n");
 		ft_check_repertory(&fichierlu, &lstdata, data->lmin);
+		printf("apres check ls\n");
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
+		printf("next ls\n");
 	}
 	closedir(dir);
 	return (lstsend);
