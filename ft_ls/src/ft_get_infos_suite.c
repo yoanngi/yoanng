@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 16:08:33 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/12 16:31:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 13:13:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ time_t			ft_get_time(char **path)
 	t_stat			buf;
 
 	lstat(*path, &buf);
-	return(*(&buf.st_mtime));
+	return (*(&buf.st_mtime));
 }
 
 char			*ft_get_new_path(char **path)

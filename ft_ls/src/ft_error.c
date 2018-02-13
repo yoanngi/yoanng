@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/12 10:38:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 13:25:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,12 +37,9 @@ void	ft_error_access(char *error)
 
 int		ft_check_permissions(char *path, t_lst **rep)
 {
-
-	// Autoriser ? access
 	if (access(path, R_OK) & EACCES)
 	{
 		(*rep)->access = 0;
-	//	perror(path);
 		return (0);
 	}
 	else

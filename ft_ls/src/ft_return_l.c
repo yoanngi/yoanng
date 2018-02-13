@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 13:48:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/12 16:17:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 13:15:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,6 @@ static int		ft_yearornot(time_t str)
 	if (dif > 15778800)
 		return (1);
 	return (0);
-
 }
 
 char			*ft_return_time(time_t str)
@@ -32,7 +31,6 @@ char			*ft_return_time(time_t str)
 	char *ret;
 
 	cpy = ft_strdup(ctime(&str));
-	printf("%s\n", cpy);
 	if (ft_yearornot(str) == 1)
 		ret = ft_strsub(cpy, 19, 5);
 	else

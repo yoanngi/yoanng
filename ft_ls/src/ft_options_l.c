@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/12 14:56:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 13:15:08 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,5 +63,3 @@ t_lst				*ft_ls_l(s_struct *data, int indexfile)
 	}
 	return (data->liste);
 }
-
-// ATTENTION, les liens symbolique ne sont pas gerer

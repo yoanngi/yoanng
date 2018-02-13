@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/12 16:44:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 13:46:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,15 +27,11 @@ static void			ft_print_ls_in_order(t_lst **print)
 	}
 }
 
-t_lst				*ft_class_print(t_lst **data)
+t_lst				*ft_class_print(t_lst **data, int i, int cmp)
 {
 	t_lst	*cpy;
 	t_lst	*ret;
-	int		i;
-	int		cmp;
 
-	i = 0;
-	cmp = 0;
 	cpy = *data;
 	ret = *data;
 	cpy = cpy->next;
@@ -49,20 +45,12 @@ t_lst				*ft_class_print(t_lst **data)
 			ft_swap_lst(data, &cpy);
 			i = 1;
 		}
+		*data = (*data)->next;
+		cpy = cpy->next;
 		cmp++;
-		if (cpy->next != NULL || (*data)->next != NULL)
-		{
-			cpy = cpy->next;
-			*data = (*data)->next;
-		}
-		else if (cmp > 2 && i == 1)
-		{
-			free(cpy);
-			ft_class_print(&ret);
-		}
 	}
 	if (cmp > 2 && i == 1)
-		ft_class_print(&ret);
+		ft_class_print(&ret, 0, 0);
 	return (ret);
 }
 
@@ -78,7 +66,7 @@ void				ft_ls_simple(char *target)
 	print = data;
 	print2 = data;
 	if ((dir = opendir(target)) == NULL)
-		printf("ERROR, ft_ls_simple, target = %s\n", target);
+		basic_error(target);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		if ((ft_strcmp(fichierlu->d_name, "..") != 0) &&
@@ -90,80 +78,6 @@ void				ft_ls_simple(char *target)
 		}
 	}
 	closedir(dir);
-	ft_class_print(&print);
+	ft_class_print(&print, 0, 0);
 	ft_print_ls_in_order(&print2);
-}
-
-static void			ft_print_liste_ls(t_lst **data, int size, int link)
-{
-
-	// Fonction d'affichage a checker
-	int len;
-
-	ft_putstr((*data)->droit);
-	ft_putstr(" ");
-	len = ft_strlen(ft_itoa((*data)->link));
-	while (len++ != link + 1)
-		ft_putchar(' ');
-	ft_putnbr((*data)->link);
-	ft_putstr(" ");
-	ft_putstr((*data)->user);
-
-	len = ft_strlen((*data)->user);
-	while (len++ < ft_checklongmax_user(data) + 2)
-		ft_putchar(' ');
-	ft_putstr((*data)->groupe);
-
-	len = ft_strlen(ft_itoa((*data)->size));
-	while (len++ != size)
-		ft_putchar(' ');
-	ft_putnbr((*data)->size);
-	ft_putstr(" ");
-	ft_putstr((*data)->month);
-	ft_putstr(" ");
-	ft_putstr((*data)->day);
-	ft_putstr(" ");
-	ft_putstr((*data)->time);
-	ft_putstr(" ");
-	ft_putstr((*data)->name);
-	if ((*data)->symbol != NULL)
-	{
-		ft_putstr(" -> ");
-		ft_putstr((*data)->symbol);
-	}
-}
-
-void				ft_ls_liste(t_lst **data, int secret)
-{
-	int size;
-	int link;
-	t_lst *cpy;
-
-	size = ft_checklongmax_size(data);
-	link = ft_checklongmax_link(data);
-	cpy = *data;
-	ft_class_print(data);
-	while (cpy)
-	{
-		if (secret == 0)
-		{
-			if (cpy->name[0] == '.' || ft_strcmp(cpy->name,
-	"..") == 0)
-				cpy = cpy->next;
-			else
-			{
-				ft_print_liste_ls(&cpy, size, link);
-				ft_putstr("\n");
-				cpy = cpy->next;
-				if (cpy->droit == NULL)
-					return ;
-			}
-		}
-		if (secret == 1)
-		{
-			ft_print_liste_ls(&cpy, size, link);
-			ft_putstr("\n");
-			cpy = cpy->next;
-		}
-	}
 }
