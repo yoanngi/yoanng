@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 11:29:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/13 15:30:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,7 +51,20 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 	return (*ret);
 }
 
-static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
+static void			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
+{
+	if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0
+	&& ft_strcmp((*fichierlu)->d_name, "..") != 0)
+	{
+		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, nb);
+		if ((*data)->otherfile == NULL)
+			(*data)->access = 0;
+		else
+			(*data)->access = 1;
+	}
+}
+
+t_lst				*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 {
 	DIR		*dir;
 	t_lst	*rep;
@@ -65,16 +78,13 @@ static t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 	rep->path = ft_strdup(path);
 	while ((*fichierlu = readdir(dir)) != NULL)
 	{
+		printf("READ_R -> Fichier lu = %s || type = %d\n", (*fichierlu)->d_name, (*fichierlu)->d_type);
 		ft_insert_path(*fichierlu, &rep, path);
 		if (nb == 1)
 			ft_insert_data_hard(fichierlu, &rep, rep->path);
 		else
 			rep->name = ft_strdup((*fichierlu)->d_name);
-		if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".")
-				!= 0 && ft_strcmp((*fichierlu)->d_name, "..") != 0)
-			rep->otherfile = ft_read_repertoire(fichierlu, rep->path, nb);
-		if ((*fichierlu)->d_type == 4 && rep->otherfile == NULL)
-			rep->access = 0;
+		ft_check_repertory(fichierlu, &rep, nb);
 		rep->next = ft_lstnew_ls();
 		rep = rep->next;
 	}
@@ -96,17 +106,13 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 	dir = opendir(data->multifile[indexfile]);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
+		printf("\nLS_R -> Fichier lu = %s || type = %d\n", fichierlu->d_name, fichierlu->d_type);
 		ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
 		if (data->lmin == 1)
 			ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		else
 			lstdata->name = ft_strdup(fichierlu->d_name);
-		if (fichierlu->d_type == 4 && ft_strcmp(fichierlu->d_name, ".") != 0
-				&& ft_strcmp(fichierlu->d_name, "..") != 0)
-			lstdata->otherfile = ft_read_repertoire(&fichierlu, lstdata->path,
-					data->lmin);
-		if (fichierlu->d_type == 4 && lstdata->otherfile == NULL)
-			lstdata->access = 0;
+		ft_check_repertory(&fichierlu, &lstdata, data->lmin);
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
 	}
