@@ -13,51 +13,48 @@
 
 #include "server.h"
 
-void	ft_error(char *str)
+static void	bind_socket(int sock, SOCKADDR_IN sin_server)
 {
-	perror(str);
-	exit(0);
+	sin_server.sin_family = AF_INET;
+	sin_server.sin_addr.s_addr = htonl(INADDR_ANY);
+	sin_server.sin_port = htons(PORT);
+	if (bind(sock, (struct sockaddr *)&sin_server, sizeof(sin_server)) < 0)
+		perror("Binding Failled");
 }
 
-void	ft_connect(void)
+static int	accept_connection(int server_socket, SOCKADDR_IN sin_server)
 {
-	SOCKET		sock;
-	SOCKADDR_IN sin;
-	SOCKET		c_sock;
-	SOCKADDR_IN c_sin;
-	int			sock_err;
-	socklen_t recsize = sizeof(c_sin);
-	char		buffer[50];
+	int		len;
+	int		client_socket;
 
-	sock = socket(AF_INET, SOCK_STREAM, 0);
-	if(sock != INVALID_SOCKET)
-	{
-		printf("SERVER -> La socket %d est maintenant ouverte en mode TCP/IP\n", sock);
-		sin.sin_addr.s_addr = htonl(INADDR_ANY);		/* Adresse IP automatique */
-		sin.sin_family = AF_INET;						/* Protocole familial (IP) */
-		sin.sin_port = htons(PORT);						/* Listage du port */
-		sock_err = bind(sock, (SOCKADDR*)&sin, sizeof(sin));
-		if(sock_err != SOCKET_ERROR)
-		{
-			sock_err = listen(sock, 5);
-			printf("Listage du port %d...\n", PORT);
-			/* Attente pendant laquelle le client se connecte */
-			printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
-			c_sock = accept(sock, (SOCKADDR*)&c_sin, &recsize);
-			printf("Un client se connecte avec la socket %d de %s:%d\n", c_sock, inet_ntoa(c_sin.sin_addr), htons(c_sin.sin_port));
-			/* Si l'on reçoit des informations : on les affiche à l'écran */
-			if(recv(c_sock, buffer, 50, 0) != SOCKET_ERROR)
-				printf("Recu : %s\n", buffer);
-		}
-		printf("Fermeture de la socket...\n");
-		close(sock);
-		printf("Fermeture du serveur terminee\n");
-		getchar();
-	}
+	len = sizeof(struct sockaddr_in);
+	if ((client_socket = accept(server_socket, (struct sockaddr *)&sin_server,
+	(socklen_t*)&len)) < 0)
+		perror("Connection Failled");
+	return (client_socket);
 }
 
 int		main(void)
 {
-	ft_connect();
+	int				server;
+	int				connect;
+	SOCKADDR_IN		sin_server;
+	char			buffer[1024];
+
+	if ((server = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET)
+		perror("Building socket Failled");
+	bind_socket(server, sin_server);
+	listen(server, 5);
+	connect = accept_connection(server, sin_server);
+	if(recv(server, buffer, 32, 0) != -1)
+	{
+		ft_putstr("Recu : ");
+		ft_putstr(buffer);
+		ft_putstr("\n");
+	}
+	else
+		ft_putstr("rien recu");
+	close(server);
+	close(connect);
 	return (0);
 }
