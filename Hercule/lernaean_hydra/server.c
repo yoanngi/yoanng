@@ -1,25 +1,63 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   server.c                                         .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/02/14 10:07:56 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/14 15:34:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "server.h"
 
-int		main(int argc, char **argv)
+void	ft_error(char *str)
 {
-	int SOCKET;
+	perror(str);
+	exit(0);
+}
 
-	SOCKET = sock;
+void	ft_connect(void)
+{
+	SOCKET		sock;
+	SOCKADDR_IN sin;
+	SOCKET		c_sock;
+	SOCKADDR_IN c_sin;
+	int			sock_err;
+	socklen_t recsize = sizeof(c_sin);
+	char		buffer[50];
 
-	if (sock = socket(AF_INET, SOCK_STREAM, 0) == -1)
+	sock = socket(AF_INET, SOCK_STREAM, 0);
+	if(sock != INVALID_SOCKET)
 	{
-		ft_putstr("Probleme de connection\n");
-		exit(0);
+		printf("SERVER -> La socket %d est maintenant ouverte en mode TCP/IP\n", sock);
+		sin.sin_addr.s_addr = htonl(INADDR_ANY);		/* Adresse IP automatique */
+		sin.sin_family = AF_INET;						/* Protocole familial (IP) */
+		sin.sin_port = htons(PORT);						/* Listage du port */
+		sock_err = bind(sock, (SOCKADDR*)&sin, sizeof(sin));
+		if(sock_err != SOCKET_ERROR)
+		{
+			sock_err = listen(sock, 5);
+			printf("Listage du port %d...\n", PORT);
+			/* Attente pendant laquelle le client se connecte */
+			printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
+			c_sock = accept(sock, (SOCKADDR*)&c_sin, &recsize);
+			printf("Un client se connecte avec la socket %d de %s:%d\n", c_sock, inet_ntoa(c_sin.sin_addr), htons(c_sin.sin_port));
+			/* Si l'on reçoit des informations : on les affiche à l'écran */
+			if(recv(c_sock, buffer, 50, 0) != SOCKET_ERROR)
+				printf("Recu : %s\n", buffer);
+		}
+		printf("Fermeture de la socket...\n");
+		close(sock);
+		printf("Fermeture du serveur terminee\n");
+		getchar();
 	}
-	if (bind(socket, SOCKADDR, &mon_addr, sizeof(mon_addr)) < 0)
-	{
-		ft_putstr("Probleme de connection\n");
-		exit(0);
-	}
-	listen(sock, 5);
+}
 
-	// reste acceptation de connection
-
-	http://broux.developpez.com/articles/c/sockets/#
+int		main(void)
+{
+	ft_connect();
 	return (0);
 }

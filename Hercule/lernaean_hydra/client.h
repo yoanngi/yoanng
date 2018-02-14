@@ -1,45 +1,30 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   server.h                                         .::    .:/ .      .::   */
+/*   client.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/02/14 10:07:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/14 15:34:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/14 10:12:26 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/14 10:12:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-# define SERVER_H
+#ifndef CLIENT_H
+# define CLIENT_H
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <signal.h>
-#include <errno.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define INVALID_SOCKET -1
-#define SOCKET_ERROR -1
-#define PORT 3000
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/socket.h>
 
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;
 typedef struct sockaddr SOCKADDR;
+typedef struct in_addr IN_ADDR;
 
 
 int		ft_putchar(char c);
 void	ft_putstr(char *str);
-void	ft_error(char *str);
-void	ft_print(char *buf);
 
 #endif
