@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/14 10:07:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 15:25:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 16:22:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-# define PORT			8888
+# define PORT			4242
 # define BUFF_SIZE		4096
 
 void	ft_putstr(const char *str);

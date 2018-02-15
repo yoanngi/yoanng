@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/15 13:34:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 15:51:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 16:25:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@ static int		ft_send_message(int sock)
 	ft_putstr("You are connected\nTape < q > + ENTER for exit\n");
 	while (message[0] != 'q' && message[1] != '\n')
 	{
+		ft_bzero(message, ft_strlen(message));
 		ft_putstr("Please enter your message :\n");
 		scanf("%s", message);
 		if (send(sock, message, ft_strlen(message), 0) < 0)
@@ -45,7 +46,6 @@ static int		ft_send_message(int sock)
 			ft_putstr("Server reply :\n");
 			ft_putstr(server_reply);
 		}
-		ft_bzero(message, ft_strlen(message));
 	}
 	return (0);
 }

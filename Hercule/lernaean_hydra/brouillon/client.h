@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/14 10:12:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 15:21:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 16:23:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 # include <arpa/inet.h>
 # include <stdio.h>
 
-# define PORT 8888
+# define PORT 4242
 # define BUFF_SIZE 1024
 
 void	ft_putstr(const char *str);
