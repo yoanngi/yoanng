@@ -31,18 +31,16 @@ static int		ft_pingornot(int sock_client)
 	while ((read_size = recv(sock_client, msg, 512, 0)) > 0)
 	{
 		if (msg[0] == 'p' && msg[1] == 'i' && msg[2] == 'n' && msg[3] == 'g'
-	&& msg[4] == '\n')
+	&& (msg[5] == '\n' || msg[5] == '\0'))
 		{
 			ft_bzero(msg, ft_strlen(msg));
-			ft_strcpy(msg, "pong\n");
-			write(sock_client, msg, ft_strlen(msg));
+			ft_strcpy(msg, "pong pong");
 			write(sock_client, msg, ft_strlen(msg));
 		}
 		else
-		{
 			ft_bzero(msg, ft_strlen(msg));
+			ft_strcpy(msg, "\n");
 			write(sock_client, msg, ft_strlen(msg));
-		}
 	}
 	if (read_size == 0)
 		fflush(stdout);

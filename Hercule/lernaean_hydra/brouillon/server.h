@@ -23,10 +23,8 @@
 # define PORT			4242
 # define BUFF_SIZE		4096
 
-void	ft_putstr(const char *str);
+void	ft_putstr_fd(char const *s, int fd);
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strcpy(char *dst, const char *src);
-
 #endif

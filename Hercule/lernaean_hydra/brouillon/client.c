@@ -43,8 +43,9 @@ static int		ft_send_message(int sock)
 		}
 		if (message[0] != 'q' && message[1] != '\n')
 		{
-			ft_putstr("Server reply :\n");
+			ft_putstr("Server reply : ");
 			ft_putstr(server_reply);
+			ft_putstr("\n");
 		}
 	}
 	return (0);
