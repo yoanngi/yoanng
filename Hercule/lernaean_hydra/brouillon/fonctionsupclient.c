@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/15 14:29:48 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 14:31:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 15:50:53 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-
 
 char	*ft_strcpy(char *dst, const char *src)
 {

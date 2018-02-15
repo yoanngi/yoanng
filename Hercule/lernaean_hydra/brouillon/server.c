@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/15 13:31:48 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 15:42:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 15:50:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,20 +30,9 @@ static int		ft_pingornot(int sock_client)
 
 	while ((read_size = recv(sock_client, msg, 512, 0)) > 0)
 	{
-		ft_putstr("DEBUG -> message recu =\n");
-		ft_putstr(msg);
-		write(1, &msg[0], 1);
-		ft_putstr("\n");
-		write(1, &msg[1], 1);
-		ft_putstr("\n");
-		write(1, &msg[2], 1);
-		ft_putstr("\n");
-		write(1, &msg[3], 1);
-		ft_putstr("\n");
-		write(1, "end", 4);
-		if (msg[0] == 'p' && msg[1] == 'i' && msg[2] == 'n' && msg[3] == 'g' && msg[4] == 3)
+		if (msg[0] == 'p' && msg[1] == 'i' && msg[2] == 'n' && msg[3] == 'g'
+	&& msg[4] == '\n')
 		{
-			ft_putstr("HERE\n");
 			ft_bzero(msg, ft_strlen(msg));
 			ft_strcpy(msg, "pong\n");
 			write(sock_client, msg, ft_strlen(msg));
@@ -52,7 +41,6 @@ static int		ft_pingornot(int sock_client)
 		else
 		{
 			ft_bzero(msg, ft_strlen(msg));
-		//	ft_strcpy(msg, "Commande Invalide\n");
 			write(sock_client, msg, ft_strlen(msg));
 		}
 	}
