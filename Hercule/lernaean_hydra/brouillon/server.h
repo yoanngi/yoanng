@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/14 10:07:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 13:46:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 15:25:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,9 +23,10 @@
 # define PORT			8888
 # define BUFF_SIZE		4096
 
-int		ft_putchar(char c);
-void	ft_putstr(char *str);
+void	ft_putstr(const char *str);
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strcpy(char *dst, const char *src);
 
 #endif

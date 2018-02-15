@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/14 10:07:56 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 11:36:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/15 14:14:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,11 +37,11 @@ static int	accept_connection(int server_socket, SOCKADDR_IN sin_server)
 
 int		main(void)
 {
-	int				server;
-	int				connect;
-	SOCKADDR_IN		sin_server;
-	SOCKADDR_IN		sin_client;
-	char			buffer[1024];
+	int					server;
+	int					connect;
+	struct sockaddr_in	sin_server;
+	struct sockaddr_in	sin_client;
+	char				buffer[1024];
 
 	if ((server = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET)
 		perror("Building socket Failled");
@@ -61,7 +61,3 @@ int		main(void)
 	close(server);
 	return (0);
 }
-
-// http://www.linux-france.org/article/lgazette/issue-33/lg-33-4.html
-// http://broux.developpez.com/articles/c/sockets/#
-// http://www.binarytides.com/server-client-example-c-sockets-linux/
