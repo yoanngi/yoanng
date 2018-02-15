@@ -16,7 +16,7 @@
 static void	bind_socket(int sock, SOCKADDR_IN sin_server)
 {
 	sin_server.sin_family = AF_INET;
-	sin_server.sin_addr.s_addr = htonl(INADDR_ANY);
+	sin_server.sin_addr.s_addr = INADDR_ANY;
 	sin_server.sin_port = htons(PORT);
 	if (bind(sock, (struct sockaddr *)&sin_server, sizeof(sin_server)) < 0)
 		perror("Binding Failled");
@@ -25,13 +25,14 @@ static void	bind_socket(int sock, SOCKADDR_IN sin_server)
 static int	accept_connection(int server_socket, SOCKADDR_IN sin_server)
 {
 	int		len;
-	int		client_socket;
+	int		for_client;
 
 	len = sizeof(struct sockaddr_in);
-	if ((client_socket = accept(server_socket, (struct sockaddr *)&sin_server,
+	if ((for_client = accept(server_socket, (struct sockaddr *)&sin_server,
 	(socklen_t*)&len)) < 0)
 		perror("Connection Failled");
-	return (client_socket);
+	ft_putstr("Accept connection\n");
+	return (for_client);
 }
 
 int		main(void)
@@ -45,16 +46,20 @@ int		main(void)
 		perror("Building socket Failled");
 	bind_socket(server, sin_server);
 	listen(server, 5);
+	ft_putstr("Listen connection OK\n");
 	connect = accept_connection(server, sin_server);
-	if(recv(server, buffer, 32, 0) != -1)
+	ft_putstr("Socket & Bind ok\nEn attente de message :\n");
+	while (recv(server, buffer, 32, 0) > 0)
 	{
 		ft_putstr("Recu : ");
 		ft_putstr(buffer);
 		ft_putstr("\n");
 	}
-	else
-		ft_putstr("rien recu");
+	ft_putstr("On en recoit rien\n");
 	close(server);
-	close(connect);
 	return (0);
 }
+
+// http://www.linux-france.org/article/lgazette/issue-33/lg-33-4.html
+// http://broux.developpez.com/articles/c/sockets/#
+// http://www.binarytides.com/server-client-example-c-sockets-linux/

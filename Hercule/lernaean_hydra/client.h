@@ -27,5 +27,6 @@
 typedef struct sockaddr_in SOCKADDR_IN;
 
 void	ft_putstr(char *str);
+size_t	ft_strlen(char *str);
 
 #endif

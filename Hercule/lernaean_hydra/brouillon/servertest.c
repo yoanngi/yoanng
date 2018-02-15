@@ -50,25 +50,6 @@ void	ft_connect(void)
 	}
 }
 
-static int	ft_initialise(void)
-{
-	int		sock;
-
-	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-		ft_puterror_fd("Couldn't create socket! :(", STDOUT);
-	ft_putendl_fd("Socket created! :D", STDOUT);
-	return (sock);
-}
-
-static void	bind_socket(int sock, int addr, int port)
-{
-	g_server.sin_family = PF_INET;
-	g_server.sin_addr.s_addr = addr;
-	g_server.sin_port = htons(port);
-	if (bind(sock, (struct sockaddr *)&g_server, sizeof(g_server)) < 0)
-		ft_puterror_fd("Binding failed! :(", STDOUT);
-	ft_putendl_fd("Binding successful! :D", STDOUT);
-}
 
 int		main(void)
 {
