@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 16:46:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/19 11:08:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,7 +51,8 @@ static void		ft_print_liste(t_lst *recur, int secret)
 	cpy = recur;
 	ft_resize_path(recur->path);
 	ft_putstr(":\n");
-	printf("recur->name = %s\n", recur->name);
+	ft_putstr("total ");
+	ft_print_blocks(&recur);
 	if (recur->name != NULL)
 	{
 		ft_ls_liste(&recur, secret);

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 13:48:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 13:15:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/19 10:38:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,4 +59,20 @@ char			*ft_return_day(time_t str)
 	ret = ft_strsub(cpy, 8, 2);
 	ft_strdel(&cpy);
 	return (ret);
+}
+
+void			ft_print_blocks(t_lst **liste)
+{
+	t_lst	*cpy;
+	int		total;
+
+	total = 0;
+	cpy = *liste;
+	while (cpy)
+	{
+		total += cpy->blocks;
+		cpy = cpy->next;
+	}
+	ft_putnbr(total);
+	ft_putstr("\n");
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 14:25:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 11:17:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/19 11:03:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,5 +70,19 @@ int		ft_get_link(char **path)
 		return (0);
 	}
 	cpy = buf.st_nlink;
+	return (cpy);
+}
+
+int		ft_get_blocks(char **path)
+{
+	t_stat			buf;
+	int				cpy;
+
+	if (lstat(*path, &buf) == -1)
+	{
+		basic_error(*path);
+		return (0);
+	}
+	cpy = buf.st_blocks;
 	return (cpy);
 }

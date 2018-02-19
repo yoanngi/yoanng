@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 16:08:23 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/19 11:03:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,7 @@ typedef	struct		s_lst
 	char			*symbol;
 	int				size;
 	int				link;
+	int				blocks;
 	struct	s_lst	*otherfile;
 	struct	s_lst	*next;
 }					t_lst;
@@ -114,6 +115,7 @@ char				*ft_get_droit_symbolique(char **path, size_t size);
 char				*ft_get_new_path(char **path);
 int					ft_get_size(char **path);
 int					ft_get_link(char **path);
+int					ft_get_blocks(char **path);
 char				*ft_return_time(time_t str);
 char				*ft_return_month(time_t str);
 char				*ft_return_day(time_t str);
@@ -124,6 +126,7 @@ int					ft_checklongmax_group(t_lst **data);
 /*
 **	Fonction d'affichage
 */
+void				ft_print_blocks(t_lst **liste);
 void				ft_ls_simple(char *target);
 void				ft_ls_liste(t_lst **data, int secret);
 void				ft_print_ls(s_struct *data, int indexfile);
