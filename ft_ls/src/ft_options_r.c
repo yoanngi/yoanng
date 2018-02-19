@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/19 12:52:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/19 16:19:41 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,12 +52,14 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 	return (*ret);
 }
 
-static void			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
+static int			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
 {
 //	printf("CHECK ---> Fichier lu = %s, path = %s\n", (*fichierlu)->d_name, (*data)->path);
-	if ((*fichierlu)->d_type == 4 && (*fichierlu)->d_name[0] != '.' &&
+//	Segfault a gerer !
+	if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0 &&
 	ft_strcmp((*fichierlu)->d_name, "..") != 0)
 	{
+		printf("");
 		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, nb);
 		if ((*data)->otherfile == NULL)
 			(*data)->access = 0;
@@ -66,7 +68,7 @@ static void			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
 	}
 	else
 		(*data)->otherfile = NULL;
-
+	return (0);
 }
 
 t_lst				*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
