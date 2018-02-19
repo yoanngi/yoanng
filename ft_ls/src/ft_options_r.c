@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/19 16:24:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/19 16:41:23 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,14 +54,26 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 
 static int			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
 {
+	int i;
+
+	i = 0;
+	ft_putstr("Fonction de merde ! \n");
+	ft_putstr((*data)->path);
+	ft_putstr("\n");
 	if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0
 	&& ft_strcmp((*fichierlu)->d_name, "..") != 0)
 	{
-		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, nb);
-		if ((*data)->otherfile == NULL)
-			(*data)->access = 0;
+		if ((*data)->droit[4] == 'r')
+		{
+			(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, nb);
+			if ((*data)->otherfile == NULL)
+				(*data)->access = 0;
+			else
+				(*data)->access = 1;
+		}
 		else
 			(*data)->access = 1;
+
 	}
 	else
 		(*data)->otherfile = NULL;
