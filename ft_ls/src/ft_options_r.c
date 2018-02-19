@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/19 16:19:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/19 16:24:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,12 +54,9 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 
 static int			ft_check_repertory(t_dir **fichierlu, t_lst **data, int nb)
 {
-//	printf("CHECK ---> Fichier lu = %s, path = %s\n", (*fichierlu)->d_name, (*data)->path);
-//	Segfault a gerer !
-	if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0 &&
-	ft_strcmp((*fichierlu)->d_name, "..") != 0)
+	if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0
+	&& ft_strcmp((*fichierlu)->d_name, "..") != 0)
 	{
-		printf("");
 		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, nb);
 		if ((*data)->otherfile == NULL)
 			(*data)->access = 0;
@@ -85,7 +82,6 @@ t_lst				*ft_read_repertoire(t_dir **fichierlu, char *path, int nb)
 	rep->path = ft_strdup(path);
 	while ((*fichierlu = readdir(dir)) != NULL)
 	{
-//		printf("READ_R -> Fichier lu = %s || type = %d\n", (*fichierlu)->d_name, (*fichierlu)->d_type);
 		ft_insert_path(*fichierlu, &rep, path);
 		if (nb == 1)
 			ft_insert_data_hard(fichierlu, &rep, rep->path);
