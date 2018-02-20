@@ -69,6 +69,8 @@ static void			ft_ls_liste_two(t_lst **data, int size, int link)
 	ft_class_print(data, 0, 0);
 	while (cpy)
 	{
+		if (cpy->name == NULL || cpy->next == NULL)
+			return ;
 		ft_print_liste_ls(&cpy, grp, link, use);
 		ft_print_liste_ls_two(&cpy, size);
 		ft_putstr("\n");
