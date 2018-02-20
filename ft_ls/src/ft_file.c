@@ -88,5 +88,5 @@ int				ft_file_exist_malloc(char *file_ornot)
 	if ((dir = opendir(file_ornot)) == NULL)
 		return (0);
 	closedir(dir);
-	return (0);
+	return (1);
 }

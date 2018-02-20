@@ -87,7 +87,7 @@ char					**ft_add_option(int argc, char **params, int p_valid);
 int						ft_file_exist(char *file_ornot, int silent);
 int						ft_file_exist_malloc(char *file_ornot);
 void					ft_clean_data(t_lst **data);
-void					ft_clean_list(t_lst **data);
+t_lst					*ft_clean_list(t_lst *data);
 /*
 **	Fonction d'erreurs
 */

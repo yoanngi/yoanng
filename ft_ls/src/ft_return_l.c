@@ -64,7 +64,7 @@ char			*ft_return_day(time_t str)
 void			ft_print_blocks(t_lst **liste)
 {
 	t_lst	*cpy;
-	int		total;
+	long	total;
 
 	total = 0;
 	cpy = *liste;

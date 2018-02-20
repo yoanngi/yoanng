@@ -76,23 +76,33 @@ void			ft_swap_lst2(t_lst **s2, t_lst **tmp)
 	(*s2)->otherfile = (*tmp)->otherfile;
 }
 
-void			ft_clean_list(t_lst **data)
+t_lst			*ft_clean_list(t_lst *data)
 {
 	t_lst	*tmp;
-	t_lst	*tmp_next;
 
-	tmp = *data;
+	tmp = data;
 	while (tmp)
 	{
-		tmp_next = tmp->next;
+		if (tmp->otherfile != NULL)
+			ft_clean_list(tmp->otherfile);
 		free(tmp->name);
+		tmp->name = NULL;
 		free(tmp->user);
+		tmp->user = NULL;
 		free(tmp->droit);
+		tmp->droit = NULL;
 		free(tmp->groupe);
-		free(&tmp->month);
-		free(&tmp->day);
-		free(&tmp->time);
+		tmp->groupe = NULL;
+	//	free(&tmp->month);
+	//	printf("free !\n");
+	//	tmp->month = NULL;
+	//	free(&tmp->day);
+	//	printf("free !\n");
+	//	tmp->day = NULL;
+	//	free(&tmp->time);
+	//	printf("free !\n");
 		free(tmp);
-		tmp = tmp_next;
+		tmp = tmp->next;
 	}
+	return (NULL);
 }

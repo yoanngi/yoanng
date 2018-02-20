@@ -33,6 +33,7 @@ void	ft_check_options(s_struct *data)
 			ft_putstr(":\n");
 		}
 		ft_print_ls_liste(data, i);
+		data->liste = ft_clean_list(data->liste);
 		data->nb_file--;
 		i++;
 	}

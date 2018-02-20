@@ -23,9 +23,8 @@ void	ft_error(char arg)
 
 void	basic_error(char *error)
 {
-	ft_putstr_fd("ls:", 2);
+	ft_putstr_fd("ls: ", 2);
 	perror(error);
-	ft_putstr_fd(" No such file or directory\n", 2);
 }
 
 void	ft_error_access(char *error)
