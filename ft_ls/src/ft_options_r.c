@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 15:10:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 15:19:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,7 +58,8 @@ static int			ft_check_repertory(t_dir **fichierlu, t_lst **data)
 
 	i = 0;
 	if ((*fichierlu)->d_type == 4 && ft_strcmp((*fichierlu)->d_name, ".") != 0
-			&& ft_strcmp((*fichierlu)->d_name, "..") != 0 && (*data)->droit[4] == 'r')
+	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 &&
+	(*data)->droit[4] == 'r')
 	{
 		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path);
 		if ((*data)->otherfile == NULL)
