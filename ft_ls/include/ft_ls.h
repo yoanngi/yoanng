@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/19 11:03:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 14:42:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,7 +100,7 @@ int					ft_check_permissions(char *path, t_lst **rep);
 */
 void				ft_check_options(s_struct *data);
 t_lst				*ft_ls_r(s_struct *data, int indexfile);
-t_lst				*ft_read_repertoire(t_dir **fichierlu, char *path, int nb);
+t_lst				*ft_read_repertoire(t_dir **fichierlu, char *path);
 t_lst				*ft_ls_l(s_struct *data, int indexfile);
 t_lst				*ft_class_print_t(t_lst **data);
 /*
