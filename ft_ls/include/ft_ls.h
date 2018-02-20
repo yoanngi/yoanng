@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 15:21:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/20 16:08:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -131,5 +131,6 @@ void					ft_ls_simple(char *target);
 void					ft_ls_liste(t_lst **data, int secret);
 void					ft_print_ls(s_struct *data, int indexfile);
 void					ft_print_ls_liste(s_struct *data, int indexfile);
+int						ft_print_block_or_not(t_lst **data, int secret);
 
 #endif
