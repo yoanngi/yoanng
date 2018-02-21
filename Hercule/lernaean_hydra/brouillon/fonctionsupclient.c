@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/15 14:29:48 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 15:50:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/16 15:13:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ void	ft_bzero(void *s, size_t n)
 		return ;
 	while (i < n)
 	{
-		((char*)s)[i] = 0;
+		((char*)s)[i] = '\0';
 		i++;
 	}
 }
@@ -49,33 +49,4 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	while (n > 0)
-	{
-		if (*s1 != *s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		else if (*s1 == '\0')
-			return (0);
-		s1++;
-		s2++;
-		n--;
-	}
-	return (0);
-}
-
-char	*ft_strcpy(char *dst, const char *src)
-{
-	size_t	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
 }

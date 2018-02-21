@@ -6,14 +6,24 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/15 13:31:48 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/15 16:25:54 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/16 15:49:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "server.h"
 
-static void		bind_socket(int sock, struct sockaddr_in server)
+static size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+static void		ft_bind_socket(int sock, struct sockaddr_in server)
 {
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -22,30 +32,48 @@ static void		bind_socket(int sock, struct sockaddr_in server)
 		perror("Binding Failled");
 }
 
-static int		ft_pingornot(int sock_client)
+static int		ft_check(char **msg, int sock_client)
+{
+	if (ft_strncmp(*msg, "ping", ft_strlen(*msg)) == 0)
+	{
+		ft_bzero(*msg, BUFF_SIZE - 1);
+		ft_strcpy(*msg, "pong pong");
+		write(sock_client, *msg, 9);
+	}
+	if (ft_strncmp(*msg, "ping", 4) == 0 && ft_strlen(*msg) == 6)
+	{
+		ft_bzero(*msg, BUFF_SIZE - 1);
+		ft_strcpy(*msg, "pong pong");
+		write(sock_client, *msg, 9);
+	}
+	else
+	{
+		ft_bzero(*msg, BUFF_SIZE - 1);
+		write(sock_client, *msg, 2);
+	}
+	return (0);
+}
+
+static int		ft_pingornot(int sock_client, int sock_server, int c)
 {
 	int		read_size;
-	char	*tmp;
-	char	msg[512];
+	char	*msg;
 
-	while ((read_size = recv(sock_client, msg, 512, 0)) > 0)
+	msg = ft_strnew(BUFF_SIZE);
+	if ((sock_client = accept(sock_server, (struct sockaddr *)&sock_client,
+	(socklen_t*)&c)) < 0)
+		return (1);
+	while (1)
 	{
-		if (msg[0] == 'p' && msg[1] == 'i' && msg[2] == 'n' && msg[3] == 'g'
-	&& (msg[5] == '\n' || msg[5] == '\0'))
-		{
-			ft_bzero(msg, ft_strlen(msg));
-			ft_strcpy(msg, "pong pong");
-			write(sock_client, msg, ft_strlen(msg));
-		}
-		else
-			ft_bzero(msg, ft_strlen(msg));
-			ft_strcpy(msg, "\n");
-			write(sock_client, msg, ft_strlen(msg));
+		while ((read_size = recv(sock_client, msg, BUFF_SIZE - 1, 0)) > 0)
+			ft_check(&msg, sock_client);
+		if ((sock_client = accept(sock_server, (struct sockaddr *)&sock_client,
+	(socklen_t*)&c)) < 0)
+			return (1);
+		if (read_size == -1)
+			return (1);
 	}
-	if (read_size == 0)
-		fflush(stdout);
-	if (read_size == -1)
-		perror("recv failed");
+	free(&msg);
 	return (0);
 }
 
@@ -59,16 +87,11 @@ int				main(int argc, char **argv)
 
 	if ((sock_server = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		perror("building socket Failled");
-	bind_socket(sock_server, server);
+	ft_bind_socket(sock_server, server);
 	listen(sock_server, 3);
 	c = sizeof(struct sockaddr_in);
-	if ((sock_client = accept(sock_server, (struct sockaddr *)&sock_client,
-	(socklen_t*)&c)) < 0)
-	{
-		perror("accept failed");
-		return (1);
-	}
-	ft_pingornot(sock_client);
+	if (ft_pingornot(sock_client, sock_server, c) == 1)
+		perror("Error");
 	close(sock_server);
 	close(sock_client);
 	return (0);
