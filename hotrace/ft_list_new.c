@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_list_new.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/02/22 14:18:46 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/22 14:22:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/22 15:21:39 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/22 15:44:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 
-int		main(void)
+t_list		ft_list_new(void)
 {
-	if (!ft_recupere_infos())
-	{
-		ft_putstr("Usage : ./hotrace\n");
-		ft_putstr("Element a rechercher : [Enter your elements]\n");
-		ft_putstr("Dans quoi rechercher : [Enter your elements]\n");
-	}
-	return (0);
+	t_list		*new;
+
+	new = (struct)malloc(sizeof(struct));
+	if (new == NULL)
+		return (NULL);
+	new->cle = NULL;
+	new->valeur = NULL;
+	new->hash = 0;
+	new->compteur = 0;
+	new->next = NULL;
+	return (new);
 }
