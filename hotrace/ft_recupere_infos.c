@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:19:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/22 16:41:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/22 16:45:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,8 +44,6 @@ int			ft_recupere_infos(void)
 	list = start;
 	while (get_next_line(0, &line))
 	{
-		if (!ft_strcmp("", line))
-			break ;
 		if (i % 2 == 0)
 		{
 			ft_add_infos(&line, &cpy, &list, i);
@@ -55,14 +53,9 @@ int			ft_recupere_infos(void)
 		}
 		else
 			cpy = ft_strdup(line);
+		if (!ft_strcmp("", line))
+			break ;
 		i++;
 	}
-	while (start)
-	{
-		printf("tour de boucle\n");
-		printf("cle = %s, valeur = %s, hash = %ld, compteur = %ld\n", start->cle, start->valeur, start->hash, start->compteur);
-		start = start->next;
-	}
-	//ft_resolve(start);
-	return (0);
+	return (ft_resolve(start, i));
 }
