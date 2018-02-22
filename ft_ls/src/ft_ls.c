@@ -6,29 +6,33 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 15:17:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/22 12:58:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int		ft_is_option_valid(char *str)
+
+static int		ft_option_exist(char *str, int nb)
 {
 	int i;
 
 	i = 0;
 	while (str[i] == '-' || str[i] == ' ' || str[i] == 'R' || str[i] == 'r' ||
-	str[i] == 'l' || str[i] == 't' || str[i] == 'a')
+			str[i] == 'l' || str[i] == 't' || str[i] == 'a')
 		i++;
-	if (str[i] != '\0' && ft_file_exist(str, 0) == 0)
+	if (nb == 1 && (size_t)i != ft_strlen(str))
+	{
 		ft_error(str[i]);
+		return (0);
+	}
 	if ((size_t)i != ft_strlen(str))
 		return (0);
 	return (1);
 }
 
-static void		ft_valid_or_not(char *cmp, s_struct **data)
+static void		ft_insert_valid_option(char *cmp, s_struct **data)
 {
 	int i;
 
@@ -84,7 +88,7 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	(*data)->invalid = NULL;
 	(*data)->nb_file = ft_count_files_valid(nb, params);
 	(*data)->multifile = (char **)malloc(sizeof(char *) *
-	((*data)->nb_file + 1));
+			((*data)->nb_file + 1));
 	if ((*data)->nb_file == 0)
 	{
 		(*data)->multifile[0] = ft_strdup(".");
@@ -92,7 +96,25 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	}
 }
 
-void			ft_ls(char **params, int nb, int dir, int end)
+static void		ft_ls_two(int i, int nb, char **params, s_struct **data)
+{
+	int dir;
+
+	dir = 0;
+	while (nb != i)
+	{
+		if (ft_file_exist(params[nb - 1], 1) == 1)
+		{
+			(*data)->multifile[dir] = ft_strdup(params[nb - 1]);
+			dir++;
+		}
+		else
+			basic_error(params[nb - 1]);
+		nb--;
+	}
+}
+
+void			ft_ls(char **params, int nb, int end)
 {
 	s_struct	*data;
 	int			i;
@@ -100,20 +122,21 @@ void			ft_ls(char **params, int nb, int dir, int end)
 	data = (s_struct *)malloc(sizeof(s_struct));
 	i = 1;
 	ft_initialise_struct(&data, nb, params);
-	while (i != nb)
+	while (end == 0)
 	{
-		if (ft_is_option_valid(params[i]) == 1 && end == 0)
-			ft_valid_or_not(params[i], &data);
-		else if (ft_file_exist(params[i], 1) == 1)
+		if (params[i][0] == '-')
 		{
-			end = 1;
-			data->multifile[dir] = ft_strdup(params[i]);
-			dir++;
+			if (ft_option_exist(params[i], 1) == 1)
+				ft_insert_valid_option(params[i], &data);
 		}
 		else
-			basic_error(params[i]);
-		ft_strdel(&params[i]);
+		{
+			ft_ls_two(i, nb, params, &data);
+			end = 1;
+		}
 		i++;
+		if (i == nb - 1)
+			end = 1;
 	}
 	ft_check_options(data);
 }
