@@ -32,7 +32,7 @@ typedef struct		s_lst
 
 t_lst				*ft_list_new(void);
 int					get_next_line(int fd, char **line);
-void				ft_resolve(t_lst *start);
+int					ft_resolve(t_lst *start, int i);
 int					ft_recupere_infos(void);
 
 #endif

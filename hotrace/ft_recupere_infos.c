@@ -57,5 +57,6 @@ int			ft_recupere_infos(void)
 			break ;
 		i++;
 	}
-	return (ft_resolve(start, i));
+	ft_resolve(start, i);
+	return (1);
 }
