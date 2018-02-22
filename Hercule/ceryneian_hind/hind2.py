@@ -1,3 +1,5 @@
+# code pour tester si sa fonctionne, je n'ai rien rendu
+
 import os, sys, requests
 import simplejson as json
 
