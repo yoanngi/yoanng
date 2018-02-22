@@ -6,27 +6,37 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:19:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/22 15:44:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/22 16:41:08 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "hotrace.h"
+#include <stdio.h>
 
-void		ft_add_infos(char **line, char **cpy, t_list **list, int nb)
+long		ft_hash(char *cle, char *valeur)
 {
+	long	hash;
+
+	hash = 0;
+	return (hash);
+}
+
+void		ft_add_infos(char **line, char **cpy, t_lst **list, int nb)
+{
+	printf("clef = %s, valeur = %s, nb = %d\n", *cpy, *line, nb);
 	(*list)->cle = ft_strdup(*cpy);
 	(*list)->valeur = ft_strdup(*line);
 	(*list)->hash = ft_hash((*list)->cle, (*list)->valeur);
-	(*list)->compteur = nb - 1;
+	(*list)->compteur = nb;
 }
 
 int			ft_recupere_infos(void)
 {
 	char	*line;
 	char	*cpy;
-	t_list	*start;
-	t-list	*list;
+	t_lst	*start;
+	t_lst	*list;
 	int		i;
 
 	i = 1;
@@ -34,18 +44,25 @@ int			ft_recupere_infos(void)
 	list = start;
 	while (get_next_line(0, &line))
 	{
+		if (!ft_strcmp("", line))
+			break ;
 		if (i % 2 == 0)
 		{
 			ft_add_infos(&line, &cpy, &list, i);
 			ft_strdel(&cpy);
-			i++;
-			list = ft_list_new();
+			list->next = ft_list_new();
 			list = list->next;
 		}
 		else
 			cpy = ft_strdup(line);
-		free(line);
+		i++;
 	}
-	ft_resolv(start);
+	while (start)
+	{
+		printf("tour de boucle\n");
+		printf("cle = %s, valeur = %s, hash = %ld, compteur = %ld\n", start->cle, start->valeur, start->hash, start->compteur);
+		start = start->next;
+	}
+	//ft_resolve(start);
 	return (0);
 }

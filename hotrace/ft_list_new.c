@@ -6,18 +6,18 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 15:21:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/22 15:44:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/22 16:05:12 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 
-t_list		ft_list_new(void)
+t_lst		*ft_list_new(void)
 {
-	t_list		*new;
+	t_lst		*new;
 
-	new = (struct)malloc(sizeof(struct));
+	new = (t_lst *)malloc(sizeof(t_lst));
 	if (new == NULL)
 		return (NULL);
 	new->cle = NULL;

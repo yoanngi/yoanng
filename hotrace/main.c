@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:18:46 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/22 14:22:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/22 16:39:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,7 @@ int		main(void)
 {
 	if (!ft_recupere_infos())
 	{
-		ft_putstr("Usage : ./hotrace\n");
-		ft_putstr("Element a rechercher : [Enter your elements]\n");
-		ft_putstr("Dans quoi rechercher : [Enter your elements]\n");
+		ft_putstr("error lecture donne\n");
 	}
 	return (0);
 }
