@@ -1,4 +1,0 @@
-dn: uid=yoginet,ou=piscine,ou=people,dc=le-101,dc=fr
-changetype: modify
-add: mobile
-mobile: 0699195290
