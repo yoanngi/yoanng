@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 16:42:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 15:48:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 15:56:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,5 @@ int				ft_resolve(t_lst *start, int i)
 		cpy = cpy->next;
 	}
 	ft_whatdoyouwant(tab);
-	ft_test_acces(tab, j);
 	return (1);
 }
