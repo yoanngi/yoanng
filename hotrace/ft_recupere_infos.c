@@ -24,7 +24,6 @@ long		ft_hash(char *cle, char *valeur)
 
 void		ft_add_infos(char **line, char **cpy, t_lst **list, int nb)
 {
-	printf("clef = %s, valeur = %s, nb = %d\n", *cpy, *line, nb);
 	(*list)->cle = ft_strdup(*cpy);
 	(*list)->valeur = ft_strdup(*line);
 	(*list)->hash = ft_hash((*list)->cle, (*list)->valeur);
