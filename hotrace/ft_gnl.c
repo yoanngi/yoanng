@@ -55,8 +55,8 @@ static void		clear(char **s_buff, char **line)
 
 int				get_next_line(int const fd, char **line)
 {
-	int	bytes_read;
-	char	buff[BUFF_SIZE + 1];
+	int			bytes_read;
+	char		buff[BUFF_SIZE + 1];
 	static char	*s_buff = NULL;
 
 	if (!line)
