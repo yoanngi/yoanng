@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 16:42:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 14:58:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 15:39:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,10 +29,10 @@ static unsigned long long		**ft_insert_data_in_tab(unsigned long long **tab, t_l
 	{
 		tab[cpy->hash][0] = cpy->hash;
 		tab[cpy->hash][1] = (unsigned long long)&cpy;
-		printf("Valeur tab[%ld][0] = %lld\n", cpy->hash, tab[cpy->hash][0]);
-		printf("Valeur tab[%ld][1]= %lld\n", cpy->hash, tab[cpy->hash][1]);
-		printf("Adress: %p\n", &cpy);
-		printf("Adress->next: %p\n", &cpy->next);
+//		printf("Valeur tab[%ld][0] = %lld\n", cpy->hash, tab[cpy->hash][0]);
+//		printf("Valeur tab[%ld][1]= %lld\n", cpy->hash, tab[cpy->hash][1]);
+//		printf("Adress: %p\n", &cpy);
+//		printf("Adress->next: %p\n", &cpy->next);
 	}
 	else
 	{
@@ -77,6 +77,7 @@ int				ft_resolve(t_lst *start, int i)
 		tab = ft_insert_data_in_tab(tab, cpy);
 		cpy = cpy->next;
 	}
+	ft_whatdoyouwant(tab);
 	ft_test_acces(tab, j);
 	return (1);
 }
