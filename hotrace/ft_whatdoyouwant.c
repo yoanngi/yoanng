@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/23 14:59:52 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 15:39:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 15:55:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,10 +19,8 @@ void	ft_existe(char **line, unsigned long long **tab)
 	unsigned long long	hash;
 
 	hash = ft_hash(*line);
-	printf("hash = %lld\n", hash);
-	if (tab[hash] != 0)
+	if (tab[hash][1] != 0)
 	{
-		printf("hash found\n");
 		cpy = (t_lst *)tab[hash][1] + 2;
 		while (cpy)
 		{
@@ -37,7 +35,10 @@ void	ft_existe(char **line, unsigned long long **tab)
 		}
 	}
 	else
-		ft_putstr("Not_found");
+	{
+		ft_putstr(*line);
+		ft_putstr(": Not_found.");
+	}
 	ft_putstr("\n");
 }
 
@@ -45,8 +46,7 @@ void	ft_whatdoyouwant(unsigned long long **tab)
 {
 	char	*line;
 
-	printf("que mot chercher vous ?\n");
-	while(get_next_line(0, &line))
+	while (get_next_line(0, &line))
 	{
 		if (!ft_strcmp("", line))
 			break ;
