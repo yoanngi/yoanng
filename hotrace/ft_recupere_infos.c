@@ -6,40 +6,32 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:19:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 11:43:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 14:44:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "hotrace.h"
-#include <stdio.h>
 
 long		ft_hash(char *cle)
 {
 	long	hash;
-	long	hash2;
 	int		i;
 
 	i = 0;
 	hash = 0;
-	hash2 = 0;
 	while (cle[i])
 	{
 		hash += cle[i];
 		i++;
 	}
-	hash2 = hash;
 	i = 0;
 	while (cle[i])
 	{
-		hash2 = cle[i] + (hash2 << 6) + (hash << 16) - hash2;
-		hash = ((hash << 5) + hash) + cle[i];
+		hash = ((hash << 5) + hash) + cle[i] + 1;
 		i++;
 	}
-	hash = hash % 100000;
-	hash2 = hash2 % 100000;
-	if (hash2 < 0)
-		hash2 = -hash2;
+	hash = hash % 10000000;
 	if (hash < 0)
 		hash = -hash;
 	return (hash);

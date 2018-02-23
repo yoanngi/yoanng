@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:22:56 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 11:54:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 14:08:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include "Libft/libft.h"
+
+# include <stdio.h>
 
 # define BUFF_SIZE 32
 
@@ -36,5 +38,7 @@ int					get_next_line(int fd, char **line);
 int					ft_resolve(t_lst *start, int i);
 int					ft_recupere_infos(void);
 long				ft_hash(char *cle);
+char				*ft_itoa_base(long n, int base);
+void				ft_test_acces(unsigned long long **tab, int hash);
 
 #endif
