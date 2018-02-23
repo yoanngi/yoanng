@@ -14,49 +14,49 @@
 #include "hotrace.h"
 #include <stdio.h>
 
-static void	ft_insert_data_in_tab(char **tab, t_lst **cpy)
+static void		ft_insert_data_in_tab(void ***tab, t_lst *cpy)
 {
-	if (tab[(*cpy)->hash][0] == 0)
+	if (tab[cpy->hash][0] == NULL)
 	{
-		tab[(*cpy)->hash][0] = (*cpy)->hash;
-		tab[(*cpy)->hash][1] = *(&cpy);
+		tab[cpy->hash][0] = (long)cpy->hash;
+		tab[cpy->hash][1] = &cpy;
+		printf("Valeur tab[0][0] = %ld\n", (long)tab[0][0]);
+		printf("Valeur tab[0][1]= %p\n", tab[0][1]);
 	}
 //	else
 //		creer liste chainer
 }
 
-static char	**ft_malloc_tab(char **tab, int i, int nb)
+static void		**ft_malloc_tab(void **tab, int i, int nb)
 {
 	int j;
 
 	j = 0;
 	while (j != i)
 	{
-		tab[j] = (char *)malloc(sizeof(char) * nb + 1);
+		tab[j] = (void *)malloc(sizeof(void) * nb + 1);
 		if (!tab[j])
 			return (NULL);
-		tab[j] = 0;
+		tab[j] = NULL;
 		j++;
 	}
 	return (tab);
 }
 
-int			ft_resolve(t_lst *start, int i)
+int				ft_resolve(t_lst *start, int i)
 {
 	t_lst	*cpy;
-	char	**tab_hash;
+	void	**tab_hash;
 
 	cpy = start;
-	tab_hash = (char **)malloc(sizeof(char *) * i);
+	tab_hash = (void **)malloc(sizeof(void *) * i);
 	if (!tab_hash)
 		return (0);
 	tab_hash = ft_malloc_tab(tab_hash, i, 2);
 	while (cpy)
 	{
-		ft_insert_data_in_tab(tab_hash, &cpy);
+		ft_insert_data_in_tab(&tab_hash, cpy);
 		cpy = cpy->next;
 	}
-	printf("test\n");
-	printf("tab = %s\n", tab_hash[0]);
 	return (1);
 }
