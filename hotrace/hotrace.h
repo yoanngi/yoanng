@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:22:56 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/22 16:22:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 11:54:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,7 @@ typedef struct		s_lst
 	char			*valeur;
 	long			hash;
 	long			compteur;
+	struct s_lst	*collision;
 	struct s_lst	*next;
 }					t_lst;
 
@@ -34,5 +35,6 @@ t_lst				*ft_list_new(void);
 int					get_next_line(int fd, char **line);
 int					ft_resolve(t_lst *start, int i);
 int					ft_recupere_infos(void);
+long				ft_hash(char *cle);
 
 #endif
