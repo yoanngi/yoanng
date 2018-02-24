@@ -31,9 +31,14 @@ unsigned long		**ft_insert(unsigned long **tab, t_lst *cpy)
 	{
 		tab[cpy->hash][0] = cpy->hash;
 		tab[cpy->hash][1] = (unsigned long long)&cpy;
+		printf("adresse de cpy = %p\n", &cpy);
+		printf("adresse de cpy->next = %p\n", &cpy->next);
 	}
 	else
+	{
+		printf("Collision\n");
 		ft_collision(cpy, tab, cpy->hash);
+	}
 	return (tab);
 }
 

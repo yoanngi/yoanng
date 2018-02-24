@@ -21,25 +21,28 @@ void				ft_existe(char **line, unsigned long **tab)
 	hash = ft_hash(*line);
 	if (tab[hash][1] != 0)
 	{
-		cpy = (t_lst *)tab[hash][1] + 2;
-		printf("test\n");
-		printf("%s\n", cpy->cle);
+		cpy = (t_lst *)tab[hash][1];
+		printf("test ft_existe, adresse donne a cpy = %p\n", &cpy);
+		printf("|%s|\n", cpy->cle);
+		printf("|%s|\n", cpy->valeur);
 		while (cpy->cle != NULL)
 		{
 			if (ft_strcmp(*line, cpy->cle) == 0)
 			{
 				ft_putstr(cpy->valeur);
-				break ;
+				ft_putstr("\n");
+				return ;
 			}
 			cpy = cpy->next;
+			if (cpy->cle == NULL || cpy->valeur == NULL)
+				return ;
 		}
 	}
 	else
 	{
 		ft_putstr(*line);
-		ft_putstr(": Not_found.");
+		ft_putstr(": Not_found.\n");
 	}
-	ft_putstr("\n");
 }
 
 void				ft_whatdoyouwant(unsigned long **tab)

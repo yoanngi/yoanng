@@ -37,12 +37,31 @@ long		ft_hash(char *cle)
 	return (hash);
 }
 
-void		ft_add_infos(char **line, char **cpy, t_lst **list, unsigned long **tab)
+void		ft_add_infos(char **line, char **cpy, t_lst *list, unsigned long **tab)
 {
-	(*list)->cle = ft_strdup(*cpy);
-	(*list)->valeur = ft_strdup(*line);
-	(*list)->hash = ft_hash((*list)->cle);
-	ft_insert(tab, *list);
+	t_lst			*new;
+	unsigned long	hash;
+
+	new = ft_list_new();
+
+	hash = ft_hash(*cpy);
+	list->cle = ft_strdup(*cpy);
+	list->valeur = ft_strdup(*line);
+	list->hash = hash;
+	if (tab[hash][0] == 0)
+	{
+		new->cle = ft_strdup(*cpy);
+		new->valeur = ft_strdup(*line);
+		new->hash = hash;
+		printf("insertion ! -> %p\n", &new);
+		printf("insertion (next) ! -> %p\n", &new->next);
+		tab[hash][0] = list->hash;
+		tab[hash][1] = (unsigned long)&new->next;
+		printf("tab 1 = %lx\n", tab[hash][1]);
+	}
+	else
+		printf("collision\n");
+	//ft_insert(tab, *list);
 }
 
 int			ft_recupere_infos(unsigned long **tab)
@@ -54,13 +73,13 @@ int			ft_recupere_infos(unsigned long **tab)
 	int		i;
 
 	i = 1;
-	start = ft_list_new();
-	list = start;
+	list = ft_list_new();
+	start = list;
 	while (get_next_line(0, &line))
 	{
 		if (i++ % 2 == 0)
 		{
-			ft_add_infos(&line, &cpy, &list, tab);
+			ft_add_infos(&line, &cpy, list, tab);
 			ft_strdel(&cpy);
 			list->next = ft_list_new();
 			list = list->next;
@@ -69,6 +88,14 @@ int			ft_recupere_infos(unsigned long **tab)
 			cpy = ft_strdup(line);
 		if (!ft_strcmp("", line))
 			break ;
+	}
+	while (start)
+	{
+		printf("cle = %s\n", start->cle);
+		printf("valeur = %s\n", start->cle);
+		printf("adresse start = %p\n", &start);
+		printf("adresse start->next = %p\n\n", &start->next);
+		start = start->next;
 	}
 	ft_whatdoyouwant(tab);
 //	ft_resolve(start, i);
