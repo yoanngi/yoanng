@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/23 16:16:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 16:44:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 17:52:48 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ int		ft_check_long(int i, t_lst *start)
 {
 	char	*line;
 
-	if (i > 4)
+	if (i > 400)
 		return (0);
 	else
 	{

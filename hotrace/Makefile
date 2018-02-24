@@ -6,7 +6,11 @@
 #    By: xamartin <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/02/23 16:14:51 by xamartin     #+#   ##    ##    #+#        #
+<<<<<<< HEAD
 #    Updated: 2018/02/24 14:37:03 by yoginet     ###    #+. /#+    ###.fr      #
+=======
+#    Updated: 2018/02/23 17:52:11 by xamartin    ###    #+. /#+    ###.fr      #
+>>>>>>> 123b871fa5a52f9b41a3cd9985a2e876316cfca6
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,6 +34,7 @@ SRCS = main.c\
 	   ft_list_new.c\
 	   ft_recupere_infos.c\
 	   ft_whatdoyouwant.c\
+<<<<<<< HEAD
 	   ft_malloc_tab.c\
 	   ft_putstr.c\
 	   ft_strsub.c\
@@ -43,6 +48,9 @@ SRCS = main.c\
 	   ft_strcpy.c\
 	   ft_strchr.c\
 	   ft_memset.c\
+=======
+	   ft_check_long.c
+>>>>>>> 123b871fa5a52f9b41a3cd9985a2e876316cfca6
 
 
 OBJS = $(SRCS:.c=.o)
