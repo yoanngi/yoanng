@@ -15,9 +15,14 @@
 
 int		main(void)
 {
-	if (!ft_recupere_infos())
-	{
-		ft_putstr("error lecture donne\n");
-	}
+	unsigned long	**tab;
+	int				i;
+
+	i = 10000000;
+	tab = (unsigned long **)malloc(sizeof(unsigned long *) * i);
+	if (!tab)
+		return (1);
+	ft_malloc_tab(tab, i, 2);
+	ft_recupere_infos(tab);
 	return (0);
 }

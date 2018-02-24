@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
+#    By: xamartin <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
-#    Created: 2018/02/23 16:10:21 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/02/23 16:35:09 by yoginet     ###    #+. /#+    ###.fr      #
+#    Created: 2018/02/23 16:14:51 by xamartin     #+#   ##    ##    #+#        #
+#    Updated: 2018/02/23 17:52:11 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -32,7 +32,7 @@ SRCS = main.c\
 	   ft_recupere_infos.c\
 	   ft_resolve.c\
 	   ft_whatdoyouwant.c\
-	   ft_check_long.c\
+	   ft_check_long.c
 
 
 OBJS = $(SRCS:.c=.o)

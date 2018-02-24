@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:19:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 16:14:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/23 17:55:06 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,15 +37,15 @@ long		ft_hash(char *cle)
 	return (hash);
 }
 
-void		ft_add_infos(char **line, char **cpy, t_lst **list, int nb)
+void		ft_add_infos(char **line, char **cpy, t_lst **list, unsigned long **tab)
 {
 	(*list)->cle = ft_strdup(*cpy);
 	(*list)->valeur = ft_strdup(*line);
 	(*list)->hash = ft_hash((*list)->cle);
-	(*list)->compteur = nb;
+	ft_insert(tab, *list);
 }
 
-int			ft_recupere_infos(void)
+int			ft_recupere_infos(unsigned long **tab)
 {
 	char	*line;
 	char	*cpy;
@@ -58,9 +58,9 @@ int			ft_recupere_infos(void)
 	list = start;
 	while (get_next_line(0, &line))
 	{
-		if (i % 2 == 0)
+		if (i++ % 2 == 0)
 		{
-			ft_add_infos(&line, &cpy, &list, i);
+			ft_add_infos(&line, &cpy, &list, tab);
 			ft_strdel(&cpy);
 			list->next = ft_list_new();
 			list = list->next;
@@ -69,8 +69,8 @@ int			ft_recupere_infos(void)
 			cpy = ft_strdup(line);
 		if (!ft_strcmp("", line))
 			break ;
-		i++;
 	}
-	ft_resolve(start, i);
+	ft_whatdoyouwant(tab);
+//	ft_resolve(start, i);
 	return (1);
 }
