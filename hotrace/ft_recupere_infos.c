@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:19:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 16:14:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/24 14:43:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,40 +37,54 @@ long		ft_hash(char *cle)
 	return (hash);
 }
 
-void		ft_add_infos(char **line, char **cpy, t_lst **list, int nb)
+void		ft_add_infos(char **line, char **cpy, unsigned long **tab)
 {
-	(*list)->cle = ft_strdup(*cpy);
-	(*list)->valeur = ft_strdup(*line);
-	(*list)->hash = ft_hash((*list)->cle);
-	(*list)->compteur = nb;
+	unsigned long	hash;
+	t_lst			*list;
+	t_lst			*col;
+
+	hash = ft_hash(*cpy);
+	if (tab[hash][0] == 0)
+	{
+		list = ft_list_new();
+		list->cle = ft_strdup(*cpy);
+		list->valeur = ft_strdup(*line);
+		list->hash = hash;
+		tab[hash][0] = (unsigned long)hash;
+		tab[hash][1] = (unsigned long)list;
+	}
+	else
+	{
+		col = (t_lst *)tab[hash][1];
+		while (col->next)
+			col = col->next;
+		col->next = ft_list_new();
+		col->cle = ft_strdup(*cpy);
+		col->valeur = ft_strdup(*line);
+		col->hash = hash;
+	}
 }
 
-int			ft_recupere_infos(void)
+int			ft_recupere_infos(unsigned long **tab)
 {
 	char	*line;
 	char	*cpy;
-	t_lst	*start;
-	t_lst	*list;
 	int		i;
 
 	i = 1;
-	start = ft_list_new();
-	list = start;
 	while (get_next_line(0, &line))
 	{
-		if (i % 2 == 0)
+		if (i++ % 2 == 0)
 		{
-			ft_add_infos(&line, &cpy, &list, i);
+			ft_add_infos(&line, &cpy, tab);
 			ft_strdel(&cpy);
-			list->next = ft_list_new();
-			list = list->next;
 		}
 		else
 			cpy = ft_strdup(line);
 		if (!ft_strcmp("", line))
 			break ;
-		i++;
+		free(line);
 	}
-	ft_resolve(start, i);
+	ft_whatdoyouwant(tab);
 	return (1);
 }

@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
+#    By: xamartin <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
-#    Created: 2018/02/23 16:10:21 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/02/23 16:35:09 by yoginet     ###    #+. /#+    ###.fr      #
+#    Created: 2018/02/23 16:14:51 by xamartin     #+#   ##    ##    #+#        #
+#    Updated: 2018/02/24 14:37:03 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,21 +18,31 @@ NAME = hotrace
 #COMIPLATION
 
 CC = gcc
-CFLAGS 		= -Wall -Wextra -Werror
 
+CFLAGS 		= -Wall -Wextra -Werror
 
 #PATH
 
 INCLUDE = hotrace.h
-LIBFT = libft/*.c
 
 SRCS = main.c\
 	   ft_gnl.c\
 	   ft_list_new.c\
 	   ft_recupere_infos.c\
-	   ft_resolve.c\
 	   ft_whatdoyouwant.c\
-	   ft_check_long.c\
+	   ft_malloc_tab.c\
+	   ft_putstr.c\
+	   ft_strsub.c\
+	   ft_strdup.c\
+	   ft_strcmp.c\
+	   ft_memcpy.c\
+	   ft_strlen.c\
+	   ft_strdel.c\
+	   ft_strnew.c\
+	   ft_putchar.c\
+	   ft_strcpy.c\
+	   ft_strchr.c\
+	   ft_memset.c\
 
 
 OBJS = $(SRCS:.c=.o)
@@ -42,7 +52,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -I $(INCLUDE) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $(NAME)
 
 ./%.o:./%.c
 	@$(CC) $(CFLAGS) -o $@ -c $<

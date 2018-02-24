@@ -6,34 +6,33 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/23 14:59:52 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 16:47:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/24 14:43:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 
-void	ft_existe(char **line, unsigned long **tab)
+void				ft_existe(char **line, unsigned long **tab)
 {
-	t_lst				*cpy;
-	unsigned long		hash;
+	t_lst			*cpy;
+	unsigned long	hash;
 
 	hash = ft_hash(*line);
-	printf("Hash = %lu", hash);
 	if (tab[hash][1] != 0)
 	{
-		cpy = (t_lst *)tab[hash][1] + 2;
-		printf("Adress = %p\n", &cpy);
-		while (cpy->valeur != NULL)
+		cpy = (t_lst *)tab[hash][1];
+		while (cpy)
 		{
-			printf("cpy->valeur = %s\n", cpy->valeur);
 			if (ft_strcmp(*line, cpy->cle) == 0)
 			{
 				ft_putstr(cpy->valeur);
 				ft_putstr("\n");
-				break ;
+				return ;
 			}
 			cpy = cpy->next;
+			if (cpy->cle == NULL || cpy->valeur == NULL)
+				return ;
 		}
 	}
 	else
@@ -43,9 +42,9 @@ void	ft_existe(char **line, unsigned long **tab)
 	}
 }
 
-void	ft_whatdoyouwant(unsigned long **tab)
+void				ft_whatdoyouwant(unsigned long **tab)
 {
-	char	*line;
+	char			*line;
 
 	while (get_next_line(0, &line))
 	{

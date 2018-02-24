@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/22 14:22:56 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/23 16:36:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/24 14:34:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@
 # include "Libft/libft.h"
 
 # include <stdio.h>
+#include <fcntl.h>
 
 # define BUFF_SIZE 32
 
@@ -35,16 +36,25 @@ typedef struct		s_lst
 
 t_lst				*ft_list_new(void);
 int					get_next_line(int fd, char **line);
-long				ft_hash(char *cle);
-void				ft_add_infos(char **line, char **cpy, t_lst **list, int nb);
-int					ft_recupere_infos(void);
-void				ft_collision(t_lst *data, unsigned long **tab, int hash);
-unsigned long		**ft_insert(unsigned long **tab, t_lst *cpy);
 unsigned long		**ft_malloc_tab(unsigned long **tab, int i, int nb);
-int					ft_resolve(t_lst *start, int i);
-void				ft_existe(char **line, unsigned long **tab);
+int					ft_recupere_infos(unsigned long **tab);
+void				ft_add_infos(char **line, char **cpy, unsigned long **tab);
+long				ft_hash(char *cle);
 void				ft_whatdoyouwant(unsigned long **tab);
-int					ft_check_long(int i, t_lst *start);
-int					ft_hereornot(char **line, t_lst **data);
+void				ft_existe(char **line, unsigned long **tab);
+char				*ft_strchr(const char *s, int c);
+void				ft_strdel(char **as);
+char				*ft_strsub(char const *s, unsigned int start, size_t len);
+char				*ft_strnew(size_t size);
+size_t				ft_strlen(const char *s);
+char				*ft_strdup(const char *s1);
+void				ft_strdel(char **as);
+int					ft_strcmp(const char *s1, const char *s2);
+char				*ft_strchr(const char *s, int c);
+void				ft_putstr(const char *str);
+int					ft_putchar(int c);
+void				*ft_memcpy(void *dst, const void *src, size_t n);
+char				*ft_strcpy(char *dst, const char *src);
+void				*ft_memset(void *str, int c, size_t n);
 
 #endif
