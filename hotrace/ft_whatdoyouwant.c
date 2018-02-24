@@ -21,7 +21,7 @@ void				ft_existe(char **line, unsigned long **tab)
 	hash = ft_hash(*line);
 	if (tab[hash][1] != 0)
 	{
-		cpy = (t_lst *)tab[hash][1];
+		cpy = (t_lst *)tab[hash][1] - 16;
 		printf("test ft_existe, adresse donne a cpy = %p\n", &cpy);
 		printf("|%s|\n", cpy->cle);
 		printf("|%s|\n", cpy->valeur);
