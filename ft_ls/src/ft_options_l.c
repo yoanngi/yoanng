@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 15:01:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 15:39:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ static void			ft_insert_infos(t_lst **ret, char *tmp)
 	(*ret)->otherfile = NULL;
 }
 
-static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
+static t_lst		*ft_recupere_info(s_struct *data, int indexfile, char *file)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -42,11 +42,12 @@ static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
 
 	ret = ft_lstnew_ls();
 	cpy = ret;
-	data->multifile[indexfile] = ft_strjoin(data->multifile[indexfile], "/");
-	dir = opendir(data->multifile[indexfile]);
+	file = ft_strdup(data->multifile[indexfile]);
+	file = ft_strjoin(data->multifile[indexfile], "/");
+	dir = opendir(file);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
-		tmp = ft_strdup(data->multifile[indexfile]);
+		tmp = ft_strdup(file);
 		tmp = ft_strjoin(tmp, fichierlu->d_name);
 		ret->name = ft_strdup(fichierlu->d_name);
 		ft_insert_infos(&ret, tmp);
@@ -61,10 +62,13 @@ static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
 t_lst				*ft_ls_l(s_struct *data, int indexfile)
 {
 	t_lst	*rep;
+	char	*tmp;
 
+	tmp = NULL;
 	if (data->liste == NULL)
 	{
-		rep = ft_recupere_info(data, indexfile);
+		rep = ft_recupere_info(data, indexfile, tmp);
+		ft_strdel(&tmp);
 		return (rep);
 	}
 	return (data->liste);

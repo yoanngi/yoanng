@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 11:15:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 15:46:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,6 @@ void			ft_print_ls(s_struct *data, int indexfile)
 
 	recur = data->liste;
 	ft_ls_simple(data->multifile[indexfile]);
-	ft_putstr("\n");
 	while (recur)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)
@@ -98,7 +97,6 @@ void			ft_print_ls_liste(s_struct *data, int indexfile)
 		ft_putstr("total ");
 		ft_print_blocks(&rep);
 		ft_ls_liste(&rep, data->amin);
-	//	ft_putstr("\n");
 		while (cpy)
 		{
 			if (cpy->otherfile != NULL)

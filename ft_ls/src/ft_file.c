@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 10:59:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 15:07:08 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,9 +16,7 @@
 int				ft_file_exist(char *file_ornot, int silent)
 {
 	DIR		*dir;
-	int		i;
 
-	i = 0;
 	silent = 0;
 	if ((dir = opendir(file_ornot)) != NULL)
 	{

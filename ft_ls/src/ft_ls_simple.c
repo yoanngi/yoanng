@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/13 15:53:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 15:43:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,10 +15,7 @@
 
 static void			ft_print_ls_in_order(t_lst **print)
 {
-	t_lst *clear;
-
-	clear = *print;
-	while (*print)
+	while ((*print)->name)
 	{
 		ft_putstr((*print)->name);
 		ft_putstr("\n");
