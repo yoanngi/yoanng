@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 13:51:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 15:01:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,16 +15,21 @@
 
 static void			ft_insert_infos(t_lst **ret, char *tmp)
 {
+	(*ret)->droit = ft_get_droit(&tmp);
 	(*ret)->user = ft_get_user(&tmp);
 	(*ret)->groupe = ft_get_groupe(&tmp);
 	(*ret)->date = ft_get_time(&tmp);
 	(*ret)->time = ft_return_time((*ret)->date);
 	(*ret)->month = ft_return_month((*ret)->date);
 	(*ret)->day = ft_return_day((*ret)->date);
-	(*ret)->droit = ft_get_droit(&tmp);
 	(*ret)->size = ft_get_size(&tmp);
-	(*ret)->blocks = ft_get_blocks(&tmp);
 	(*ret)->link = ft_get_link(&tmp);
+	(*ret)->blocks = ft_get_blocks(&tmp);
+	if ((*ret)->droit[0] == 'l')
+		(*ret)->symbol = ft_get_new_path(&tmp);
+	else
+		(*ret)->symbol = NULL;
+	(*ret)->otherfile = NULL;
 }
 
 static t_lst		*ft_recupere_info(s_struct *data, int indexfile)
