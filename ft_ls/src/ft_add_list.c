@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 15:15:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 11:06:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,14 +93,6 @@ t_lst			*ft_clean_list(t_lst *data)
 		tmp->droit = NULL;
 		free(tmp->groupe);
 		tmp->groupe = NULL;
-	//	free(&tmp->month);
-	//	printf("free !\n");
-	//	tmp->month = NULL;
-	//	free(&tmp->day);
-	//	printf("free !\n");
-	//	tmp->day = NULL;
-	//	free(&tmp->time);
-	//	printf("free !\n");
 		free(tmp);
 		tmp = tmp->next;
 	}

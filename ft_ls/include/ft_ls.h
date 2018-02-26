@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/22 12:03:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 10:57:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,6 +86,9 @@ char					**ft_multi_argv(int nb, char **argv, int count);
 char					**ft_add_option(int argc, char **params, int p_valid);
 int						ft_file_exist(char *file_ornot, int silent);
 int						ft_file_exist_malloc(char *file_ornot);
+int						ft_option_exist(char *str, int nb);
+void					ft_insert_valid_option(char *cmp, s_struct **data);
+int						ft_count_files_valid(int argc, char **argv);
 void					ft_clean_data(t_lst **data);
 t_lst					*ft_clean_list(t_lst *data);
 /*
@@ -103,6 +106,9 @@ t_lst					*ft_ls_r(s_struct *data, int indexfile);
 t_lst					*ft_read_repertoire(t_dir **fichierlu, char *path);
 t_lst					*ft_ls_l(s_struct *data, int indexfile);
 t_lst					*ft_class_print_t(t_lst **data);
+int						ft_how_to_treat(int ac, char **av, int i, s_struct **data);
+void					ft_ls_two(int i, int nb, char **params, s_struct **data);
+void					ft_ls_two_inverse(int i, int nb, char **params, s_struct **data);
 /*
 **	Recuperation d'infos
 */

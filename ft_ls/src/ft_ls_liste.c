@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/13 12:02:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 16:32:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 11:08:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,20 +90,18 @@ static void			ft_ls_liste_three(t_lst **data, int size, int link)
 	ft_class_print(data, 0, 0);
 	while (cpy)
 	{
+		if (cpy->name == NULL || cpy->next == NULL)
+			return ;
 		if (ft_strcmp(cpy->name, ".") == 0)
 			cpy = cpy->next;
 		if (ft_strcmp(cpy->name, "..") == 0)
 			cpy = cpy->next;
-		if (cpy->name == NULL || cpy->next == NULL)
-			return ;
 		else
 		{
 			ft_print_liste_ls(&cpy, grp, link, use);
 			ft_print_liste_ls_two(&cpy, size);
 			ft_putstr("\n");
 			cpy = cpy->next;
-			if (cpy->droit == NULL)
-				return ;
 		}
 	}
 }

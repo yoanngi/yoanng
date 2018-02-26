@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 16:08:33 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/21 15:40:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 11:05:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,8 +59,9 @@ char			ft_get_droit_two(char **path)
 	else if ((S_ISBLK(buf.st_mode)) == 1)
 		return ('b');
 	else if ((S_ISFIFO(buf.st_mode)) == 1)
-		return ('f');
-	// add c
+		return ('p');
+	else if ((S_ISCHR(buf.st_mode)) == 1)
+		return ('c');
 	else
 		return ('-');
 }
