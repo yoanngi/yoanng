@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 11:06:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 14:53:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,20 +27,31 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 			((*data)->nb_file + 1));
 }
 
+static char		**ft_range_tab(char **tab, int len, int i)
+{
+	char	*tmp;
+	int		start;
+
+	start = i;
+	while (i != len - 1)
+	{
+		if (ft_strcmp(tab[i], tab[i + 1]) > 0 && i + 1 <= len)
+		{
+			tmp = tab[i];
+			tab[i] = tab[i + 1];
+			tab[i + 1] = tmp;
+			i = start;
+		}
+		else
+			i++;
+	}
+	return (tab);
+}
+
 int				ft_how_to_treat(int ac, char **av, int i, s_struct **data)
 {
-	int j;
-
-	j = ac;
-	while (j-- && j != i)
-	{
-		if (av[j - 1][0] == '-')
-		{
-			ft_ls_two(i, ac, av, data);
-			return (0);
-		}
-	}
-	ft_ls_two_inverse(i, ac, av, data);
+	ft_range_tab(av, ac, i);
+	ft_ls_two(i, ac, av, data);
 	return (0);
 }
 
@@ -57,26 +68,10 @@ void			ft_ls_two(int i, int nb, char **params, s_struct **data)
 			dir++;
 		}
 		else
-			basic_error(params[i]);
-		i++;
-	}
-}
-
-void			ft_ls_two_inverse(int i, int nb, char **params, s_struct **data)
-{
-	int dir;
-
-	dir = 0;
-	while (nb != i)
-	{
-		if (ft_file_exist(params[nb - 1], 1) == 1)
 		{
-			(*data)->multifile[dir] = ft_strdup(params[nb - 1]);
-			dir++;
+			basic_error(params[i]);
 		}
-		else
-			basic_error(params[nb - 1]);
-		nb--;
+		i++;
 	}
 }
 

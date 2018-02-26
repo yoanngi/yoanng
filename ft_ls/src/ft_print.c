@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 16:29:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 11:15:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,7 +98,7 @@ void			ft_print_ls_liste(s_struct *data, int indexfile)
 		ft_putstr("total ");
 		ft_print_blocks(&rep);
 		ft_ls_liste(&rep, data->amin);
-		ft_putstr("\n");
+	//	ft_putstr("\n");
 		while (cpy)
 		{
 			if (cpy->otherfile != NULL)

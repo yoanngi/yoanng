@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 10:57:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 14:53:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ typedef struct			s_lst
 	char				*symbol;
 	int					size;
 	int					link;
-	int					blocks;
+	blkcnt_t			blocks;
 	struct s_lst		*otherfile;
 	struct s_lst		*next;
 }						t_lst;
@@ -108,7 +108,6 @@ t_lst					*ft_ls_l(s_struct *data, int indexfile);
 t_lst					*ft_class_print_t(t_lst **data);
 int						ft_how_to_treat(int ac, char **av, int i, s_struct **data);
 void					ft_ls_two(int i, int nb, char **params, s_struct **data);
-void					ft_ls_two_inverse(int i, int nb, char **params, s_struct **data);
 /*
 **	Recuperation d'infos
 */

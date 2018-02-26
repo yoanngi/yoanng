@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 11:23:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/20 15:16:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 13:51:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ static void			ft_insert_infos(t_lst **ret, char *tmp)
 	(*ret)->day = ft_return_day((*ret)->date);
 	(*ret)->droit = ft_get_droit(&tmp);
 	(*ret)->size = ft_get_size(&tmp);
+	(*ret)->blocks = ft_get_blocks(&tmp);
 	(*ret)->link = ft_get_link(&tmp);
 }
 

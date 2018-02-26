@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 14:25:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/21 14:47:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 13:50:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,7 @@ int		ft_get_link(char **path)
 int		ft_get_blocks(char **path)
 {
 	t_stat			buf;
-	int				cpy;
+	blkcnt_t		cpy;
 
 	if (lstat(*path, &buf) == -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 10:26:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 14:07:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,8 @@ void	ft_check_options(s_struct *data)
 			ft_putstr(":\n");
 		}
 		ft_print_ls_liste(data, i);
+		if (data->nb_file > 1)
+			ft_putchar('\n');
 		data->liste = ft_clean_list(data->liste);
 		data->nb_file--;
 		i++;
