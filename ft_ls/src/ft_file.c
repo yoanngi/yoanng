@@ -12,7 +12,7 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
+/*
 static int		ft_test_curent(char *path, char *name, int silent)
 {
 	DIR		*dir;
@@ -59,7 +59,7 @@ static int		ft_test_father(char *str, int silent)
 		len--;
 	}
 	return (0);
-}
+}*/
 
 int				ft_file_exist(char *file_ornot, int silent)
 {
@@ -67,18 +67,21 @@ int				ft_file_exist(char *file_ornot, int silent)
 	int		i;
 
 	i = 0;
+	silent = 0;
 	if ((dir = opendir(file_ornot)) != NULL)
 	{
 		closedir(dir);
 		return (1);
 	}
+	return (0);
+	/*
 	while (file_ornot[i])
 	{
 		if (file_ornot[i] == '/')
 			return (ft_test_father(file_ornot, silent));
 		i++;
 	}
-	return (ft_test_curent(".", file_ornot, silent));
+	return (ft_test_curent(".", file_ornot, silent));*/
 }
 
 int				ft_file_exist_malloc(char *file_ornot)

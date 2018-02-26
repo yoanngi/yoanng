@@ -89,11 +89,6 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	(*data)->nb_file = ft_count_files_valid(nb, params);
 	(*data)->multifile = (char **)malloc(sizeof(char *) *
 			((*data)->nb_file + 1));
-	if ((*data)->nb_file == 0)
-	{
-		(*data)->multifile[0] = ft_strdup(".");
-		(*data)->nb_file = 1;
-	}
 }
 
 static void		ft_ls_two(int i, int nb, char **params, s_struct **data)
@@ -110,6 +105,7 @@ static void		ft_ls_two(int i, int nb, char **params, s_struct **data)
 		}
 		else
 			basic_error(params[nb - 1]);
+
 		nb--;
 	}
 }
@@ -127,7 +123,9 @@ void			ft_ls(char **params, int nb, int end)
 		if (params[i][0] == '-')
 		{
 			if (ft_option_exist(params[i], 1) == 1)
+			{
 				ft_insert_valid_option(params[i], &data);
+			}
 		}
 		else
 		{
@@ -135,7 +133,7 @@ void			ft_ls(char **params, int nb, int end)
 			end = 1;
 		}
 		i++;
-		if (i == nb - 1)
+		if (i == nb)
 			end = 1;
 	}
 	ft_check_options(data);
