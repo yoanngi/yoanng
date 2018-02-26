@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 15:01:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 16:40:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,12 @@ static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 		ft_strdel(&cpy);
 	}
 	else
-		(*data)->path = ft_strjoin(path, fichierlu->d_name);
+	{
+		cpy = ft_strdup((*data)->path);
+		ft_strdel(&(*data)->path);
+		(*data)->path = ft_strjoin(cpy, fichierlu->d_name);
+		ft_strdel(&cpy);
+	}
 }
 
 static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)

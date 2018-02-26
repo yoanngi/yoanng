@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 11:06:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 16:26:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,6 +93,8 @@ t_lst			*ft_clean_list(t_lst *data)
 		tmp->droit = NULL;
 		free(tmp->groupe);
 		tmp->groupe = NULL;
+		free(tmp->symbol);
+		tmp->symbol = NULL;
 		free(tmp);
 		tmp = tmp->next;
 	}

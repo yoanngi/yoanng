@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/09 14:10:45 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 14:34:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/26 16:12:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ char			*ft_strjoin_clean(char const *s1, char const *s2)
 		j++;
 	}
 	new[i] = '\0';
-//	free(&s1);
-//	free(&s2);
+	free(&s1);
+	free(&s2);
 	return (new);
 }
