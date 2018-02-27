@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/13 12:02:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 16:21:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 16:09:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,16 +23,21 @@ static void			ft_print_liste_ls_two(t_lst **data, int size)
 	ft_putnbr((*data)->size);
 	ft_putstr(" ");
 	ft_putstr((*data)->month);
+	ft_strdel(&(*data)->month);
 	ft_putstr(" ");
 	ft_putstr((*data)->day);
+	ft_strdel(&(*data)->day);
 	ft_putstr(" ");
 	ft_putstr((*data)->time);
+	ft_strdel(&(*data)->time);
 	ft_putstr(" ");
 	ft_putstr((*data)->name);
+	ft_strdel(&(*data)->name);
 	if ((*data)->symbol != NULL)
 	{
 		ft_putstr(" -> ");
 		ft_putstr((*data)->symbol);
+		ft_strdel(&(*data)->symbol);
 	}
 }
 
@@ -41,6 +46,7 @@ static void			ft_print_liste_ls(t_lst **data, int grp, int link, int use)
 	int		len;
 
 	ft_putstr((*data)->droit);
+	ft_strdel(&(*data)->droit);
 	ft_putstr(" ");
 	len = ft_strlen(ft_itoa((*data)->link));
 	while (len++ != link + 1)
@@ -51,10 +57,12 @@ static void			ft_print_liste_ls(t_lst **data, int grp, int link, int use)
 	len = ft_strlen((*data)->user);
 	while (len++ <= use + 1)
 		ft_putchar(' ');
+	ft_strdel(&(*data)->user);
 	ft_putstr((*data)->groupe);
 	len = ft_strlen((*data)->groupe);
 	while (len++ != grp + 1)
 		ft_putchar(' ');
+	ft_strdel(&(*data)->groupe);
 }
 
 static void			ft_ls_liste_two(t_lst **data, int size, int link)

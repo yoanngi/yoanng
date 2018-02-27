@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/24 10:18:55 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/09 14:15:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 14:08:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_clean(const char *s1, const char *s2, char *new);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
@@ -108,6 +109,5 @@ int					ft_isupper(int c);
 int					ft_islower(int c);
 char				**ft_malloc_tab(char **tab, int len);
 void				ft_print_carre(char **tab, int len);
-char				*ft_strjoin_clean(char const *s1, char const *s2);
 
 #endif

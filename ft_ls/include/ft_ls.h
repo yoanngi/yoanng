@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 14:53:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 16:21:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,6 +80,7 @@ void					ft_ls(char **params, int nb, int end);
 t_lst					*ft_lstnew_ls(void);
 void					ft_swap_lst(t_lst **s1, t_lst **s2);
 void					ft_swap_lst2(t_lst **s2, t_lst **tmp);
+void					ft_swap_lst_simple(t_lst **s2, t_lst **tmp);
 t_lst					*ft_class_print(t_lst **data, int i, int cmp);
 char					*ft_one_argv(int nb, char **argv);
 char					**ft_multi_argv(int nb, char **argv, int count);
@@ -91,6 +92,7 @@ void					ft_insert_valid_option(char *cmp, s_struct **data);
 int						ft_count_files_valid(int argc, char **argv);
 void					ft_clean_data(t_lst **data);
 t_lst					*ft_clean_list(t_lst *data);
+void					ft_clean_tmp(t_lst **tmp);
 /*
 **	Fonction d'erreurs
 */

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 16:26:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 16:08:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,5 +105,6 @@ void			ft_print_ls_liste(s_struct *data, int indexfile)
 				ft_print_liste(cpy->otherfile, data->amin);
 			cpy = cpy->next;
 		}
+		ft_clean_list(data->liste);
 	}
 }

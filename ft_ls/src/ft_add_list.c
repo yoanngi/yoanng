@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 16:26:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 16:22:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ t_lst			*ft_lstnew_ls(void)
 	new->user = NULL;
 	new->groupe = NULL;
 	new->droit = NULL;
+	new->date = 0;
 	new->size = 0;
 	new->link = 0;
 	new->otherfile = NULL;
@@ -31,6 +32,16 @@ t_lst			*ft_lstnew_ls(void)
 	if (!new)
 		return (NULL);
 	return (new);
+}
+
+void			ft_swap_lst_simple(t_lst **s1, t_lst **s2)
+{
+	t_lst *tmp;
+
+	tmp = ft_lstnew_ls();
+	tmp->name = (*s1)->name;
+	(*s1)->name = (*s2)->name;
+	(*s2)->name = tmp->name;
 }
 
 void			ft_swap_lst(t_lst **s1, t_lst **s2)
@@ -59,7 +70,6 @@ void			ft_swap_lst(t_lst **s1, t_lst **s2)
 	(*s1)->symbol = (*s2)->symbol;
 	(*s1)->otherfile = (*s2)->otherfile;
 	ft_swap_lst2(s2, &tmp);
-	free(tmp);
 }
 
 void			ft_swap_lst2(t_lst **s2, t_lst **tmp)
@@ -74,6 +84,18 @@ void			ft_swap_lst2(t_lst **s2, t_lst **tmp)
 	(*s2)->symbol = (*tmp)->symbol;
 	(*s2)->link = (*tmp)->link;
 	(*s2)->otherfile = (*tmp)->otherfile;
+	ft_clean_tmp(tmp);
+}
+
+void			ft_clean_tmp(t_lst	**tmp)
+{
+	ft_strdel(&(*tmp)->name);
+	ft_strdel(&(*tmp)->path);
+	ft_strdel(&(*tmp)->user);
+	ft_strdel(&(*tmp)->groupe);
+	ft_strdel(&(*tmp)->droit);
+	ft_strdel(&(*tmp)->symbol);
+	free((*tmp)->otherfile);
 }
 
 t_lst			*ft_clean_list(t_lst *data)
@@ -95,7 +117,7 @@ t_lst			*ft_clean_list(t_lst *data)
 		tmp->groupe = NULL;
 		free(tmp->symbol);
 		tmp->symbol = NULL;
-		free(tmp);
+		//		free(tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);

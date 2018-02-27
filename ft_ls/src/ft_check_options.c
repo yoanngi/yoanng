@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 16:02:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 15:39:11 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,11 @@ void	ft_check_options(s_struct *data)
 	i = 0;
 	path = data->nb_file;
 	data->liste = NULL;
+	if (data->nb_file == 0)
+	{
+		data->nb_file = 1;
+		data->multifile[0] = ft_strdup(".");
+	}
 	while (data->nb_file != 0)
 	{
 		if (data->rmaj == 1)
@@ -40,5 +45,5 @@ void	ft_check_options(s_struct *data)
 		free(data->multifile[i]);
 		i++;
 	}
-	free(data);
+	//free(data);
 }

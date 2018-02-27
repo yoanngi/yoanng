@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 16:40:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 14:24:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,12 +16,14 @@
 static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 {
 	char	*cpy;
+	char	*tmp;
 	size_t	len;
 
 	len = ft_strlen(path);
 	if (path[len - 1] != '/')
 	{
-		(*data)->path = ft_strjoin(path, "/");
+		tmp = ft_strdup(path);
+		(*data)->path = ft_strjoin(tmp, "/");
 		cpy = ft_strdup((*data)->path);
 		ft_strdel(&(*data)->path);
 		(*data)->path = ft_strjoin(cpy, fichierlu->d_name);

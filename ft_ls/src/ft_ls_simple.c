@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 15:43:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/27 16:21:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ t_lst				*ft_class_print(t_lst **data, int i, int cmp)
 	{
 		if (ft_strcmp((*data)->name, cpy->name) > 0)
 		{
-			ft_swap_lst(data, &cpy);
+			ft_swap_lst_simple(data, &cpy);
 			i = 1;
 		}
 		*data = (*data)->next;
