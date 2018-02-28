@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:27:00 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/27 16:29:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/28 16:32:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ int		main(int argc, char **argv)
 	i = 1;
 	end = 0;
 	if (argc == 1)
-		ft_ls_simple((char *)".");
+		ft_ls_simple((char *)".", 0);
 	else if (argc > 1)
 	{
 		if ((params = (char **)malloc(sizeof(char *) * (argc + 1))) == NULL)

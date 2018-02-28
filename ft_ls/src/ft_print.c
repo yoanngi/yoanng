@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/27 16:08:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/28 16:33:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,17 +29,18 @@ static void		ft_resize_path(char *str)
 	}
 }
 
-static void		ft_print(t_lst *recur)
+static void		ft_print(t_lst *recur, int a)
 {
 	if (recur->path == NULL)
 		return ;
+	ft_putchar('\n');
 	ft_resize_path(recur->path);
 	ft_putstr(":\n");
-	ft_ls_simple(recur->path);
+	ft_ls_simple(recur->path, a);
 	while (recur)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)
-			ft_print(recur->otherfile);
+			ft_print(recur->otherfile, a);
 		recur = recur->next;
 	}
 }
@@ -76,11 +77,11 @@ void			ft_print_ls(s_struct *data, int indexfile)
 	t_lst	*recur;
 
 	recur = data->liste;
-	ft_ls_simple(data->multifile[indexfile]);
+	ft_ls_simple(data->multifile[indexfile], data->amin);
 	while (recur)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)
-			ft_print(recur->otherfile);
+			ft_print(recur->otherfile, data->amin);
 		recur = recur->next;
 	}
 }
