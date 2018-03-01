@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 16:02:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/01 10:02:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	(*data)->amin = 0;
 	(*data)->tmin = 0;
 	(*data)->lmin = 0;
-	(*data)->invalid = NULL;
+	(*data)->invalid = 0;
 	(*data)->nb_file = ft_count_files_valid(nb, params);
 	(*data)->multifile = (char **)malloc(sizeof(char *) *
 			((*data)->nb_file + 1));
@@ -69,6 +69,7 @@ void			ft_ls_two(int i, int nb, char **params, s_struct **data)
 		}
 		else
 		{
+			(*data)->invalid = 1;
 			basic_error(params[i]);
 		}
 		i++;

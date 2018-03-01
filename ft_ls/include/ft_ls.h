@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/28 16:32:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/01 16:06:54 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ typedef struct			s_struct
 	int					nb_file;
 	char				*file;
 	char				**multifile;
-	char				*invalid;
+	int					invalid;
 	t_lst				*liste;
 }						s_struct;
 
@@ -78,10 +78,11 @@ typedef struct stat		t_stat;
 */
 void					ft_ls(char **params, int nb, int end);
 t_lst					*ft_lstnew_ls(void);
-void					ft_swap_lst(t_lst **s1, t_lst **s2);
+void					ft_swap_lst(t_lst **s0, t_lst **s1, t_lst **s2);
 void					ft_swap_lst2(t_lst **s2, t_lst **tmp);
 void					ft_swap_lst_simple(t_lst **s2, t_lst **tmp);
 t_lst					*ft_class_print(t_lst **data, int i, int cmp);
+t_lst					*ft_class_print_liste(t_lst **data, int i, int cmp);
 char					*ft_one_argv(int nb, char **argv);
 char					**ft_multi_argv(int nb, char **argv, int count);
 char					**ft_add_option(int argc, char **params, int p_valid);

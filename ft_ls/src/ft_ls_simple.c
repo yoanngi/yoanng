@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/28 16:33:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/01 13:40:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,33 +27,6 @@ static void			ft_print_ls_in_order(t_lst **print, int a)
 			*print = (*print)->next;
 		}
 	}
-}
-
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
-{
-	t_lst	*cpy;
-	t_lst	*ret;
-
-	cpy = *data;
-	ret = *data;
-	cpy = cpy->next;
-	if (!(*data) || (*data)->name == NULL || (cpy->name == NULL &&
-	cpy->next == NULL))
-		return (ret);
-	while ((*data)->name != NULL && cpy->name != NULL)
-	{
-		if (ft_strcmp((*data)->name, cpy->name) > 0)
-		{
-			ft_swap_lst_simple(data, &cpy);
-			i = 1;
-		}
-		*data = (*data)->next;
-		cpy = cpy->next;
-		cmp++;
-	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(&ret, 0, 0);
-	return (ret);
 }
 
 void				ft_ls_simple(char *target, int a)

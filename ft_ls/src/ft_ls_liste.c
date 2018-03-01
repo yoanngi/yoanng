@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/13 12:02:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/27 16:09:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/01 13:41:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static void			ft_print_liste_ls_two(t_lst **data, int size)
 	int		len;
 
 	len = ft_strlen(ft_itoa((*data)->size));
-	while (len++ != size)
+	while (len++ != size + 1)
 		ft_putchar(' ');
 	ft_putnbr((*data)->size);
 	ft_putstr(" ");
@@ -47,12 +47,12 @@ static void			ft_print_liste_ls(t_lst **data, int grp, int link, int use)
 
 	ft_putstr((*data)->droit);
 	ft_strdel(&(*data)->droit);
-	ft_putstr(" ");
+	ft_putchar(' ');
 	len = ft_strlen(ft_itoa((*data)->link));
 	while (len++ != link + 1)
 		ft_putchar(' ');
 	ft_putnbr((*data)->link);
-	ft_putstr("  ");
+	ft_putstr(" ");
 	ft_putstr((*data)->user);
 	len = ft_strlen((*data)->user);
 	while (len++ <= use + 1)

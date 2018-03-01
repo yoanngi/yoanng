@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/27 16:22:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/01 16:49:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,19 @@ t_lst			*ft_lstnew_ls(void)
 	return (new);
 }
 
+void			ft_swap_lst(t_lst **s0, t_lst **s1, t_lst **s2)
+{
+	t_lst	*tmp;
+
+	(*s0)->next = *s2;
+	tmp = (*s2)->next;
+	(*s2)->next = *s1;
+	(*s1)->next = tmp;
+	tmp = *s1;
+	*s1 = *s2;
+	*s2 = tmp;
+}
+
 void			ft_swap_lst_simple(t_lst **s1, t_lst **s2)
 {
 	t_lst *tmp;
@@ -43,11 +56,12 @@ void			ft_swap_lst_simple(t_lst **s1, t_lst **s2)
 	(*s1)->name = (*s2)->name;
 	(*s2)->name = tmp->name;
 }
-
+/*
 void			ft_swap_lst(t_lst **s1, t_lst **s2)
 {
 	t_lst *tmp;
 
+	ft_putstr("bon swap\n");
 	tmp = ft_lstnew_ls();
 	tmp->name = (*s1)->name;
 	tmp->path = (*s1)->path;
@@ -84,8 +98,8 @@ void			ft_swap_lst2(t_lst **s2, t_lst **tmp)
 	(*s2)->symbol = (*tmp)->symbol;
 	(*s2)->link = (*tmp)->link;
 	(*s2)->otherfile = (*tmp)->otherfile;
-	ft_clean_tmp(tmp);
-}
+//	ft_clean_tmp(tmp);
+}*/
 
 void			ft_clean_tmp(t_lst	**tmp)
 {
