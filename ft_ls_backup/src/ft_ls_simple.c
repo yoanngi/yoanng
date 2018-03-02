@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/01 13:40:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,22 +15,18 @@
 
 static void			ft_print_ls_in_order(t_lst **print, int a)
 {
-	t_lst	*cpy;
-
-	cpy = *print;
-	while (cpy->name)
+	while ((*print)->name)
 	{
-		if (a == 0 && cpy->name[0] == '.')
-			cpy = cpy->next;
+		if (a == 0 && (*print)->name[0] == '.')
+			*print = (*print)->next;
 		else
 		{
-			ft_putstr(cpy->name);
+			ft_putstr((*print)->name);
 			ft_putstr("\n");
-			ft_strdel(&cpy->name);
-			cpy = cpy->next;
+			ft_strdel(&(*print)->name);
+			*print = (*print)->next;
 		}
 	}
-	free(*print);
 }
 
 void				ft_ls_simple(char *target, int a)

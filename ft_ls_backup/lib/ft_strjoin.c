@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_class.c                                       .::    .:/ .      .::   */
+/*   ft_strjoin.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:14:30 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:14:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
+char			*ft_strjoin(char const *s1, char const *s2)
 {
-	t_lst	*s1;
-	t_lst	*s2;
+	size_t	i;
+	size_t	j;
+	char	*new;
 
-	s1 = *data;
-	s2 = (*data)->next;
-	while (s1->name && s2->name)
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (new == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
 	{
-		if (ft_strcmp(s1->name, s2->name) > 0)
-		{
-			ft_swap_lst_simple(&s1, &s2);
-			i = 1;
-		}
-		s1 = s1->next;
-		s2 = s2->next;
-		cmp++;
+		new[i] = s1[i];
+		i++;
 	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(data, 0, 0);
-	return (*data);
+	while (s2[j])
+	{
+		new[i] = s2[j];
+		i++;
+		j++;
+	}
+	new[i] = '\0';
+	return (new);
 }

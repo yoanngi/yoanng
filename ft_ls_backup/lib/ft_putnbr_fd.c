@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_class.c                                       .::    .:/ .      .::   */
+/*   ft_putnbr_fd.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:12:02 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:12:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_lst	*s1;
-	t_lst	*s2;
-
-	s1 = *data;
-	s2 = (*data)->next;
-	while (s1->name && s2->name)
+	if (n == -2147483648)
 	{
-		if (ft_strcmp(s1->name, s2->name) > 0)
-		{
-			ft_swap_lst_simple(&s1, &s2);
-			i = 1;
-		}
-		s1 = s1->next;
-		s2 = s2->next;
-		cmp++;
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(data, 0, 0);
-	return (*data);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n = n * -1;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+		ft_putchar_fd(n + '0', fd);
 }

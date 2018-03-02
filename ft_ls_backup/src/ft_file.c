@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_class.c                                       .::    .:/ .      .::   */
+/*   ft_file.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/26 16:02:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
+int				ft_file_exist(char *file_ornot, int silent)
 {
-	t_lst	*s1;
-	t_lst	*s2;
+	DIR		*dir;
 
-	s1 = *data;
-	s2 = (*data)->next;
-	while (s1->name && s2->name)
+	silent = 0;
+	if ((dir = opendir(file_ornot)) != NULL)
 	{
-		if (ft_strcmp(s1->name, s2->name) > 0)
-		{
-			ft_swap_lst_simple(&s1, &s2);
-			i = 1;
-		}
-		s1 = s1->next;
-		s2 = s2->next;
-		cmp++;
+		closedir(dir);
+		return (1);
 	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(data, 0, 0);
-	return (*data);
+	return (0);
+}
+
+int				ft_file_exist_malloc(char *file_ornot)
+{
+	DIR		*dir;
+
+	if ((dir = opendir(file_ornot)) == NULL)
+		return (0);
+	closedir(dir);
+	return (1);
 }

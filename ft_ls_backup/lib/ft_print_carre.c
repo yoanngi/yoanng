@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_class.c                                       .::    .:/ .      .::   */
+/*   ft_algo_tetra.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/28 15:50:47 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/18 11:30:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
+void	ft_print_carre(char **tab, int len)
 {
-	t_lst	*s1;
-	t_lst	*s2;
+	int x;
+	int y;
 
-	s1 = *data;
-	s2 = (*data)->next;
-	while (s1->name && s2->name)
+	x = 0;
+	while (x < len)
 	{
-		if (ft_strcmp(s1->name, s2->name) > 0)
+		y = 0;
+		while (y < len)
 		{
-			ft_swap_lst_simple(&s1, &s2);
-			i = 1;
+			ft_putchar(tab[x][y]);
+			y++;
 		}
-		s1 = s1->next;
-		s2 = s2->next;
-		cmp++;
+		ft_putchar('\n');
+		x++;
 	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(data, 0, 0);
-	return (*data);
 }

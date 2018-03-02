@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 13:25:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/02 12:50:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,9 +81,8 @@ t_lst					*ft_lstnew_ls(void);
 
 void					ft_swap_lst(t_lst **s1, t_lst **s2);
 void					ft_swap_lst2(t_lst **s2, t_lst **tmp);
-void					ft_swap_lst_simple(t_lst **s1, t_lst **s2);
+void					ft_swap_lst_simple(t_lst **s2, t_lst **tmp);
 t_lst					*ft_class_print(t_lst **data, int i, int cmp);
-
 //t_lst					*ft_class_print_liste(t_lst **data, int i, int cmp);
 char					*ft_one_argv(int nb, char **argv);
 char					**ft_multi_argv(int nb, char **argv, int count);

@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_class.c                                       .::    .:/ .      .::   */
+/*   ft_strcat.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:12:35 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:12:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
+char	*ft_strcat(char *s1, const char *s2)
 {
-	t_lst	*s1;
-	t_lst	*s2;
+	size_t i;
+	size_t j;
 
-	s1 = *data;
-	s2 = (*data)->next;
-	while (s1->name && s2->name)
+	i = 0;
+	j = 0;
+	while (s1[i])
+		i++;
+	while (s2[j])
 	{
-		if (ft_strcmp(s1->name, s2->name) > 0)
-		{
-			ft_swap_lst_simple(&s1, &s2);
-			i = 1;
-		}
-		s1 = s1->next;
-		s2 = s2->next;
-		cmp++;
+		s1[i] = s2[j];
+		i++;
+		j++;
 	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(data, 0, 0);
-	return (*data);
+	s1[i] = '\0';
+	return (s1);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:00:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/02 12:50:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,6 @@ void			ft_swap_lst_simple(t_lst **s1, t_lst **s2)
 	tmp->name = (*s1)->name;
 	(*s1)->name = (*s2)->name;
 	(*s2)->name = tmp->name;
-	free(tmp);
 }
 
 void			ft_swap_lst(t_lst **s1, t_lst **s2)

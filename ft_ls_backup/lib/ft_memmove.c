@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_class.c                                       .::    .:/ .      .::   */
+/*   ft_memmove.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/24 10:10:19 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/24 10:10:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	t_lst	*s1;
-	t_lst	*s2;
+	char	*s;
+	char	*d;
 
-	s1 = *data;
-	s2 = (*data)->next;
-	while (s1->name && s2->name)
+	d = (char *)dst;
+	s = (char *)src;
+	if (s < d)
 	{
-		if (ft_strcmp(s1->name, s2->name) > 0)
+		while (len != 0)
 		{
-			ft_swap_lst_simple(&s1, &s2);
-			i = 1;
+			d[len - 1] = s[len - 1];
+			len--;
 		}
-		s1 = s1->next;
-		s2 = s2->next;
-		cmp++;
 	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(data, 0, 0);
-	return (*data);
+	else
+		ft_memcpy(dst, src, len);
+	return (dst);
 }

@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_class.c                                       .::    .:/ .      .::   */
+/*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/19 09:27:00 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/28 16:32:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_lst				*ft_class_print(t_lst **data, int i, int cmp)
+int		main(int argc, char **argv)
 {
-	t_lst	*s1;
-	t_lst	*s2;
+	int		i;
+	char	**params;
+	int		end;
 
-	s1 = *data;
-	s2 = (*data)->next;
-	while (s1->name && s2->name)
+	i = 1;
+	end = 0;
+	if (argc == 1)
+		ft_ls_simple((char *)".", 0);
+	else if (argc > 1)
 	{
-		if (ft_strcmp(s1->name, s2->name) > 0)
+		if ((params = (char **)malloc(sizeof(char *) * (argc + 1))) == NULL)
+			return (-1);
+		while (i != argc)
 		{
-			ft_swap_lst_simple(&s1, &s2);
-			i = 1;
+			params[i] = ft_strdup(argv[i]);
+			i++;
 		}
-		s1 = s1->next;
-		s2 = s2->next;
-		cmp++;
+		ft_ls(params, argc, end);
 	}
-	if (cmp > 2 && i == 1)
-		ft_class_print(data, 0, 0);
-	return (*data);
+	return (0);
 }
