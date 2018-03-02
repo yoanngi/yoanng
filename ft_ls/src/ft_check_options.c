@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/01 10:04:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/02 14:31:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,5 +45,4 @@ void	ft_check_options(s_struct *data)
 		free(data->multifile[i]);
 		i++;
 	}
-	//free(data);
 }

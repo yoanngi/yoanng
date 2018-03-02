@@ -6,12 +6,27 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:01:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/02 14:26:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void			ft_clean_simple(t_lst **src)
+{
+	t_lst	*clear;
+	t_lst	*cpy;
+
+	clear = *src;
+	while (clear)
+	{
+		cpy = clear;
+		clear = clear->next;
+		free(cpy);
+	}
+	free(clear);
+}
 
 static void			ft_print_ls_in_order(t_lst **print, int a)
 {
@@ -30,7 +45,7 @@ static void			ft_print_ls_in_order(t_lst **print, int a)
 			cpy = cpy->next;
 		}
 	}
-	free(*print);
+	ft_clean_simple(print);
 }
 
 void				ft_ls_simple(char *target, int a)
