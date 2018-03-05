@@ -65,7 +65,7 @@ static void			ft_print_liste_ls(t_lst **data, int grp, int link, int use)
 	ft_strdel(&(*data)->groupe);
 }
 
-static void			ft_ls_liste_two(t_lst **data, int size, int link)
+static void			ft_ls_liste_amin(t_lst **data, int size, int link)
 {
 	int		use;
 	int		grp;
@@ -74,19 +74,16 @@ static void			ft_ls_liste_two(t_lst **data, int size, int link)
 	use = ft_checklongmax_user(data);
 	grp = ft_checklongmax_group(data);
 	cpy = *data;
-	while (cpy)
+	while (cpy->next)
 	{
 		ft_print_liste_ls(&cpy, grp, link, use);
 		ft_print_liste_ls_two(&cpy, size);
 		ft_putstr("\n");
-		if (cpy->next != NULL)
-			cpy = cpy->next;
-		else
-			return ;
+		cpy = cpy->next;
 	}
 }
 
-static void			ft_ls_liste_three(t_lst **data, int size, int link)
+static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 {
 	int		use;
 	int		grp;
@@ -95,13 +92,11 @@ static void			ft_ls_liste_three(t_lst **data, int size, int link)
 	use = ft_checklongmax_user(data);
 	grp = ft_checklongmax_group(data);
 	cpy = *data;
-	while (cpy)
+	while (cpy->next)
 	{
 		if (cpy->name == NULL || cpy->next == NULL)
 			return ;
-		if (ft_strcmp(cpy->name, ".") == 0)
-			cpy = cpy->next;
-		if (ft_strcmp(cpy->name, "..") == 0)
+		if (cpy->name[0] == '.' || ft_strcmp(cpy->name, "..") == 0)
 			cpy = cpy->next;
 		else
 		{
@@ -121,7 +116,7 @@ void				ft_ls_liste(t_lst **data, int secret)
 	size = ft_checklongmax_size(data);
 	link = ft_checklongmax_link(data);
 	if (secret == 1)
-		ft_ls_liste_two(data, size, link);
+		ft_ls_liste_amin(data, size, link);
 	if (secret == 0)
-		ft_ls_liste_three(data, size, link);
+		ft_ls_liste_noamin(data, size, link);
 }

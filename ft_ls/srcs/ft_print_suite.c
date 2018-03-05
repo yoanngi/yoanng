@@ -13,26 +13,35 @@
 
 #include "ft_ls.h"
 
-int		ft_print_block_or_not(t_lst **data, int secret)
+static void ft_print(t_lst *recur, int a)
 {
-	t_lst	*cpy;
-	int		i;
-
-	cpy = *data;
-	i = 0;
-	if (secret == 1)
-		return (1);
-	while (cpy)
+	if (recur->path == NULL)
+		return;
+	ft_putchar('\n');
+	ft_resize_path(recur->path);
+	ft_putstr(":\n");
+	ft_ls_simple(recur->path, a);
+	while (recur)
 	{
-		if (cpy->name == NULL)
-			return (0);
-		if (ft_strcmp(cpy->name, "..") == 0)
-			i++;
-		else if (ft_strcmp(cpy->name, ".") == 0)
-			i++;
-		else
-			return (1);
-		cpy = cpy->next;
+		if (recur->otherfile != NULL && recur->access == 1)
+			ft_print(recur->otherfile, a);
+		recur = recur->next;
 	}
-	return (0);
+}
+
+void ft_print_ls(s_struct *data, int indexfile)
+{
+	t_lst *recur;
+
+	recur = what_sort(data, data->liste);
+	ft_ls_simple(data->multifile[indexfile], data->amin);
+	while (recur)
+	{
+		if (recur->otherfile != NULL && recur->access == 1)
+		{
+			recur->otherfile = what_sort(data, recur->otherfile);
+			ft_print(recur->otherfile, data->amin);
+		}
+		recur = recur->next;
+	}
 }

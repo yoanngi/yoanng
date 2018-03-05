@@ -144,11 +144,12 @@ t_lst					*lst_swap(t_lst *lst1, t_lst *lst2);
 /*
 **	Fonction d'affichage
 */
+void					ft_resize_path(char *str);
 void					ft_print_blocks(t_lst **liste);
 void					ft_ls_simple(char *target, int a);
 void					ft_ls_liste(t_lst **data, int secret);
 void					ft_print_ls(s_struct *data, int indexfile);
-void					ft_print_ls_liste(s_struct *data, int indexfile);
+void					ft_print_ls_liste(s_struct *data);
 int						ft_print_block_or_not(t_lst **data, int secret);
 
 #endif
