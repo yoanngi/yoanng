@@ -91,7 +91,7 @@ void	ft_print_ls_liste(s_struct *data)
 	ft_print_blocks(&rep);
 	rep = what_sort(data, cpy);
 	ft_ls_liste(&rep, data->amin);
-	while (cpy)
+	while (cpy->next)
 	{
 		if (cpy->otherfile != NULL && data->rmaj == 1)
 		{
@@ -103,5 +103,6 @@ void	ft_print_ls_liste(s_struct *data)
 		else
 			return ;
 	}
+	printf("**************************clean *************************\n");
 	ft_clean_list(data->liste);
 }

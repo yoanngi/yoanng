@@ -65,15 +65,12 @@ void			ft_print_blocks(t_lst **liste)
 {
 	t_lst		*cpy;
 	blkcnt_t	total;
-	size_t		to;
 
 	total = 0;
-	to = 0;
 	cpy = *liste;
-	while (cpy)
+	while (cpy->next)
 	{
 		total += cpy->blocks;
-		to += cpy->size;
 		cpy = cpy->next;
 	}
 	ft_putnbr(total);

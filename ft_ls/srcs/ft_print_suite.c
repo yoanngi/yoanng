@@ -13,6 +13,35 @@
 
 #include "ft_ls.h"
 
+static void	ft_ls_simple_sort_two(t_lst *lst)
+{
+		while (lst->next)
+		{
+			if (lst->name[0] == '.')
+				lst = lst->next;
+			if (ft_strcmp(lst->name, "..") == 0)
+				lst = lst->next;
+			ft_putstr(lst->name);
+			ft_putstr("\n");
+			lst = lst->next;
+		}
+}
+
+static void	ft_ls_simple_sort(t_lst *lst, int amin)
+{
+	if (amin == 1)
+	{
+		while (lst->next)
+		{
+			ft_putstr(lst->name);
+			ft_putstr("\n");
+			lst = lst->next;
+		}
+	}
+	else
+		ft_ls_simple_sort_two(lst);
+}
+
 static void ft_print(t_lst *recur, int a)
 {
 	if (recur->path == NULL)
@@ -20,7 +49,7 @@ static void ft_print(t_lst *recur, int a)
 	ft_putchar('\n');
 	ft_resize_path(recur->path);
 	ft_putstr(":\n");
-	ft_ls_simple(recur->path, a);
+	ft_ls_simple_sort(recur, a);
 	while (recur)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)
@@ -29,12 +58,14 @@ static void ft_print(t_lst *recur, int a)
 	}
 }
 
-void ft_print_ls(s_struct *data, int indexfile)
+void 		ft_print_ls(s_struct *data)
 {
 	t_lst *recur;
+	t_lst *cpy;
 
-	recur = what_sort(data, data->liste);
-	ft_ls_simple(data->multifile[indexfile], data->amin);
+	cpy = data->liste;
+	recur = what_sort(data, cpy);
+	ft_ls_simple_sort(recur, data->amin);
 	while (recur)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)

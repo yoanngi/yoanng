@@ -125,5 +125,6 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 		lstdata = lstdata->next;
 	}
 	closedir(dir);
+	printf("END options R\n");
 	return (lstsend);
 }

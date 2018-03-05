@@ -23,7 +23,6 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 	t_lst *b;
 	t_lst *c;
 
-	printf("reverse\n");
 	a = NULL;
 	b = prime;
 	c = (prime)->next;
@@ -44,7 +43,7 @@ t_lst	*lst_sort_ascii(t_lst *lst)
 {
 	if (!lst)
 		return (NULL);
-	if (lst->next->name == NULL)
+	if (!lst->next)
 		return (lst);
 	if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
 		lst = lst_swap(lst, lst->next);
@@ -64,8 +63,6 @@ t_lst	*lst_sort_time(t_lst *lst)
 {
 	if (!lst)
 		return (NULL);
-	if (lst->next->name == NULL)
-		return (lst);
 	if (lst->next && (lst->date < lst->next->date))
 		lst = lst_swap(lst, lst->next);
 	else if (lst->next && lst->date == lst->next->date)
@@ -109,5 +106,6 @@ t_lst		*what_sort(s_struct *data, t_lst *liste)
 		liste = lst_sort_ascii(liste);
 	if (data->rmin == 1)
 		liste = ft_reverse_lst(liste);
+	printf("******************* Sort finish ***********************\n");
 	return (liste);	
 }

@@ -27,10 +27,10 @@ static void		ft_target(s_struct *data)
 	}
 }
 
-static void		ft_display(s_struct *data, int index)
+static void		ft_display(s_struct *data)
 {
 	if (data->lmin == 0)
-		ft_print_ls(data, index);
+		ft_print_ls(data);
 	else
 		ft_print_ls_liste(data);	
 	if (data->nb_file > 1)
@@ -55,7 +55,7 @@ void	ft_check_options(s_struct *data)
 			ft_putstr(data->multifile[i]);
 			ft_putstr(":\n");
 		}
-		ft_display(data, i);
+		ft_display(data);
 		free(data->multifile[i]);
 		data->nb_file--;
 		i++;
