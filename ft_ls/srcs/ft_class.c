@@ -16,23 +16,23 @@
 /*
 **	Reverse list
 */
+
+// Attention, clean a gerer
 t_lst			*ft_reverse_lst(t_lst *prime)
 {
-	t_lst *a;
-	t_lst *b;
-	t_lst *c;
-
-	a = NULL;
-	b = prime;
-	c = (prime)->next;
-	while (b && b->next)
+	t_lst	*tete;
+	t_lst	*sui;
+	
+	tete = NULL;
+	sui = NULL;
+	while (prime->next)
 	{
-		c = b->next;
-		b->next = a;
-		a = b;
-		b = c;
+		sui = prime->next;
+		prime->next = tete;
+		tete = prime;
+		prime = sui;
 	}
-	return (a);
+	return (tete);
 }
 
 /*
@@ -54,9 +54,33 @@ t_lst	*lst_sort_ascii(t_lst *lst)
 	}
 	return (lst);
 }
+/*
+t_lst	*lst_sort_ascii(t_lst *lst)
+{
+	int		i;
+	t_lst	*ret;
 
+	i = 0;
+	if (!lst)
+		return (NULL);
+	ret = lst;
+	while (lst->next->name)
+	{
+		printf("%d AVANT name = %s, next = %s\n", i, lst->name, lst->next->name);
+		if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
+		{
+			lst = lst_swap(lst, lst->next);
+			lst = lst_sort_ascii(ret);
+		}
+		printf("APRES name = %s, next = %s\n\n", lst->name, lst->next->name);
+		lst = lst->next;
+	}
+	return (ret);
+}
+*/
 /*
 **	Sort list (time)
+**	http://lwh.free.fr/pages/algo/tri/tri.htm
 */
 t_lst	*lst_sort_time(t_lst *lst)
 {

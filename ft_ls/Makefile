@@ -41,8 +41,8 @@ P_INC = ./includes/
 P_OBJ = ./obj/
 P_LFT = libft/
 
-I_INC = ./includes
-I_LFT = ./libft/includes
+I_INC = ./includes/
+I_LFT = ./libft/includes/
 L_LFT = -L./libft/ -lft
 
 NOC=\033[0m

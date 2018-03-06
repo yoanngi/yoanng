@@ -136,7 +136,6 @@ int						ft_checklongmax_group(t_lst **data);
 **	Fonction de trie
 */
 t_lst					*what_sort(s_struct *data, t_lst *liste);
-t_lst					*ft_class_print(t_lst **data, int i, int cmp);
 t_lst					*ft_reverse_lst(t_lst *prime);
 t_lst					*lst_sort_ascii(t_lst *lst);
 t_lst					*lst_sort_time(t_lst *lst);
