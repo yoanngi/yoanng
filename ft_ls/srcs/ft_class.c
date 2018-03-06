@@ -16,7 +16,6 @@
 /*
 **	Reverse list
 */
-
 t_lst			*ft_reverse_lst(t_lst *prime)
 {
 	t_lst *a;
@@ -28,6 +27,8 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 	c = (prime)->next;
 	while (b && b->next)
 	{
+		if (b->next->name == NULL)
+			return (a);
 		c = b->next;
 		b->next = a;
 		a = b;
@@ -43,7 +44,7 @@ t_lst	*lst_sort_ascii(t_lst *lst)
 {
 	if (!lst)
 		return (NULL);
-	if (!lst->next)
+	if (lst->next->name == NULL)
 		return (lst);
 	if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
 		lst = lst_swap(lst, lst->next);
@@ -106,6 +107,5 @@ t_lst		*what_sort(s_struct *data, t_lst *liste)
 		liste = lst_sort_ascii(liste);
 	if (data->rmin == 1)
 		liste = ft_reverse_lst(liste);
-	printf("******************* Sort finish ***********************\n");
 	return (liste);	
 }

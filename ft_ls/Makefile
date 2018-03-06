@@ -14,48 +14,70 @@
 .PHONY: all clean fclean re
 
 NAME =		ft_ls
-CC =		gcc
-RM =		rm -f
-FLAGS =		-Wall -Wextra -Werror
+CC = 		gcc
+CC_FLAGS = 	-Wall -Werror -Wextra
 
-INC =		includes/
-LIBFT =		libft/ 
+N_INC =		ft_ls.h
+N_SRCS = 	ft_error.c\
+			ft_ls.c\
+			ft_ls_simple.c\
+			ft_check_options.c\
+			ft_add_list.c\
+			ft_print.c\
+			ft_options_r.c\
+			ft_get_infos.c\
+			ft_get_infos_suite.c\
+			ft_check_space.c\
+			ft_return_l.c\
+			ft_file.c\
+			ft_ls_liste.c\
+			ft_print_suite.c\
+			ft_valid_options.c\
+			ft_class.c\
+			main.c\
 
-SOURCES = 	srcs/ft_error.c\
-			srcs/ft_ls.c\
-			srcs/ft_ls_simple.c\
-			srcs/ft_check_options.c\
-			srcs/ft_add_list.c\
-			srcs/ft_print.c\
-			srcs/ft_options_r.c\
-			srcs/ft_get_infos.c\
-			srcs/ft_get_infos_suite.c\
-			srcs/ft_check_space.c\
-			srcs/ft_return_l.c\
-			srcs/ft_file.c\
-			srcs/ft_ls_liste.c\
-			srcs/ft_print_suite.c\
-			srcs/ft_valid_options.c\
-			srcs/ft_class.c\
-			srcs/main.c\
+P_SRCS = ./srcs/
+P_INC = ./includes/
+P_OBJ = ./obj/
+P_LFT = libft/
 
-OBJ = $(SOURCES:.c=.o)
+I_INC = ./includes
+I_LFT = ./libft/includes
+L_LFT = -L./libft/ -lft
+
+NOC=\033[0m
+OKC=\033[32;05m
+ERC=\033[31m
+WAC=\033[33m
+
+SRC = $(addprefix $(P_SRCS),$(N_SRCS))
+OBJ = $(addprefix $(P_OBJ),$(OBJ_NAME))
+INC = $(addprefix -I,$(I_INC) $(I_LFT))
+
+OBJ_NAME = $(N_SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIBFT)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME) -L $(LIBFT) -lft
+	@make -C $(P_LFT)
+	@$(CC) $(CC_FLAGS) -o $(NAME) $(OBJ) $(INC) $(L_LFT)
+	@echo "$(OKC)$(NAME): compilation success!$(NOC)"
 
-%.o: %.c
-		$(CC) $(FLAGS) -I $(INC) $< -c -o $@
+$(P_OBJ)%.o: $(P_SRCS)%.c
+	@echo "$(OKC)\c"
+	@mkdir -p $(P_OBJ)
+	@$(CC) $(CC_FLAGS) -o $@ -c $^ $(INC)
+	@echo -n █
+	@echo "$(NOC)\c"
 
 clean:
-	@make clean -C $(LIBFT)
-	@$(RM) $(OBJ)
+	@make -C $(P_LFT) clean
+	@rm -rf $(P_OBJ)
+	@echo "$(WAC)$(NAME): Removing $(NAME) ./obj/$(NOC)"
 
 fclean: clean
-	@make fclean -C $(LIBFT)
-	@$(RM) $(NAME)
+	@make -C $(P_LFT) fclean
+	@rm -f $(NAME)
+	@echo "$(WAC)$(NAME): Removing executable$(NOC)"
 
 re: fclean all

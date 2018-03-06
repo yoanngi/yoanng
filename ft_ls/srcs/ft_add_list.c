@@ -63,8 +63,6 @@ t_lst			*ft_clean_list(t_lst *data)
 		free(tmp->otherfile);
 		tmp->otherfile = NULL;
 		tmp = tmp->next;
-		free(clean);
-		clean = NULL;
 	}
 	return (NULL);
 }

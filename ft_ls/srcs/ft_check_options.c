@@ -35,7 +35,9 @@ static void		ft_display(s_struct *data)
 		ft_print_ls_liste(data);	
 	if (data->nb_file > 1)
 		ft_putchar('\n');
+	printf("***************************** CLEAN *******************************\n");
 	data->liste = ft_clean_list(data->liste);
+	printf("*************************** END CLEAN *******************************\n");
 }
 
 void	ft_check_options(s_struct *data)

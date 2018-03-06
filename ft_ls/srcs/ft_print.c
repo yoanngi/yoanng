@@ -103,6 +103,4 @@ void	ft_print_ls_liste(s_struct *data)
 		else
 			return ;
 	}
-	printf("**************************clean *************************\n");
-	ft_clean_list(data->liste);
 }
