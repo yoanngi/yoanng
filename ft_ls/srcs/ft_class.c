@@ -27,8 +27,6 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 	c = (prime)->next;
 	while (b && b->next)
 	{
-		if (b->next->name == NULL)
-			return (a);
 		c = b->next;
 		b->next = a;
 		a = b;

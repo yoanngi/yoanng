@@ -69,6 +69,7 @@ static int			ft_check_repertory(t_dir **fichierlu, t_lst **data)
 	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 &&
 	(*data)->droit[4] == 'r'))
 	{
+		// Add error no permission
 		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path);
 		if ((*data)->otherfile == NULL)
 			(*data)->access = 0;
@@ -125,6 +126,6 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 		lstdata = lstdata->next;
 	}
 	closedir(dir);
-	printf("END options R\n");
+	printf("************************************************ END options R\n");
 	return (lstsend);
 }
