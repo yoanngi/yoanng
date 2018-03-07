@@ -113,6 +113,7 @@ void				ft_ls_liste(t_lst **data, int secret)
 	int		size;
 	int		link;
 
+	printf("%s\n", __func__);
 	size = ft_checklongmax_size(data);
 	link = ft_checklongmax_link(data);
 	if (secret == 1)

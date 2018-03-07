@@ -40,13 +40,15 @@ char			*ft_get_droit_symbolique(char **path, size_t size)
 {
 	char	*ret;
 	int		i;
+	size_t	secure;
 
 	i = 0;
 	ret = (char *)malloc(sizeof(char) * size);
-	readlink(*path, ret, size);
+	secure = readlink(*path, ret, size);
+	ret[secure] = '\0';
 	while (ret[i])
 	{
-		if (ret[i] == ' ')
+		if (ret[i] == ' ' || ret[i] == '\n')
 		{
 			while(ret[i])
 			{

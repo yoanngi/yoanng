@@ -19,11 +19,12 @@ static void	ft_ls_simple_sort_two(t_lst *lst)
 		{
 			if (lst->name[0] == '.')
 				lst = lst->next;
-			if (ft_strcmp(lst->name, "..") == 0)
+			else
+			{
+				ft_putstr(lst->name);
+				ft_putstr("\n");
 				lst = lst->next;
-			ft_putstr(lst->name);
-			ft_putstr("\n");
-			lst = lst->next;
+			}
 		}
 }
 
@@ -31,6 +32,7 @@ static void	ft_ls_simple_sort(t_lst *lst, int amin)
 {
 	if (amin == 1)
 	{
+		printf("%s", __func__);
 		while (lst->next)
 		{
 			ft_putstr(lst->name);
@@ -42,19 +44,23 @@ static void	ft_ls_simple_sort(t_lst *lst, int amin)
 		ft_ls_simple_sort_two(lst);
 }
 
-static void ft_print(t_lst *recur, int a)
+static void ft_print(t_lst *recur, s_struct *data)
 {
-	if (recur->path == NULL)
-		return;
+	t_lst *cpy;
+	t_lst *ret;
+
 	ft_putchar('\n');
 	ft_resize_path(recur->path);
+	ft_strdel(&recur->path);
 	ft_putstr(":\n");
-	ft_ls_simple_sort(recur, a);
-	while (recur)
+	cpy = what_sort(data, recur);
+	ret = cpy;
+	ft_ls_simple_sort(cpy, data->amin);
+	while (ret)
 	{
-		if (recur->otherfile != NULL && recur->access == 1)
-			ft_print(recur->otherfile, a);
-		recur = recur->next;
+		if (ret->otherfile != NULL && ret->access == 1)
+			ft_print(ret->otherfile, data);
+		ret = ret->next;
 	}
 }
 
@@ -66,13 +72,10 @@ void 		ft_print_ls(s_struct *data)
 	cpy = data->liste;
 	recur = what_sort(data, cpy);
 	ft_ls_simple_sort(recur, data->amin);
-	while (recur)
+	while (recur->next)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)
-		{
-			recur->otherfile = what_sort(data, recur->otherfile);
-			ft_print(recur->otherfile, data->amin);
-		}
+			ft_print(recur->otherfile, data);
 		recur = recur->next;
 	}
 }

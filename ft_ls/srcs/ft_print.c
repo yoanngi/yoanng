@@ -53,32 +53,34 @@ int		ft_print_block_or_not(t_lst **data, int secret)
 	return (0);
 }
 
-void	ft_print_liste(t_lst *recur, int secret)
+void	ft_print_liste(t_lst *recur, s_struct *data)
 {
 	t_lst *cpy;
+	t_lst *ret;
 
-	cpy = recur;
+	ret = recur;
+	cpy = what_sort(data, recur);
 	ft_putstr("\n");
-	ft_resize_path(recur->path);
-	ft_strdel(&recur->path);
+	ft_resize_path(ret->path);
+	ft_strdel(&ret->path);
 	ft_putstr(":\n");
-	if (ft_print_block_or_not(&recur, secret) == 1)
+	if (recur->access_denied != NULL)
+		basic_error(recur->access_denied);
+	if (ft_print_block_or_not(&ret, data->amin) == 1)
 	{
-		ft_putstr("total ");
-		ft_print_blocks(&recur);
-		if (recur->name != NULL)
+		ft_print_blocks(&ret);
+		if (ret->name != NULL)
 		{
-			ft_ls_liste(&recur, secret);
+			ft_ls_liste(&cpy, data->amin);
 		}
 	}
-	while (cpy)
+	while (cpy->next)
 	{
 		if (cpy->otherfile != NULL)
-			ft_print_liste(cpy->otherfile, secret);
+			ft_print_liste(cpy->otherfile, data);
 		cpy = cpy->next;
 	}
 }
-
 
 void	ft_print_ls_liste(s_struct *data)
 {
@@ -86,21 +88,17 @@ void	ft_print_ls_liste(s_struct *data)
 	t_lst *cpy;
 
 	rep = data->liste;
-	cpy = data->liste;
-	ft_putstr("total ");
+	cpy = what_sort(data, rep);
+	rep = cpy;
 	ft_print_blocks(&rep);
-	rep = what_sort(data, cpy);
 	ft_ls_liste(&rep, data->amin);
 	while (cpy->next)
 	{
-		if (cpy->otherfile != NULL && data->rmaj == 1)
-		{
-			cpy->otherfile = what_sort(data, cpy->otherfile);
-			ft_print_liste(cpy->otherfile, data->amin);
-		}
-		if (cpy->next)
-			cpy = cpy->next;
-		else
-			return ;
+		printf("name = %s, access = %s\n", cpy->name, cpy->access_denied);
+		if (cpy->otherfile != NULL && data->rmaj == 1 && cpy->access_denied == NULL)
+			ft_print_liste(cpy->otherfile, data);
+		if (cpy->otherfile != NULL && cpy->access_denied != NULL)
+			perror(cpy->access_denied);
+		cpy = cpy->next;
 	}
 }

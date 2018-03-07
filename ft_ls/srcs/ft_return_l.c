@@ -15,12 +15,12 @@
 
 static int		ft_yearornot(time_t str)
 {
-	time_t	now;
-	size_t	dif;
+	time_t			now;
+	long long		dif;
 
 	time(&now);
 	dif = now - str;
-	if (dif > 15778800)
+	if (dif > 15778800 || dif < 0)
 		return (1);
 	return (0);
 }
@@ -73,6 +73,7 @@ void			ft_print_blocks(t_lst **liste)
 		total += cpy->blocks;
 		cpy = cpy->next;
 	}
+	ft_putstr("total ");
 	ft_putnbr(total);
 	ft_putstr("\n");
 }

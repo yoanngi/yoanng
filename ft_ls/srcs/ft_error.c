@@ -37,16 +37,3 @@ void	ft_error_access(char *error)
 	ft_putstr_fd(" Permission denied -> perso\n", 2);
 }
 
-int		ft_check_permissions(char *path, t_lst **rep)
-{
-	if (access(path, R_OK) & EACCES)
-	{
-		(*rep)->access = 0;
-		return (0);
-	}
-	else
-	{
-		(*rep)->access = 1;
-		return (1);
-	}
-}

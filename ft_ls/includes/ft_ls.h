@@ -47,6 +47,7 @@ typedef struct			s_lst
 	char				*symbol;
 	int					size;
 	int					link;
+	char				*access_denied;
 	blkcnt_t			blocks;
 	struct s_lst		*otherfile;
 	struct s_lst		*next;
@@ -65,6 +66,8 @@ typedef struct			s_struct
 	int					nb_file;
 	char				*file;
 	char				**multifile;
+	char				*user_data;
+	char				*groupe_data;
 	int					invalid;
 	t_lst				*liste;
 }						s_struct;
@@ -82,8 +85,7 @@ t_lst					*ft_lstnew_ls(void);
 char					*ft_one_argv(int nb, char **argv);
 char					**ft_multi_argv(int nb, char **argv, int count);
 char					**ft_add_option(int argc, char **params, int p_valid);
-int						ft_file_exist(char *file_ornot, int silent);
-int						ft_file_exist_malloc(char *file_ornot);
+int						ft_file_exist(char *file_ornot);
 int						ft_option_exist(char *str, int nb);
 void					ft_insert_valid_option(char *cmp, s_struct **data);
 int						ft_count_files_valid(int argc, char **argv);
@@ -97,14 +99,14 @@ void					ft_clean_tmp(t_lst **tmp);
 **	Fonction principales
 */
 t_lst					*ft_ls_r(s_struct *data, int indexfile);
-t_lst					*ft_read_repertoire(t_dir **fichierlu, char *path);
+t_lst					*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure);
 /*
 **	Fonction d'erreurs
 */
 void					ft_error(char arg);
 void					basic_error(char *error);
 void					ft_error_access(char *error);
-int						ft_check_permissions(char *path, t_lst **rep);
+t_lst					*return_access_denied(t_dir **fichierlu);
 /*
 **	Fonction de check des options
 */
@@ -115,6 +117,7 @@ void					ft_ls_two(int i, int nb, char **params, s_struct **data);
 /*
 **	Recuperation d'infos
 */
+void					ft_get_droit_data(s_struct **data);
 char					*ft_get_user(char **path);
 char					*ft_get_groupe(char **path);
 time_t					ft_get_time(char **path);
@@ -132,6 +135,7 @@ int						ft_checklongmax_link(t_lst **data);
 int						ft_checklongmax_size(t_lst **data);
 int						ft_checklongmax_user(t_lst **data);
 int						ft_checklongmax_group(t_lst **data);
+int						ft_access_or_not(s_struct *data, t_lst *liste);
 /*
 **	Fonction de trie
 */
@@ -149,6 +153,7 @@ void					ft_ls_simple(char *target, int a);
 void					ft_ls_liste(t_lst **data, int secret);
 void					ft_print_ls(s_struct *data);
 void					ft_print_ls_liste(s_struct *data);
+void					ft_print_liste(t_lst *recur, s_struct *data);
 int						ft_print_block_or_not(t_lst **data, int secret);
 
 #endif

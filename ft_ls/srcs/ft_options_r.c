@@ -60,28 +60,26 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 	return (*ret);
 }
 
-static int			ft_check_repertory(t_dir **fichierlu, t_lst **data)
+static int			ft_check_repertory(t_dir **fichierlu, t_lst **data, s_struct *structure)
 {
-	int i;
-
-	i = 0;
 	if ((*fichierlu)->d_type == 4 && (ft_strcmp((*fichierlu)->d_name, ".") != 0
-	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 &&
-	(*data)->droit[4] == 'r'))
+	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 && ft_access_or_not(structure, *data) == 1))
 	{
-		// Add error no permission
-		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path);
-		if ((*data)->otherfile == NULL)
-			(*data)->access = 0;
-		else
-			(*data)->access = 1;
+		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, structure);
+		printf("DEBUG -> Access Authorized : %s\n", (*data)->otherfile->name);
+	}
+	else if ((*fichierlu)->d_type == 4 && (ft_strcmp((*fichierlu)->d_name, ".") != 0
+	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 && ft_access_or_not(structure, *data) == 0))
+	{
+		(*data)->otherfile = return_access_denied(fichierlu);
+		printf("DEBUG -> Access Denied : %s\n", (*data)->otherfile->name);
 	}
 	else
 		(*data)->otherfile = NULL;
 	return (0);
 }
 
-t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path)
+t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure)
 {
 	DIR		*dir;
 	t_lst	*rep;
@@ -95,7 +93,8 @@ t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path)
 	{
 		ft_insert_path(*fichierlu, &rep, path);
 		ft_insert_data_hard(fichierlu, &rep, rep->path);
-		ft_check_repertory(fichierlu, &rep);
+		ft_check_repertory(fichierlu, &rep, structure);
+		printf("%s -> name-> %s\n", __func__, rep->name);
 		rep->next = ft_lstnew_ls();
 		rep = rep->next;
 	}
@@ -110,18 +109,18 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 	t_lst		*lstdata;
 	t_lst		*lstsend;
 
+	printf("************************************************ START options R\n");
 	lstdata = ft_lstnew_ls();
 	lstsend = lstdata;
-	if (ft_check_permissions(data->multifile[indexfile], &lstdata) == 0)
-		return (NULL);
 	dir = opendir(data->multifile[indexfile]);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
 		ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		lstdata->otherfile = NULL;
+		printf("%s -> name = %s\n", __func__, lstdata->name);
 		if (data->rmaj == 1)
-			ft_check_repertory(&fichierlu, &lstdata);
+			ft_check_repertory(&fichierlu, &lstdata, data);
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
 	}
