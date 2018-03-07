@@ -76,8 +76,10 @@ void	ft_print_liste(t_lst *recur, s_struct *data)
 	}
 	while (cpy->next)
 	{
-		if (cpy->otherfile != NULL)
+		if (cpy->otherfile != NULL && cpy->access_denied == NULL)
 			ft_print_liste(cpy->otherfile, data);
+		if (cpy->otherfile != NULL && cpy->access_denied != NULL)
+			perror(cpy->access_denied);
 		cpy = cpy->next;
 	}
 }
@@ -94,11 +96,13 @@ void	ft_print_ls_liste(s_struct *data)
 	ft_ls_liste(&rep, data->amin);
 	while (cpy->next)
 	{
-		printf("name = %s, access = %s\n", cpy->name, cpy->access_denied);
 		if (cpy->otherfile != NULL && data->rmaj == 1 && cpy->access_denied == NULL)
 			ft_print_liste(cpy->otherfile, data);
 		if (cpy->otherfile != NULL && cpy->access_denied != NULL)
+		{
+			printf("Sa Marche ! %s\n", cpy->name);
 			perror(cpy->access_denied);
+		}
 		cpy = cpy->next;
 	}
 }

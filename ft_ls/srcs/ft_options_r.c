@@ -66,13 +66,11 @@ static int			ft_check_repertory(t_dir **fichierlu, t_lst **data, s_struct *struc
 	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 && ft_access_or_not(structure, *data) == 1))
 	{
 		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, structure);
-		printf("DEBUG -> Access Authorized : %s\n", (*data)->otherfile->name);
 	}
 	else if ((*fichierlu)->d_type == 4 && (ft_strcmp((*fichierlu)->d_name, ".") != 0
 	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 && ft_access_or_not(structure, *data) == 0))
 	{
 		(*data)->otherfile = return_access_denied(fichierlu);
-		printf("DEBUG -> Access Denied : %s\n", (*data)->otherfile->name);
 	}
 	else
 		(*data)->otherfile = NULL;
@@ -94,7 +92,6 @@ t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure)
 		ft_insert_path(*fichierlu, &rep, path);
 		ft_insert_data_hard(fichierlu, &rep, rep->path);
 		ft_check_repertory(fichierlu, &rep, structure);
-		printf("%s -> name-> %s\n", __func__, rep->name);
 		rep->next = ft_lstnew_ls();
 		rep = rep->next;
 	}
@@ -118,7 +115,6 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 		ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
 		ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		lstdata->otherfile = NULL;
-		printf("%s -> name = %s\n", __func__, lstdata->name);
 		if (data->rmaj == 1)
 			ft_check_repertory(&fichierlu, &lstdata, data);
 		lstdata->next = ft_lstnew_ls();

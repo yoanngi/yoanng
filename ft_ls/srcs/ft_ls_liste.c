@@ -106,6 +106,7 @@ static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 			cpy = cpy->next;
 		}
 	}
+	printf("END\n");
 }
 
 void				ft_ls_liste(t_lst **data, int secret)
@@ -113,7 +114,6 @@ void				ft_ls_liste(t_lst **data, int secret)
 	int		size;
 	int		link;
 
-	printf("%s\n", __func__);
 	size = ft_checklongmax_size(data);
 	link = ft_checklongmax_link(data);
 	if (secret == 1)

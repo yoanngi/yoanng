@@ -13,6 +13,9 @@
 
 #include "ft_ls.h"
 
+/*
+**	Le fichier existe ?
+*/
 int				ft_file_exist(char *file_ornot)
 {
 	DIR		*dir;
@@ -25,6 +28,9 @@ int				ft_file_exist(char *file_ornot)
 	return (0);
 }
 
+/*
+**	Recuperation des droits Users
+*/
 void			ft_get_droit_data(s_struct **data)
 {
 	struct passwd 	*user;
@@ -44,7 +50,7 @@ int				ft_access_or_not(s_struct *data, t_lst *liste)
 	int i;
 
 	i = 0;
-	printf("liste->droit = %s\n", liste->droit);
+/*	printf("liste->droit = %s\n", liste->droit);
 	printf("data->user_data = %s\n", data->user_data);
 	printf("data->groupe_data = %s\n", data->groupe_data);
 	printf("liste->user = %s\n", liste->user);
@@ -52,7 +58,7 @@ int				ft_access_or_not(s_struct *data, t_lst *liste)
 	printf("liste->droit[1] = %c\n", liste->droit[1]);
 	printf("liste->droit[4] = %c\n", liste->droit[4]);
 	printf("liste->droit[7] = %c\n", liste->droit[7]);
-
+*/
 	if (liste->droit[1] == 'r' && ft_strcmp(data->user_data, liste->user) == 0) // proprietaire
 		i = 1;
 	if (liste->droit[4] == 'r' && ft_strcmp(data->groupe_data, liste->groupe) == 0) // user appartenant au groupe
