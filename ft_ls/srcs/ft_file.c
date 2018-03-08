@@ -19,6 +19,7 @@
 
 int				ft_file_exist(char *file_ornot)
 {
+	// Add check file
 	DIR		*dir;
 
 	if ((dir = opendir(file_ornot)) != NULL)
