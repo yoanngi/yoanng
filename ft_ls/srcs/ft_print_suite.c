@@ -32,7 +32,6 @@ static void	ft_ls_simple_sort(t_lst *lst, int amin)
 {
 	if (amin == 1)
 	{
-		printf("%s", __func__);
 		while (lst->next)
 		{
 			ft_putstr(lst->name);
@@ -60,6 +59,8 @@ static void ft_print(t_lst *recur, s_struct *data)
 	{
 		if (ret->otherfile != NULL && ret->access == 1)
 			ft_print(ret->otherfile, data);
+		if (ret->otherfile != NULL && ret->access == 0)
+			ft_print_error(ret->otherfile);
 		ret = ret->next;
 	}
 }
@@ -76,6 +77,8 @@ void 		ft_print_ls(s_struct *data)
 	{
 		if (recur->otherfile != NULL && recur->access == 1)
 			ft_print(recur->otherfile, data);
+		if (cpy->otherfile != NULL && recur->access == 0)
+			ft_print_error(recur->otherfile);
 		recur = recur->next;
 	}
 }

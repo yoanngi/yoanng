@@ -52,6 +52,10 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 	(*ret)->size = ft_get_size(&path);
 	(*ret)->link = ft_get_link(&path);
 	(*ret)->blocks = ft_get_blocks(&path);
+	if ((*ret)->droit[0] == 'd' && (*ret)->droit[7] == '-')
+	{
+		(*ret)->access = ft_access_or_not(&path);
+	}
 	if ((*ret)->droit[0] == 'l')
 		(*ret)->symbol = ft_get_new_path(&path);
 	else
@@ -62,16 +66,11 @@ static t_lst		*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 
 static int			ft_check_repertory(t_dir **fichierlu, t_lst **data, s_struct *structure)
 {
-	if ((*fichierlu)->d_type == 4 && (ft_strcmp((*fichierlu)->d_name, ".") != 0
-	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 && ft_access_or_not(structure, *data) == 1))
-	{
+	if ((*data)->access == 1 && (*fichierlu)->d_type == 4 && (ft_strcmp((*fichierlu)->d_name, ".") != 0
+	&& ft_strcmp((*fichierlu)->d_name, "..") != 0))
 		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, structure);
-	}
-	else if ((*fichierlu)->d_type == 4 && (ft_strcmp((*fichierlu)->d_name, ".") != 0
-	&& ft_strcmp((*fichierlu)->d_name, "..") != 0 && ft_access_or_not(structure, *data) == 0))
-	{
-		(*data)->otherfile = return_access_denied(fichierlu);
-	}
+	else if ((*data)->access == 0 && (*fichierlu)->d_type == 4)
+		(*data)->otherfile = ft_return_access_denied(fichierlu, (*data)->path);
 	else
 		(*data)->otherfile = NULL;
 	return (0);
@@ -92,6 +91,7 @@ t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure)
 		ft_insert_path(*fichierlu, &rep, path);
 		ft_insert_data_hard(fichierlu, &rep, rep->path);
 		ft_check_repertory(fichierlu, &rep, structure);
+//		printf("read_rep (name)-> %s, (path)-> %s, (access) = %d\n\n", rep->name, rep->path, rep->access);
 		rep->next = ft_lstnew_ls();
 		rep = rep->next;
 	}
@@ -114,9 +114,9 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 	{
 		ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
 		ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
-		lstdata->otherfile = NULL;
 		if (data->rmaj == 1)
 			ft_check_repertory(&fichierlu, &lstdata, data);
+//		printf("LS_R (name)-> %s, (path)-> %s, (access) = %d\n", lstdata->name, lstdata->path, lstdata->access);
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
 	}

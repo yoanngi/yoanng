@@ -30,7 +30,7 @@ t_lst			*ft_lstnew_ls(void)
 	new->date = 0;
 	new->size = 0;
 	new->link = 0;
-	new->access_denied = NULL;
+	new->access = 1;
 	new->otherfile = NULL;
 	new->next = NULL;
 	if (!new)

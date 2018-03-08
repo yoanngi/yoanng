@@ -47,7 +47,6 @@ typedef struct			s_lst
 	char				*symbol;
 	int					size;
 	int					link;
-	char				*access_denied;
 	blkcnt_t			blocks;
 	struct s_lst		*otherfile;
 	struct s_lst		*next;
@@ -64,10 +63,7 @@ typedef struct			s_struct
 	int					tmin;
 	int					lmin;
 	int					nb_file;
-	char				*file;
 	char				**multifile;
-	char				*user_data;
-	char				*groupe_data;
 	int					invalid;
 	t_lst				*liste;
 }						s_struct;
@@ -106,7 +102,8 @@ t_lst					*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure
 void					ft_error(char arg);
 void					basic_error(char *error);
 void					ft_error_access(char *error);
-t_lst					*return_access_denied(t_dir **fichierlu);
+int						ft_access_or_not(char **path);
+void					ft_print_error(t_lst *cpy);
 /*
 **	Fonction de check des options
 */
@@ -114,10 +111,10 @@ void					ft_check_options(s_struct *data);
 t_lst					*ft_class_print_t(t_lst **data);
 int						ft_how_to_treat(int ac, char **av, int i, s_struct **data);
 void					ft_ls_two(int i, int nb, char **params, s_struct **data);
+t_lst					*ft_return_access_denied(t_dir **fichierlu, char *path);
 /*
 **	Recuperation d'infos
 */
-void					ft_get_droit_data(s_struct **data);
 char					*ft_get_user(char **path);
 char					*ft_get_groupe(char **path);
 time_t					ft_get_time(char **path);
@@ -135,7 +132,6 @@ int						ft_checklongmax_link(t_lst **data);
 int						ft_checklongmax_size(t_lst **data);
 int						ft_checklongmax_user(t_lst **data);
 int						ft_checklongmax_group(t_lst **data);
-int						ft_access_or_not(s_struct *data, t_lst *liste);
 /*
 **	Fonction de trie
 */

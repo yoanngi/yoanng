@@ -22,9 +22,6 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	(*data)->tmin = 0;
 	(*data)->lmin = 0;
 	(*data)->invalid = 0;
-	(*data)->user_data = NULL;
-	(*data)->groupe_data= NULL;
-	ft_get_droit_data(data);
 	(*data)->nb_file = ft_count_files_valid(nb, params);
 	(*data)->multifile = (char **)malloc(sizeof(char *) *
 			((*data)->nb_file + 1));

@@ -58,14 +58,12 @@ void	ft_print_liste(t_lst *recur, s_struct *data)
 	t_lst *cpy;
 	t_lst *ret;
 
-	ret = recur;
-	cpy = what_sort(data, recur);
-	ft_putstr("\n");
-	ft_resize_path(ret->path);
-	ft_strdel(&ret->path);
+	ft_putchar('\n');
+	ft_resize_path(recur->path);
+	ft_strdel(&recur->path);
 	ft_putstr(":\n");
-	if (recur->access_denied != NULL)
-		basic_error(recur->access_denied);
+	cpy = what_sort(data, recur);
+	ret = cpy;
 	if (ft_print_block_or_not(&ret, data->amin) == 1)
 	{
 		ft_print_blocks(&ret);
@@ -76,33 +74,39 @@ void	ft_print_liste(t_lst *recur, s_struct *data)
 	}
 	while (cpy->next)
 	{
-		if (cpy->otherfile != NULL && cpy->access_denied == NULL)
+		if (cpy->otherfile != NULL && cpy->access == 1)
 			ft_print_liste(cpy->otherfile, data);
-		if (cpy->otherfile != NULL && cpy->access_denied != NULL)
-			perror(cpy->access_denied);
+		if (cpy->otherfile != NULL && cpy->access == 0)
+			ft_print_error(cpy->otherfile);
 		cpy = cpy->next;
 	}
 }
 
 void	ft_print_ls_liste(s_struct *data)
 {
-	t_lst *rep;
+	t_lst *recur;
 	t_lst *cpy;
 
-	rep = data->liste;
-	cpy = what_sort(data, rep);
-	rep = cpy;
-	ft_print_blocks(&rep);
-	ft_ls_liste(&rep, data->amin);
-	while (cpy->next)
+	cpy = data->liste;
+	recur = what_sort(data, cpy);
+	ft_print_blocks(&cpy);
+	ft_ls_liste(&recur, data->amin);
+	while (recur->next)
 	{
-		if (cpy->otherfile != NULL && data->rmaj == 1 && cpy->access_denied == NULL)
-			ft_print_liste(cpy->otherfile, data);
-		if (cpy->otherfile != NULL && cpy->access_denied != NULL)
-		{
-			printf("Sa Marche ! %s\n", cpy->name);
-			perror(cpy->access_denied);
-		}
-		cpy = cpy->next;
+		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
+			ft_print_liste(recur->otherfile, data);
+		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 0)
+			ft_print_error(recur->otherfile);
+		recur = recur->next;
 	}
+}
+
+void	ft_print_error(t_lst *cpy)
+{
+	ft_putstr("\n");
+	ft_putstr(cpy->path);
+	ft_putstr("\n");
+	ft_putstr_fd("ls: ", 2);
+	ft_putstr_fd(cpy->name, 2);
+	ft_putstr_fd(": Permission denied\n", 2);
 }
