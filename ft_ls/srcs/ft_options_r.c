@@ -116,7 +116,7 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 		ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		if (data->rmaj == 1)
 			ft_check_repertory(&fichierlu, &lstdata, data);
-//		printf("LS_R (name)-> %s, (path)-> %s, (access) = %d\n", lstdata->name, lstdata->path, lstdata->access);
+		printf("LS_R (name)-> %s, (path)-> %s, (access) = %d\n", lstdata->name, lstdata->path, lstdata->access);
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
 	}

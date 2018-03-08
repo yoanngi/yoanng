@@ -16,6 +16,7 @@
 /*
 **	All function error
 */
+
 void	ft_error(char arg)
 {
 	ft_putstr_fd("ft_ls: illegal option -- ", 2);

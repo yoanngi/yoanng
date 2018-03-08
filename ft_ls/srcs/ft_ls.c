@@ -69,8 +69,9 @@ void			ft_ls_two(int i, int nb, char **params, s_struct **data)
 		}
 		else
 		{
-			(*data)->invalid = 1;
-			basic_error(params[i]);
+			if (ft_is_existe(params[i]) == 0)
+				(*data)->invalid = 1;
+				basic_error(params[i]);
 		}
 		i++;
 	}

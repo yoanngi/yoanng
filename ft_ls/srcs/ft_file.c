@@ -14,8 +14,9 @@
 #include "ft_ls.h"
 
 /*
-**	Le fichier existe ?
+**	Verification si le dossier OU fichier existe
 */
+
 int				ft_file_exist(char *file_ornot)
 {
 	DIR		*dir;
@@ -30,6 +31,7 @@ int				ft_file_exist(char *file_ornot)
 /*
 **	Acces au fichier ou non
 */
+
 int				ft_access_or_not(char **path)
 {
 	t_stat	buf;
@@ -42,6 +44,10 @@ int				ft_access_or_not(char **path)
 		return (1);
 	return (0);
 }
+
+/*
+**	Retourne un maillon avec le nom et path du fichier dont on a pas l'access
+*/
 
 t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
 {

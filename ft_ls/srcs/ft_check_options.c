@@ -32,7 +32,7 @@ static void		ft_display(s_struct *data)
 	if (data->lmin == 0)
 		ft_print_ls(data);
 	else
-		ft_print_ls_liste(data);	
+		ft_print_ls_liste(data);
 	if (data->nb_file > 1)
 		ft_putchar('\n');
 	printf("***************************** CLEAN *******************************\n");
@@ -40,7 +40,7 @@ static void		ft_display(s_struct *data)
 	printf("*************************** END CLEAN *******************************\n");
 }
 
-void	ft_check_options(s_struct *data)
+void			ft_check_options(s_struct *data)
 {
 	int i;
 	int path;

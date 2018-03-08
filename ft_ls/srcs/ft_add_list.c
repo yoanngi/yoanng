@@ -16,6 +16,7 @@
 /*
 **	Create new list
 */
+
 t_lst			*ft_lstnew_ls(void)
 {
 	t_lst	*new;
@@ -41,6 +42,7 @@ t_lst			*ft_lstnew_ls(void)
 /*
 **	Free all data in list
 */
+
 t_lst			*ft_clean_list(t_lst *data)
 {
 	t_lst	*tmp;
