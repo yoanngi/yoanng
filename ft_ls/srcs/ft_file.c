@@ -89,7 +89,13 @@ int			ft_is_file(char **path, s_struct *data)
 		}
 	}
 	if (i > 0)
-		ft_ls_liste(&lstdata, 1);
+	{
+		if (data->lmin == 1)
+			ft_ls_liste(&lstdata, data->amin);
+		else
+			ft_putendl(lstdata->name);
+			ft_putstr("\n");
+	}
 	closedir(dir);
 	return (i);
 }
