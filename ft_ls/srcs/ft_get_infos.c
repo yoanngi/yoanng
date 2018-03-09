@@ -24,7 +24,11 @@ char	*ft_get_user(char **path)
 		basic_error(*path);
 		return (NULL);
 	}
-	user = getpwuid(buf.st_uid);
+	if ((user = getpwuid(buf.st_uid)) == NULL)
+	{
+		cpy = ft_itoa(buf.st_uid);
+		return (cpy);
+	}
 	cpy = ft_strdup(user->pw_name);
 	return (cpy);
 }
@@ -40,7 +44,11 @@ char	*ft_get_groupe(char **path)
 		basic_error(*path);
 		return (NULL);
 	}
-	groupe = getgrgid(buf.st_gid);
+	if ((groupe = getgrgid(buf.st_gid)) == NULL)
+	{
+		cpy = ft_itoa(buf.st_gid);
+		return (cpy);
+	}
 	cpy = ft_strdup(groupe->gr_name);
 	return (cpy);
 }

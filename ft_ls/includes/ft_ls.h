@@ -63,6 +63,7 @@ typedef struct			s_struct
 	int					tmin;
 	int					lmin;
 	int					nb_file;
+	int					just_file;
 	char				**multifile;
 	int					invalid;
 	t_lst				*liste;
@@ -81,10 +82,11 @@ t_lst					*ft_lstnew_ls(void);
 char					*ft_one_argv(int nb, char **argv);
 char					**ft_multi_argv(int nb, char **argv, int count);
 char					**ft_add_option(int argc, char **params, int p_valid);
-int						ft_file_exist(char *file_ornot);
 int						ft_option_exist(char *str, int nb);
 void					ft_insert_valid_option(char *cmp, s_struct **data);
 int						ft_count_files_valid(int argc, char **argv);
+char					*ft_strdup_valib(char *str);
+int						ft_is_file(char **path, s_struct *data);
 /*
 **	Fonction clean
 */
@@ -95,6 +97,7 @@ void					ft_clean_tmp(t_lst **tmp);
 **	Fonction principales
 */
 t_lst					*ft_ls_r(s_struct *data, int indexfile);
+t_lst					*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path);
 t_lst					*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure);
 /*
 **	Fonction d'erreurs
@@ -103,7 +106,7 @@ void					ft_error(char arg);
 void					basic_error(char *error);
 void					ft_error_access(char *error);
 int						ft_access_or_not(char **path);
-void					ft_print_error(t_lst *cpy);
+void					ft_print_error(t_lst *cpy, int amin);
 /*
 **	Fonction de check des options
 */

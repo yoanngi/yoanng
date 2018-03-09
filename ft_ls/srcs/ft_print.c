@@ -77,7 +77,7 @@ void	ft_print_liste(t_lst *recur, s_struct *data)
 		if (cpy->otherfile != NULL && cpy->access == 1)
 			ft_print_liste(cpy->otherfile, data);
 		if (cpy->otherfile != NULL && cpy->access == 0)
-			ft_print_error(cpy->otherfile);
+			ft_print_error(cpy->otherfile, data->amin);
 		cpy = cpy->next;
 	}
 }
@@ -96,13 +96,15 @@ void	ft_print_ls_liste(s_struct *data)
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
 			ft_print_liste(recur->otherfile, data);
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 0)
-			ft_print_error(recur->otherfile);
+			ft_print_error(recur->otherfile, data->amin);
 		recur = recur->next;
 	}
 }
 
-void	ft_print_error(t_lst *cpy)
+void	ft_print_error(t_lst *cpy, int amin)
 {
+	if (amin == 0 && cpy->name[0] == '.')
+		return ;
 	ft_putstr("\n");
 	ft_putstr(cpy->path);
 	ft_putstr("\n");

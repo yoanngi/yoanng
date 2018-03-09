@@ -22,6 +22,7 @@ static void		ft_initialise_struct(s_struct **data, int nb, char **params)
 	(*data)->tmin = 0;
 	(*data)->lmin = 0;
 	(*data)->invalid = 0;
+	(*data)->just_file = 0;
 	(*data)->nb_file = ft_count_files_valid(nb, params);
 	(*data)->multifile = (char **)malloc(sizeof(char *) *
 			((*data)->nb_file + 1));
@@ -57,22 +58,25 @@ int				ft_how_to_treat(int ac, char **av, int i, s_struct **data)
 
 void			ft_ls_two(int i, int nb, char **params, s_struct **data)
 {
-	int dir;
+	int 	dir;
+	char	*tmp;
 
 	dir = 0;
+	tmp = NULL;
 	while (i != nb)
 	{
-		if (ft_file_exist(params[i]) == 1)
+		tmp = ft_strdup_valib(params[i]);
+		if (ft_access_or_not(&tmp) == 1)
 		{
-			(*data)->multifile[dir] = ft_strdup(params[i]);
+			(*data)->multifile[dir] = ft_strdup(tmp);
 			dir++;
 		}
-		else
+		else if (ft_is_file(&tmp, *data) == 0)
 		{
-			if (ft_is_existe(params[i]) == 0)
-				(*data)->invalid = 1;
-				basic_error(params[i]);
+			(*data)->invalid = 1;
+			basic_error(params[i]);
 		}
+		ft_strdel(&tmp);
 		i++;
 	}
 }
@@ -87,7 +91,7 @@ void			ft_ls(char **params, int nb, int end)
 	ft_initialise_struct(&data, nb, params);
 	while (end == 0)
 	{
-		if (params[i][0] == '-')
+		if (params[i][0] == '-' && ft_strlen(params[i]) > 1)
 		{
 			if (ft_option_exist(params[i], 1) == 1)
 			{

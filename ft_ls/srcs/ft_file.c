@@ -14,36 +14,17 @@
 #include "ft_ls.h"
 
 /*
-**	Verification si le dossier OU fichier existe
-*/
-
-int				ft_file_exist(char *file_ornot)
-{
-	// Add check file
-	DIR		*dir;
-
-	if ((dir = opendir(file_ornot)) != NULL)
-	{
-		closedir(dir);
-		return (1);
-	}
-	return (0);
-}
-/*
 **	Acces au fichier ou non
 */
 
 int				ft_access_or_not(char **path)
 {
-	t_stat	buf;
-	
-	if (lstat(*path, &buf) == -1)
-	{
-		basic_error(*path);
-	}
-	if (buf.st_mode & EACCES)
-		return (1);
-	return (0);
+	DIR		*dir;
+
+	if ((dir = opendir(*path)) == NULL)
+		return (0);
+	closedir(dir);
+	return (1);
 }
 
 /*
@@ -58,4 +39,57 @@ t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
 	rep->path = ft_strdup(path);
 	rep->name = ft_strdup((*fichierlu)->d_name);
 	return (rep);	
+}
+
+/*
+**	Retourne str sans / a la fin
+*/
+char		*ft_strdup_valib(char *str)
+{
+	size_t	len;
+	char	*tmp;
+
+	tmp = NULL;
+	len = ft_strlen(str);
+	if (len == 1 && str[1] == '/')
+		return (str);
+	if (len > 1)
+	{
+		if (str[len - 1] == '/')
+		{
+			tmp = ft_strsub(str, 0, len - 1);
+			return (tmp);
+		}
+	}
+	return (str);
+}
+
+/*
+**	Le fichier est valide ?
+*/
+
+int			ft_is_file(char **path, s_struct *data)
+{
+	DIR			*dir;
+	t_dir		*fichierlu;
+	t_lst		*lstdata;
+	int			i;
+
+	i = 0;
+	lstdata = ft_lstnew_ls();
+	dir = opendir(".");
+	while ((fichierlu = readdir(dir)) != NULL)
+	{
+		if (ft_strcmp(fichierlu->d_name, *path) == 0)
+		{
+			lstdata->path = ft_strjoin("./", fichierlu->d_name);
+			ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
+			i = 1;
+			data->just_file = 1;
+		}
+	}
+	if (i > 0)
+		ft_ls_liste(&lstdata, 1);
+	closedir(dir);
+	return (i);
 }

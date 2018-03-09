@@ -67,7 +67,7 @@ int			ft_count_files_valid(int argc, char **argv)
 	while (i != (argc - 1))
 	{
 		cpy = ft_strdup(argv[tmp - 1]);
-		if (ft_file_exist(cpy) == 1)
+		if (ft_access_or_not(&cpy) == 1)
 			nb += 1;
 		ft_strdel(&cpy);
 		i++;

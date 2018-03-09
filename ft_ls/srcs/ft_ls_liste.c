@@ -74,7 +74,7 @@ static void			ft_ls_liste_amin(t_lst **data, int size, int link)
 	use = ft_checklongmax_user(data);
 	grp = ft_checklongmax_group(data);
 	cpy = *data;
-	while (cpy->next)
+	while (cpy)
 	{
 		ft_print_liste_ls(&cpy, grp, link, use);
 		ft_print_liste_ls_two(&cpy, size);

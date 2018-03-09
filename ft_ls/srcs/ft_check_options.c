@@ -18,9 +18,10 @@
 **	Create chain list for all directory
 **	Print path of the various directory
 */
+
 static void		ft_target(s_struct *data)
 {
-	if (data->nb_file == 0 && data->invalid == 0)
+	if (data->just_file == 0 && data->nb_file == 0 && data->invalid == 0)
 	{
 		data->nb_file = 1;
 		data->multifile[0] = ft_strdup(".");
@@ -35,9 +36,9 @@ static void		ft_display(s_struct *data)
 		ft_print_ls_liste(data);
 	if (data->nb_file > 1)
 		ft_putchar('\n');
-	printf("***************************** CLEAN *******************************\n");
+//	printf("***************************** CLEAN *******************************\n");
 	//data->liste = ft_clean_list(data->liste);
-	printf("*************************** END CLEAN *******************************\n");
+//	printf("*************************** END CLEAN *******************************\n");
 }
 
 void			ft_check_options(s_struct *data)
