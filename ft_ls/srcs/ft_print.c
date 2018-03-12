@@ -27,6 +27,7 @@ void	ft_resize_path(char *str)
 		ft_putchar(str[i]);
 		i++;
 	}
+	ft_strdel(&str);
 }
 
 int		ft_print_block_or_not(t_lst **data, int secret)

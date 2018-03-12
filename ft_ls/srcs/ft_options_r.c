@@ -76,7 +76,7 @@ static int		ft_check_repertory(t_dir **fl, t_lst **data, s_struct *st)
 		(*data)->otherfile = NULL;
 		return (0);
 	}
-	if ((*data)->access == 1 && (*fl)->d_type == 4 &&
+	if ((*data)->access == 1 && ((*fl)->d_type == 4 || (*fl)->d_type == 0) &&
 	(ft_strcmp((*fl)->d_name, ".") != 0 &&
 	ft_strcmp((*fl)->d_name, "..") != 0))
 		(*data)->otherfile = ft_read_repertoire(fl, (*data)->path, st);

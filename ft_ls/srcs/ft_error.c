@@ -44,8 +44,11 @@ void	ft_print_error(t_lst *cpy, int amin)
 		return ;
 	ft_putstr("\n");
 	ft_putstr(cpy->path);
+	ft_strdel(&cpy->path);
 	ft_putstr("\n");
 	ft_putstr_fd("ls: ", 2);
 	ft_putstr_fd(cpy->name, 2);
+	ft_strdel(&cpy->name);
 	ft_putstr_fd(": Permission denied\n", 2);
+	free(cpy);
 }
