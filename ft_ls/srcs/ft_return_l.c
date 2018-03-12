@@ -70,7 +70,10 @@ void			ft_print_blocks(t_lst **liste)
 	cpy = *liste;
 	while (cpy->next)
 	{
-		total += cpy->blocks;
+		if (ft_strcmp(cpy->name, ".") == 0)
+			total += 0;
+		else
+			total += cpy->blocks;
 		cpy = cpy->next;
 	}
 	ft_putstr("total ");
