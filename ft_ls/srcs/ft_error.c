@@ -38,3 +38,14 @@ void	ft_error_access(char *error)
 	ft_putstr_fd(" Permission denied -> perso\n", 2);
 }
 
+void	ft_print_error(t_lst *cpy, int amin)
+{
+	if (amin == 0 && cpy->name[0] == '.')
+		return ;
+	ft_putstr("\n");
+	ft_putstr(cpy->path);
+	ft_putstr("\n");
+	ft_putstr_fd("ls: ", 2);
+	ft_putstr_fd(cpy->name, 2);
+	ft_putstr_fd(": Permission denied\n", 2);
+}

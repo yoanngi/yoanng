@@ -38,13 +38,14 @@ t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
 	rep = ft_lstnew_ls();
 	rep->path = ft_strdup(path);
 	rep->name = ft_strdup((*fichierlu)->d_name);
-	return (rep);	
+	return (rep);
 }
 
 /*
 **	Retourne str sans / a la fin
 */
-char		*ft_strdup_valib(char *str)
+
+char			*ft_strdup_valib(char *str)
 {
 	size_t	len;
 	char	*tmp;
@@ -68,7 +69,18 @@ char		*ft_strdup_valib(char *str)
 **	Le fichier est valide ?
 */
 
-int			ft_is_file(char **path, s_struct *data)
+static void		ft_is_file_suite(t_lst *lstdata, s_struct *data)
+{
+	if (data->lmin == 1)
+		ft_ls_liste(&lstdata, data->amin);
+	else
+	{
+		ft_putendl(lstdata->name);
+		ft_putstr("\n");
+	}
+}
+
+int				ft_is_file(char **path, s_struct *data)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -89,13 +101,7 @@ int			ft_is_file(char **path, s_struct *data)
 		}
 	}
 	if (i > 0)
-	{
-		if (data->lmin == 1)
-			ft_ls_liste(&lstdata, data->amin);
-		else
-			ft_putendl(lstdata->name);
-			ft_putstr("\n");
-	}
+		ft_is_file_suite(lstdata, data);
 	closedir(dir);
 	return (i);
 }

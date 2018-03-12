@@ -23,7 +23,7 @@ void	ft_resize_path(char *str)
 	while (str[i])
 	{
 		if (i == (end - 2))
-			return;
+			return ;
 		ft_putchar(str[i]);
 		i++;
 	}
@@ -99,16 +99,4 @@ void	ft_print_ls_liste(s_struct *data)
 			ft_print_error(recur->otherfile, data->amin);
 		recur = recur->next;
 	}
-}
-
-void	ft_print_error(t_lst *cpy, int amin)
-{
-	if (amin == 0 && cpy->name[0] == '.')
-		return ;
-	ft_putstr("\n");
-	ft_putstr(cpy->path);
-	ft_putstr("\n");
-	ft_putstr_fd("ls: ", 2);
-	ft_putstr_fd(cpy->name, 2);
-	ft_putstr_fd(": Permission denied\n", 2);
 }

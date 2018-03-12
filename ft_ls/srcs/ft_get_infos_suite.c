@@ -50,7 +50,7 @@ char			*ft_get_droit_symbolique(char **path, size_t size)
 	{
 		if (ret[i] == ' ' || ret[i] == '\n')
 		{
-			while(ret[i])
+			while (ret[i])
 			{
 				ret[i] = '\0';
 				i++;

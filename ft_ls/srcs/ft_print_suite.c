@@ -13,22 +13,22 @@
 
 #include "ft_ls.h"
 
-static void	ft_ls_simple_sort_two(t_lst *lst)
+static void		ft_ls_simple_sort_two(t_lst *lst)
 {
-		while (lst->next)
+	while (lst->next)
+	{
+		if (lst->name[0] == '.')
+			lst = lst->next;
+		else
 		{
-			if (lst->name[0] == '.')
-				lst = lst->next;
-			else
-			{
-				ft_putstr(lst->name);
-				ft_putstr("\n");
-				lst = lst->next;
-			}
+			ft_putstr(lst->name);
+			ft_putstr("\n");
+			lst = lst->next;
 		}
+	}
 }
 
-static void	ft_ls_simple_sort(t_lst *lst, int amin)
+static void		ft_ls_simple_sort(t_lst *lst, int amin)
 {
 	if (amin == 1)
 	{
@@ -43,7 +43,7 @@ static void	ft_ls_simple_sort(t_lst *lst, int amin)
 		ft_ls_simple_sort_two(lst);
 }
 
-static void ft_print(t_lst *recur, s_struct *data)
+static void		ft_print(t_lst *recur, s_struct *data)
 {
 	t_lst *cpy;
 	t_lst *ret;
@@ -65,7 +65,7 @@ static void ft_print(t_lst *recur, s_struct *data)
 	}
 }
 
-void 		ft_print_ls(s_struct *data)
+void			ft_print_ls(s_struct *data)
 {
 	t_lst *recur;
 	t_lst *cpy;

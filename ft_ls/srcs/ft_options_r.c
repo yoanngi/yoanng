@@ -13,7 +13,7 @@
 
 #include "ft_ls.h"
 
-static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
+void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 {
 	char	*cpy;
 	char	*tmp;
@@ -26,13 +26,13 @@ static void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 	{
 		tmp = ft_strdup(path);
 		(*data)->path = ft_strjoin(tmp, "/");
+		ft_strdel(&tmp);
 		cpy = ft_strdup((*data)->path);
 		ft_strdel(&(*data)->path);
 		(*data)->path = ft_strjoin(cpy, fichierlu->d_name);
 		ft_strdel(&cpy);
-		ft_strdel(&tmp);
 	}
-	else 
+	else
 	{
 		cpy = ft_strdup((*data)->path);
 		ft_strdel(&(*data)->path);
@@ -63,23 +63,25 @@ t_lst			*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 	return (*ret);
 }
 
-static int			ft_check_repertory(t_dir **fichierlu, t_lst **data, s_struct *structure)
+static int		ft_check_repertory(t_dir **fl, t_lst **data, s_struct *st)
 {
-	if ((*data)->access == 1 && (*fichierlu)->d_type == 4 && (ft_strcmp((*fichierlu)->d_name, ".") != 0
-	&& ft_strcmp((*fichierlu)->d_name, "..") != 0))
+	if (st->amin == 0 && (*fl)->d_name[0] == '.')
 	{
-		(*data)->otherfile = ft_read_repertoire(fichierlu, (*data)->path, structure);
+		(*data)->otherfile = NULL;
+		return (0);
 	}
-	else if ((*data)->access == 0 && (*fichierlu)->d_type == 4)
-	{
-		(*data)->otherfile = ft_return_access_denied(fichierlu, (*data)->path);
-	}
+	if ((*data)->access == 1 && (*fl)->d_type == 4 &&
+	(ft_strcmp((*fl)->d_name, ".") != 0 &&
+	ft_strcmp((*fl)->d_name, "..") != 0))
+		(*data)->otherfile = ft_read_repertoire(fl, (*data)->path, st);
+	else if ((*data)->access == 0 && (*fl)->d_type == 4)
+		(*data)->otherfile = ft_return_access_denied(fl, (*data)->path);
 	else
 		(*data)->otherfile = NULL;
 	return (0);
 }
 
-t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure)
+t_lst			*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *st)
 {
 	DIR		*dir;
 	t_lst	*rep;
@@ -93,8 +95,7 @@ t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure)
 	{
 		ft_insert_path(*fichierlu, &rep, path);
 		ft_insert_data_hard(fichierlu, &rep, rep->path);
-		ft_check_repertory(fichierlu, &rep, structure);
-//		printf("read_rep (name)-> %s, (path)-> %s, (access) = %d\n\n", rep->name, rep->path, rep->access);
+		ft_check_repertory(fichierlu, &rep, st);
 		rep->next = ft_lstnew_ls();
 		rep = rep->next;
 	}
@@ -102,14 +103,13 @@ t_lst		*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure)
 	return (cpy);
 }
 
-t_lst				*ft_ls_r(s_struct *data, int indexfile)
+t_lst			*ft_ls_r(s_struct *data, int indexfile)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
 	t_lst		*lstdata;
 	t_lst		*lstsend;
 
-//	printf("************************************************ START options R\n");
 	lstdata = ft_lstnew_ls();
 	lstsend = lstdata;
 	dir = opendir(data->multifile[indexfile]);
@@ -119,11 +119,9 @@ t_lst				*ft_ls_r(s_struct *data, int indexfile)
 		ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
 		if (data->rmaj == 1)
 			ft_check_repertory(&fichierlu, &lstdata, data);
-//		printf("LS_R (name)-> %s, (path)-> %s, (access) = %d\n", lstdata->name, lstdata->path, lstdata->access);
 		lstdata->next = ft_lstnew_ls();
 		lstdata = lstdata->next;
 	}
 	closedir(dir);
-//	printf("************************************************ END options R\n");
 	return (lstsend);
 }

@@ -58,7 +58,7 @@ int				ft_how_to_treat(int ac, char **av, int i, s_struct **data)
 
 void			ft_ls_two(int i, int nb, char **params, s_struct **data)
 {
-	int 	dir;
+	int		dir;
 	char	*tmp;
 
 	dir = 0;

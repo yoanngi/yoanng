@@ -15,7 +15,7 @@
 
 NAME =		ft_ls
 CC = 		gcc
-CC_FLAGS = 	-Wall -Werror -Wextra
+CC_FLAGS = 	-Wall -Werror -Wextra -g
 
 N_INC =		ft_ls.h
 N_SRCS = 	ft_error.c\

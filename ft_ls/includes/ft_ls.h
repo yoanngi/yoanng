@@ -54,7 +54,6 @@ typedef struct			s_lst
 
 typedef struct			s_struct
 {
-	char				*argv;
 	int					argc;
 	int					tiret;
 	int					rmaj;
@@ -90,26 +89,26 @@ int						ft_is_file(char **path, s_struct *data);
 /*
 **	Fonction clean
 */
-void					ft_clean_data(t_lst **data);
 t_lst					*ft_clean_list(t_lst *data);
-void					ft_clean_tmp(t_lst **tmp);
+void					ft_del_infos(t_lst **liste);
 /*
 **	Fonction principales
 */
 t_lst					*ft_ls_r(s_struct *data, int indexfile);
 t_lst					*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path);
-t_lst					*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *structure);
+t_lst					*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *st);
+void					ft_insert_path(t_dir *fichierlu, t_lst **data, char *path);
 /*
 **	Fonction d'erreurs
 */
 void					ft_error(char arg);
 void					basic_error(char *error);
 void					ft_error_access(char *error);
-int						ft_access_or_not(char **path);
 void					ft_print_error(t_lst *cpy, int amin);
 /*
 **	Fonction de check des options
 */
+int						ft_access_or_not(char **path);
 void					ft_check_options(s_struct *data);
 t_lst					*ft_class_print_t(t_lst **data);
 int						ft_how_to_treat(int ac, char **av, int i, s_struct **data);

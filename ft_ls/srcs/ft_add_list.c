@@ -17,7 +17,7 @@
 **	Create new list
 */
 
-t_lst			*ft_lstnew_ls(void)
+t_lst		*ft_lstnew_ls(void)
 {
 	t_lst	*new;
 
@@ -40,10 +40,21 @@ t_lst			*ft_lstnew_ls(void)
 }
 
 /*
-**	Free all data in list
+**	swap list chain
 */
 
-t_lst			*ft_clean_list(t_lst *data)
+t_lst		*lst_swap(t_lst *lst1, t_lst *lst2)
+{
+	lst1->next = lst2->next;
+	lst2->next = lst1;
+	return (lst2);
+}
+
+/*
+**	Free list
+*/
+
+t_lst		*ft_clean_list(t_lst *data)
 {
 	t_lst	*tmp;
 	t_lst	*clean;
@@ -54,18 +65,25 @@ t_lst			*ft_clean_list(t_lst *data)
 		if (tmp->otherfile != NULL)
 			ft_clean_list(tmp->otherfile);
 		clean = tmp;
-		ft_strdel(&tmp->name);
 		ft_strdel(&tmp->path);
-		ft_strdel(&tmp->user);
-		ft_strdel(&tmp->droit);
-		ft_strdel(&tmp->groupe);
-		ft_strdel(&tmp->day);
-		ft_strdel(&tmp->time);
-		ft_strdel(&tmp->droit);
-		ft_strdel(&tmp->symbol);
 		free(tmp->otherfile);
 		tmp->otherfile = NULL;
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+/*
+**	Free datas in list
+*/
+
+void		ft_del_infos(t_lst **liste)
+{
+	ft_strdel(&(*liste)->droit);
+	ft_strdel(&(*liste)->user);
+	ft_strdel(&(*liste)->groupe);
+	ft_strdel(&(*liste)->month);
+	ft_strdel(&(*liste)->day);
+	ft_strdel(&(*liste)->time);
+	ft_strdel(&(*liste)->name);
 }

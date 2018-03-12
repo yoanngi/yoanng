@@ -17,7 +17,6 @@
 **	Reverse list
 */
 
-// Attention, clean a gerer
 t_lst			*ft_reverse_lst(t_lst *prime)
 {
 	t_lst	*tete;
@@ -38,6 +37,7 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 /*
 **	Sort list (ascii)
 */
+
 t_lst	*lst_sort_ascii(t_lst *lst)
 {
 	if (!lst)
@@ -78,10 +78,12 @@ t_lst	*lst_sort_ascii(t_lst *lst)
 	return (ret);
 }
 */
+
 /*
 **	Sort list (time)
 **	http://lwh.free.fr/pages/algo/tri/tri.htm
 */
+
 t_lst	*lst_sort_time(t_lst *lst)
 {
 	if (!lst)
@@ -109,18 +111,9 @@ t_lst	*lst_sort_time(t_lst *lst)
 }
 
 /*
-**	swap list chain
-*/
-t_lst		*lst_swap(t_lst *lst1, t_lst *lst2)
-{
-	lst1->next = lst2->next;
-	lst2->next = lst1;
-	return (lst2);
-}
-
-/*
 **	How sort list
 */
+
 t_lst		*what_sort(s_struct *data, t_lst *liste)
 {
 	if (data->tmin == 1)

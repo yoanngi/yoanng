@@ -13,7 +13,6 @@
 
 #include "ft_ls.h"
 
-
 static void			ft_clean_simple(t_lst **src)
 {
 	t_lst	*clear;
@@ -37,7 +36,10 @@ static void			ft_print_ls_in_order(t_lst **print, int a)
 	while (cpy->name)
 	{
 		if (a == 0 && cpy->name[0] == '.')
+		{
+			ft_strdel(&cpy->name);
 			cpy = cpy->next;
+		}
 		else
 		{
 			ft_putstr(cpy->name);

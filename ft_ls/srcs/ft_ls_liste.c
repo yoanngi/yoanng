@@ -23,21 +23,17 @@ static void			ft_print_liste_ls_two(t_lst **data, int size)
 	ft_putnbr((*data)->size);
 	ft_putstr(" ");
 	ft_putstr((*data)->month);
-//	ft_strdel(&(*data)->month);
 	ft_putstr(" ");
 	ft_putstr((*data)->day);
-//	ft_strdel(&(*data)->day);
 	ft_putstr(" ");
 	ft_putstr((*data)->time);
-//	ft_strdel(&(*data)->time);
 	ft_putstr(" ");
 	ft_putstr((*data)->name);
-//	ft_strdel(&(*data)->name);
 	if ((*data)->symbol != NULL)
 	{
 		ft_putstr(" -> ");
 		ft_putstr((*data)->symbol);
-//		ft_strdel(&(*data)->symbol);
+		ft_strdel(&(*data)->symbol);
 	}
 }
 
@@ -46,7 +42,6 @@ static void			ft_print_liste_ls(t_lst **data, int grp, int link, int use)
 	int		len;
 
 	ft_putstr((*data)->droit);
-//	ft_strdel(&(*data)->droit);
 	ft_putchar(' ');
 	len = ft_strlen(ft_itoa((*data)->link));
 	while (len++ != link + 1)
@@ -57,12 +52,10 @@ static void			ft_print_liste_ls(t_lst **data, int grp, int link, int use)
 	len = ft_strlen((*data)->user);
 	while (len++ <= use + 1)
 		ft_putchar(' ');
-//	ft_strdel(&(*data)->user);
 	ft_putstr((*data)->groupe);
 	len = ft_strlen((*data)->groupe);
 	while (len++ != grp + 1)
 		ft_putchar(' ');
-//	ft_strdel(&(*data)->groupe);
 }
 
 static void			ft_ls_liste_amin(t_lst **data, int size, int link)
@@ -79,6 +72,7 @@ static void			ft_ls_liste_amin(t_lst **data, int size, int link)
 		ft_print_liste_ls(&cpy, grp, link, use);
 		ft_print_liste_ls_two(&cpy, size);
 		ft_putstr("\n");
+		ft_del_infos(&cpy);
 		cpy = cpy->next;
 	}
 }
@@ -97,12 +91,16 @@ static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 		if (cpy->name == NULL || cpy->next == NULL)
 			return ;
 		if (cpy->name[0] == '.')
+		{
+			ft_del_infos(&cpy);
 			cpy = cpy->next;
+		}
 		else
 		{
 			ft_print_liste_ls(&cpy, grp, link, use);
 			ft_print_liste_ls_two(&cpy, size);
 			ft_putchar('\n');
+			ft_del_infos(&cpy);
 			cpy = cpy->next;
 		}
 	}
