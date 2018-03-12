@@ -30,6 +30,8 @@ t_lst		*ft_lstnew_ls(void)
 	new->droit = NULL;
 	new->date = 0;
 	new->size = 0;
+	new->minor = 0;
+	new->major = 0;
 	new->link = 0;
 	new->access = 1;
 	new->otherfile = NULL;

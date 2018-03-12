@@ -46,6 +46,8 @@ typedef struct			s_lst
 	char				*droit;
 	char				*symbol;
 	int					size;
+	int					minor;
+	int					major;
 	int					link;
 	blkcnt_t			blocks;
 	struct s_lst		*otherfile;
@@ -125,6 +127,8 @@ char					ft_get_droit_two(char **path);
 char					*ft_get_droit_symbolique(char **path, size_t size);
 char					*ft_get_new_path(char **path);
 int						ft_get_size(char **path);
+int						ft_get_minor(char **path);
+int						ft_get_major(char **path);
 int						ft_get_link(char **path);
 int						ft_get_blocks(char **path);
 char					*ft_return_time(time_t str);
@@ -134,6 +138,8 @@ int						ft_checklongmax_link(t_lst **data);
 int						ft_checklongmax_size(t_lst **data);
 int						ft_checklongmax_user(t_lst **data);
 int						ft_checklongmax_group(t_lst **data);
+int						ft_checklongmax_minor(t_lst **data);
+int						ft_checklongmax_major(t_lst **data);
 /*
 **	Fonction de trie
 */
@@ -153,5 +159,7 @@ void					ft_print_ls(s_struct *data);
 void					ft_print_ls_liste(s_struct *data);
 void					ft_print_liste(t_lst *recur, s_struct *data);
 int						ft_print_block_or_not(t_lst **data, int secret);
+void					ft_display_one(t_lst **data, int grp, int link, int use);
+void					ft_display_two(t_lst **data, int size, int minor, int major);
 
 #endif

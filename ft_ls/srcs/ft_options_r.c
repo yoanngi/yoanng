@@ -51,7 +51,13 @@ t_lst			*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 	(*ret)->time = ft_return_time((*ret)->date);
 	(*ret)->month = ft_return_month((*ret)->date);
 	(*ret)->day = ft_return_day((*ret)->date);
-	(*ret)->size = ft_get_size(&path);
+	if ((*ret)->droit[0] == 'c' || (*ret)->droit[0] == 'b')
+	{
+		(*ret)->minor = ft_get_minor(&path);
+		(*ret)->major = ft_get_major(&path);
+	}
+	else
+		(*ret)->size = ft_get_size(&path);
 	(*ret)->link = ft_get_link(&path);
 	(*ret)->blocks = ft_get_blocks(&path);
 	(*ret)->access = ft_access_or_not(&path);

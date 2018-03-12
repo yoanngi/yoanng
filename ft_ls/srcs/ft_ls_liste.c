@@ -13,66 +13,27 @@
 
 #include "ft_ls.h"
 
-static void			ft_print_liste_ls_two(t_lst **data, int size)
-{
-	int		len;
-
-	len = ft_strlen(ft_itoa((*data)->size));
-	while (len++ != size + 1)
-		ft_putchar(' ');
-	ft_putnbr((*data)->size);
-	ft_putstr(" ");
-	ft_putstr((*data)->month);
-	ft_putstr(" ");
-	ft_putstr((*data)->day);
-	ft_putstr(" ");
-	ft_putstr((*data)->time);
-	ft_putstr(" ");
-	ft_putstr((*data)->name);
-	if ((*data)->symbol != NULL)
-	{
-		ft_putstr(" -> ");
-		ft_putstr((*data)->symbol);
-		ft_strdel(&(*data)->symbol);
-	}
-}
-
-static void			ft_print_liste_ls(t_lst **data, int grp, int link, int use)
-{
-	int		len;
-
-	ft_putstr((*data)->droit);
-	ft_putchar(' ');
-	len = ft_strlen(ft_itoa((*data)->link));
-	while (len++ != link + 1)
-		ft_putchar(' ');
-	ft_putnbr((*data)->link);
-	ft_putstr(" ");
-	ft_putstr((*data)->user);
-	len = ft_strlen((*data)->user);
-	while (len++ <= use + 1)
-		ft_putchar(' ');
-	ft_putstr((*data)->groupe);
-	len = ft_strlen((*data)->groupe);
-	while (len++ != grp + 1)
-		ft_putchar(' ');
-}
-
 static void			ft_ls_liste_amin(t_lst **data, int size, int link)
 {
 	int		use;
 	int		grp;
+	int		minor;
+	int		major;
 	t_lst	*cpy;
 
+	minor = ft_checklongmax_minor(data);
+	major = ft_checklongmax_major(data);
 	use = ft_checklongmax_user(data);
 	grp = ft_checklongmax_group(data);
 	cpy = *data;
 	while (cpy)
 	{
-		ft_print_liste_ls(&cpy, grp, link, use);
-		ft_print_liste_ls_two(&cpy, size);
-		ft_putstr("\n");
+		if (cpy->name == NULL || cpy->next == NULL)
+			return ;
+		ft_display_one(&cpy, grp, link, use);
+		ft_display_two(&cpy, size, minor, major);
 		ft_del_infos(&cpy);
+		ft_putstr("\n");
 		cpy = cpy->next;
 	}
 }
@@ -81,12 +42,16 @@ static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 {
 	int		use;
 	int		grp;
+	int		minor;
+	int		major;
 	t_lst	*cpy;
 
+	minor = ft_checklongmax_minor(data);
+	major = ft_checklongmax_major(data);
 	use = ft_checklongmax_user(data);
 	grp = ft_checklongmax_group(data);
 	cpy = *data;
-	while (cpy->next)
+	while (cpy)
 	{
 		if (cpy->name == NULL || cpy->next == NULL)
 			return ;
@@ -97,10 +62,10 @@ static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 		}
 		else
 		{
-			ft_print_liste_ls(&cpy, grp, link, use);
-			ft_print_liste_ls_two(&cpy, size);
-			ft_putchar('\n');
+			ft_display_one(&cpy, grp, link, use);
+			ft_display_two(&cpy, size, minor, major);
 			ft_del_infos(&cpy);
+			ft_putchar('\n');
 			cpy = cpy->next;
 		}
 	}
