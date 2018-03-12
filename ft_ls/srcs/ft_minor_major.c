@@ -23,7 +23,7 @@ int		ft_get_minor(char **path)
 		basic_error(*path);
 		return (0);
 	}
-	minor = buf.st_rdev & 0xffffff;
+	minor = buf.st_rdev & ((1U << 24) - 1);
 	return (minor);
 }
 
@@ -37,7 +37,7 @@ int		ft_get_major(char **path)
 		basic_error(*path);
 		return (0);
 	}
-	major = (buf.st_rdev >> 24) & 0xff;
+	major = (buf.st_rdev >> 24);
 	return (major);
 }
 
