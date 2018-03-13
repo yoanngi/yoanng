@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/13 16:16:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/13 16:36:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,7 +94,7 @@ void		ft_del_struct(s_struct *data)
 	int i;
 
 	i = 0;
-	while (i != data->argc)
+	while (i++ != data->argc)
 		free(data->multifile[i]);
 	free(data->liste);
 	free(data);

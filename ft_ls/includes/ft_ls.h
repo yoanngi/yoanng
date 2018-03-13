@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/13 16:15:59 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/13 16:37:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
-# include <sys/errno.h>
+# include <sys/errno.h
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/xattr.h>
