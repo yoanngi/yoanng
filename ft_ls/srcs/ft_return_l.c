@@ -65,18 +65,24 @@ void			ft_print_blocks(t_lst **liste)
 {
 	t_lst		*cpy;
 	blkcnt_t	total;
+	int			compt;
 
-	total = 0;
 	cpy = *liste;
+	total = 0;
+	compt = 0;
 	while (cpy->next)
 	{
 		if (ft_strcmp(cpy->name, ".") == 0)
 			total += 0;
 		else
 			total += cpy->blocks;
+		compt++;
 		cpy = cpy->next;
 	}
-	ft_putstr("total ");
-	ft_putnbr(total);
-	ft_putstr("\n");
+	if (compt > 2)
+	{
+		ft_putstr("total ");
+		ft_putnbr(total);
+		ft_putstr("\n");
+	}
 }

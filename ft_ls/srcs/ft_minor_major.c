@@ -13,6 +13,10 @@
 
 #include "ft_ls.h"
 
+/*
+**	Apply the mask for detect minor
+*/
+
 int		ft_get_minor(char **path)
 {
 	t_stat		buf;
@@ -27,6 +31,10 @@ int		ft_get_minor(char **path)
 	return (minor);
 }
 
+/*
+**	Apply the mask for detect major
+*/
+
 int		ft_get_major(char **path)
 {
 	t_stat		buf;
@@ -40,6 +48,10 @@ int		ft_get_major(char **path)
 	major = (buf.st_rdev >> 24);
 	return (major);
 }
+
+/*
+**	Long max minor
+*/
 
 int		ft_checklongmax_minor(t_lst **data)
 {
@@ -67,6 +79,10 @@ int		ft_checklongmax_minor(t_lst **data)
 	}
 	return (ret);
 }
+
+/*
+**	Long max major
+*/
 
 int		ft_checklongmax_major(t_lst **data)
 {
