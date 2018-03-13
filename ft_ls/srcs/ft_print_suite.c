@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_print_suite.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/20 16:03:29 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/27 15:14:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/13 14:56:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ static void		ft_ls_simple_sort_two(t_lst *lst)
 		{
 			ft_putstr(lst->name);
 			ft_putstr("\n");
+			ft_del_infos(&lst);
 			lst = lst->next;
 		}
 	}
@@ -36,6 +37,7 @@ static void		ft_ls_simple_sort(t_lst *lst, int amin)
 		{
 			ft_putstr(lst->name);
 			ft_putstr("\n");
+			ft_del_infos(&lst);
 			lst = lst->next;
 		}
 	}

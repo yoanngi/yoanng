@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_add_list.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:56:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/13 16:16:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,15 +62,14 @@ t_lst		*ft_clean_list(t_lst *data)
 	t_lst	*clean;
 
 	tmp = data;
-	while (tmp->name)
+	printf("CLEAN\n");
+	while (tmp->next)
 	{
 		if (tmp->otherfile != NULL)
 			ft_clean_list(tmp->otherfile);
 		clean = tmp;
-		ft_strdel(&tmp->path);
-		free(tmp->otherfile);
-		tmp->otherfile = NULL;
 		tmp = tmp->next;
+		free(clean);
 	}
 	return (NULL);
 }
@@ -88,4 +87,15 @@ void		ft_del_infos(t_lst **liste)
 	ft_strdel(&(*liste)->day);
 	ft_strdel(&(*liste)->time);
 	ft_strdel(&(*liste)->name);
+}
+
+void		ft_del_struct(s_struct *data)
+{
+	int i;
+
+	i = 0;
+	while (i != data->argc)
+		free(data->multifile[i]);
+	free(data->liste);
+	free(data);
 }

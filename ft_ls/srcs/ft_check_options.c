@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_check_options.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:31:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/13 16:16:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,5 @@ void			ft_check_options(s_struct *data)
 		data->nb_file--;
 		i++;
 	}
-	free(data->liste);
-	free(data->multifile);
-	free(data);
+	ft_del_struct(data);
 }

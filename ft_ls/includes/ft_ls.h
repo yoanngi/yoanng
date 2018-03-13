@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_ls.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 13:25:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/13 16:15:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,6 +93,7 @@ int						ft_is_file(char **path, s_struct *data);
 */
 t_lst					*ft_clean_list(t_lst *data);
 void					ft_del_infos(t_lst **liste);
+void					ft_del_struct(s_struct *data);
 /*
 **	Fonction principales
 */

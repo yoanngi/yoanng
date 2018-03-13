@@ -45,7 +45,6 @@ char			*ft_get_droit_symbolique(char **path, size_t size)
 	i = 0;
 	ret = (char *)malloc(sizeof(char) * size);
 	secure = readlink(*path, ret, size);
-//	ret[secure] = '\0';
 	while (ret[i])
 	{
 		if (ret[i] == ' ' || ret[i] == '\n')
