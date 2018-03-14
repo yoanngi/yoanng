@@ -3,12 +3,14 @@
 # Projet Hercule Birds
 # http://blog.inforeseau.com/2010/11/ecrire-script-bash-interactif-avec-saisie-par-lutilisateur
 
+# Color
 NOC='\033[0m'
 GREEN='\033[32;05m'
 RED='\033[31m'
 SUR='\033[1m'
 
 NAME=$1
+PATH_AV=$2
 
 # Intro
 echo "$SUR""Welcome to Birds.sh$NOC";
@@ -21,12 +23,16 @@ echo "$SUR"" | _ )|_ _|| _ \ |   \ / __|   / __| | || | " ;
 echo "$SUR"" | _ \ | | |   / | |) |\__ \ _ \__ \ | __ | " ;
 echo "$SUR"" |___/|___||_|_\ |___/ |___/(_)|___/ |_||_| $NOC" ;
 echo "" ;
-echo "Creating Project $RED $NAME $NOC" ;
+
+# Confirmation
 until [[ ${confirm} =~ ^[0-1]+$ ]]; do
-    echo "Please confirme this name of project (0 = NO or 1 = YES)";
+    echo "Please confirme : $RED$NAME$NOC in $RED $PATH_AV$NOC";
+    echo "[y = 1 / n = 0]"
     read confirm[$1]
 done
 
+
+# Si confirmation = 0
 if [[ ("$confirm" == "0")]] ; then
     while [ -z ${newname[$1]} ]; do
         echo "Please enter the new name or exit (-q)";
@@ -36,24 +42,47 @@ if [[ ("$confirm" == "0")]] ; then
             exit ;
         else
             NAME="$newname"
-            echo "Creating Project $RED $NAME $NOC" ;
+            echo "New Name $RED $NAME $NOC" ;
+        fi ;
+    done
+    while [ -z ${newpath[$1]} ]; do
+        echo "Please enter the new path or exit (-q)";
+        read newpath[$1]
+        if [[ ("$newpath" == "-q" && $# == 1) ]] ; then
+            echo "$RED""Exit Project$NOC";
+            exit ;
+        else
+            PATH_AV=$newpath
+            echo "New Path $RED $PATH_AV $NOC" ;
         fi ;
     done
 fi ;
 
-# Path
-echo "$GREEN""Please enter the path for install$NOC";
-read -p "/" -e path[$1]
-cd $path
+echo "" ;
+echo "******************************************************" ;
+echo "Creating Project $GREEN$NAME$NOC in $GREEN$PATH_AV$NOC" ;
+echo "******************************************************" ;
+echo "" ;
 
-# Name ok, verify if directory exist
+# Verif Path
+if [ -d $PATH_AV ] ; then
+    echo "$GREEN""PATH ok$NOC" ;
+else
+    echo "$RED""ERROR PATH$NOC" ;
+    echo "Please retry with valid PATH" ;
+    exit ;
+fi ;
+
+cd $PATH_AV ;
+
+# Verif Name
 if [ -e "$NAME" ] ; then
     echo "$RED""Warning, the directory exist !$NOC" ;
     echo "Please change this name or delete directory" ;
     exit ;
 else
     mkdir $NAME ;
-    echo "$GREEN""Creating Successful !$NOC" ;
+    echo "$GREEN""Creating $NAME Successful !$NOC" ;
 fi ;
 
 # What this language ?
@@ -61,16 +90,19 @@ while [ -z ${language[$1]} ]; do
     echo "What the language use ?";
     read language[$1]
     if [[ ("$language" == "C" || "$language" == "c") && $# == 1 ]] ; then
+        cd $NAME ;
         echo "Create directory :";
         echo "$NAME/srcs";
-        mkdir $NAME/srcs ;
+        mkdir srcs ;
         echo "$NAME/includes";
-        mkdir $NAME/includes ;
+        mkdir includes ;
         echo "Create Makefile :";
         touch Makefile   ;
         echo "Makefile created" ;
+        cd ../ ;
+        echo "$GRENN""Directory Create$NOC"
     else
-        echo "$GRENN""Directory Create, Good luck for your project !$NOC"
+        echo "$GRENN""Directory Create$NOC"
     fi ;
 done ;
 
@@ -92,7 +124,7 @@ while [ -z ${git[$1]} ]; do
     echo "You want the .gitignore? (n = N0, y = YES)";
     read git[$1]
     if [[ ("$git" == "N" || "$git" == "n") && $# == 1 ]] ; then
-        echo "No .gittignore" ;
+        echo "$RED""No .gittignore$NOC" ;
     else
         echo "Create .gitignore file ....." ;
         echo "*.DS_Store" >> $NAME/.gitignore ;
@@ -104,6 +136,7 @@ while [ -z ${git[$1]} ]; do
             read addgitignore[$1]
             if [[ "$addgitignore" != "0" ]] ; then
                 echo $addgitignore >> $NAME/.gitignore ;
+                echo "$GREEN""$addgitignore added !$NOC";
             fi ;
         done ;
     fi ;
