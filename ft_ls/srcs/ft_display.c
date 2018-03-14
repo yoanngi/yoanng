@@ -6,12 +6,16 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/12 15:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/13 14:56:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:39:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+/*
+**	Print Major or Minor
+*/
 
 static void		ft_print_min_maj(t_lst **data, int minor, int major)
 {
@@ -28,6 +32,10 @@ static void		ft_print_min_maj(t_lst **data, int minor, int major)
 	ft_putnbr((*data)->minor);
 	ft_putstr(" ");
 }
+
+/*
+**	Print size
+*/
 
 static void		ft_print_size(t_lst **data, int size, int minor, int major)
 {
@@ -53,17 +61,21 @@ static void		ft_print_size(t_lst **data, int size, int minor, int major)
 	ft_putstr(" ");
 }
 
-void			ft_display_two(t_lst **data, int size, int minor, int major)
+/*
+**	Print in display (part 2)
+*/
+
+void			ft_display_two(t_lst **data, int size, int mi, int ma)
 {
 	if ((*data)->droit[0] == 'c' || (*data)->droit[0] == 'b')
-		ft_print_min_maj(data, minor, major);
+		ft_print_min_maj(data, mi, ma);
 	else
-		ft_print_size(data, size, minor, major);
-	ft_putstr((*data)->month);
+		ft_print_size(data, size, mi, ma);
+	ft_return_month((*data)->date);
 	ft_putstr(" ");
-	ft_putstr((*data)->day);
+	ft_return_day((*data)->date);
 	ft_putstr(" ");
-	ft_putstr((*data)->time);
+	ft_return_time((*data)->date);
 	ft_putstr(" ");
 	ft_putstr((*data)->name);
 	if ((*data)->symbol != NULL)
@@ -74,23 +86,27 @@ void			ft_display_two(t_lst **data, int size, int minor, int major)
 	}
 }
 
-void			ft_display_one(t_lst **data, int grp, int link, int use)
+/*
+**	Print in display (part 1)
+*/
+
+void			ft_display_one(t_lst **da, int grp, int link, int use)
 {
 	int		len;
 
-	ft_putstr((*data)->droit);
+	ft_putstr((*da)->droit);
 	ft_putchar(' ');
-	len = ft_strlen(ft_itoa((*data)->link));
+	len = ft_strlen(ft_itoa((*da)->link));
 	while (len++ != link + 1)
 		ft_putchar(' ');
-	ft_putnbr((*data)->link);
+	ft_putnbr((*da)->link);
 	ft_putstr(" ");
-	ft_putstr((*data)->user);
-	len = ft_strlen((*data)->user);
+	ft_putstr((*da)->user);
+	len = ft_strlen((*da)->user);
 	while (len++ <= use + 1)
 		ft_putchar(' ');
-	ft_putstr((*data)->groupe);
-	len = ft_strlen((*data)->groupe);
+	ft_putstr((*da)->groupe);
+	len = ft_strlen((*da)->groupe);
 	while (len++ != grp + 1)
 		ft_putchar(' ');
 }

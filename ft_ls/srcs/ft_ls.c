@@ -6,14 +6,14 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/13 16:12:30 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:37:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		ft_initialise_struct(s_struct **data, int nb, char **params)
+static void		ft_initialise_struct(t_struct **data, int nb, char **params)
 {
 	(*data)->tiret = 0;
 	(*data)->rmaj = 0;
@@ -49,14 +49,14 @@ static char		**ft_range_tab(char **tab, int len, int i)
 	return (tab);
 }
 
-int				ft_how_to_treat(int ac, char **av, int i, s_struct **data)
+int				ft_to_treat(int ac, char **av, int i, t_struct **da)
 {
 	ft_range_tab(av, ac, i);
-	ft_ls_two(i, ac, av, data);
+	ft_ls_two(i, ac, av, da);
 	return (0);
 }
 
-void			ft_ls_two(int i, int nb, char **params, s_struct **data)
+void			ft_ls_two(int i, int nb, char **params, t_struct **da)
 {
 	int		dir;
 	char	*tmp;
@@ -68,12 +68,12 @@ void			ft_ls_two(int i, int nb, char **params, s_struct **data)
 		tmp = ft_strdup_valib(params[i]);
 		if (ft_access_or_not(&tmp) == 1)
 		{
-			(*data)->multifile[dir] = ft_strdup(tmp);
+			(*da)->multifile[dir] = ft_strdup(tmp);
 			dir++;
 		}
-		else if (ft_is_file(&tmp, *data) == 0)
+		else if (ft_is_file(&tmp, *da) == 0)
 		{
-			(*data)->invalid = 1;
+			(*da)->invalid = 1;
 			basic_error(params[i]);
 		}
 		ft_strdel(&tmp);
@@ -83,10 +83,10 @@ void			ft_ls_two(int i, int nb, char **params, s_struct **data)
 
 void			ft_ls(char **params, int nb, int end)
 {
-	s_struct	*data;
+	t_struct	*data;
 	int			i;
 
-	data = (s_struct *)malloc(sizeof(s_struct));
+	data = (t_struct *)malloc(sizeof(t_struct));
 	i = 1;
 	ft_initialise_struct(&data, nb, params);
 	while (end == 0)
@@ -100,7 +100,7 @@ void			ft_ls(char **params, int nb, int end)
 		}
 		else
 		{
-			ft_how_to_treat(nb, params, i, &data);
+			ft_to_treat(nb, params, i, &data);
 			end = 1;
 		}
 		i++;

@@ -3,21 +3,18 @@
 /*                                                              /             */
 /*   ft_get_infos_suite.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 16:08:33 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/01 11:10:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 10:46:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-time_t			ft_get_time(char **path)
+time_t			ft_get_time(t_stat buf)
 {
-	t_stat			buf;
-
-	lstat(*path, &buf);
 	return (*(&buf.st_mtime));
 }
 
@@ -29,7 +26,11 @@ char			*ft_get_new_path(char **path)
 
 	cpy = ft_strdup(*path);
 	ft_strdel(path);
-	lstat(cpy, &buf);
+	if (lstat(cpy, &buf) == -1)
+	{
+		basic_error(*path);
+		exit(EXIT_FAILURE);
+	}
 	ret = ft_get_droit_symbolique(&cpy, buf.st_size + 1);
 	ft_strdel(&cpy);
 	ft_strdel(path);
@@ -61,11 +62,8 @@ char			*ft_get_droit_symbolique(char **path, size_t size)
 	return (ret);
 }
 
-char			ft_get_droit_two(char **path)
+char			ft_get_droit_two(t_stat buf)
 {
-	t_stat	buf;
-
-	lstat(*path, &buf);
 	if ((S_ISDIR(buf.st_mode)) == 1)
 		return ('d');
 	else if ((S_ISLNK(buf.st_mode)) == 1)
@@ -82,14 +80,12 @@ char			ft_get_droit_two(char **path)
 		return ('-');
 }
 
-char			*ft_get_droit(char **path)
+char			*ft_get_droit(t_stat buf)
 {
-	t_stat			buf;
 	char			*cpy;
 
 	cpy = ft_strnew(10);
-	lstat(*path, &buf);
-	cpy[0] = ft_get_droit_two(path);
+	cpy[0] = ft_get_droit_two(buf);
 	cpy[1] = *((buf.st_mode & S_IRUSR) ? "r" : "-");
 	cpy[2] = *((buf.st_mode & S_IWUSR) ? "w" : "-");
 	cpy[3] = *((buf.st_mode & S_IXUSR) ? "x" : "-");

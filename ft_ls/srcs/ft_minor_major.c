@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_minor_major.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/12 15:08:45 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/12 15:09:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 10:56:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,19 +14,28 @@
 #include "ft_ls.h"
 
 /*
+**	Minor/Major or size ?
+*/
+
+void	ft_minmajorsize(t_stat buf, t_lst **ret)
+{
+	if ((*ret)->droit[0] == 'c' || (*ret)->droit[0] == 'b')
+	{
+		(*ret)->minor = ft_get_minor(buf);
+		(*ret)->major = ft_get_major(buf);
+	}
+	else
+		(*ret)->size = ft_get_size(buf);
+}
+
+/*
 **	Apply the mask for detect minor
 */
 
-int		ft_get_minor(char **path)
+int		ft_get_minor(t_stat buf)
 {
-	t_stat		buf;
 	int			minor;
 
-	if (lstat(*path, &buf) == -1)
-	{
-		basic_error(*path);
-		return (0);
-	}
 	minor = buf.st_rdev & ((1U << 24) - 1);
 	return (minor);
 }
@@ -35,16 +44,10 @@ int		ft_get_minor(char **path)
 **	Apply the mask for detect major
 */
 
-int		ft_get_major(char **path)
+int		ft_get_major(t_stat buf)
 {
-	t_stat		buf;
 	int			major;
 
-	if (lstat(*path, &buf) == -1)
-	{
-		basic_error(*path);
-		return (0);
-	}
 	major = (buf.st_rdev >> 24);
 	return (major);
 }

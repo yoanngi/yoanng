@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_check_space.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 11:55:52 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 11:14:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:19:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,9 +83,7 @@ int		ft_checklongmax_user(t_lst **data)
 	while (cpy)
 	{
 		if (cpy->user != NULL)
-		{
 			compt = ft_strlen(cpy->user);
-		}
 		if (compt > ret)
 			ret = compt;
 		cpy = cpy->next;

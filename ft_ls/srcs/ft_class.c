@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_class.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:26:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:21:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 	
 	tete = NULL;
 	sui = NULL;
-	while (prime->next)
+	while (prime)
 	{
 		sui = prime->next;
 		prime->next = tete;
@@ -42,8 +42,6 @@ t_lst	*lst_sort_ascii(t_lst *lst)
 {
 	if (!lst)
 		return (NULL);
-	if (lst->next->name == NULL)
-		return (lst);
 	if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
 		lst = lst_swap(lst, lst->next);
 	lst->next = lst_sort_ascii(lst->next);
@@ -114,7 +112,7 @@ t_lst	*lst_sort_time(t_lst *lst)
 **	How sort list
 */
 
-t_lst		*what_sort(s_struct *data, t_lst *liste)
+t_lst		*what_sort(t_struct *data, t_lst *liste)
 {
 	if (data->tmin == 1)
 		liste = lst_sort_time(liste);

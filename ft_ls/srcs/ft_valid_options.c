@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_valid_options.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/26 10:29:38 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 10:46:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:23:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ int			ft_option_exist(char *str, int nb)
 	return (1);
 }
 
-void		ft_insert_valid_option(char *cmp, s_struct **data)
+void		ft_insert_valid_option(char *cmp, t_struct **data)
 {
 	int i;
 

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_file.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 16:02:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 15:04:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,7 +69,7 @@ char			*ft_strdup_valib(char *str)
 **	Le fichier est valide ?
 */
 
-static void		ft_is_file_suite(t_lst *lstdata, s_struct *data)
+static void		ft_is_file_suite(t_lst *lstdata, t_struct *data)
 {
 	if (data->lmin == 1)
 		ft_ls_liste(&lstdata, data->amin);
@@ -80,7 +80,7 @@ static void		ft_is_file_suite(t_lst *lstdata, s_struct *data)
 	}
 }
 
-int				ft_is_file(char **path, s_struct *data)
+int				ft_is_file(char **path, t_struct *data)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -95,7 +95,7 @@ int				ft_is_file(char **path, s_struct *data)
 		if (ft_strcmp(fichierlu->d_name, *path) == 0)
 		{
 			lstdata->path = ft_strjoin("./", fichierlu->d_name);
-			ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
+			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
 			i = 1;
 			data->just_file = 1;
 		}

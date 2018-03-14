@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
+#    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/01 13:14:22 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/14 13:22:48 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -36,6 +36,7 @@ N_SRCS = 	ft_error.c\
 			ft_class.c\
 			ft_display.c\
 			ft_minor_major.c\
+			ft_print_block.c\
 			main.c\
 
 P_SRCS = ./srcs/

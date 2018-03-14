@@ -6,14 +6,18 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/13 14:50:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:35:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
+/*
+**	Insert path with '/'
+*/
+
+void			ft_insert_path(t_dir *fd, t_lst **data, char *path)
 {
 	char	*cpy;
 	char	*tmp;
@@ -21,7 +25,7 @@ void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 
 	len = ft_strlen(path);
 	if (len == 1 && path[0] == '/')
-		(*data)->path = ft_strjoin(path, fichierlu->d_name);
+		(*data)->path = ft_strjoin(path, fd->d_name);
 	else if (path[len - 1] != '/')
 	{
 		tmp = ft_strdup(path);
@@ -29,37 +33,39 @@ void			ft_insert_path(t_dir *fichierlu, t_lst **data, char *path)
 		ft_strdel(&tmp);
 		cpy = ft_strdup((*data)->path);
 		ft_strdel(&(*data)->path);
-		(*data)->path = ft_strjoin(cpy, fichierlu->d_name);
+		(*data)->path = ft_strjoin(cpy, fd->d_name);
 		ft_strdel(&cpy);
 	}
 	else
 	{
 		cpy = ft_strdup((*data)->path);
 		ft_strdel(&(*data)->path);
-		(*data)->path = ft_strjoin(cpy, fichierlu->d_name);
+		(*data)->path = ft_strjoin(cpy, fd->d_name);
 		ft_strdel(&cpy);
 	}
 }
 
-t_lst			*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
+/*
+**	Insert datas for class and print
+*/
+
+t_lst			*ft_insert_datas(t_dir **fd, t_lst **ret, char *path)
 {
-	(*ret)->name = ft_strdup((*fd)->d_name);
-	(*ret)->droit = ft_get_droit(&path);
-	(*ret)->user = ft_get_user(&path);
-	(*ret)->groupe = ft_get_groupe(&path);
-	(*ret)->date = ft_get_time(&path);
-	(*ret)->time = ft_return_time((*ret)->date);
-	(*ret)->month = ft_return_month((*ret)->date);
-	(*ret)->day = ft_return_day((*ret)->date);
-	if ((*ret)->droit[0] == 'c' || (*ret)->droit[0] == 'b')
+	t_stat		buf;
+
+	if (lstat(path, &buf))
 	{
-		(*ret)->minor = ft_get_minor(&path);
-		(*ret)->major = ft_get_major(&path);
+		basic_error(path);
+		exit(EXIT_FAILURE);
 	}
-	else
-		(*ret)->size = ft_get_size(&path);
-	(*ret)->link = ft_get_link(&path);
-	(*ret)->blocks = ft_get_blocks(&path);
+	(*ret)->name = ft_strdup((*fd)->d_name);
+	(*ret)->droit = ft_get_droit(buf);
+	(*ret)->user = ft_get_user(buf);
+	(*ret)->groupe = ft_get_groupe(buf);
+	(*ret)->date = ft_get_time(buf);
+	ft_minmajorsize(buf, ret);
+	(*ret)->link = ft_get_link(buf);
+	(*ret)->blocks = ft_get_blocks(buf);
 	(*ret)->access = ft_access_or_not(&path);
 	if ((*ret)->droit[0] == 'l')
 		(*ret)->symbol = ft_get_new_path(&path);
@@ -69,7 +75,11 @@ t_lst			*ft_insert_data_hard(t_dir **fd, t_lst **ret, char *path)
 	return (*ret);
 }
 
-static int		ft_check_repertory(t_dir **fl, t_lst **data, s_struct *st)
+/*
+**	Is directory or not ? check valid or error
+*/
+
+static int		ft_check_repertory(t_dir **fl, t_lst **data, t_struct *st)
 {
 	if (st->amin == 0 && (*fl)->d_name[0] == '.')
 	{
@@ -79,7 +89,7 @@ static int		ft_check_repertory(t_dir **fl, t_lst **data, s_struct *st)
 	if ((*data)->access == 1 && ((*fl)->d_type == 4 || (*fl)->d_type == 0) &&
 	(ft_strcmp((*fl)->d_name, ".") != 0 &&
 	ft_strcmp((*fl)->d_name, "..") != 0))
-		(*data)->otherfile = ft_read_repertoire(fl, (*data)->path, st);
+		(*data)->otherfile = ft_r_repertory(fl, (*data)->path, st);
 	else if ((*data)->access == 0 && (*fl)->d_type == 4)
 		(*data)->otherfile = ft_return_access_denied(fl, (*data)->path);
 	else
@@ -87,7 +97,11 @@ static int		ft_check_repertory(t_dir **fl, t_lst **data, s_struct *st)
 	return (0);
 }
 
-t_lst			*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *st)
+/*
+**	Recursive -R
+*/
+
+t_lst			*ft_r_repertory(t_dir **fd, char *path, t_struct *st)
 {
 	DIR		*dir;
 	t_lst	*rep;
@@ -97,19 +111,26 @@ t_lst			*ft_read_repertoire(t_dir **fichierlu, char *path, s_struct *st)
 	cpy = rep;
 	dir = opendir(path);
 	rep->path = ft_strdup(path);
-	while ((*fichierlu = readdir(dir)) != NULL)
+	while ((*fd = readdir(dir)) != NULL)
 	{
-		ft_insert_path(*fichierlu, &rep, path);
-		ft_insert_data_hard(fichierlu, &rep, rep->path);
-		ft_check_repertory(fichierlu, &rep, st);
-		rep->next = ft_lstnew_ls();
-		rep = rep->next;
+		if (rep->name != NULL)
+		{
+			rep->next = ft_lstnew_ls();
+			rep = rep->next;
+		}
+		ft_insert_path(*fd, &rep, path);
+		ft_insert_datas(fd, &rep, rep->path);
+		ft_check_repertory(fd, &rep, st);
 	}
 	closedir(dir);
 	return (cpy);
 }
 
-t_lst			*ft_ls_r(s_struct *data, int indexfile)
+/*
+**	Read target and take infos
+*/
+
+t_lst			*ft_ls_r(t_struct *data, int indexfile)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -121,12 +142,18 @@ t_lst			*ft_ls_r(s_struct *data, int indexfile)
 	dir = opendir(data->multifile[indexfile]);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
-		ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
-		ft_insert_data_hard(&fichierlu, &lstdata, lstdata->path);
-		if (data->rmaj == 1)
-			ft_check_repertory(&fichierlu, &lstdata, data);
-		lstdata->next = ft_lstnew_ls();
-		lstdata = lstdata->next;
+		if (lstdata->name != NULL)
+		{
+			lstdata->next = ft_lstnew_ls();
+			lstdata = lstdata->next;
+		}
+		if (!(fichierlu->d_name[0] == '.' && data->amin == 0))
+		{
+			ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
+			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
+			if (data->rmaj == 1)
+				ft_check_repertory(&fichierlu, &lstdata, data);
+		}
 	}
 	closedir(dir);
 	return (lstsend);

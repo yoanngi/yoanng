@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/13 16:16:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:45:01 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 **	Print path of the various directory
 */
 
-static void		ft_target(s_struct *data)
+static void		ft_target(t_struct *data)
 {
 	if (data->just_file == 0 && data->nb_file == 0 && data->invalid == 0)
 	{
@@ -28,7 +28,7 @@ static void		ft_target(s_struct *data)
 	}
 }
 
-static void		ft_display(s_struct *data)
+static void		ft_display(t_struct *data)
 {
 	if (data->lmin == 0)
 		ft_print_ls(data);
@@ -36,10 +36,10 @@ static void		ft_display(s_struct *data)
 		ft_print_ls_liste(data);
 	if (data->nb_file > 1)
 		ft_putchar('\n');
-	data->liste = ft_clean_list(data->liste);
+	data->liste = ft_clean_list(&data->liste);
 }
 
-void			ft_check_options(s_struct *data)
+void			ft_check_options(t_struct *data)
 {
 	int i;
 	int path;
@@ -57,7 +57,6 @@ void			ft_check_options(s_struct *data)
 			ft_putstr(":\n");
 		}
 		ft_display(data);
-		free(data->multifile[i]);
 		data->nb_file--;
 		i++;
 	}

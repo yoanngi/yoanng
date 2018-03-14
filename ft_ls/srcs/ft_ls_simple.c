@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_ls_simple.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/02 14:26:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 12:54:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ static void			ft_print_ls_in_order(t_lst **print, int a)
 	t_lst	*cpy;
 
 	cpy = *print;
-	while (cpy->name)
+	while (cpy->next)
 	{
 		if (a == 0 && cpy->name[0] == '.')
 		{

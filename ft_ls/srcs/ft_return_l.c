@@ -3,15 +3,19 @@
 /*                                                              /             */
 /*   ft_return_l.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/07 13:48:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/26 13:51:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 13:20:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+/*
+**	print year or not
+*/
 
 static int		ft_yearornot(time_t str)
 {
@@ -25,7 +29,11 @@ static int		ft_yearornot(time_t str)
 	return (0);
 }
 
-char			*ft_return_time(time_t str)
+/*
+**	Print year of time
+*/
+
+void			ft_return_time(time_t str)
 {
 	char *cpy;
 	char *ret;
@@ -36,10 +44,15 @@ char			*ft_return_time(time_t str)
 	else
 		ret = ft_strsub(cpy, 11, 5);
 	ft_strdel(&cpy);
-	return (ret);
+	ft_putstr(ret);
+	ft_strdel(&ret);
 }
 
-char			*ft_return_month(time_t str)
+/*
+**	Print month
+*/
+
+void			ft_return_month(time_t str)
 {
 	char *cpy;
 	char *ret;
@@ -47,10 +60,15 @@ char			*ft_return_month(time_t str)
 	cpy = ft_strdup(ctime(&str));
 	ret = ft_strsub(cpy, 4, 3);
 	ft_strdel(&cpy);
-	return (ret);
+	ft_putstr(ret);
+	ft_strdel(&ret);
 }
 
-char			*ft_return_day(time_t str)
+/*
+**	Print day
+*/
+
+void			ft_return_day(time_t str)
 {
 	char *cpy;
 	char *ret;
@@ -58,31 +76,6 @@ char			*ft_return_day(time_t str)
 	cpy = ft_strdup(ctime(&str));
 	ret = ft_strsub(cpy, 8, 2);
 	ft_strdel(&cpy);
-	return (ret);
-}
-
-void			ft_print_blocks(t_lst **liste)
-{
-	t_lst		*cpy;
-	blkcnt_t	total;
-	int			compt;
-
-	cpy = *liste;
-	total = 0;
-	compt = 0;
-	while (cpy->next)
-	{
-		if (ft_strcmp(cpy->name, ".") == 0)
-			total += 0;
-		else
-			total += cpy->blocks;
-		compt++;
-		cpy = cpy->next;
-	}
-	if (compt > 2)
-	{
-		ft_putstr("total ");
-		ft_putnbr(total);
-		ft_putstr("\n");
-	}
+	ft_putstr(ret);
+	ft_strdel(&ret);
 }

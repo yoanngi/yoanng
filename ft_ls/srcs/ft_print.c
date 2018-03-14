@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_print.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/01 13:11:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:23:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,50 +30,25 @@ void	ft_resize_path(char *str)
 	ft_strdel(&str);
 }
 
-int		ft_print_block_or_not(t_lst **data, int secret)
-{
-	t_lst	*cpy;
-	int		i;
-
-	cpy = *data;
-	i = 0;
-	if (secret == 1)
-		return (1);
-	while (cpy)
-	{
-		if (cpy->name == NULL)
-			return (0);
-		if (ft_strcmp(cpy->name, "..") == 0)
-			i++;
-		else if (ft_strcmp(cpy->name, ".") == 0)
-			i++;
-		else
-			return (1);
-		cpy = cpy->next;
-	}
-	return (0);
-}
-
-void	ft_print_liste(t_lst *recur, s_struct *data)
+void	ft_print_liste(t_lst *recur, t_struct *data)
 {
 	t_lst *cpy;
 	t_lst *ret;
 
 	ft_putchar('\n');
 	ft_resize_path(recur->path);
-	ft_strdel(&recur->path);
 	ft_putstr(":\n");
 	cpy = what_sort(data, recur);
 	ret = cpy;
 	if (ft_print_block_or_not(&ret, data->amin) == 1)
 	{
-		ft_print_blocks(&ret);
+		ft_print_blocks(&ret, data->amin);
 		if (ret->name != NULL)
 		{
 			ft_ls_liste(&cpy, data->amin);
 		}
 	}
-	while (cpy->next)
+	while (cpy)
 	{
 		if (cpy->otherfile != NULL && cpy->access == 1)
 			ft_print_liste(cpy->otherfile, data);
@@ -83,16 +58,16 @@ void	ft_print_liste(t_lst *recur, s_struct *data)
 	}
 }
 
-void	ft_print_ls_liste(s_struct *data)
+void	ft_print_ls_liste(t_struct *data)
 {
 	t_lst *recur;
 	t_lst *cpy;
 
 	cpy = data->liste;
+	ft_print_blocks(&cpy, data->amin);
 	recur = what_sort(data, cpy);
-	ft_print_blocks(&cpy);
 	ft_ls_liste(&recur, data->amin);
-	while (recur->next)
+	while (recur)
 	{
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
 			ft_print_liste(recur->otherfile, data);

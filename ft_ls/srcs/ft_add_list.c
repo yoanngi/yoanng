@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/13 16:36:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 14:53:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ t_lst		*ft_lstnew_ls(void)
 	new->minor = 0;
 	new->major = 0;
 	new->link = 0;
+	new->blocks = 0;
 	new->access = 1;
 	new->otherfile = NULL;
 	new->next = NULL;
@@ -53,43 +54,38 @@ t_lst		*lst_swap(t_lst *lst1, t_lst *lst2)
 }
 
 /*
-**	Free list
+**	Free list and datas
 */
 
-t_lst		*ft_clean_list(t_lst *data)
+t_lst		*ft_clean_list(t_lst **data)
 {
-	t_lst	*tmp;
-	t_lst	*clean;
+	t_lst	*clear;
+	t_lst	*cpy;
 
-	tmp = data;
-	printf("CLEAN\n");
-	while (tmp->next)
+	clear = *data;
+	while (clear)
 	{
-		if (tmp->otherfile != NULL)
-			ft_clean_list(tmp->otherfile);
-		clean = tmp;
-		tmp = tmp->next;
-		free(clean);
+		if (clear->otherfile != NULL)
+			ft_clean_list(&clear->otherfile);
+		ft_strdel(&clear->droit);
+		ft_strdel(&clear->path);
+		ft_strdel(&clear->user);
+		ft_strdel(&clear->groupe);
+		ft_strdel(&clear->name);
+		ft_strdel(&clear->symbol);
+		cpy = clear;
+		clear = clear->next;
+		free(cpy);
 	}
+	free(clear);
 	return (NULL);
 }
 
 /*
-**	Free datas in list
+**	Free tab in struct and free struct
 */
 
-void		ft_del_infos(t_lst **liste)
-{
-	ft_strdel(&(*liste)->droit);
-	ft_strdel(&(*liste)->user);
-	ft_strdel(&(*liste)->groupe);
-	ft_strdel(&(*liste)->month);
-	ft_strdel(&(*liste)->day);
-	ft_strdel(&(*liste)->time);
-	ft_strdel(&(*liste)->name);
-}
-
-void		ft_del_struct(s_struct *data)
+void		ft_del_struct(t_struct *data)
 {
 	int i;
 
