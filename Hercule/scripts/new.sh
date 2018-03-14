@@ -78,6 +78,10 @@ while [ -z ${git[$1]} ]; do
         echo "No .gittignore" ;
     else
         echo "Create .gitignore file ....." ;
+        echo "*.DS_Store" > $NAME/.gitignore ;
+        echo "a.out" > $NAME/.gitignore ;
+        echo "*.DS_Store and a.out add int the .gitignore"
+        # Add while for add in .gitignore
         echo "Success" ;
     fi ;
 done ;
