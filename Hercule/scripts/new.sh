@@ -49,8 +49,35 @@ while [ -z ${language[$1]} ]; do
         mkdir $NAME/srcs ;
         echo "$NAME/includes";
         mkdir $NAME/includes ;
-        exit ;
+        echo "Create Makefile :";
+        sh scripts/generate_Makefile.sh ;
+        echo "Success" ;
     else
         echo "Directory Create, Good luck for your project !"
+    fi ;
+done ;
+
+# Want author ?
+while [ -z ${autor[$1]} ]; do
+    echo "You want the autor file ? (n = No, else give your login)";
+    read autor[$1]
+    if [[ ("$autor" == "N" || "$autor" == "n") && $# == 1 ]] ; then
+        echo "No autor create" ;
+    else
+        echo "Create autor file ....." ;
+        echo "$2" > $NAME/autor ;
+        echo "Success" ;
+    fi ;
+done ;
+
+# Want gitignore ?
+while [ -z ${git[$1]} ]; do
+    echo "You want the .gitignore? (n = N0, y = YES)";
+    read git[$1]
+    if [[ ("$git" == "N" || "$git" == "n") && $# == 1 ]] ; then
+        echo "No .gittignore" ;
+    else
+        echo "Create .gitignore file ....." ;
+        echo "Success" ;
     fi ;
 done ;
