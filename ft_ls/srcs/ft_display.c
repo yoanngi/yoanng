@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/12 15:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:39:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 16:36:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,6 @@ void			ft_display_two(t_lst **data, int size, int mi, int ma)
 	{
 		ft_putstr(" -> ");
 		ft_putstr((*data)->symbol);
-		ft_strdel(&(*data)->symbol);
 	}
 }
 

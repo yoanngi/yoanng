@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 16:08:33 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 10:46:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 15:50:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,7 @@ char			*ft_get_droit_symbolique(char **path, size_t size)
 	i = 0;
 	ret = (char *)malloc(sizeof(char) * size);
 	secure = readlink(*path, ret, size);
+	ret[secure] = '\0';
 	while (ret[i])
 	{
 		if (ret[i] == ' ' || ret[i] == '\n')

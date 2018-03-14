@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:35:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/14 16:40:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ void			ft_insert_path(t_dir *fd, t_lst **data, char *path)
 	size_t	len;
 
 	len = ft_strlen(path);
+	printf("START path = %s\n", path);
 	if (len == 1 && path[0] == '/')
 		(*data)->path = ft_strjoin(path, fd->d_name);
 	else if (path[len - 1] != '/')
@@ -43,8 +44,25 @@ void			ft_insert_path(t_dir *fd, t_lst **data, char *path)
 		(*data)->path = ft_strjoin(cpy, fd->d_name);
 		ft_strdel(&cpy);
 	}
+	printf("END path = %s\n", (*data)->path);
 }
+/*
+void			ft_insert_path(t_dir *fd, t_lst **data, char *path)
+{
+	char	*tmp;
 
+	if ((*data)->path == NULL)
+		tmp = ft_strdup(path);
+	else
+		tmp = ft_strdup((*data)->path);
+	ft_strdel(&(*data)->path);
+	(*data)->path = ft_strjoin(tmp, "/");
+	ft_strdel(&tmp);
+	tmp = ft_strdup((*data)->path);
+	ft_strdel(&(*data)->path);
+	(*data)->path = ft_strjoin(tmp, fd->d_name);
+	ft_strdel(&tmp);
+}*/
 /*
 **	Insert datas for class and print
 */
