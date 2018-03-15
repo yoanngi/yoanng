@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 15:04:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 11:23:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,6 +38,8 @@ t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
 	rep = ft_lstnew_ls();
 	rep->path = ft_strdup(path);
 	rep->name = ft_strdup((*fichierlu)->d_name);
+	rep->otherfile = NULL;
+	rep->next = NULL;
 	return (rep);
 }
 

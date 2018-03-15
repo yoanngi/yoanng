@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 16:32:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 12:12:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ typedef struct			s_lst
 	int					link;
 	blkcnt_t			blocks;
 	struct s_lst		*otherfile;
+	struct s_lst		*denied;
 	struct s_lst		*next;
 }						t_lst;
 
