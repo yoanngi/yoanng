@@ -159,7 +159,7 @@ t_lst			*ft_ls_r(t_struct *data, int indexfile)
 		{
 			ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
 			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
-			if (data->rmaj == 1 && lstdata->access == 1)
+			if (data->rmaj == 1)
 				ft_check_repertory(&fichierlu, &lstdata, data);
 		}
 	}

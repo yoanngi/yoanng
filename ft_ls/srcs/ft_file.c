@@ -71,39 +71,30 @@ char			*ft_strdup_valib(char *str)
 **	Le fichier est valide ?
 */
 
-static void		ft_is_file_suite(t_lst *lstdata, t_struct *data)
-{
-	if (data->lmin == 1)
-		ft_ls_liste(&lstdata, data->amin);
-	else
-	{
-		ft_putendl(lstdata->name);
-		ft_putstr("\n");
-	}
-}
-
 int				ft_is_file(char **path, t_struct *data)
 {
-	DIR			*dir;
-	t_dir		*fichierlu;
-	t_lst		*lstdata;
-	int			i;
+	t_stat	buf;
+	t_lst	*ret;
 
-	i = 0;
-	lstdata = ft_lstnew_ls();
-	dir = opendir(".");
-	while ((fichierlu = readdir(dir)) != NULL)
-	{
-		if (ft_strcmp(fichierlu->d_name, *path) == 0)
-		{
-			lstdata->path = ft_strjoin("./", fichierlu->d_name);
-			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
-			i = 1;
-			data->just_file = 1;
-		}
-	}
-	if (i > 0)
-		ft_is_file_suite(lstdata, data);
-	closedir(dir);
-	return (i);
+	ret = NULL;
+	if (lstat(*path, &buf) == -1)
+		return (0);
+	data->invalid = 1;
+	ret = ft_lstnew_ls();
+	ret->name = ft_strdup(*path);
+	ret->droit = ft_get_droit(buf);
+	ret->user = ft_get_user(buf);
+	ret->groupe = ft_get_groupe(buf);
+	ret->date = ft_get_time(buf);
+	ft_minmajorsize(buf, &ret);
+	ret->link = ft_get_link(buf);
+	ret->blocks = ft_get_blocks(buf);
+	ret->access = ft_access_or_not(path);
+	if (ret->droit[0] == 'l')
+		ret->symbol = ft_get_new_path(path);
+	else
+		ret->symbol = NULL;
+	ft_ls_liste(&ret, data->amin);
+	ft_clean_list(&ret);
+	return (1);
 }
