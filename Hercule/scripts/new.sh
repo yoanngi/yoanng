@@ -24,6 +24,7 @@ echo "$SUR"" | _ \ | | |   / | |) |\__ \ _ \__ \ | __ | " ;
 echo "$SUR"" |___/|___||_|_\ |___/ |___/(_)|___/ |_||_| $NOC" ;
 echo "" ;
 
+echo $MY_PATH
 # Confirmation
 until [[ ${confirm} =~ ^[0-1]+$ ]]; do
     echo "Please confirme : $RED$NAME$NOC in $RED $PATH_AV$NOC";
