@@ -12,6 +12,9 @@ SUR='\033[1m'
 NAME=$1
 PATH_AV=$2
 
+# Prepare Makefile
+cp scripts/makefile.txt  /tmp/makefile_birds.txt
+
 # Intro
 echo "$SUR""Welcome to Birds.sh$NOC";
 echo "$SUR""       (    (    (      (       (        )  " ;
@@ -98,8 +101,20 @@ while [ -z ${language[$1]} ]; do
         mkdir srcs ;
         echo "$NAME/includes";
         mkdir includes ;
+		while [ -z ${pathlib[$1]} ]; do
+    		echo "Where is your libft (q for exit)";
+    		read -e pathlib[$1]
+			if [[ ("$pathlib" == "q" || "$pathlib" == "Q") ]] ; then
+				echo "$RED""No add libft$NOC" ;
+			else
+        		echo "$NAME/libft";
+        		mkdir libft ;
+				cp -R $pathlib libft/ ;
+				echo "$GREEN""Libft Added !$NOC" ;
+			fi ;
+		done ;
         echo "$GREEN""Create Makefile :$NOC";
-        touch Makefile ;
+		cp /tmp/makefile_birds.txt Makefile ;
         echo "Makefile created" ;
         cd ../ ;
     else
@@ -146,5 +161,8 @@ while [ -z ${git[$1]} ]; do
         done ;
     fi ;
 done ;
+
+# Delete tmp
+rm /tmp/makefile_birds.txt
 
 echo "$GREEN""You can start your project... Enjoy !$NOC"
