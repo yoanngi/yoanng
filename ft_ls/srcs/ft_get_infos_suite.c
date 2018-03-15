@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 16:08:33 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 15:50:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 11:17:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,8 @@ char			*ft_get_new_path(char **path)
 	ret = ft_get_droit_symbolique(&cpy, buf.st_size + 1);
 	ft_strdel(&cpy);
 	ft_strdel(path);
+	if (!ret)
+		return (NULL);
 	return (ret);
 }
 
@@ -45,6 +47,8 @@ char			*ft_get_droit_symbolique(char **path, size_t size)
 
 	i = 0;
 	ret = (char *)malloc(sizeof(char) * size);
+	if (!ret)
+		return (NULL);
 	secure = readlink(*path, ret, size);
 	ret[secure] = '\0';
 	while (ret[i])

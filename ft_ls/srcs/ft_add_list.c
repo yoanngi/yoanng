@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 16:34:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 16:37:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,7 @@ t_lst		*ft_lstnew_ls(void)
 	new->blocks = 0;
 	new->access = 1;
 	new->otherfile = NULL;
+	new->denied = NULL;
 	new->next = NULL;
 	if (!new)
 		return (NULL);
@@ -67,24 +68,19 @@ t_lst		*ft_clean_list(t_lst **data)
 	{
 		if (clear->otherfile != NULL)
 			ft_clean_list(&clear->otherfile);
-		if (clear->droit)
-		printf("droit -> %s\n", clear->droit);
-		ft_strdel(&clear->droit);
-		printf("path -> %s\n", clear->path);
 		ft_strdel(&clear->path);
-		printf("user -> %s\n", clear->user);
+		ft_strdel(&clear->droit);
 		ft_strdel(&clear->user);
-		printf("grp -> %s\n", clear->groupe);
 		ft_strdel(&clear->groupe);
-		printf("name -> |%s|\n", clear->name);
 		ft_strdel(&clear->name);
-		printf("symbol -> %s\n\n", clear->symbol);
 		ft_strdel(&clear->symbol);
 		cpy = clear;
 		clear = clear->next;
 		free(cpy);
+		cpy = NULL;
 	}
 	free(clear);
+	clear = NULL;
 	return (NULL);
 }
 

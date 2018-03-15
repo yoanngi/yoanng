@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 15:38:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 16:43:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,8 +36,9 @@ static void		ft_display(t_struct *data)
 		ft_print_ls_liste(data);
 	if (data->nb_file > 1)
 		ft_putchar('\n');
-	printf("START FREE\n");
 	data->liste = ft_clean_list(&data->liste);
+	free(data->liste);
+	data->liste = NULL;
 }
 
 void			ft_check_options(t_struct *data)
