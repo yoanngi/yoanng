@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 13:37:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 16:04:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,9 +24,9 @@ void			ft_insert_path(t_dir *fd, t_lst **data, char *path)
 	size_t	len;
 
 	len = ft_strlen(path);
-	if (len == 1 && path[0] == '/')
-		(*data)->path = ft_strjoin(path, fd->d_name);
-	else if (path[len - 1] != '/')
+//	if (len == 1 && path[0] == '/')
+//		(*data)->path = ft_strjoin(path, fd->d_name);
+	if (path[len] != '/')
 	{
 		tmp = ft_strdup(path);
 		ft_strdel(&(*data)->path);

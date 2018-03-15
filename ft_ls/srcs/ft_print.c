@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 14:10:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 16:37:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,10 @@ void	ft_print_liste(t_lst *recur, t_struct *data)
 		if (cpy->otherfile != NULL && cpy->access == 1)
 			ft_print_liste(cpy->otherfile, data);
 		else if (cpy->denied != NULL)
+		{
 			ft_print_error(cpy->denied, data->amin);
+			cpy->denied = NULL;
+		}
 		cpy = cpy->next;
 	}
 }
@@ -72,7 +75,10 @@ void	ft_print_ls_liste(t_struct *data)
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
 			ft_print_liste(recur->otherfile, data);
 		if (recur->denied != NULL && data->rmaj == 1)
+		{
 			ft_print_error(recur->denied, data->amin);
+			recur->denied = NULL;
+		}
 		recur = recur->next;
 	}
 }

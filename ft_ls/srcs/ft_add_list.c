@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 14:12:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 16:37:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,13 +68,7 @@ t_lst		*ft_clean_list(t_lst **data)
 	{
 		if (clear->otherfile != NULL)
 			ft_clean_list(&clear->otherfile);
-		else if (clear->denied != NULL)
-		{
-			ft_strdel(&clear->denied->path);
-			ft_strdel(&clear->denied->name);
-			free(clear->denied);
-		}
-//		ft_strdel(&clear->path);
+		ft_strdel(&clear->path);
 		ft_strdel(&clear->droit);
 		ft_strdel(&clear->user);
 		ft_strdel(&clear->groupe);

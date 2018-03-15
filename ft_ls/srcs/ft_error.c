@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 11:49:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/15 16:05:53 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,4 +51,5 @@ void	ft_print_error(t_lst *cpy, int amin)
 	ft_strdel(&cpy->name);
 	ft_putstr_fd(": Permission denied\n", 2);
 	free(cpy);
+	cpy = NULL;
 }
