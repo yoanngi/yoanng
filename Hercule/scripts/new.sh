@@ -1,7 +1,20 @@
+# **************************************************************************** #
+#                                                           LE - /             #
+#                                                               /              #
+#    new.sh                                           .::    .:/ .      .::    #
+#                                                  +:+:+   +:    +:  +:+:+     #
+#    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
+#                                                  #+#   #+    #+    #+#       #
+#    Created: 2018/03/15 10:36:36 by yoginet      #+#   ##    ##    #+#        #
+#    Updated: 2018/03/15 10:39:32 by yoginet     ###    #+. /#+    ###.fr      #
+#                                                          /                   #
+#                                                         /                    #
+# **************************************************************************** #
+
 #!/bin/bash
 
 # Projet Hercule Birds
-# http://blog.inforeseau.com/2010/11/ecrire-script-bash-interactif-avec-saisie-par-lutilisateur
+# Source : http://blog.inforeseau.com/2010/11/ecrire-script-bash-interactif-avec-saisie-par-lutilisateur
 
 # Color
 NOC='\033[0m'
@@ -13,7 +26,7 @@ NAME=$1
 PATH_AV=$2
 
 # Prepare Makefile
-cp scripts/makefile.txt  /tmp/makefile_birds.txt
+cp scripts/makefile.txt /tmp/makefile_birds.txt
 
 # Intro
 echo "$SUR""Welcome to Birds.sh$NOC";
@@ -29,36 +42,36 @@ echo "" ;
 
 # Confirmation
 until [[ ${confirm} =~ ^[0-1]+$ ]]; do
-    echo "Please confirme : $RED$NAME$NOC in $RED $PATH_AV$NOC";
-    echo "[y = 1 / n = 0]"
-    read confirm[$1] ;
+	echo "Please confirme : $RED$NAME$NOC in $RED $PATH_AV$NOC";
+	echo "[y = 1 / n = 0]"
+	read confirm[$1] ;
 done
 
 
 # Si confirmation = 0
 if [[ ("${confirm[$1]}" == "0")]] ; then
-    while [ -z ${newname[$1]} ]; do
-        echo "Please enter the new name or exit (q)";
-        read newname[$1]
-        if [[ ("$newname" == "q") ]] ; then
-            echo "$RED""Exit Project$NOC";
-            exit ;
-        else
-            NAME="$newname"
-            echo "New Name $RED $NAME $NOC" ;
-        fi ;
-    done
-    while [ -z ${newpath[$1]} ]; do
-        echo "Please enter the new path or exit (q)";
-        read newpath[$1]
-        if [[ ("$newpath" == "q") ]] ; then
-            echo "$RED""Exit Project$NOC";
-            exit ;
-        else
-            PATH_AV=$newpath
-            echo "New Path $RED $PATH_AV $NOC" ;
-        fi ;
-    done
+	while [ -z ${newname[$1]} ]; do
+		echo "Please enter the new name or exit (q)";
+		read newname[$1]
+		if [[ ("$newname" == "q") ]] ; then
+			echo "$RED""Exit Project$NOC";
+			exit ;
+		else
+			NAME="$newname"
+			echo "New Name $RED $NAME $NOC" ;
+		fi ;
+	done
+	while [ -z ${newpath[$1]} ]; do
+		echo "Please enter the new path or exit (q)";
+		read newpath[$1]
+		if [[ ("$newpath" == "q") ]] ; then
+			echo "$RED""Exit Project$NOC";
+			exit ;
+		else
+			PATH_AV=$newpath
+			echo "New Path $RED $PATH_AV $NOC" ;
+		fi ;
+	done
 fi ;
 
 echo "" ;
@@ -69,97 +82,97 @@ echo "" ;
 
 # Verif Path
 if [ -d $PATH_AV ] ; then
-    echo "$GREEN""PATH ok$NOC" ;
+	echo "$GREEN""PATH ok$NOC" ;
 else
-    echo "$RED""ERROR PATH$NOC" ;
-    echo "Please retry with valid PATH" ;
-    exit ;
+	echo "$RED""ERROR PATH$NOC" ;
+	echo "Please retry with valid PATH" ;
+	exit ;
 fi ;
 
 cd $PATH_AV ;
 
 # Verif Name
 if [ -e "$NAME" ] ; then
-    echo "$RED""Warning, the directory exist !$NOC" ;
-    echo "Please change this name or delete directory" ;
-    exit ;
+	echo "$RED""Warning, the directory exist !$NOC" ;
+	echo "Please change this name or delete directory" ;
+	exit ;
 else
-    mkdir $NAME ;
-    echo "$GREEN""Creating $NAME Successful !$NOC" ;
+	mkdir $NAME ;
+	echo "$GREEN""Creating $NAME Successful !$NOC" ;
 fi ;
 
 echo "" ;
 
 # What this language ?
 while [ -z ${language[$1]} ]; do
-    echo "What the language use ?";
-    read language[$1]
-    if [[ ("$language" == "C" || "$language" == "c") ]] ; then
-        cd $NAME ;
-        echo "$GREEN""Create directory :$NOC";
-        echo "$NAME/srcs";
-        mkdir srcs ;
-        echo "$NAME/includes";
-        mkdir includes ;
+	echo "What the language use ?";
+	read language[$1]
+	if [[ ("$language" == "C" || "$language" == "c") ]] ; then
+		cd $NAME ;
+		echo "$GREEN""Create directory :$NOC";
+		echo "$NAME/srcs";
+		mkdir srcs ;
+		echo "$NAME/includes";
+		mkdir includes ;
 		while [ -z ${pathlib[$1]} ]; do
-    		echo "Where is your libft (q for exit)";
-    		read -e pathlib[$1]
+			echo "Where is your libft (q for exit)";
+			read -e pathlib[$1]
 			if [[ ("$pathlib" == "q" || "$pathlib" == "Q") ]] ; then
 				echo "$RED""No add libft$NOC" ;
 			else
-        		echo "$NAME/libft";
-        		mkdir libft ;
+				echo "$NAME/libft";
+				mkdir libft ;
 				cp -R $pathlib libft/ ;
 				echo "$GREEN""Libft Added !$NOC" ;
 			fi ;
 		done ;
-        echo "$GREEN""Create Makefile :$NOC";
+		echo "$GREEN""Create Makefile :$NOC";
 		cp /tmp/makefile_birds.txt Makefile ;
-        echo "Makefile created" ;
-        cd ../ ;
-    else
-        echo "$GRENN""Directory Create$NOC"
-    fi ;
+		echo "Makefile created" ;
+		cd ../ ;
+	else
+		echo "$GRENN""Directory Create$NOC";
+	fi ;
 done ;
 
 echo "" ;
 
 # Want author ?
 while [ -z ${autor[$1]} ]; do
-    echo "You want the autor file ? (n = No, else give your login)";
-    read autor[$1]
-    if [[ ("$autor" == "N" || "$autor" == "n") ]] ; then
-        echo "$RED""No autor file$NOC" ;
-    else
-        echo "Create autor file ....." ;
-        echo "$autor" > $NAME/auteur ;
-        echo "$GREEN""autor file created !$NOC" ;
-    fi ;
+	echo "You want the autor file ? (n = No, else give your login)";
+	read autor[$1]
+	if [[ ("$autor" == "N" || "$autor" == "n") ]] ; then
+		echo "$RED""No autor file$NOC" ;
+	else
+		echo "Create autor file ....." ;
+		echo "$autor" > $NAME/auteur ;
+		echo "$GREEN""autor file created !$NOC" ;
+	fi ;
 done ;
 
 echo "" ;
 
 # Want gitignore ?
 while [ -z ${git[$1]} ]; do
-    echo "You want the .gitignore? (n = N0, y = YES)";
-    read git[$1]
-    if [[ ("$git" == "N" || "$git" == "n" )]] ; then
-        echo "$RED""No .gittignore$NOC" ;
-    else
-        echo "Create .gitignore file ....." ;
-        echo "*.DS_Store" >> $NAME/.gitignore ;
-        echo "a.out" >> $NAME/.gitignore ;
-        echo "*.swp" >> $NAME/.gitignore ;
-        echo "*.DS_Store, a.out, *.swp add int the .gitignore"
-        until [[ ${addgitignore} =~ ^[0]+$ ]]; do
-            echo "You want add other name in .gitignore ? (0 for quit)";
-            read addgitignore[$1]
-            if [[ "$addgitignore" != "0" ]] ; then
-                echo $addgitignore >> $NAME/.gitignore ;
-                echo "$GREEN""$addgitignore added !$NOC";
-            fi ;
-        done ;
-    fi ;
+	echo "You want the .gitignore? (n = N0, y = YES)";
+	read git[$1]
+	if [[ ("$git" == "N" || "$git" == "n" )]] ; then
+		echo "$RED""No .gittignore$NOC" ;
+	else
+		echo "Create .gitignore file ....." ;
+		echo "*.DS_Store" >> $NAME/.gitignore ;
+		echo "a.out" >> $NAME/.gitignore ;
+		echo "*.swp" >> $NAME/.gitignore ;
+		echo "*.DS_Store, a.out, *.swp add int the .gitignore"
+		until [[ ${addgitignore} =~ ^[0]+$ ]]; do
+			echo "You want add other name in .gitignore ? (0 for quit)";
+			read addgitignore[$1]
+			if [[ "$addgitignore" != "0" ]] ; then
+				echo $addgitignore >> $NAME/.gitignore ;
+				echo "$GREEN""$addgitignore added !$NOC";
+			fi ;
+		done ;
+	fi ;
 done ;
 
 # Delete tmp

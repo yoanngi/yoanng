@@ -1,11 +1,25 @@
+# **************************************************************************** #
+#                                                           LE - /             #
+#                                                               /              #
+#    Makefile                                         .::    .:/ .      .::    #
+#                                                  +:+:+   +:    +:  +:+:+     #
+#    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
+#                                                  #+#   #+    #+    #+#       #
+#    Created: 2018/03/15 10:39:49 by yoginet      #+#   ##    ##    #+#        #
+#    Updated: 2018/03/15 10:40:33 by yoginet     ###    #+. /#+    ###.fr      #
+#                                                          /                   #
+#                                                         /                    #
+# **************************************************************************** #
+
 PHONY: all clean fclean re
 
-NAME =		ft_ls
+NAME =		<ADD NAME>
 CC = 		gcc
-CC_FLAGS = 	-Wall -Werror -Wextra -ggdb
+CC_FLAGS = 	-Wall -Werror -Wextra
 
-N_INC =		.h
+N_INC =		<ADD>.h
 N_SRCS = 	main.c\
+			<ADD SRCS> \
 
 P_SRCS = ./srcs/
 P_INC = ./includes/
@@ -15,11 +29,6 @@ P_LFT = libft/
 I_INC = ./includes/
 I_LFT = ./libft/includes/
 L_LFT = -L./libft/ -lft
-
-NOC=\033[0m
-OKC=\033[32;05m
-ERC=\033[31m
-WAC=\033[33m
 
 SRC = $(addprefix $(P_SRCS),$(N_SRCS))
 OBJ = $(addprefix $(P_OBJ),$(OBJ_NAME))
@@ -32,23 +41,17 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C $(P_LFT)
 	@$(CC) $(CC_FLAGS) -o $(NAME) $(OBJ) $(INC) $(L_LFT)
-	@echo "$(OKC)$(NAME): compilation success!$(NOC)"
 
 $(P_OBJ)%.o: $(P_SRCS)%.c
-	@echo "$(OKC)\c"
 	@mkdir -p $(P_OBJ)
 	@$(CC) $(CC_FLAGS) -o $@ -c $^ $(INC)
-	@echo -n █
-	@echo "$(NOC)\c"
 
 clean:
 	@make -C $(P_LFT) clean
 	@rm -rf $(P_OBJ)
-	@echo "$(WAC)$(NAME): Removing $(NAME) ./obj/$(NOC)"
 
 fclean: clean
 	@make -C $(P_LFT) fclean
 	@rm -f $(NAME)
-	@echo "$(WAC)$(NAME): Removing executable$(NOC)"
 
 re: fclean all
