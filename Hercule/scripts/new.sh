@@ -28,16 +28,16 @@ echo "" ;
 until [[ ${confirm} =~ ^[0-1]+$ ]]; do
     echo "Please confirme : $RED$NAME$NOC in $RED $PATH_AV$NOC";
     echo "[y = 1 / n = 0]"
-    read confirm[$1]
+    read confirm[$1] ;
 done
 
 
 # Si confirmation = 0
-if [[ ("$confirm" == "0")]] ; then
+if [[ ("${confirm[$1]}" == "0")]] ; then
     while [ -z ${newname[$1]} ]; do
-        echo "Please enter the new name or exit (-q)";
+        echo "Please enter the new name or exit (q)";
         read newname[$1]
-        if [[ ("$newname" == "-q" && $# == 1) ]] ; then
+        if [[ ("$newname" == "q") ]] ; then
             echo "$RED""Exit Project$NOC";
             exit ;
         else
@@ -46,9 +46,9 @@ if [[ ("$confirm" == "0")]] ; then
         fi ;
     done
     while [ -z ${newpath[$1]} ]; do
-        echo "Please enter the new path or exit (-q)";
+        echo "Please enter the new path or exit (q)";
         read newpath[$1]
-        if [[ ("$newpath" == "-q" && $# == 1) ]] ; then
+        if [[ ("$newpath" == "q") ]] ; then
             echo "$RED""Exit Project$NOC";
             exit ;
         else
@@ -85,45 +85,50 @@ else
     echo "$GREEN""Creating $NAME Successful !$NOC" ;
 fi ;
 
+echo "" ;
+
 # What this language ?
 while [ -z ${language[$1]} ]; do
     echo "What the language use ?";
     read language[$1]
-    if [[ ("$language" == "C" || "$language" == "c") && $# == 1 ]] ; then
+    if [[ ("$language" == "C" || "$language" == "c") ]] ; then
         cd $NAME ;
-        echo "Create directory :";
+        echo "$GREEN""Create directory :$NOC";
         echo "$NAME/srcs";
         mkdir srcs ;
         echo "$NAME/includes";
         mkdir includes ;
-        echo "Create Makefile :";
-        touch Makefile   ;
+        echo "$GREEN""Create Makefile :$NOC";
+        touch Makefile ;
         echo "Makefile created" ;
         cd ../ ;
-        echo "$GRENN""Directory Create$NOC"
     else
         echo "$GRENN""Directory Create$NOC"
     fi ;
 done ;
+
+echo "" ;
 
 # Want author ?
 while [ -z ${autor[$1]} ]; do
     echo "You want the autor file ? (n = No, else give your login)";
     read autor[$1]
-    if [[ ("$autor" == "N" || "$autor" == "n") && $# == 1 ]] ; then
+    if [[ ("$autor" == "N" || "$autor" == "n") ]] ; then
         echo "$RED""No autor file$NOC" ;
     else
         echo "Create autor file ....." ;
-        echo "$1" > $NAME/auteur ;
+        echo "$autor" > $NAME/auteur ;
         echo "$GREEN""autor file created !$NOC" ;
     fi ;
 done ;
+
+echo "" ;
 
 # Want gitignore ?
 while [ -z ${git[$1]} ]; do
     echo "You want the .gitignore? (n = N0, y = YES)";
     read git[$1]
-    if [[ ("$git" == "N" || "$git" == "n") && $# == 1 ]] ; then
+    if [[ ("$git" == "N" || "$git" == "n" )]] ; then
         echo "$RED""No .gittignore$NOC" ;
     else
         echo "Create .gitignore file ....." ;
