@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 12:54:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 16:59:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ static void			ft_clean_simple(t_lst **src)
 	t_lst	*cpy;
 
 	clear = *src;
-	while (clear->next)
+	while (clear)
 	{
 		cpy = clear;
 		clear = clear->next;
@@ -33,7 +33,7 @@ static void			ft_print_ls_in_order(t_lst **print, int a)
 	t_lst	*cpy;
 
 	cpy = *print;
-	while (cpy->next)
+	while (cpy)
 	{
 		if (a == 0 && cpy->name[0] == '.')
 		{
@@ -66,9 +66,12 @@ void				ft_ls_simple(char *target, int a)
 		basic_error(target);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
+		if (data->name != NULL)
+		{
+			data->next = ft_lstnew_ls();
+			data = data->next;
+		}
 		data->name = ft_strdup(fichierlu->d_name);
-		data->next = ft_lstnew_ls();
-		data = data->next;
 	}
 	closedir(dir);
 	print2 = lst_sort_ascii(print);
