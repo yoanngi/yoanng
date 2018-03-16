@@ -65,7 +65,7 @@ void			ft_ls_two(int i, int nb, char **params, t_struct **da)
 	tmp = NULL;
 	while (i != nb)
 	{
-		tmp = ft_strdup_valib(params[i]);
+		tmp = ft_strdup(params[i]);
 		if (ft_access_or_not(&tmp) == 1)
 		{
 			(*da)->multifile[dir] = ft_strdup(tmp);

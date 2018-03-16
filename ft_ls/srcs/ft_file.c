@@ -44,30 +44,6 @@ t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
 }
 
 /*
-**	Retourne str sans / a la fin
-*/
-
-char			*ft_strdup_valib(char *str)
-{
-	size_t	len;
-	char	*tmp;
-
-	tmp = NULL;
-	len = ft_strlen(str);
-	if (len == 1 && str[1] == '/')
-		return (str);
-	if (len > 1)
-	{
-		if (str[len - 1] == '/')
-		{
-			tmp = ft_strsub(str, 0, len - 1);
-			return (tmp);
-		}
-	}
-	return (str);
-}
-
-/*
 **	Le fichier est valide ?
 */
 
@@ -94,7 +70,10 @@ int				ft_is_file(char **path, t_struct *data)
 		ret->symbol = ft_get_new_path(path);
 	else
 		ret->symbol = NULL;
-	ft_ls_liste(&ret, data->amin);
+	if (data->lmin == 1)
+		ft_ls_liste(&ret, 1);
+	else
+		ft_putendl(*path);
 	ft_clean_list(&ret);
 	return (1);
 }

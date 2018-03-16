@@ -84,7 +84,6 @@ char					**ft_add_option(int argc, char **params, int p_valid);
 int						ft_option_exist(char *str, int nb);
 void					ft_insert_valid_option(char *cmp, t_struct **data);
 int						ft_count_files_valid(int argc, char **argv);
-char					*ft_strdup_valib(char *str);
 int						ft_is_file(char **path, t_struct *data);
 /*
 **	Fonction clean
