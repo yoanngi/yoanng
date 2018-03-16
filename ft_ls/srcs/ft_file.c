@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 16:05:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 14:43:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,14 +66,10 @@ int				ft_is_file(char **path, t_struct *data)
 	ret->link = ft_get_link(buf);
 	ret->blocks = ft_get_blocks(buf);
 	ret->access = ft_access_or_not(path);
+	ret->symbol = NULL;
 	if (ret->droit[0] == 'l')
 		ret->symbol = ft_get_new_path(path);
-	else
-		ret->symbol = NULL;
-	if (data->lmin == 1)
-		ft_ls_liste(&ret, 1);
-	else
-		ft_putendl(*path);
+	data->lmin == 1 ? ft_ls_liste(&ret, 1) : ft_putendl(*path);
 	ft_clean_list(&ret);
 	return (1);
 }

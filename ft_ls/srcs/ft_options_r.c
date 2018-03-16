@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 16:48:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 13:02:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,6 @@ void			ft_insert_path(t_dir *fd, t_lst **data, char *path)
 	size_t	len;
 
 	len = ft_strlen(path);
-//	if (len == 1 && path[0] == '/')
-//		(*data)->path = ft_strjoin(path, fd->d_name);
 	if (path[len] != '/')
 	{
 		tmp = ft_strdup(path);
@@ -60,7 +58,6 @@ t_lst			*ft_insert_datas(t_dir **fd, t_lst **ret, char *path)
 	if (lstat(tmp, &buf))
 	{
 		basic_error((*fd)->d_name);
-		(*ret)->access = 0;
 		return (*ret);
 	}
 	(*ret)->name = ft_strdup((*fd)->d_name);
@@ -162,19 +159,8 @@ t_lst			*ft_ls_r(t_struct *data, int indexfile)
 			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
 			if (data->rmaj == 1)
 				ft_check_repertory(&fichierlu, &lstdata, data);
-			if (lstdata->name == NULL && fichierlu->d_name[0] != '.')
-			{
-				free(lstdata);
-				lstdata = NULL;
-			}		
 		}
 	}
 	closedir(dir);
-	// path probleme = /private/var/db/ConfigurationProfiles
-	while (lstsend)
-	{
-		printf("name = %s\n", lstsend->name);
-		lstsend = lstsend->next;
-	}
 	return (lstsend);
 }

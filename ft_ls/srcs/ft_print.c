@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 16:37:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 10:15:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,9 +44,7 @@ void	ft_print_liste(t_lst *recur, t_struct *data)
 	{
 		ft_print_blocks(&ret, data->amin);
 		if (ret->name != NULL)
-		{
 			ft_ls_liste(&cpy, data->amin);
-		}
 	}
 	while (cpy)
 	{

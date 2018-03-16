@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 12:12:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 13:59:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,16 +36,16 @@ typedef struct			s_lst
 {
 	char				*name;
 	char				*path;
-	int					access;
 	char				*user;
 	char				*groupe;
-	time_t				date;
 	char				*droit;
 	char				*symbol;
+	int					access;
 	int					size;
 	int					minor;
 	int					major;
 	int					link;
+	time_t				date;
 	blkcnt_t			blocks;
 	struct s_lst		*otherfile;
 	struct s_lst		*denied;
@@ -90,7 +90,7 @@ int						ft_is_file(char **path, t_struct *data);
 */
 t_lst					*ft_clean_list(t_lst **data);
 void					ft_del_infos(t_lst **liste);
-void					ft_del_struct(t_struct *data);
+void					ft_del_struct(t_struct *data, char **tab);
 /*
 **	Fonction principales
 */

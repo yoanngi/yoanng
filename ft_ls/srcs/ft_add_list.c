@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 16:37:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 14:32:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,15 +86,33 @@ t_lst		*ft_clean_list(t_lst **data)
 
 /*
 **	Free tab in struct and free struct
+**	Free tab (params)
 */
 
-void		ft_del_struct(t_struct *data)
+void		ft_del_struct(t_struct *data, char **tab)
 {
 	int i;
 
 	i = 0;
-	while (i++ != data->argc)
+	while (i != data->argc)
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+	i = 0;
+	while (i != data->nb_file)
+	{
 		free(data->multifile[i]);
+		data->multifile[i] = NULL;
+		i++;
+	}
+	free(data->multifile);
+	data->multifile = NULL;
 	free(data->liste);
+	data->liste = NULL;
 	free(data);
+	data = NULL;
 }

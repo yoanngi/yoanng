@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 16:43:30 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 14:26:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,5 +62,4 @@ void			ft_check_options(t_struct *data)
 		data->nb_file--;
 		i++;
 	}
-	ft_del_struct(data);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/13 12:02:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:41:00 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 10:44:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,11 +50,14 @@ static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 	cpy = *data;
 	while (cpy)
 	{
-		if (!(cpy->name[0] == '.'))
+		if (cpy->name != NULL)
 		{
-			ft_display_one(&cpy, grp, link, use);
-			ft_display_two(&cpy, size, minor, major);
-			ft_putchar('\n');
+			if (cpy->name[0] != '.')
+			{
+				ft_display_one(&cpy, grp, link, use);
+				ft_display_two(&cpy, size, minor, major);
+				ft_putchar('\n');
+			}
 		}
 		cpy = cpy->next;
 	}

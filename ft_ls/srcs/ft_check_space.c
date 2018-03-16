@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 11:55:52 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:19:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 10:41:15 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,10 @@ int		ft_checklongmax_user(t_lst **data)
 
 	compt = 0;
 	cpy = (*data);
-	ret = ft_strlen(cpy->user);
+	if (cpy->user != NULL)
+		ret = ft_strlen(cpy->user);
+	else
+		return (0);
 	while (cpy)
 	{
 		if (cpy->user != NULL)
@@ -99,7 +102,10 @@ int		ft_checklongmax_group(t_lst **data)
 
 	compt = 0;
 	cpy = (*data);
-	ret = ft_strlen(cpy->groupe);
+	if (cpy->groupe != NULL)
+		ret = ft_strlen(cpy->groupe);
+	else
+		return (0);
 	while (cpy)
 	{
 		if (cpy->groupe != NULL)

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/14 13:20:20 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:40:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 10:13:41 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,14 +28,11 @@ void			ft_print_blocks(t_lst **liste, int amin)
 	compt = 0;
 	while (cpy)
 	{
-		if (cpy->name[0] == '.' && amin == 0)
-			total += 0;
-		else
-			total += cpy->blocks;
+		total += cpy->blocks;
 		compt++;
 		cpy = cpy->next;
 	}
-	if (compt > 2)
+	if (compt > 2 || amin == 1)
 	{
 		ft_putstr("total ");
 		ft_putnbr(total);

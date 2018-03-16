@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:37:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 13:57:54 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,7 @@ static char		**ft_range_tab(char **tab, int len, int i)
 	int		start;
 
 	start = i;
+	tmp = NULL;
 	while (i != len - 1)
 	{
 		if (ft_strcmp(tab[i], tab[i + 1]) > 0 && i + 1 <= len)
@@ -41,6 +42,7 @@ static char		**ft_range_tab(char **tab, int len, int i)
 			tmp = tab[i];
 			tab[i] = tab[i + 1];
 			tab[i + 1] = tmp;
+			ft_strdel(&tmp);
 			i = start;
 		}
 		else
@@ -94,9 +96,7 @@ void			ft_ls(char **params, int nb, int end)
 		if (params[i][0] == '-' && ft_strlen(params[i]) > 1)
 		{
 			if (ft_option_exist(params[i], 1) == 1)
-			{
 				ft_insert_valid_option(params[i], &data);
-			}
 		}
 		else
 		{
@@ -108,4 +108,5 @@ void			ft_ls(char **params, int nb, int end)
 			end = 1;
 	}
 	ft_check_options(data);
+	ft_del_struct(data, params);
 }
