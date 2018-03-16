@@ -31,12 +31,33 @@ void	basic_error(char *error)
 	perror(error);
 }
 
+// Used or not ?
 void	ft_error_access(char *error)
 {
 	ft_putstr_fd("ls:", 2);
 	perror(error);
 	ft_putstr_fd(" Permission denied -> perso\n", 2);
 }
+
+/*
+**	Retourne un maillon avec le nom et path du fichier dont on a pas l'access
+*/
+
+t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
+{
+	t_lst	*rep;
+
+	rep = ft_lstnew_ls();
+	rep->path = ft_strdup(path);
+	rep->name = ft_strdup((*fichierlu)->d_name);
+	rep->otherfile = NULL;
+	rep->next = NULL;
+	return (rep);
+}
+
+/*
+**	Print maillon error
+*/
 
 void	ft_print_error(t_lst *cpy, int amin)
 {

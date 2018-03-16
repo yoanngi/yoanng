@@ -71,6 +71,7 @@ typedef struct			s_struct
 	int					just_file;
 	int					invalid;
 	t_rep				*multifile;
+	t_rep				*filevalid;
 	t_lst				*liste;
 }						t_struct;
 
@@ -90,8 +91,8 @@ char					**ft_multi_argv(int nb, char **argv, int count);
 char					**ft_add_option(int argc, char **params, int p_valid);
 int						ft_option_exist(char *str, int nb);
 void					ft_insert_valid_option(char *cmp, t_struct **data);
-int						ft_count_files_valid(int argc, char **argv);
-int						ft_is_file(char **path, t_struct *data);
+char					**ft_range_tab(char **tab, int len, int i);
+int						ft_is_file(char **path);
 /*
 **	Fonction clean
 */
@@ -118,8 +119,9 @@ void					ft_print_error(t_lst *cpy, int amin);
 */
 int						ft_access_or_not(char **path);
 void					ft_check_options(t_struct *data);
-//int						ft_to_treat(int ac, char **av, int i, t_struct **da);
-t_rep					*ft_ls_two(int i, int nb, char **params, t_struct **da);
+t_rep					*ft_dir_valid(int i, int nb, char **params);
+t_rep					*ft_file_valid(int i, int nb, char **params);
+void					ft_error_argv(int i, int nb, char **params);
 t_lst					*ft_return_access_denied(t_dir **fichierlu, char *path);
 /*
 **	Recuperation d'infos
@@ -167,5 +169,6 @@ void					ft_print_ls_liste(t_struct *data);
 void					ft_print_liste(t_lst *recur, t_struct *data);
 void					ft_display_one(t_lst **da, int grp, int link, int use);
 void					ft_display_two(t_lst **data, int size, int mi, int ma);
+void					ft_print_file(char **path, t_struct *data);
 
 #endif

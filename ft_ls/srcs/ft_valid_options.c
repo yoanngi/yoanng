@@ -13,6 +13,10 @@
 
 #include "ft_ls.h"
 
+/*
+**	Verify if options is valid
+*/
+
 int			ft_option_exist(char *str, int nb)
 {
 	int i;
@@ -30,6 +34,10 @@ int			ft_option_exist(char *str, int nb)
 		return (0);
 	return (1);
 }
+
+/*
+**	Insert options in struct
+*/
 
 void		ft_insert_valid_option(char *cmp, t_struct **data)
 {
@@ -52,26 +60,4 @@ void		ft_insert_valid_option(char *cmp, t_struct **data)
 			(*data)->lmin = 1;
 		i++;
 	}
-}
-
-int			ft_count_files_valid(int argc, char **argv)
-{
-	char	*cpy;
-	int		i;
-	int		nb;
-	int		tmp;
-
-	i = 0;
-	nb = 0;
-	tmp = argc;
-	while (i != (argc - 1))
-	{
-		cpy = ft_strdup(argv[tmp - 1]);
-		if (ft_access_or_not(&cpy) == 1)
-			nb += 1;
-		ft_strdel(&cpy);
-		i++;
-		tmp--;
-	}
-	return (nb);
 }

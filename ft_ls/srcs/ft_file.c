@@ -14,7 +14,7 @@
 #include "ft_ls.h"
 
 /*
-**	Acces au fichier ou non
+**	Directory exit or not
 */
 
 int				ft_access_or_not(char **path)
@@ -28,48 +28,83 @@ int				ft_access_or_not(char **path)
 }
 
 /*
-**	Retourne un maillon avec le nom et path du fichier dont on a pas l'access
+**	File exist or not
 */
 
-t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
+int				ft_is_file(char **path)
 {
-	t_lst	*rep;
+	t_stat	buf;
 
-	rep = ft_lstnew_ls();
-	rep->path = ft_strdup(path);
-	rep->name = ft_strdup((*fichierlu)->d_name);
-	rep->otherfile = NULL;
-	rep->next = NULL;
-	return (rep);
+	if (lstat(*path, &buf) == -1)
+		return (0);
+	return (1);
 }
 
 /*
-**	Le fichier est valide ?
+**	Return chain list Directory
 */
 
-int				ft_is_file(char **path, t_struct *data)
+t_rep			*ft_dir_valid(int i, int nb, char **params)
 {
-	t_stat	buf;
-	t_lst	*ret;
+	t_rep	*lst;
+	t_rep	*cpy;
 
-	ret = NULL;
-	if (lstat(*path, &buf) == -1)
-		return (0);
-	data->invalid = 1;
-	ret = ft_lstnew_ls();
-	ret->name = ft_strdup(*path);
-	ret->droit = ft_get_droit(buf);
-	ret->user = ft_get_user(buf);
-	ret->groupe = ft_get_groupe(buf);
-	ret->date = ft_get_time(buf);
-	ft_minmajorsize(buf, &ret);
-	ret->link = ft_get_link(buf);
-	ret->blocks = ft_get_blocks(buf);
-	ret->access = ft_access_or_not(path);
-	ret->symbol = NULL;
-	if (ret->droit[0] == 'l')
-		ret->symbol = ft_get_new_path(path);
-	data->lmin == 1 ? ft_ls_liste(&ret, 1) : ft_putendl(*path);
-	ft_clean_list(&ret);
-	return (1);
+	lst = ft_lstnew_argv();
+	cpy = lst;
+	ft_range_tab(params, nb, i);
+	while (i != nb)
+	{
+		if (ft_access_or_not(&params[i]) == 1)
+		{
+			if (lst->name != NULL)
+			{
+				lst->next = ft_lstnew_argv();
+				lst = lst->next;
+			}
+			lst->name = ft_strdup(params[i]);
+			ft_bzero(params[i], ft_strlen(params[i]));
+		}
+		i++;
+	}
+	return (cpy);
+}
+
+/*
+**	Return chain list files
+*/
+
+t_rep			*ft_file_valid(int i, int nb, char **params)
+{
+	t_rep	*lst;
+	t_rep	*cpy;
+
+	lst = ft_lstnew_argv();
+	cpy = lst;
+	ft_range_tab(params, nb, i);
+	while (i != nb)
+	{
+		if (ft_is_file(&params[i]) == 1)
+		{
+			if (lst->name != NULL)
+			{
+				lst->next = ft_lstnew_argv();
+				lst = lst->next;
+			}
+			lst->name = ft_strdup(params[i]);	
+			ft_bzero(params[i], ft_strlen(params[i]));
+		}
+		i++;
+	}
+	return (cpy);
+}
+
+void			ft_error_argv(int i, int nb, char **params)
+{
+	ft_range_tab(params, nb, i);
+	while (i != nb)
+	{
+		if (params[i][0] != '\0')
+			basic_error(params[i]);
+		i++;
+	}
 }

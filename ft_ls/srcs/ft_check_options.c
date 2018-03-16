@@ -14,9 +14,7 @@
 #include "ft_ls.h"
 
 /*
-**	ft_check_options :
-**	Create chain list for all directory
-**	Print path of the various directory
+**	Count len list
 */
 
 static int		ft_len_list(t_rep *lst)
@@ -34,15 +32,30 @@ static int		ft_len_list(t_rep *lst)
 	return (i);
 }
 
-static void		ft_target(t_struct *data)
+/*
+**	If not directory in list, add directory (.)
+*/
+
+static t_rep	*ft_target(t_struct *data)
 {
-	if (ft_len_list(data->multifile) == 0)
+	t_rep	*ret;
+
+	ret = NULL;
+	data->nb_file = ft_len_list(data->multifile);
+	if (data->nb_file == 0)
 	{
-		data->nb_file = 1;
-		data->multifile = ft_lstnew_argv();
-		data->multifile->name = ft_strdup(".");
+		ret = ft_lstnew_argv();
+		ret->name = ft_strdup(".");
 	}
+	else
+		ret = data->multifile;
+	return (ret);
 }
+
+/*
+**	print with options -l or not
+**	clean list
+*/
 
 static void		ft_display(t_struct *data)
 {
@@ -50,33 +63,45 @@ static void		ft_display(t_struct *data)
 		ft_print_ls(data);
 	else
 		ft_print_ls_liste(data);
-	if (data->nb_file > 1)
-		ft_putchar('\n');
 	data->liste = ft_clean_list(&data->liste);
 	free(data->liste);
 	data->liste = NULL;
 }
 
+/*
+**	Print path and execute options in good directory
+*/
+
 void			ft_check_options(t_struct *data)
 {
 	t_rep	*arg;
-	int		path;
+	t_rep	*file;
 
-	arg = data->multifile;
-	path = data->nb_file;
-	data->liste = NULL;
-	ft_target(data);
+	printf("Seg\n");
+	file = data->filevalid;
+	arg = ft_target(data);
+	printf("Seg\n");
+	while (file)
+	{
+		if (file->name != NULL)
+			ft_print_file(&file->name, data);
+		file = file->next;
+	}
+	ft_putchar('\n');
 	while (arg)
 	{
 		data->liste = ft_ls_r(data, arg->name);
-		if (path > 1)
+		if (data->nb_file > 1)
 		{
 			ft_putstr(arg->name);
 			ft_putstr(":\n");
 		}
 		ft_display(data);
+		ft_putchar('\n');
 		arg = arg->next;
 	}
 	ft_clean_t_dir(&data->multifile);
+	ft_clean_t_dir(&data->filevalid);
 	data->multifile = NULL;
+	data->filevalid = NULL;
 }

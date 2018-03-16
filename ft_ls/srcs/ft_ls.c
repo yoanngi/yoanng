@@ -13,24 +13,36 @@
 
 #include "ft_ls.h"
 
-static void		ft_initialise_struct(t_struct **data, int nb, char **params)
-{
-	(*data)->argc = nb;
-	(*data)->tiret = 0;
-	(*data)->rmaj = 0;
-	(*data)->rmin = 0;
-	(*data)->amin = 0;
-	(*data)->tmin = 0;
-	(*data)->lmin = 0;
-	(*data)->invalid = 0;
-	(*data)->just_file = 0;
-	// Utile ou non ?
-	(*data)->nb_file = ft_count_files_valid(nb, params);
-	(*data)->multifile = NULL;
-	(*data)->liste = NULL;
-}
 /*
-static char		**ft_range_tab(char **tab, int len, int i)
+**	Initialise struct
+*/
+
+static t_struct		*ft_initialise_struct(int nb)
+{
+	t_struct	*data;
+
+	data = (t_struct *)malloc(sizeof(t_struct));
+	data->argc = nb;
+	data->tiret = 0;
+	data->rmaj = 0;
+	data->rmin = 0;
+	data->amin = 0;
+	data->tmin = 0;
+	data->lmin = 0;
+	data->invalid = 0;
+	data->just_file = 0;
+	data->nb_file = 0 ;
+	data->multifile = NULL;
+	data->filevalid = NULL;
+	data->liste = NULL;
+	return (data);
+}
+
+/*
+**	Range tab in ascii order
+*/
+
+char				**ft_range_tab(char **tab, int len, int i)
 {
 	char	*tmp;
 	int		start;
@@ -52,48 +64,18 @@ static char		**ft_range_tab(char **tab, int len, int i)
 	return (tab);
 }
 
-int				ft_to_treat(int ac, char **av, int i, t_struct **da)
-{
-	ft_range_tab(av, ac, i);
-	ft_ls_two(i, ac, av, da);
-	return (0);
-}*/
+/*
+**	Create structure for insert options
+*/
 
-t_rep			*ft_ls_two(int i, int nb, char **params, t_struct **da)
-{
-	t_rep	*lst;
-	t_rep	*cpy;
-
-	lst = NULL;
-	cpy = lst;
-	while (i != nb)
-	{
-		if (ft_access_or_not(&params[i]) == 1)
-		{
-			if (lst->name != NULL)
-				lst = lst->next;
-			lst = ft_lstnew_argv();
-			lst->name = ft_strdup(params[i]);
-		}
-		else if (ft_is_file(&params[i], *da) == 0)
-		{
-			(*da)->invalid = 1;
-			basic_error(params[i]);
-		}
-		i++;
-	}
-	return (lst);
-}
-
-void			ft_ls(char **params, int nb, int end)
+void				ft_ls(char **params, int nb, int end)
 {
 	t_struct	*data;
 	int			i;
 
-	data = (t_struct *)malloc(sizeof(t_struct));
 	i = 1;
-	ft_initialise_struct(&data, nb, params);
-	while (end == 0)
+	data = ft_initialise_struct(nb);
+	while (end == 0 || i == nb)
 	{
 		if (params[i][0] == '-' && ft_strlen(params[i]) > 1)
 		{
@@ -102,12 +84,12 @@ void			ft_ls(char **params, int nb, int end)
 		}
 		else
 		{
-			data->multifile = ft_ls_two(i, nb, params, &data);
+			data->multifile = ft_dir_valid(i, nb, params);
+			data->filevalid = ft_file_valid(i, nb, params);
+			ft_error_argv(i, nb, params);
 			end = 1;
 		}
 		i++;
-		if (i == nb)
-			end = 1;
 	}
 	ft_check_options(data);
 	ft_del_struct(data);
