@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 13:59:50 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 16:51:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,12 @@ typedef struct			s_lst
 	struct s_lst		*next;
 }						t_lst;
 
+typedef struct			s_rep
+{
+	char				*name;
+	struct s_rep		*next;
+}						t_rep;
+
 typedef struct			s_struct
 {
 	int					argc;
@@ -63,8 +69,8 @@ typedef struct			s_struct
 	int					lmin;
 	int					nb_file;
 	int					just_file;
-	char				**multifile;
 	int					invalid;
+	t_rep				*multifile;
 	t_lst				*liste;
 }						t_struct;
 
@@ -78,6 +84,7 @@ typedef struct stat		t_stat;
 */
 void					ft_ls(char **params, int nb, int end);
 t_lst					*ft_lstnew_ls(void);
+t_rep					*ft_lstnew_argv(void);
 char					*ft_one_argv(int nb, char **argv);
 char					**ft_multi_argv(int nb, char **argv, int count);
 char					**ft_add_option(int argc, char **params, int p_valid);
@@ -89,12 +96,13 @@ int						ft_is_file(char **path, t_struct *data);
 **	Fonction clean
 */
 t_lst					*ft_clean_list(t_lst **data);
+t_rep					*ft_clean_t_dir(t_rep **data);
 void					ft_del_infos(t_lst **liste);
-void					ft_del_struct(t_struct *data, char **tab);
+void					ft_del_struct(t_struct *data);
 /*
 **	Fonction principales
 */
-t_lst					*ft_ls_r(t_struct *data, int indexfile);
+t_lst					*ft_ls_r(t_struct *data, char *file);
 t_lst					*ft_insert_datas(t_dir **fd, t_lst **ret, char *path);
 t_lst					*ft_r_repertory(t_dir **fd, char *path, t_struct *st);
 void					ft_insert_path(t_dir *fd, t_lst **data, char *path);
@@ -110,8 +118,8 @@ void					ft_print_error(t_lst *cpy, int amin);
 */
 int						ft_access_or_not(char **path);
 void					ft_check_options(t_struct *data);
-int						ft_to_treat(int ac, char **av, int i, t_struct **da);
-void					ft_ls_two(int i, int nb, char **params, t_struct **da);
+//int						ft_to_treat(int ac, char **av, int i, t_struct **da);
+t_rep					*ft_ls_two(int i, int nb, char **params, t_struct **da);
 t_lst					*ft_return_access_denied(t_dir **fichierlu, char *path);
 /*
 **	Recuperation d'infos

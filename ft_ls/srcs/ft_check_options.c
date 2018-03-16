@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 14:26:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 16:50:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,12 +19,28 @@
 **	Print path of the various directory
 */
 
+static int		ft_len_list(t_rep *lst)
+{
+	t_rep	*cpy;
+	int		i;
+
+	cpy = lst;
+	i = 0;
+	while (cpy)
+	{
+		i++;
+		cpy = cpy->next;
+	}
+	return (i);
+}
+
 static void		ft_target(t_struct *data)
 {
-	if (data->just_file == 0 && data->nb_file == 0 && data->invalid == 0)
+	if (ft_len_list(data->multifile) == 0)
 	{
 		data->nb_file = 1;
-		data->multifile[0] = ft_strdup(".");
+		data->multifile = ft_lstnew_argv();
+		data->multifile->name = ft_strdup(".");
 	}
 }
 
@@ -43,23 +59,24 @@ static void		ft_display(t_struct *data)
 
 void			ft_check_options(t_struct *data)
 {
-	int i;
-	int path;
+	t_rep	*arg;
+	int		path;
 
-	i = 0;
+	arg = data->multifile;
 	path = data->nb_file;
 	data->liste = NULL;
 	ft_target(data);
-	while (data->nb_file != 0)
+	while (arg)
 	{
-		data->liste = ft_ls_r(data, i);
+		data->liste = ft_ls_r(data, arg->name);
 		if (path > 1)
 		{
-			ft_putstr(data->multifile[i]);
+			ft_putstr(arg->name);
 			ft_putstr(":\n");
 		}
 		ft_display(data);
-		data->nb_file--;
-		i++;
+		arg = arg->next;
 	}
+	ft_clean_t_dir(&data->multifile);
+	data->multifile = NULL;
 }

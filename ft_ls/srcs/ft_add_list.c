@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 14:32:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 16:36:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,64 +55,15 @@ t_lst		*lst_swap(t_lst *lst1, t_lst *lst2)
 }
 
 /*
-**	Free list and datas
+**	Create new list for argv
 */
 
-t_lst		*ft_clean_list(t_lst **data)
+t_rep		*ft_lstnew_argv(void)
 {
-	t_lst	*clear;
-	t_lst	*cpy;
+	t_rep	*new;
 
-	clear = *data;
-	while (clear)
-	{
-		if (clear->otherfile != NULL)
-			ft_clean_list(&clear->otherfile);
-		ft_strdel(&clear->path);
-		ft_strdel(&clear->droit);
-		ft_strdel(&clear->user);
-		ft_strdel(&clear->groupe);
-		ft_strdel(&clear->name);
-		ft_strdel(&clear->symbol);
-		cpy = clear;
-		clear = clear->next;
-		free(cpy);
-		cpy = NULL;
-	}
-	free(clear);
-	clear = NULL;
-	return (NULL);
-}
-
-/*
-**	Free tab in struct and free struct
-**	Free tab (params)
-*/
-
-void		ft_del_struct(t_struct *data, char **tab)
-{
-	int i;
-
-	i = 0;
-	while (i != data->argc)
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-	i = 0;
-	while (i != data->nb_file)
-	{
-		free(data->multifile[i]);
-		data->multifile[i] = NULL;
-		i++;
-	}
-	free(data->multifile);
-	data->multifile = NULL;
-	free(data->liste);
-	data->liste = NULL;
-	free(data);
-	data = NULL;
+	new = (t_rep *)malloc(sizeof(t_rep));
+	new->name = NULL;
+	new->next = NULL;
+	return (new);
 }

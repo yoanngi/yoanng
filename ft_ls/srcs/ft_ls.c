@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 13:57:54 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 16:51:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,7 @@
 
 static void		ft_initialise_struct(t_struct **data, int nb, char **params)
 {
+	(*data)->argc = nb;
 	(*data)->tiret = 0;
 	(*data)->rmaj = 0;
 	(*data)->rmin = 0;
@@ -23,11 +24,12 @@ static void		ft_initialise_struct(t_struct **data, int nb, char **params)
 	(*data)->lmin = 0;
 	(*data)->invalid = 0;
 	(*data)->just_file = 0;
+	// Utile ou non ?
 	(*data)->nb_file = ft_count_files_valid(nb, params);
-	(*data)->multifile = (char **)malloc(sizeof(char *) *
-			((*data)->nb_file + 1));
+	(*data)->multifile = NULL;
+	(*data)->liste = NULL;
 }
-
+/*
 static char		**ft_range_tab(char **tab, int len, int i)
 {
 	char	*tmp;
@@ -42,7 +44,6 @@ static char		**ft_range_tab(char **tab, int len, int i)
 			tmp = tab[i];
 			tab[i] = tab[i + 1];
 			tab[i + 1] = tmp;
-			ft_strdel(&tmp);
 			i = start;
 		}
 		else
@@ -56,31 +57,32 @@ int				ft_to_treat(int ac, char **av, int i, t_struct **da)
 	ft_range_tab(av, ac, i);
 	ft_ls_two(i, ac, av, da);
 	return (0);
-}
+}*/
 
-void			ft_ls_two(int i, int nb, char **params, t_struct **da)
+t_rep			*ft_ls_two(int i, int nb, char **params, t_struct **da)
 {
-	int		dir;
-	char	*tmp;
+	t_rep	*lst;
+	t_rep	*cpy;
 
-	dir = 0;
-	tmp = NULL;
+	lst = NULL;
+	cpy = lst;
 	while (i != nb)
 	{
-		tmp = ft_strdup(params[i]);
-		if (ft_access_or_not(&tmp) == 1)
+		if (ft_access_or_not(&params[i]) == 1)
 		{
-			(*da)->multifile[dir] = ft_strdup(tmp);
-			dir++;
+			if (lst->name != NULL)
+				lst = lst->next;
+			lst = ft_lstnew_argv();
+			lst->name = ft_strdup(params[i]);
 		}
-		else if (ft_is_file(&tmp, *da) == 0)
+		else if (ft_is_file(&params[i], *da) == 0)
 		{
 			(*da)->invalid = 1;
 			basic_error(params[i]);
 		}
-		ft_strdel(&tmp);
 		i++;
 	}
+	return (lst);
 }
 
 void			ft_ls(char **params, int nb, int end)
@@ -100,7 +102,7 @@ void			ft_ls(char **params, int nb, int end)
 		}
 		else
 		{
-			ft_to_treat(nb, params, i, &data);
+			data->multifile = ft_ls_two(i, nb, params, &data);
 			end = 1;
 		}
 		i++;
@@ -108,5 +110,5 @@ void			ft_ls(char **params, int nb, int end)
 			end = 1;
 	}
 	ft_check_options(data);
-	ft_del_struct(data, params);
+	ft_del_struct(data);
 }

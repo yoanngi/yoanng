@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 13:02:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/16 16:49:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,7 +136,7 @@ t_lst			*ft_r_repertory(t_dir **fd, char *path, t_struct *st)
 **	Read target and take infos
 */
 
-t_lst			*ft_ls_r(t_struct *data, int indexfile)
+t_lst			*ft_ls_r(t_struct *data, char *file)
 {
 	DIR			*dir;
 	t_dir		*fichierlu;
@@ -145,7 +145,7 @@ t_lst			*ft_ls_r(t_struct *data, int indexfile)
 
 	lstdata = ft_lstnew_ls();
 	lstsend = lstdata;
-	dir = opendir(data->multifile[indexfile]);
+	dir = opendir(file);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
 		if (lstdata->name != NULL)
@@ -155,7 +155,7 @@ t_lst			*ft_ls_r(t_struct *data, int indexfile)
 		}
 		if (!(fichierlu->d_name[0] == '.' && data->amin == 0))
 		{
-			ft_insert_path(fichierlu, &lstdata, data->multifile[indexfile]);
+			ft_insert_path(fichierlu, &lstdata, file);
 			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
 			if (data->rmaj == 1)
 				ft_check_repertory(&fichierlu, &lstdata, data);
