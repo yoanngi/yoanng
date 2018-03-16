@@ -59,8 +59,9 @@ t_lst			*ft_insert_datas(t_dir **fd, t_lst **ret, char *path)
 	tmp = ft_strdup(path);
 	if (lstat(tmp, &buf))
 	{
-		basic_error(path);
-		exit(EXIT_FAILURE);
+		basic_error((*fd)->d_name);
+		(*ret)->access = 0;
+		return (*ret);
 	}
 	(*ret)->name = ft_strdup((*fd)->d_name);
 	(*ret)->droit = ft_get_droit(buf);
@@ -161,8 +162,19 @@ t_lst			*ft_ls_r(t_struct *data, int indexfile)
 			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
 			if (data->rmaj == 1)
 				ft_check_repertory(&fichierlu, &lstdata, data);
+			if (lstdata->name == NULL && fichierlu->d_name[0] != '.')
+			{
+				free(lstdata);
+				lstdata = NULL;
+			}		
 		}
 	}
 	closedir(dir);
+	// path probleme = /private/var/db/ConfigurationProfiles
+	while (lstsend)
+	{
+		printf("name = %s\n", lstsend->name);
+		lstsend = lstsend->next;
+	}
 	return (lstsend);
 }
