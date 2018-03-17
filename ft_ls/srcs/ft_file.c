@@ -53,14 +53,19 @@ t_rep			*ft_dir_valid(int i, int nb, char **params)
 	t_rep	*lst;
 	t_rep	*cpy;
 
-	lst = ft_lstnew_argv();
-	cpy = lst;
+	lst = NULL;
+	cpy = NULL;
 	ft_range_tab(params, nb, i);
 	while (i != nb)
 	{
 		if (ft_access_or_not(&params[i]) == 1)
 		{
-			if (lst->name != NULL)
+			if (!lst)
+			{
+				lst = ft_lstnew_argv();
+				cpy = lst;
+			}
+			else
 			{
 				lst->next = ft_lstnew_argv();
 				lst = lst->next;
@@ -69,11 +74,6 @@ t_rep			*ft_dir_valid(int i, int nb, char **params)
 			ft_bzero(params[i], ft_strlen(params[i]));
 		}
 		i++;
-	}
-	if (lst->name == NULL)
-	{
-		free(lst);
-		return (NULL);
 	}
 	return (cpy);
 }
@@ -87,14 +87,19 @@ t_rep			*ft_file_valid(int i, int nb, char **params)
 	t_rep	*lst;
 	t_rep	*cpy;
 
-	lst = ft_lstnew_argv();
-	cpy = lst;
+	lst = NULL;
+	cpy = NULL;
 	ft_range_tab(params, nb, i);
 	while (i != nb)
 	{
 		if (ft_is_file(&params[i]) == 1)
 		{
-			if (lst->name != NULL)
+			if (!lst)
+			{
+				lst = ft_lstnew_argv();
+				cpy = lst;
+			}
+			else
 			{
 				lst->next = ft_lstnew_argv();
 				lst = lst->next;
@@ -103,11 +108,6 @@ t_rep			*ft_file_valid(int i, int nb, char **params)
 			ft_bzero(params[i], ft_strlen(params[i]));
 		}
 		i++;
-	}
-	if (lst->name == NULL)
-	{
-		free(lst);
-		return (NULL);
 	}
 	return (cpy);
 }

@@ -58,8 +58,11 @@ static void		ft_print(t_lst *recur, t_struct *data)
 	{
 		if (ret->otherfile != NULL && ret->access == 1)
 			ft_print(ret->otherfile, data);
-		if (ret->otherfile != NULL && ret->access == 0)
+		if (ret->denied != NULL)
+		{
 			ft_print_error(ret->otherfile, data->amin);
+			ret->denied = NULL;
+		}
 		ret = ret->next;
 	}
 }
@@ -74,10 +77,13 @@ void			ft_print_ls(t_struct *data)
 	ft_ls_simple_sort(recur, data->amin);
 	while (recur)
 	{
-		if (recur->otherfile != NULL && recur->access == 1)
+		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
 			ft_print(recur->otherfile, data);
-		if (cpy->otherfile != NULL && recur->access == 0)
+		if (recur->denied != NULL && data->rmaj == 1)
+		{
 			ft_print_error(recur->otherfile, data->amin);
+			recur->denied = NULL;
+		}
 		recur = recur->next;
 	}
 }
