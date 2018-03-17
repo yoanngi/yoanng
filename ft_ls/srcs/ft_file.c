@@ -21,6 +21,8 @@ int				ft_access_or_not(char **path)
 {
 	DIR		*dir;
 
+	if (*path[0] == '\0')
+		return (0);
 	if ((dir = opendir(*path)) == NULL)
 		return (0);
 	closedir(dir);
@@ -35,6 +37,8 @@ int				ft_is_file(char **path)
 {
 	t_stat	buf;
 
+	if (*path[0] == '\0')
+		return (0);
 	if (lstat(*path, &buf) == -1)
 		return (0);
 	return (1);
@@ -66,6 +70,11 @@ t_rep			*ft_dir_valid(int i, int nb, char **params)
 		}
 		i++;
 	}
+	if (lst->name == NULL)
+	{
+		free(lst);
+		return (NULL);
+	}
 	return (cpy);
 }
 
@@ -95,16 +104,24 @@ t_rep			*ft_file_valid(int i, int nb, char **params)
 		}
 		i++;
 	}
+	if (lst->name == NULL)
+	{
+		free(lst);
+		return (NULL);
+	}
 	return (cpy);
 }
 
-void			ft_error_argv(int i, int nb, char **params)
+void			ft_error_argv(int i, int nb, char **params, t_struct *data)
 {
 	ft_range_tab(params, nb, i);
 	while (i != nb)
 	{
 		if (params[i][0] != '\0')
+		{
+			data->invalid = 1;
 			basic_error(params[i]);
+		}
 		i++;
 	}
 }

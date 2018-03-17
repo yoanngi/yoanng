@@ -22,6 +22,8 @@ t_lst		*ft_clean_list(t_lst **data)
 	t_lst	*clear;
 	t_lst	*cpy;
 
+	if (*data == NULL)
+		return (NULL);
 	clear = *data;
 	while (clear)
 	{
@@ -52,6 +54,8 @@ t_rep		*ft_clean_t_dir(t_rep **data)
 	t_rep	*clear;
 	t_rep	*cpy;
 
+	if (*data == NULL)
+		return (NULL);
 	clear = *data;
 	while (clear)
 	{

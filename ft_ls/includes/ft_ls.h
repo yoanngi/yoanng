@@ -121,7 +121,7 @@ int						ft_access_or_not(char **path);
 void					ft_check_options(t_struct *data);
 t_rep					*ft_dir_valid(int i, int nb, char **params);
 t_rep					*ft_file_valid(int i, int nb, char **params);
-void					ft_error_argv(int i, int nb, char **params);
+void					ft_error_argv(int i, int nb, char **params, t_struct *data);
 t_lst					*ft_return_access_denied(t_dir **fichierlu, char *path);
 /*
 **	Recuperation d'infos

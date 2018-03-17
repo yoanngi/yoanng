@@ -75,7 +75,7 @@ void				ft_ls(char **params, int nb, int end)
 
 	i = 1;
 	data = ft_initialise_struct(nb);
-	while (end == 0 || i == nb)
+	while (end == 0)
 	{
 		if (params[i][0] == '-' && ft_strlen(params[i]) > 1)
 		{
@@ -86,10 +86,11 @@ void				ft_ls(char **params, int nb, int end)
 		{
 			data->multifile = ft_dir_valid(i, nb, params);
 			data->filevalid = ft_file_valid(i, nb, params);
-			ft_error_argv(i, nb, params);
-			end = 1;
+			ft_error_argv(i, nb, params, data);
+			i = nb - 1;
 		}
 		i++;
+		end = (i == nb) ? 1 : 0;
 	}
 	ft_check_options(data);
 	ft_del_struct(data);
