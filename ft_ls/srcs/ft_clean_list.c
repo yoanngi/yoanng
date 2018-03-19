@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/16 16:13:01 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 11:07:30 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:24:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,12 +22,12 @@ t_lst		*ft_clean_list(t_lst **data)
 	t_lst	*clear;
 	t_lst	*cpy;
 
-	if (*data == NULL)
+	if (!*data)
 		return (NULL);
 	clear = *data;
 	while (clear)
 	{
-		if (clear->otherfile != NULL)
+		if (clear->otherfile)
 			clear->otherfile = ft_clean_list(&clear->otherfile);
 		ft_strdel(&clear->path);
 		ft_strdel(&clear->droit);
@@ -54,7 +54,7 @@ t_rep		*ft_clean_t_dir(t_rep **data)
 	t_rep	*clear;
 	t_rep	*cpy;
 
-	if (*data == NULL)
+	if (!*data)
 		return (NULL);
 	clear = *data;
 	while (clear)
@@ -76,9 +76,6 @@ t_rep		*ft_clean_t_dir(t_rep **data)
 
 t_struct		*ft_del_struct(t_struct *data)
 {
-	int i;
-
-	i = 0;
 	free(data->multifile);
 	data->multifile = NULL;
 	free(data->liste);

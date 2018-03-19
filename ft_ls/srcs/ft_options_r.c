@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 12:57:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:21:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,9 +113,13 @@ t_lst			*ft_r_repertory(t_dir **fd, char *path, t_struct *st)
 	t_lst	*rep;
 	t_lst	*cpy;
 
+	if (!(dir = opendir(path)))
+	{
+		basic_error(path);
+		return (NULL);
+	}
 	rep = ft_lstnew_ls();
 	cpy = rep;
-	dir = opendir(path);
 	rep->path = ft_strdup(path);
 	while ((*fd = readdir(dir)) != NULL)
 	{

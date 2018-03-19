@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 16:36:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:08:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,8 @@ t_lst		*ft_lstnew_ls(void)
 {
 	t_lst	*new;
 
-	new = (t_lst *)malloc(sizeof(t_lst));
+	if (!(new = (t_lst *)malloc(sizeof(t_lst))))
+		return (NULL);
 	new->name = NULL;
 	new->symbol = NULL;
 	new->path = NULL;
@@ -38,8 +39,6 @@ t_lst		*ft_lstnew_ls(void)
 	new->otherfile = NULL;
 	new->denied = NULL;
 	new->next = NULL;
-	if (!new)
-		return (NULL);
 	return (new);
 }
 

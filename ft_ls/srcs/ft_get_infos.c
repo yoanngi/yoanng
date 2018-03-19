@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 14:25:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 11:00:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:01:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,8 @@ char	*ft_get_user(t_stat buf)
 		cpy = ft_itoa(buf.st_uid);
 		return (cpy);
 	}
-	cpy = ft_strdup(user->pw_name);
+	else
+		cpy = ft_strdup(user->pw_name);
 	return (cpy);
 }
 
@@ -49,7 +50,8 @@ char	*ft_get_groupe(t_stat buf)
 		cpy = ft_itoa(buf.st_gid);
 		return (cpy);
 	}
-	cpy = ft_strdup(groupe->gr_name);
+	else
+		cpy = ft_strdup(groupe->gr_name);
 	return (cpy);
 }
 
