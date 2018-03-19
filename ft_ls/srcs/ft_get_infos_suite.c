@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 16:08:33 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 11:17:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 16:32:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ char			*ft_get_new_path(char **path)
 	if (lstat(cpy, &buf) == -1)
 	{
 		basic_error(*path);
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	ret = ft_get_droit_symbolique(&cpy, buf.st_size + 1);
 	ft_strdel(&cpy);
