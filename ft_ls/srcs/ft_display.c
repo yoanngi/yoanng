@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/12 15:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 11:04:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 11:07:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,17 +20,23 @@
 static void		ft_print_min_maj(t_lst **data, int minor, int major)
 {
 	int		len;
+	char	*tmp1;
+	char	*tmp2;
 
-	len = ft_strlen(ft_itoa((*data)->major));
+	tmp1 = ft_itoa((*data)->major);
+	tmp2 = ft_itoa((*data)->major);
+	len = ft_strlen(tmp1);
 	while (len++ != major + 1)
 		ft_putchar(' ');
 	ft_putnbr((*data)->major);
 	ft_putchar(',');
-	len = ft_strlen(ft_itoa((*data)->minor));
+	len = ft_strlen(tmp2);
 	while (len++ != minor + 1)
 		ft_putchar(' ');
 	ft_putnbr((*data)->minor);
 	ft_putstr(" ");
+	ft_strdel(&tmp1);
+	ft_strdel(&tmp2);
 }
 
 /*
@@ -92,10 +98,12 @@ void			ft_display_two(t_lst **data, int size, int mi, int ma)
 void			ft_display_one(t_lst **da, int grp, int link, int use)
 {
 	int		len;
+	char	*tmp;
 
+	tmp = ft_itoa((*da)->link);
 	ft_putstr((*da)->droit);
 	ft_putchar(' ');
-	len = ft_strlen(ft_itoa((*da)->link));
+	len = ft_strlen(tmp);
 	while (len++ != link + 1)
 		ft_putchar(' ');
 	ft_putnbr((*da)->link);
@@ -108,6 +116,7 @@ void			ft_display_one(t_lst **da, int grp, int link, int use)
 	len = ft_strlen((*da)->groupe);
 	while (len++ != grp + 1)
 		ft_putchar(' ');
+	ft_strdel(&tmp);
 }
 
 /*
@@ -137,5 +146,5 @@ void			ft_print_file(char **path, t_struct *data)
 	if (ret->droit[0] == 'l')
 		ret->symbol = ft_get_new_path(path);
 	data->lmin == 1 ? ft_ls_liste(&ret, 1) : ft_putendl(*path);
-	ft_clean_list(&ret);
+	ret = ft_clean_list(&ret);
 }

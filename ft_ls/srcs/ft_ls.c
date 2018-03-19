@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 16:51:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 11:07:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ static t_struct		*ft_initialise_struct(int nb)
 	data->lmin = 0;
 	data->invalid = 0;
 	data->just_file = 0;
-	data->nb_file = 0 ;
+	data->nb_file = 0;
 	data->multifile = NULL;
 	data->filevalid = NULL;
 	data->liste = NULL;
@@ -84,6 +84,7 @@ void				ft_ls(char **params, int nb, int end)
 		}
 		else
 		{
+			ft_range_tab(params, nb, i);
 			data->multifile = ft_dir_valid(i, nb, params);
 			data->filevalid = ft_file_valid(i, nb, params);
 			ft_error_argv(i, nb, params, data);
@@ -93,5 +94,5 @@ void				ft_ls(char **params, int nb, int end)
 		end = (i == nb) ? 1 : 0;
 	}
 	ft_check_options(data);
-	ft_del_struct(data);
+	data = ft_del_struct(data);
 }

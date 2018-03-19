@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 16:36:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:00:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,6 @@ t_rep			*ft_dir_valid(int i, int nb, char **params)
 
 	lst = NULL;
 	cpy = NULL;
-	ft_range_tab(params, nb, i);
 	while (i != nb)
 	{
 		if (ft_access_or_not(&params[i]) == 1)
@@ -89,7 +88,6 @@ t_rep			*ft_file_valid(int i, int nb, char **params)
 
 	lst = NULL;
 	cpy = NULL;
-	ft_range_tab(params, nb, i);
 	while (i != nb)
 	{
 		if (ft_is_file(&params[i]) == 1)
@@ -104,7 +102,7 @@ t_rep			*ft_file_valid(int i, int nb, char **params)
 				lst->next = ft_lstnew_argv();
 				lst = lst->next;
 			}
-			lst->name = ft_strdup(params[i]);	
+			lst->name = ft_strdup(params[i]);
 			ft_bzero(params[i], ft_strlen(params[i]));
 		}
 		i++;

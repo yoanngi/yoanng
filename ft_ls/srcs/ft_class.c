@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:21:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 12:59:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 {
 	t_lst	*tete;
 	t_lst	*sui;
-	
+
 	tete = NULL;
 	sui = NULL;
 	while (prime)
@@ -96,5 +96,5 @@ t_lst		*what_sort(t_struct *data, t_lst *liste)
 		liste = lst_sort_ascii(liste);
 	if (data->rmin == 1)
 		liste = ft_reverse_lst(liste);
-	return (liste);	
+	return (liste);
 }

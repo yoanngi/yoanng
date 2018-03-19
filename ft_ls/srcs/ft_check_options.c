@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 16:50:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:00:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,8 @@ static int		ft_len_list(t_rep *lst)
 	t_rep	*cpy;
 	int		i;
 
+	if (!lst)
+		return (0);
 	cpy = lst;
 	i = 0;
 	while (cpy)
@@ -38,19 +40,20 @@ static int		ft_len_list(t_rep *lst)
 
 static t_rep	*ft_target(t_struct *data)
 {
-	t_rep	*ret;
+	t_rep	*tmp;
 
-	ret = NULL;
+	tmp = NULL;
 	data->nb_file = ft_len_list(data->multifile);
 	if (data->multifile == NULL && data->filevalid == NULL
 	&& data->invalid == 0 && data->nb_file == 0)
 	{
-		ret = ft_lstnew_argv();
-		ret->name = ft_strdup(".");
+		tmp = ft_lstnew_argv();
+		tmp->name = ft_strdup(".");
+		return (tmp);
 	}
 	else
-		ret = data->multifile;
-	return (ret);
+		tmp = data->multifile;
+	return (tmp);
 }
 
 /*
@@ -106,9 +109,7 @@ void			ft_check_options(t_struct *data)
 		ft_putchar('\n');
 	ft_options_suite(data, arg);
 	if (data->multifile)
-		ft_clean_t_dir(&data->multifile);
+		data->multifile = ft_clean_t_dir(&data->multifile);
 	if (data->filevalid)
-		ft_clean_t_dir(&data->filevalid);
-	data->multifile = NULL;
-	data->filevalid = NULL;
+		data->filevalid = ft_clean_t_dir(&data->filevalid);
 }

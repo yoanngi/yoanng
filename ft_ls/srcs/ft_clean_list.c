@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/16 16:13:01 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 16:52:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 11:07:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ t_lst		*ft_clean_list(t_lst **data)
 	while (clear)
 	{
 		if (clear->otherfile != NULL)
-			ft_clean_list(&clear->otherfile);
+			clear->otherfile = ft_clean_list(&clear->otherfile);
 		ft_strdel(&clear->path);
 		ft_strdel(&clear->droit);
 		ft_strdel(&clear->user);
@@ -74,7 +74,7 @@ t_rep		*ft_clean_t_dir(t_rep **data)
 **	Free struct
 */
 
-void		ft_del_struct(t_struct *data)
+t_struct		*ft_del_struct(t_struct *data)
 {
 	int i;
 
@@ -85,4 +85,5 @@ void		ft_del_struct(t_struct *data)
 	data->liste = NULL;
 	free(data);
 	data = NULL;
+	return (NULL);
 }

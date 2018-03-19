@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/05 14:25:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 10:57:59 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 11:00:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,8 @@ char	*ft_get_user(t_stat buf)
 	struct passwd	*user;
 	char			*cpy;
 
+	user = NULL;
+	cpy = NULL;
 	if ((user = getpwuid(buf.st_uid)) == NULL)
 	{
 		cpy = ft_itoa(buf.st_uid);
@@ -40,6 +42,8 @@ char	*ft_get_groupe(t_stat buf)
 	struct group	*groupe;
 	char			*cpy;
 
+	groupe = NULL;
+	cpy = NULL;
 	if ((groupe = getgrgid(buf.st_gid)) == NULL)
 	{
 		cpy = ft_itoa(buf.st_gid);

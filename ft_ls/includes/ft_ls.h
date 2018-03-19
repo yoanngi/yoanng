@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 16:51:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 10:52:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,7 +99,7 @@ int						ft_is_file(char **path);
 t_lst					*ft_clean_list(t_lst **data);
 t_rep					*ft_clean_t_dir(t_rep **data);
 void					ft_del_infos(t_lst **liste);
-void					ft_del_struct(t_struct *data);
+t_struct				*ft_del_struct(t_struct *data);
 /*
 **	Fonction principales
 */
