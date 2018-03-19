@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 12:59:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:30:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 **	Sort list (ascii)
 */
 
-t_lst	*lst_sort_ascii(t_lst *lst)
+t_lst			*lst_sort_ascii(t_lst *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -58,7 +58,7 @@ t_lst	*lst_sort_ascii(t_lst *lst)
 **	http://lwh.free.fr/pages/algo/tri/tri.htm
 */
 
-t_lst	*lst_sort_time(t_lst *lst)
+t_lst			*lst_sort_time(t_lst *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -88,7 +88,7 @@ t_lst	*lst_sort_time(t_lst *lst)
 **	How sort list
 */
 
-t_lst		*what_sort(t_struct *data, t_lst *liste)
+t_lst			*what_sort(t_struct *data, t_lst *liste)
 {
 	if (data->tmin == 1)
 		liste = lst_sort_time(liste);

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 10:52:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:39:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,7 +112,6 @@ void					ft_insert_path(t_dir *fd, t_lst **data, char *path);
 */
 void					ft_error(char arg);
 void					basic_error(char *error);
-void					ft_error_access(char *error);
 void					ft_print_error(t_lst *cpy, int amin);
 /*
 **	Fonction de check des options
@@ -121,7 +120,7 @@ int						ft_access_or_not(char **path);
 void					ft_check_options(t_struct *data);
 t_rep					*ft_dir_valid(int i, int nb, char **params);
 t_rep					*ft_file_valid(int i, int nb, char **params);
-void					ft_error_argv(int i, int nb, char **params, t_struct *data);
+void					ft_error_argv(int i, int nb, char **tab, t_struct *da);
 t_lst					*ft_return_access_denied(t_dir **fichierlu, char *path);
 /*
 **	Recuperation d'infos

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/15 16:05:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:33:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,19 +31,11 @@ void	basic_error(char *error)
 	perror(error);
 }
 
-// Used or not ?
-void	ft_error_access(char *error)
-{
-	ft_putstr_fd("ls:", 2);
-	perror(error);
-	ft_putstr_fd(" Permission denied -> perso\n", 2);
-}
-
 /*
-**	Retourne un maillon avec le nom et path du fichier dont on a pas l'access
+**	Retourne un maillon avec le nom et path du fichier dont on a pas l'acces
 */
 
-t_lst			*ft_return_access_denied(t_dir **fichierlu, char *path)
+t_lst	*ft_return_access_denied(t_dir **fichierlu, char *path)
 {
 	t_lst	*rep;
 

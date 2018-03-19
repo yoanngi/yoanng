@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 13:21:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 13:57:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -157,13 +157,10 @@ t_lst			*ft_ls_r(t_struct *data, char *file)
 			lstdata->next = ft_lstnew_ls();
 			lstdata = lstdata->next;
 		}
-		if (!(fichierlu->d_name[0] == '.' && data->amin == 0))
-		{
-			ft_insert_path(fichierlu, &lstdata, file);
-			ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
-			if (data->rmaj == 1)
-				ft_check_repertory(&fichierlu, &lstdata, data);
-		}
+		ft_insert_path(fichierlu, &lstdata, file);
+		ft_insert_datas(&fichierlu, &lstdata, lstdata->path);
+		if (data->rmaj == 1)
+			ft_check_repertory(&fichierlu, &lstdata, data);
 	}
 	closedir(dir);
 	return (lstsend);

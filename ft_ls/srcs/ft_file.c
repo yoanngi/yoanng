@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 13:00:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 14:44:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,15 +110,15 @@ t_rep			*ft_file_valid(int i, int nb, char **params)
 	return (cpy);
 }
 
-void			ft_error_argv(int i, int nb, char **params, t_struct *data)
+void			ft_error_argv(int i, int nb, char **tab, t_struct *da)
 {
-	ft_range_tab(params, nb, i);
+	ft_range_tab(tab, nb, i);
 	while (i != nb)
 	{
-		if (params[i][0] != '\0')
+		if (tab[i][0] != '\0')
 		{
-			data->invalid = 1;
-			basic_error(params[i]);
+			da->invalid = 1;
+			basic_error(tab[i]);
 		}
 		i++;
 	}

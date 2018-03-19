@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 13:00:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/19 14:44:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,6 +100,7 @@ void			ft_check_options(t_struct *data)
 
 	file = data->filevalid;
 	arg = ft_target(data);
+	data->multifile = arg;
 	while (file)
 	{
 		ft_print_file(&file->name, data);
@@ -108,8 +109,6 @@ void			ft_check_options(t_struct *data)
 	if (data->filevalid && data->multifile)
 		ft_putchar('\n');
 	ft_options_suite(data, arg);
-	if (data->multifile)
-		data->multifile = ft_clean_t_dir(&data->multifile);
-	if (data->filevalid)
-		data->filevalid = ft_clean_t_dir(&data->filevalid);
+	data->multifile = ft_clean_t_dir(&data->multifile);
+	data->filevalid = ft_clean_t_dir(&data->filevalid);
 }
