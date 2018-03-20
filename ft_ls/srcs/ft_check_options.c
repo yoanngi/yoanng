@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 16:46:15 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 16:21:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,7 @@ static void		ft_options_suite(t_struct *data, t_rep *arg)
 	while (arg)
 	{
 		data->liste = ft_ls_r(data, arg->name);
-		if (data->nb_file > 1)
+		if (data->nb_file > 1 || data->filevalid)
 		{
 			ft_putstr(arg->name);
 			ft_putstr(":\n");
