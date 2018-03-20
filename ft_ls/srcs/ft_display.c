@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/12 15:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/20 16:10:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 16:51:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -131,6 +131,12 @@ void			ft_print_file(char **path, t_struct *data)
 	ret = NULL;
 	if (lstat(*path, &buf) == -1)
 		return ;
+	if (errno & EACCES)
+	{
+		basic_error(*path);
+		errno = 0;
+		return ;
+	}
 	data->invalid = 1;
 	ret = ft_lstnew_ls();
 	ret->name = ft_strdup(*path);
