@@ -13,11 +13,26 @@
 
 .PHONY: all clean fclean re
 
+NOC=\033[0m
+OKC=\033[32;05m
+ERC=\033[31m
+WAC=\033[33m
+
 NAME =		ft_ls
 CC = 		gcc
-CC_FLAGS = 	-Wall -Werror -Wextra -ggdb
+FLAGS = 	-Wall -Werror -Wextra
 
-N_INC =		ft_ls.h
+SRC_PATH = ./srcs/
+INC_PATH = ./includes/
+OBJ_PATH = ./obj/
+LIB_PATH = ./libft/
+
+SRC = $(addprefix $(SRC_PATH),$(N_SRCS))
+OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
+INC = -I $(INC_PATH) -I $(LIB_PATH)includes/
+
+OBJ_NAME = $(N_SRCS:.c=.o)
+
 N_SRCS = 	ft_error.c\
 			ft_ls.c\
 			ft_ls_simple.c\
@@ -41,47 +56,27 @@ N_SRCS = 	ft_error.c\
 			ft_print_block.c\
 			main.c\
 
-P_SRCS = ./srcs/
-P_INC = ./includes/
-P_OBJ = ./obj/
-P_LFT = libft/
-
-I_INC = ./includes/
-I_LFT = ./libft/includes/
-L_LFT = -L./libft/ -lft
-
-NOC=\033[0m
-OKC=\033[32;05m
-ERC=\033[31m
-WAC=\033[33m
-
-SRC = $(addprefix $(P_SRCS),$(N_SRCS))
-OBJ = $(addprefix $(P_OBJ),$(OBJ_NAME))
-INC = $(addprefix -I,$(I_INC) $(I_LFT))
-
-OBJ_NAME = $(N_SRCS:.c=.o)
-
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(P_LFT)
-	@$(CC) $(CC_FLAGS) -o $(NAME) $(OBJ) $(INC) $(L_LFT)
+	@make -C $(LIB_PATH)
+	@$(CC) $(FLAGS) $(OBJ) $(INC) -L $(LIB_PATH) -lft -o $(NAME)
 	@echo "$(OKC)$(NAME): compilation success!$(NOC)"
 
-$(P_OBJ)%.o: $(P_SRCS)%.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@echo "$(OKC)\c"
-	@mkdir -p $(P_OBJ)
-	@$(CC) $(CC_FLAGS) -o $@ -c $^ $(INC)
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) $(FLAGS) -o $@ -c $^ $(INC)
 	@echo -n █
 	@echo "$(NOC)\c"
 
 clean:
-	@make -C $(P_LFT) clean
-	@rm -rf $(P_OBJ)
+	@make -C $(LIB_PATH) clean
+	@rm -rf $(OBJ_PATH)
 	@echo "$(WAC)$(NAME): Removing $(NAME) ./obj/$(NOC)"
 
 fclean: clean
-	@make -C $(P_LFT) fclean
+	@make -C $(LIB_PATH) fclean
 	@rm -f $(NAME)
 	@echo "$(WAC)$(NAME): Removing executable$(NOC)"
 

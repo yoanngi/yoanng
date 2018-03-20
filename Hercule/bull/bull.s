@@ -1,12 +1,14 @@
 .name		"Homer"
 .comment	"Ferme ta grande gueule Flanders !"
 
-main:		st		r1, 9
+
+main:		sti		r1, %:live, %1
 			fork	%:live
-			fork	%:kill
-live:		st		r1, 6
 
-jump:		zjmp	%:kill
+live:		live	%1
+			zjmp	%:live
 
-kill:		fork	%-2024
-			zjmp	%:jump
+r1.			and		r1, %0, r1
+
+jump:		fork	%:512
+			st		r1, 101

@@ -13,15 +13,14 @@
 
 .PHONY: all, clean, fclean, re
 
-NAME = libft.a
-
 NOC=\033[0m
-OKC=\033[94;1m
+OKC=\033[32;05m
 ERC=\033[31m
 WAC=\033[33m
 
+NAME = libft.a
 CC = gcc
-CC_FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 
 SRC_PATH = ./srcs/
 OBJ_PATH = ./obj/
@@ -29,11 +28,9 @@ INC_PATH = ./includes/
 
 SRC = $(addprefix $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
-INC = $(addprefix -I,$(INC_PATH))
+INC = -I $(INC_PATH)
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
-
-INC_NAME += libft.h
 
 SRC_NAME =	ft_memset.c \
 			ft_bzero.c \
@@ -102,17 +99,14 @@ SRC_NAME =	ft_memset.c \
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		 	@echo "$(OKC)\nlibft: Creating $(NAME): \c"
 		 	@ar rc $(NAME) $(OBJ)
-		 	@echo "$(OKC)OK. \c"
-		 	@echo "$(OKC)Generating index$(NOC): \c"
 		 	@ranlib $(NAME)
 		 	@echo "$(OKC)OK.\nlibft: compilation success!$(NOC)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 		 	@echo "$(OKC)\c"
 		 	@mkdir -p $(OBJ_PATH)
-		 	@$(CC) $(CC_FLAGS) $(INC) -o $@ -c $<
+		 	@$(CC) $(FLAGS) -o $@ -c $^ $(INC)
 		 	@echo -n █
 		 	@echo "$(NOC)\c"
 
@@ -123,6 +117,5 @@ clean:
 fclean: clean
 		 	@echo "$(WAC)libft: Removing $(NAME)$(NOC)"
 		 	@rm -f $(NAME)
-		 	@rm -rf $(OBJ_PATH)
 
 re: fclean all
