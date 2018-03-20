@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/19 10:25:23 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/20 13:31:36 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -31,6 +31,7 @@ N_SRCS = 	ft_error.c\
 			ft_check_space.c\
 			ft_return_l.c\
 			ft_file.c\
+			ft_file_suite.c\
 			ft_ls_liste.c\
 			ft_print_suite.c\
 			ft_valid_options.c\

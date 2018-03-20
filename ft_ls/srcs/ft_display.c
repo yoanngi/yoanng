@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/12 15:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 11:07:00 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 16:10:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ static void		ft_print_min_maj(t_lst **data, int minor, int major)
 	char	*tmp2;
 
 	tmp1 = ft_itoa((*data)->major);
-	tmp2 = ft_itoa((*data)->major);
+	tmp2 = ft_itoa((*data)->minor);
 	len = ft_strlen(tmp1);
 	while (len++ != major + 1)
 		ft_putchar(' ');
@@ -48,7 +48,7 @@ static void		ft_print_size(t_lst **data, int size, int minor, int major)
 	int		len;
 	char	*tmp;
 
-	if (minor != 1 || major != 1)
+	if ((minor != 1 || major != 1) && size < minor + major)
 	{
 		while (minor-- >= 0)
 			ft_putchar(' ');
@@ -60,7 +60,7 @@ static void		ft_print_size(t_lst **data, int size, int minor, int major)
 		tmp = ft_itoa((*data)->size);
 		len = ft_strlen(tmp);
 		ft_strdel(&tmp);
-		while (len++ != size + 1)
+		while (len++ != size + 2)
 			ft_putchar(' ');
 	}
 	ft_putnbr((*data)->size);

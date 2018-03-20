@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/14 13:20:20 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 10:13:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 11:35:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,13 +55,11 @@ int				ft_print_block_or_not(t_lst **data, int secret)
 		return (1);
 	while (cpy)
 	{
-		if (ft_strcmp(cpy->name, "..") == 0)
+		if (!(cpy->name[0] == '.'))
 			i++;
-		else if (ft_strcmp(cpy->name, ".") == 0)
-			i++;
-		else
-			return (1);
 		cpy = cpy->next;
 	}
+	if (i > 0)
+		return (1);
 	return (0);
 }

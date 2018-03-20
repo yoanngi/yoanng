@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 12:59:50 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 14:19:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,8 @@ void	ft_print_ls_liste(t_struct *data)
 	t_lst *cpy;
 
 	cpy = data->liste;
-	ft_print_blocks(&cpy, data->amin);
+	if (data->lmin == 1)
+		ft_print_blocks(&cpy, data->amin);
 	recur = what_sort(data, cpy);
 	ft_ls_liste(&recur, data->amin);
 	while (recur)

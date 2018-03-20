@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 13:33:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 15:46:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,8 @@ void	ft_print_error(t_lst *cpy, int amin)
 	if (amin == 0 && cpy->name[0] == '.')
 		return ;
 	ft_putstr("\n");
-	ft_putstr(cpy->path);
+	if (cpy->path != NULL)
+		ft_putstr(cpy->path);
 	ft_strdel(&cpy->path);
 	ft_putstr("\n");
 	ft_putstr_fd("ls: ", 2);
@@ -65,4 +66,22 @@ void	ft_print_error(t_lst *cpy, int amin)
 	ft_putstr_fd(": Permission denied\n", 2);
 	free(cpy);
 	cpy = NULL;
+}
+
+/*
+**	Print error arg
+*/
+
+void	ft_error_argv(int i, int nb, char **tab, t_struct *da)
+{
+	ft_range_tab(tab, nb, i);
+	while (i != nb)
+	{
+		if (tab[i][0] != '\0')
+		{
+			da->invalid = 1;
+			basic_error(tab[i]);
+		}
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/08 13:20:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 14:44:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/20 15:47:01 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,12 +20,21 @@
 int				ft_access_or_not(char **path)
 {
 	DIR		*dir;
+	char	*tmp;
 
-	if (*path[0] == '\0')
+	tmp = ft_strdup(*path);
+	if (tmp[0] == '\0')
+	{
+		ft_strdel(&tmp);
 		return (0);
-	if ((dir = opendir(*path)) == NULL)
+	}
+	if ((dir = opendir(tmp)) == NULL)
+	{
+		ft_strdel(&tmp);
 		return (0);
+	}
 	closedir(dir);
+	ft_strdel(&tmp);
 	return (1);
 }
 
@@ -57,7 +66,7 @@ t_rep			*ft_dir_valid(int i, int nb, char **params)
 	cpy = NULL;
 	while (i != nb)
 	{
-		if (ft_access_or_not(&params[i]) == 1)
+		if (ft_access_or_not_start(&params[i]) == 1)
 		{
 			if (!lst)
 			{
@@ -108,18 +117,4 @@ t_rep			*ft_file_valid(int i, int nb, char **params)
 		i++;
 	}
 	return (cpy);
-}
-
-void			ft_error_argv(int i, int nb, char **tab, t_struct *da)
-{
-	ft_range_tab(tab, nb, i);
-	while (i != nb)
-	{
-		if (tab[i][0] != '\0')
-		{
-			da->invalid = 1;
-			basic_error(tab[i]);
-		}
-		i++;
-	}
 }
