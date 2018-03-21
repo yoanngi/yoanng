@@ -131,11 +131,12 @@ void			ft_print_file(char **path, t_struct *data)
 	ret = NULL;
 	if (lstat(*path, &buf) == -1)
 		return ;
-	if (errno & EACCES)
+	if (buf.st_mode & S_IFDIR)
 	{
-		basic_error(*path);
-		errno = 0;
-		return ;
+		if (errno & EACCES)
+			basic_error(*path);
+			errno = 0;
+			return ;
 	}
 	data->invalid = 1;
 	ret = ft_lstnew_ls();
