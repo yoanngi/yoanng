@@ -17,11 +17,37 @@
 **	Verify if options is valid
 */
 
+static int	ft_tiret(char *str)
+{
+	int		i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (i < (int)len - 2)
+	{
+		if (str[i] == '-' && str[i + 1] == '-' && str[i + 2] == '-')
+		{
+			ft_error(str[i]);
+			return (1);
+		}
+		if (str[i + 1] != '-' && str[i + 2] == '-')
+		{
+			ft_error(str[i]);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int			ft_option_exist(char *str, int nb)
 {
 	int i;
 
 	i = 0;
+	if (ft_tiret(str) == 1)
+		return (0);
 	while (str[i] == '-' || str[i] == ' ' || str[i] == 'R' || str[i] == 'r' ||
 			str[i] == 'l' || str[i] == 't' || str[i] == 'a' || str[i] == '1' ||
 		str[i] == 'o')
