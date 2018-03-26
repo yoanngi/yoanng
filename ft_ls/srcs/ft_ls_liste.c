@@ -6,14 +6,14 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/13 12:02:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/16 10:44:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 16:45:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void			ft_ls_liste_amin(t_lst **data, int size, int link)
+static void			ft_ls_liste_amin(t_lst **data, int size, int link, int omin)
 {
 	int		use;
 	int		grp;
@@ -28,14 +28,16 @@ static void			ft_ls_liste_amin(t_lst **data, int size, int link)
 	cpy = *data;
 	while (cpy)
 	{
-		ft_display_one(&cpy, grp, link, use);
+		ft_display_one(&cpy, link, use);
+		if (omin == 0)
+			ft_display_grp(grp, &cpy);
 		ft_display_two(&cpy, size, minor, major);
 		ft_putstr("\n");
 		cpy = cpy->next;
 	}
 }
 
-static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
+static void			ft_ls_noamin(t_lst **data, int size, int link, int omin)
 {
 	int		use;
 	int		grp;
@@ -54,7 +56,9 @@ static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 		{
 			if (cpy->name[0] != '.')
 			{
-				ft_display_one(&cpy, grp, link, use);
+				ft_display_one(&cpy, link, use);
+				if (omin == 0)
+					ft_display_grp(grp, &cpy);
 				ft_display_two(&cpy, size, minor, major);
 				ft_putchar('\n');
 			}
@@ -63,7 +67,7 @@ static void			ft_ls_liste_noamin(t_lst **data, int size, int link)
 	}
 }
 
-void				ft_ls_liste(t_lst **data, int secret)
+void				ft_ls_liste(t_lst **data, int secret, int omin)
 {
 	int		size;
 	int		link;
@@ -71,7 +75,7 @@ void				ft_ls_liste(t_lst **data, int secret)
 	size = ft_checklongmax_size(data);
 	link = ft_checklongmax_link(data);
 	if (secret == 1)
-		ft_ls_liste_amin(data, size, link);
+		ft_ls_liste_amin(data, size, link, omin);
 	if (secret == 0)
-		ft_ls_liste_noamin(data, size, link);
+		ft_ls_noamin(data, size, link, omin);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/12 15:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/23 11:41:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 16:48:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,7 +95,7 @@ void			ft_display_two(t_lst **data, int size, int mi, int ma)
 **	Print in display (part 1)
 */
 
-void			ft_display_one(t_lst **da, int grp, int link, int use)
+void			ft_display_one(t_lst **da, int link, int use)
 {
 	int		len;
 	char	*tmp;
@@ -111,10 +111,6 @@ void			ft_display_one(t_lst **da, int grp, int link, int use)
 	ft_putstr((*da)->user);
 	len = ft_strlen((*da)->user);
 	while (len++ <= use + 1)
-		ft_putchar(' ');
-	ft_putstr((*da)->groupe);
-	len = ft_strlen((*da)->groupe);
-	while (len++ != grp + 1)
 		ft_putchar(' ');
 	ft_strdel(&tmp);
 }

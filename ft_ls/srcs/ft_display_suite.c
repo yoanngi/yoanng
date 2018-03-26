@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/23 11:30:08 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/23 11:43:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 16:39:08 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,20 @@ void			ft_print_file(char **path, t_struct *data)
 	ret->symbol = NULL;
 	if (ret->droit[0] == 'l')
 		ret->symbol = ft_get_new_path(path);
-	data->lmin == 1 ? ft_ls_liste(&ret, 1) : ft_putendl(*path);
+	data->lmin == 1 ? ft_ls_liste(&ret, 1, 0) : ft_putendl(*path);
 	ret = ft_clean_list(&ret);
+}
+
+/*
+**	Print groupe or not
+*/
+
+void			ft_display_grp(int grp, t_lst **da)
+{
+	int len;
+
+	ft_putstr((*da)->groupe);
+	len = ft_strlen((*da)->groupe);
+	while (len++ != grp + 1)
+		ft_putchar(' ');
 }

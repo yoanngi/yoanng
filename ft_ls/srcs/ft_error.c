@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/20 15:46:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 16:11:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ void	ft_error(char arg)
 {
 	ft_putstr_fd("ft_ls: illegal option -- ", 2);
 	ft_putchar_fd(arg, 2);
-	ft_putstr_fd("\nusage: ft_ls [-Rratl] [file ...]\n", 2);
+	ft_putstr_fd("\nusage: ft_ls [-Rratlo1] [file ...]\n", 2);
 	exit(EXIT_FAILURE);
 }
 

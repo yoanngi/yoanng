@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/23 12:59:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 16:48:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,7 +44,7 @@ void	ft_print_liste(t_lst *recur, t_struct *data)
 	{
 		ft_print_blocks(&ret, data->amin);
 		if (ret->name != NULL)
-			ft_ls_liste(&cpy, data->amin);
+			ft_ls_liste(&cpy, data->amin, data->omin);
 	}
 	while (cpy)
 	{
@@ -68,7 +68,7 @@ void	ft_print_ls_liste(t_struct *data)
 	if (data->lmin == 1 && ft_print_block_or_not(&cpy, data->amin) == 1)
 		ft_print_blocks(&cpy, data->amin);
 	recur = what_sort(data, cpy);
-	ft_ls_liste(&recur, data->amin);
+	ft_ls_liste(&recur, data->amin, data->omin);
 	while (recur)
 	{
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)

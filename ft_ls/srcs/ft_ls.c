@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:53:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/19 11:07:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 16:42:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,8 @@ static t_struct		*ft_initialise_struct(int nb)
 	data->amin = 0;
 	data->tmin = 0;
 	data->lmin = 0;
+	data->un = 0;
+	data->omin = 0;
 	data->invalid = 0;
 	data->just_file = 0;
 	data->nb_file = 0;
