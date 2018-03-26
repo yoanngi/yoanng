@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/26 14:21:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 15:51:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,23 +73,22 @@ t_lst			*ft_insert_datas(t_dir **fd, t_lst **ret, char *path)
 
 static int		ft_check_repertory(t_dir **fl, t_lst **data, t_struct *st)
 {
+	(*data)->otherfile = NULL;
+	(*data)->denied = NULL;
 	if (st->amin == 0 && (*fl)->d_name[0] == '.')
-	{
-		(*data)->otherfile = NULL;
-		(*data)->denied = NULL;
 		return (0);
-	}
 	if ((*data)->access == 1 && ((*fl)->d_type == 4 || (*fl)->d_type == 0) &&
 	(ft_strcmp((*fl)->d_name, ".") != 0 &&
 	ft_strcmp((*fl)->d_name, "..") != 0) && (*data)->droit[0] != '-')
+	{
 		(*data)->otherfile = ft_r_repertory(fl, (*data)->path, st);
+		return (0);
+	}
 	else if ((*data)->access == 0 && (*fl)->d_type == 4)
 	{
 		(*data)->denied = ft_return_access_denied(fl, (*data)->path);
-		(*data)->otherfile = NULL;
+		return (0);
 	}
-	else
-		(*data)->otherfile = NULL;
 	return (0);
 }
 
@@ -142,7 +141,7 @@ t_lst			*ft_ls_r(t_struct *data, char *file)
 	dir = opendir(file);
 	while ((fichierlu = readdir(dir)) != NULL)
 	{
-		if (lstdata->name != NULL)
+		if (lstdata->name && lstdata->droit)
 		{
 			lstdata->next = ft_lstnew_ls();
 			lstdata = lstdata->next;
