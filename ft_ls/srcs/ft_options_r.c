@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/23 16:42:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/26 14:21:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,33 +24,14 @@ void			ft_insert_path(t_dir *fd, t_lst **data, char *path)
 	size_t	len;
 
 	len = ft_strlen(path);
-/*
-	printf("fichier lu = %s\n", fd->d_name);
-	printf("data->path = %s\n", (*data)->path);
-	printf("path = %s\n", path);
-	if (path[len] != '/')
-	{
-*/
-		tmp = ft_strdup(path);
-		ft_strdel(&(*data)->path);
-		(*data)->path = ft_strjoin(tmp, "/");
-		ft_strdel(&tmp);
-
-		cpy = ft_strdup((*data)->path);
-		ft_strdel(&(*data)->path);
-		(*data)->path = ft_strjoin(cpy, fd->d_name);
-		ft_strdel(&cpy);
-/*
-	}
-	else
-	{
-		cpy = ft_strdup((*data)->path);
-		ft_strdel(&(*data)->path);
-		(*data)->path = ft_strjoin(cpy, fd->d_name);
-		ft_strdel(&cpy);
-		ft_strdel(&path);
-	}
-*/
+	tmp = ft_strdup(path);
+	ft_strdel(&(*data)->path);
+	(*data)->path = ft_strjoin(tmp, "/");
+	ft_strdel(&tmp);
+	cpy = ft_strdup((*data)->path);
+	ft_strdel(&(*data)->path);
+	(*data)->path = ft_strjoin(cpy, fd->d_name);
+	ft_strdel(&cpy);
 }
 
 /*
@@ -95,11 +76,12 @@ static int		ft_check_repertory(t_dir **fl, t_lst **data, t_struct *st)
 	if (st->amin == 0 && (*fl)->d_name[0] == '.')
 	{
 		(*data)->otherfile = NULL;
+		(*data)->denied = NULL;
 		return (0);
 	}
 	if ((*data)->access == 1 && ((*fl)->d_type == 4 || (*fl)->d_type == 0) &&
 	(ft_strcmp((*fl)->d_name, ".") != 0 &&
-	ft_strcmp((*fl)->d_name, "..") != 0))
+	ft_strcmp((*fl)->d_name, "..") != 0) && (*data)->droit[0] != '-')
 		(*data)->otherfile = ft_r_repertory(fl, (*data)->path, st);
 	else if ((*data)->access == 0 && (*fl)->d_type == 4)
 	{
