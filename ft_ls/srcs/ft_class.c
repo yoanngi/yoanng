@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/27 16:01:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/27 16:27:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,11 +66,24 @@ t_lst			*lst_sort_time(t_lst *lst)
 		return (NULL);
 	if (lst->next && lst->date < lst->next->date)
 		lst = lst_swap(lst, lst->next);
+	else if (lst->next && lst->date == lst->next->date)
+	{
+		if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
+			lst = lst_swap(lst, lst->next);
+	}
 	lst->next = lst_sort_time(lst->next);
 	if (lst->next && lst->date < lst->next->date)
 	{
 		lst = lst_swap(lst, lst->next);
 		lst->next = lst_sort_time(lst->next);
+	}
+	else if (lst->next && lst->date == lst->next->date)
+	{
+		if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
+		{
+			lst = lst_swap(lst, lst->next);
+			lst->next = lst_sort_time(lst->next);
+		}
 	}
 	return (lst);
 }
