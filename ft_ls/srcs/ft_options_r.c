@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/26 15:51:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/27 15:36:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,7 @@ static int		ft_check_repertory(t_dir **fl, t_lst **data, t_struct *st)
 		return (0);
 	if ((*data)->access == 1 && ((*fl)->d_type == 4 || (*fl)->d_type == 0) &&
 	(ft_strcmp((*fl)->d_name, ".") != 0 &&
-	ft_strcmp((*fl)->d_name, "..") != 0) && (*data)->droit[0] != '-')
+	ft_strcmp((*fl)->d_name, "..") != 0))
 	{
 		(*data)->otherfile = ft_r_repertory(fl, (*data)->path, st);
 		return (0);

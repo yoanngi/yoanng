@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/20 16:03:29 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/14 14:23:00 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/27 15:36:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ static void		ft_ls_simple_sort(t_lst *lst, int amin)
 		ft_ls_simple_sort_two(lst);
 }
 
-static void		ft_print(t_lst *recur, t_struct *data)
+static t_lst	*ft_print(t_lst *recur, t_struct *data)
 {
 	t_lst *cpy;
 	t_lst *ret;
@@ -57,14 +57,12 @@ static void		ft_print(t_lst *recur, t_struct *data)
 	while (ret)
 	{
 		if (ret->otherfile != NULL && ret->access == 1)
-			ft_print(ret->otherfile, data);
+			ret->otherfile = ft_print(ret->otherfile, data);
 		if (ret->denied != NULL)
-		{
-			ft_print_error(ret->otherfile, data->amin);
-			ret->denied = NULL;
-		}
+			ret->denied = ft_print_error(ret->otherfile, data->amin);
 		ret = ret->next;
 	}
+	return (cpy);
 }
 
 void			ft_print_ls(t_struct *data)
@@ -74,16 +72,14 @@ void			ft_print_ls(t_struct *data)
 
 	cpy = data->liste;
 	recur = what_sort(data, cpy);
+	data->liste = recur;
 	ft_ls_simple_sort(recur, data->amin);
 	while (recur)
 	{
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
-			ft_print(recur->otherfile, data);
+			recur->otherfile = ft_print(recur->otherfile, data);
 		if (recur->denied != NULL && data->rmaj == 1)
-		{
-			ft_print_error(recur->otherfile, data->amin);
-			recur->denied = NULL;
-		}
+			recur->denied = ft_print_error(recur->otherfile, data->amin);
 		recur = recur->next;
 	}
 }

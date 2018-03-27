@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/26 16:39:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/27 15:36:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,7 +114,7 @@ void					ft_insert_path(t_dir *fd, t_lst **data, char *path);
 */
 void					ft_error(char arg);
 void					basic_error(char *error);
-void					ft_print_error(t_lst *cpy, int amin);
+t_lst					*ft_print_error(t_lst *cpy, int amin);
 /*
 **	Fonction de check des options
 */
@@ -168,7 +168,7 @@ void					ft_ls_simple(char *target, int a);
 void					ft_ls_liste(t_lst **data, int secret, int omin);
 void					ft_print_ls(t_struct *data);
 void					ft_print_ls_liste(t_struct *data);
-void					ft_print_liste(t_lst *recur, t_struct *data);
+t_lst					*ft_print_liste(t_lst *recur, t_struct *data);
 void					ft_display_one(t_lst **da, int link, int use);
 void					ft_display_two(t_lst **data, int size, int mi, int ma);
 void					ft_print_file(char **path, t_struct *data);

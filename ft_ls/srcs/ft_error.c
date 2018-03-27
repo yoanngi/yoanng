@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/26 16:11:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/27 15:37:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,10 +51,10 @@ t_lst	*ft_return_access_denied(t_dir **fichierlu, char *path)
 **	Print maillon error
 */
 
-void	ft_print_error(t_lst *cpy, int amin)
+t_lst	*ft_print_error(t_lst *cpy, int amin)
 {
 	if (amin == 0 && cpy->name[0] == '.')
-		return ;
+		return (NULL);
 	ft_putstr("\n");
 	if (cpy->path != NULL)
 		ft_putstr(cpy->path);
@@ -66,6 +66,7 @@ void	ft_print_error(t_lst *cpy, int amin)
 	ft_putstr_fd(": Permission denied\n", 2);
 	free(cpy);
 	cpy = NULL;
+	return (NULL);
 }
 
 /*

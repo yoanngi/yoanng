@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/16 16:13:01 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/26 14:48:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/27 15:37:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,16 +25,14 @@ t_lst			*ft_clean_list(t_lst **data)
 	clear = *data;
 	while (clear)
 	{
-		if (clear->otherfile)
-			clear->otherfile = ft_clean_list(&clear->otherfile);
-		else if (clear->denied)
-			clear->denied = ft_clean_list(&clear->denied);
 		ft_strdel(&clear->path);
 		ft_strdel(&clear->droit);
 		ft_strdel(&clear->user);
 		ft_strdel(&clear->groupe);
 		ft_strdel(&clear->name);
 		ft_strdel(&clear->symbol);
+		clear->otherfile = ft_clean_list(&clear->otherfile);
+		clear->denied = ft_clean_list(&clear->denied);
 		cpy = clear;
 		clear = clear->next;
 		free(cpy);

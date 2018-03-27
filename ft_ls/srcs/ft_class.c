@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/01 13:12:05 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/26 14:59:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/27 16:01:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,8 +66,6 @@ t_lst			*lst_sort_time(t_lst *lst)
 		return (NULL);
 	if (lst->next && lst->date < lst->next->date)
 		lst = lst_swap(lst, lst->next);
-	else if (lst->next && lst->date == lst->next->date)
-		lst = lst_sort_ascii(lst);
 	lst->next = lst_sort_time(lst->next);
 	if (lst->next && lst->date < lst->next->date)
 	{
@@ -83,11 +81,14 @@ t_lst			*lst_sort_time(t_lst *lst)
 
 t_lst			*what_sort(t_struct *data, t_lst *liste)
 {
+	t_lst	*cpy;
+
 	if (data->tmin == 1)
-		liste = lst_sort_time(liste);
+		cpy = lst_sort_time(liste);
 	else
-		liste = lst_sort_ascii(liste);
+		cpy = lst_sort_ascii(liste);
 	if (data->rmin == 1)
-		liste = ft_reverse_lst(liste);
+		cpy = ft_reverse_lst(liste);
+	liste = cpy;
 	return (liste);
 }
