@@ -156,8 +156,11 @@ int						ft_checklongmax_major(t_lst **data);
 t_lst					*what_sort(t_struct *data, t_lst *liste);
 t_lst					*ft_reverse_lst(t_lst *prime);
 t_lst					*lst_sort_ascii(t_lst *lst);
+t_lst					*lst_sort_ascii_inv(t_lst *lst);
 t_lst					*lst_sort_time(t_lst *lst);
-t_lst					*lst_swap(t_lst *lst1, t_lst *lst2);
+void					ft_swap_lst(t_lst **s1, t_lst **s2);
+void					ft_swap_data(t_lst **s1, t_lst *s2);
+//t_lst					*lst_swap(t_lst *lst1, t_lst *lst2);
 /*
 **	Fonction d'affichage
 */

@@ -43,17 +43,6 @@ t_lst		*ft_lstnew_ls(void)
 }
 
 /*
-**	swap list chain
-*/
-
-t_lst		*lst_swap(t_lst *lst1, t_lst *lst2)
-{
-	lst1->next = lst2->next;
-	lst2->next = lst1;
-	return (lst2);
-}
-
-/*
 **	Create new list for argv
 */
 
@@ -65,4 +54,37 @@ t_rep		*ft_lstnew_argv(void)
 	new->name = NULL;
 	new->next = NULL;
 	return (new);
+}
+
+
+/*
+**	Swap data
+*/
+
+void		ft_swap_data(t_lst **s1, t_lst *s2)
+{
+	(*s1)->name = s2->name;
+	(*s1)->path = s2->path;
+	(*s1)->user = s2->user;
+	(*s1)->groupe = s2->groupe;
+	(*s1)->droit = s2->droit;
+	(*s1)->symbol = s2->symbol;
+	(*s1)->access = s2->access;
+	(*s1)->size = s2->size;
+	(*s1)->minor = s2->minor;
+	(*s1)->major = s2->major;
+	(*s1)->link = s2->link;
+	(*s1)->date = s2->date;
+	(*s1)->blocks = s2->blocks;
+	(*s1)->otherfile = s2->otherfile;
+	(*s1)->denied = s2->denied;
+}
+
+void		ft_swap_lst(t_lst **s1, t_lst **s2)
+{
+	t_lst	cpy;
+
+	cpy = **s1;
+	ft_swap_data(s1, *s2);
+	ft_swap_data(s2, &cpy);
 }
