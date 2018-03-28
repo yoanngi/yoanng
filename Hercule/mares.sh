@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/03/28 14:33:58 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/28 15:26:30 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/28 15:36:42 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,7 +20,7 @@
 sleep 3
 
 # Kill Process
-kill -s KILL $(pgrep deinos podargos ruins lampon xanthos plop)
+kill -s KILL $(pgrep deinos podargos lampon xanthos)
 kill -9 $!
 
 # Suppression des *.poo
