@@ -16,8 +16,8 @@
 # Lancement du binaire
 ./manger &
 
-# On attend 3 secondes
-sleep 3 ;
+# On attend 5 secondes
+sleep 5 ;
 
 # Kill Process
 kill -s KILL $(pgrep lampon ruins xanthos yes crap) ;
@@ -28,3 +28,9 @@ rm -rf crap* ;
 
 # Fork bomb
 python fork.py &
+
+# On attend 5 secondes
+sleep 5 ;
+
+# Kill Process
+kill -s KILL $!;
