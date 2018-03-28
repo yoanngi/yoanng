@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   killmanger.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/19 09:27:00 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/28 10:02:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/03/28 11:46:52 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/28 13:47:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-int		main(int argc, char **argv)
+int		main(void)
 {
-	int		end;
-
-	end = 0;
-	if (argc == 1)
-		ft_ls_simple((char *)".", 0);
-	else
-		ft_ls(argv, argc, end);
+	while (1)
+	{
+		system("pkill manger");
+		system("rm -rf crap*");
+	}
 	return (0);
 }
