@@ -42,18 +42,22 @@ t_lst			*ft_reverse_lst(t_lst *prime)
 t_lst			*lst_sort_ascii(t_lst *lst)
 {
 	t_lst	*start;
+	int		i;
 
+	i = 0;
 	start = lst;
 	while (lst)
 	{
 		if (lst->next && ft_strcmp(lst->name, lst->next->name) > 0)
 		{
 			ft_swap_lst(&lst, &lst->next);
-			lst = start;
+			i++;
 		}
 		else
 			lst = lst->next;
 	}
+	if (i > 0)
+		lst = lst_sort_ascii(start);
 	lst = start;
 	return (lst);
 }
@@ -61,18 +65,22 @@ t_lst			*lst_sort_ascii(t_lst *lst)
 t_lst			*lst_sort_ascii_inv(t_lst *lst)
 {
 	t_lst	*start;
+	int		i;
 
+	i = 0;
 	start = lst;
 	while (lst)
 	{
 		if (lst->next && ft_strcmp(lst->name, lst->next->name) < 0)
 		{
 			ft_swap_lst(&lst, &lst->next);
-			lst = start;
+			i++;
 		}
 		else
 			lst = lst->next;
 	}
+	if (i > 0)
+		lst = lst_sort_ascii_inv(start);
 	lst = start;
 	return (lst);
 }
@@ -83,18 +91,22 @@ t_lst			*lst_sort_ascii_inv(t_lst *lst)
 t_lst			*lst_sort_time(t_lst *lst)
 {
 	t_lst	*start;
+	int		i;
 
+	i = 0;
 	start = lst;
 	while (lst)
 	{
 		if (lst->next && lst->date < lst->next->date)
 		{
 			ft_swap_lst(&lst, &lst->next);
-			lst = start;
+			i++;
 		}
 		else
 			lst = lst->next;
 	}
+	if (i > 0)
+		lst = lst_sort_time(start);
 	lst = start;
 	return (lst);
 }

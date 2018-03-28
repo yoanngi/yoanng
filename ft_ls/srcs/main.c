@@ -22,5 +22,6 @@ int		main(int argc, char **argv)
 		ft_ls_simple((char *)".", 0);
 	else
 		ft_ls(argv, argc, end);
+	sleep(100);
 	return (0);
 }
