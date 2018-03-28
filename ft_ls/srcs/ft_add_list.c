@@ -57,7 +57,7 @@ t_rep		*ft_lstnew_argv(void)
 }
 
 /*
-**	Swap data
+**	Swap datas
 */
 
 void		ft_swap_data(t_lst **s1, t_lst *s2)
