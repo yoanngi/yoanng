@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/03/28 14:33:58 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/28 14:44:50 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/28 15:26:30 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,10 +17,11 @@
 ./manger &
 
 # On attend 2 secondes
-sleep 2
+sleep 3
 
 # Kill Process
-kill -SIGKILL $!
+kill -s KILL $(pgrep deinos podargos ruins lampon xanthos plop)
+kill -9 $!
 
 # Suppression des *.poo
 rm -rf crap*
