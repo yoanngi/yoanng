@@ -27,10 +27,13 @@ kill -s KILL $(top -l 1 | grep manger | awk '{print $1}');
 rm -rf crap* ;
 
 # Fork bomb
-python fork.py &
+python ponyrun.py &
 
 # On attend 5 secondes
 sleep 5 ;
 
 # Kill Process
 kill -s KILL $!;
+kill -s KILL $(top -l 1 | grep Python | awk '{print $1}');
+rm 101
+rm 42
