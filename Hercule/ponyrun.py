@@ -6,18 +6,18 @@
 
 import os
 import time
-
 import multiprocessing
 
 def canasson0():
 	"""Xanthos"""
-	os.system('ls')
+	os.system('yes "tagada tagada tagada"')
 	time.sleep(60)
 	return
 
 def canasson1():
 	"""lampon"""
-	os.system('say "tagada tagada tagada"')
+        while (1):
+	    os.system('say "tagada tagada tagada"')
 	time.sleep(60)
 	return
 
@@ -47,8 +47,4 @@ if __name__ == '__main__':
 	pb.start()
 	pc.start()
 	pd.start()
-#	pa.join()
-#	pb.join()
-#	pc.join()
-#	pd.join()
 time.sleep(60)
