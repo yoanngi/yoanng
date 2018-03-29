@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 14:35:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 14:37:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -165,7 +165,6 @@ t_lst					*lst_sort_ascii_inv(t_lst *lst);
 t_lst					*lst_sort_time(t_lst *lst);
 void					ft_swap_lst(t_lst **s1, t_lst **s2);
 void					ft_swap_data(t_lst **s1, t_lst *s2);
-//t_lst					*lst_swap(t_lst *lst1, t_lst *lst2);
 /*
 **	Fonction d'affichage
 */
