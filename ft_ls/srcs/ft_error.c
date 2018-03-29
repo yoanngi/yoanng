@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/27 15:37:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 15:33:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ t_lst	*ft_print_error(t_lst *cpy, int amin)
 	if (cpy->path != NULL)
 		ft_putstr(cpy->path);
 	ft_strdel(&cpy->path);
-	ft_putstr("\n");
+	ft_putstr(":\n");
 	ft_putstr_fd("ls: ", 2);
 	ft_putstr_fd(cpy->name, 2);
 	ft_strdel(&cpy->name);
