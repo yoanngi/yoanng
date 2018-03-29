@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/20 16:03:29 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 15:33:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 15:43:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,7 @@ static t_lst	*ft_print(t_lst *recur, t_struct *data)
 		if (ret->otherfile != NULL && ret->access == 1)
 			ret->otherfile = ft_print(ret->otherfile, data);
 		if (ret->denied != NULL)
-			ret->denied = ft_print_error(ret->otherfile, data->amin);
+			ret->denied = ft_print_error(ret->denied, data->amin);
 		ret = ret->next;
 	}
 	return (cpy);
