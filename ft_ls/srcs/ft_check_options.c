@@ -52,7 +52,11 @@ static t_rep	*ft_target(t_struct *data)
 		return (tmp);
 	}
 	else
+	{
 		tmp = data->multifile;
+		ft_class_repertory(&tmp, data);
+	}
+
 	return (tmp);
 }
 

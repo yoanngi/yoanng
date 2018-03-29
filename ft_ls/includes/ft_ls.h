@@ -60,6 +60,7 @@ typedef struct			s_lst
 typedef struct			s_rep
 {
 	char				*name;
+	time_t				date;
 	struct s_rep		*next;
 }						t_rep;
 
@@ -165,6 +166,7 @@ t_lst					*lst_sort_ascii_inv(t_lst *lst);
 t_lst					*lst_sort_time(t_lst *lst);
 void					ft_swap_lst(t_lst **s1, t_lst **s2);
 void					ft_swap_data(t_lst **s1, t_lst *s2);
+void					ft_class_repertory(t_rep **lst, t_struct *data);
 /*
 **	Fonction d'affichage
 */

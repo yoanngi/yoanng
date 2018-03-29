@@ -51,6 +51,7 @@ N_SRCS = 	ft_error.c\
 			ft_print_suite.c\
 			ft_valid_options.c\
 			ft_class.c\
+			ft_class_repertory.c\
 			ft_display.c\
 			ft_display_suite.c\
 			ft_minor_major.c\
