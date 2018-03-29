@@ -12,7 +12,18 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include "libft.h"
+
+/*
+**	Return Time
+*/
+static time_t	ft_date(char *path)
+{
+	t_stat	buf;
+
+	if (lstat(path, &buf) == -1)
+		return (0);
+	return (ft_get_time(buf));
+}
 
 /*
 **	Directory exit or not
@@ -80,6 +91,7 @@ t_rep			*ft_dir_valid(int i, int nb, char **params)
 				lst = lst->next;
 			}
 			lst->name = ft_strdup(params[i]);
+			lst->date = ft_date(params[i]);
 			ft_bzero(params[i], ft_strlen(params[i]));
 		}
 		i++;
