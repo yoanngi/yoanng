@@ -52,6 +52,7 @@ t_rep		*ft_lstnew_argv(void)
 
 	new = (t_rep *)malloc(sizeof(t_rep));
 	new->name = NULL;
+	new->date = 0;
 	new->next = NULL;
 	return (new);
 }
