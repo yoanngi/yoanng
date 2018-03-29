@@ -78,7 +78,16 @@ static void		ft_display(t_struct *data)
 
 static void		ft_options_suite(t_struct *data, t_rep *arg, t_lst **clear)
 {
-	ft_clean_list(clear);
+	t_lst	*cpy;
+
+	cpy = *clear;
+	if (data->filevalid)
+	{
+		data->lmin == 1 ? ft_ls_liste(&cpy, 1, 0) : ft_ls_simple_sort(cpy, 1);
+		ft_clean_list(clear);
+	}
+	if (data->filevalid && data->multifile)
+		ft_putchar('\n');
 	while (arg)
 	{
 		data->liste = ft_ls_r(data, arg->name);
@@ -101,26 +110,26 @@ void			ft_check_options(t_struct *data)
 	t_rep	*arg;
 	t_rep	*file;
 	t_lst	*cpy;
-	t_lst	*clear;
+	t_lst	*tmp;
 
+	cpy = NULL;
 	file = data->filevalid;
 	arg = ft_target(data);
 	data->multifile = arg;
-	file != NULL ? cpy = ft_lstnew_ls() : cpy = NULL;
-	clear = cpy;
 	while (file)
 	{
-		ft_print_file(&file->name, data, &cpy);
-		if (file->next)
+		if (cpy == NULL)
+		{
+			cpy = ft_lstnew_ls();
+			tmp = cpy;
+		}
+		else
 		{
 			cpy->next = ft_lstnew_ls();
 			cpy = cpy->next;
 		}
+		ft_print_file(&file->name, data, &cpy);
 		file = file->next;
 	}
-	cpy = clear;
-	data->lmin == 1 ? ft_ls_liste(&cpy, 1, 0) : ft_ls_simple_sort(cpy, 1);
-	if (data->filevalid && data->multifile)
-		ft_putchar('\n');
-	ft_options_suite(data, arg, &clear);
+	ft_options_suite(data, arg, &tmp);
 }
