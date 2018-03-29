@@ -2,21 +2,21 @@
 
 static void			swap_light(t_rep **s1, t_rep **s2)
 {
-	int		tmp;
-	char	tmp2;
+	time_t	tmp;
+	char	*tmp2;
 
-	tmp = (*s1)>date:
-	tmp2 = (*s1)>name:
+	tmp = (*s1)->date;
+	tmp2 = (*s1)->name;
 	(*s1)->date = (*s2)->date;
 	(*s1)->name = (*s2)->name;
-	(*s2)->next->date = tmp;
-	(*s2)->next->date = tmp2;
+	(*s2)->date = tmp;
+	(*s2)->name = tmp2;
 }
 
-static t_rep		*reverse_dir(t_dir *prime)
+static t_rep		*reverse_dir(t_rep *prime)
 {
-	t_dir	*tete;
-	t_dir	*sui;
+	t_rep	*tete;
+	t_rep	*sui;
 
 	tete = NULL;
 	sui = NULL;
@@ -33,8 +33,6 @@ static t_rep		*reverse_dir(t_dir *prime)
 static int		class_time_suite(t_rep **lst)
 {
 	int		i;
-	int		tmp;
-	char	*tmp2;
 
 	i = 0;
 	if ((*lst)->next && (*lst)->date < (*lst)->next->date)
@@ -73,8 +71,11 @@ static t_rep		*class_time(t_rep *lst)
 
 void				ft_class_repertory(t_rep **lst, t_struct *data)
 {
+	t_rep	*cpy;
+
+	cpy = *lst;
 	if (data->tmin == 1)
-		*lst = class_time(*lst);
+		*lst = class_time(cpy);
 	if (data->rmin == 1)
-		*lst = ft_reverse_lst(*lst);
+		*lst = reverse_dir(cpy);
 }
