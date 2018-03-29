@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/27 15:36:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 14:35:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,9 +25,14 @@
 # include <sys/xattr.h>
 # include <sys/acl.h>
 # include <uuid/uuid.h>
-
-// a suprimer
 # include <stdio.h>
+
+/*
+**	0 Leaks :
+**	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all
+**	--leak-resolution=high --show-reachable=no --gen-suppressions=yes
+**	--track-origins=yes ./ft_ls $1 $2 $3
+*/
 
 /*
 **	---------->	Prototypes des structures

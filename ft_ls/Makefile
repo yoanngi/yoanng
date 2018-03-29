@@ -6,21 +6,21 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/23 11:41:30 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/29 13:47:20 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 .PHONY: all clean fclean re
 
-NOC=\033[0m
-OKC=\033[32;05m
-ERC=\033[31m
-WAC=\033[33m
+NOCOLOR=\033[0m
+VERT=\033[32;05m
+JAUNE=\033[33m
 
 NAME =		ft_ls
 CC = 		gcc
 FLAGS = 	-Wall -Werror -Wextra
+DEL =		rm -rf
 
 SRC_PATH = ./srcs/
 INC_PATH = ./includes/
@@ -61,24 +61,24 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_PATH)
-	@$(CC) $(FLAGS) $(OBJ) $(INC) -L $(LIB_PATH) -lft -o $(NAME)
-	@echo "$(OKC)$(NAME): compilation success!$(NOC)"
+	@$(CC) $(FLAGS) $(OBJ) $(INC) -L$(LIB_PATH) -lft -o $(NAME)
+	@echo "$(VERT)$(NAME): compilation success!$(NOCOLOR)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@echo "$(OKC)\c"
+	@echo "$(VERT)\c"
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(FLAGS) -o $@ -c $^ $(INC)
+	@$(CC) -c $(FLAGS) $(INC) -o $@ $<
 	@echo -n █
-	@echo "$(NOC)\c"
+	@echo "$(NOCOLOR)\c"
 
 clean:
 	@make -C $(LIB_PATH) clean
-	@rm -rf $(OBJ_PATH)
-	@echo "$(WAC)$(NAME): Removing $(NAME) ./obj/$(NOC)"
+	@$(DEL) $(OBJ_PATH)
+	@echo "$(JAUNE)$(NAME): Removing $(NAME) ./obj/$(NOCOLOR)"
 
 fclean: clean
 	@make -C $(LIB_PATH) fclean
-	@rm -f $(NAME)
-	@echo "$(WAC)$(NAME): Removing executable$(NOC)"
+	@$(DEL) $(NAME)
+	@echo "$(JAUNE)$(NAME): Removing executable$(NOC)"
 
 re: fclean all

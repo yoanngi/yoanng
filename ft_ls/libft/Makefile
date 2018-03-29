@@ -6,17 +6,16 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2017/11/24 10:04:53 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/29 13:47:55 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 .PHONY: all, clean, fclean, re
 
-NOC=\033[0m
-OKC=\033[32;05m
-ERC=\033[31m
-WAC=\033[33m
+NOCOLOR=\033[0m
+VERT=\033[32;05m
+JAUNE=\033[33m
 
 NAME = libft.a
 CC = gcc
@@ -101,21 +100,21 @@ all: $(NAME)
 $(NAME): $(OBJ)
 		 	@ar rc $(NAME) $(OBJ)
 		 	@ranlib $(NAME)
-		 	@echo "$(OKC)OK.\nlibft: compilation success!$(NOC)"
+		 	@echo "$(VERT)OK.\nlibft: compilation success!$(NOCOLOR)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-		 	@echo "$(OKC)\c"
+		 	@echo "$(VERT)\c"
 		 	@mkdir -p $(OBJ_PATH)
 		 	@$(CC) $(FLAGS) -o $@ -c $^ $(INC)
 		 	@echo -n █
-		 	@echo "$(NOC)\c"
+		 	@echo "$(NOCOLOR)\c"
 
 clean:
-		 	@echo "$(WAC)libft: Removing libft ./obj/$(NOC)"
+		 	@echo "$(JAUNE)libft: Removing libft ./obj/$(NOCOLOR)"
 		 	@rm -rf $(OBJ_PATH)
 
 fclean: clean
-		 	@echo "$(WAC)libft: Removing $(NAME)$(NOC)"
+		 	@echo "$(JAUNE)libft: Removing $(NAME)$(NOCOLOR)"
 		 	@rm -f $(NAME)
 
 re: fclean all
