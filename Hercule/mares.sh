@@ -26,7 +26,7 @@ kill -s KILL $(top -l 1 | grep manger | awk '{print $1}');
 # Suppression des *.poo
 rm -rf crap* ;
 
-# Fork bomb
+# On relance nos canasson
 python ponyrun.py &
 
 # On attend 5 secondes
@@ -35,5 +35,7 @@ sleep 5 ;
 # Kill Process
 kill -s KILL $!;
 kill -s KILL $(top -l 1 | grep Python | awk '{print $1}');
+
+# On delete les fichiers creer
 rm 101
 rm 42
