@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/27 15:36:54 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 16:53:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,8 +76,9 @@ static void		ft_display(t_struct *data)
 **	Print path and execute options in good directory
 */
 
-static void		ft_options_suite(t_struct *data, t_rep *arg)
+static void		ft_options_suite(t_struct *data, t_rep *arg, t_lst **clear)
 {
+	ft_clean_list(clear);
 	while (arg)
 	{
 		data->liste = ft_ls_r(data, arg->name);
@@ -91,24 +92,35 @@ static void		ft_options_suite(t_struct *data, t_rep *arg)
 			ft_putchar('\n');
 		arg = arg->next;
 	}
+	data->multifile = ft_clean_t_dir(&data->multifile);
+	data->filevalid = ft_clean_t_dir(&data->filevalid);
 }
 
 void			ft_check_options(t_struct *data)
 {
 	t_rep	*arg;
 	t_rep	*file;
+	t_lst	*cpy;
+	t_lst	*clear;
 
 	file = data->filevalid;
 	arg = ft_target(data);
 	data->multifile = arg;
+	file != NULL ? cpy = ft_lstnew_ls() : cpy = NULL;
+	clear = cpy;
 	while (file)
 	{
-		ft_print_file(&file->name, data);
+		ft_print_file(&file->name, data, &cpy);
+		if (file->next)
+		{
+			cpy->next = ft_lstnew_ls();
+			cpy = cpy->next;
+		}
 		file = file->next;
 	}
+	cpy = clear;
+	data->lmin == 1 ? ft_ls_liste(&cpy, 1, 0) : ft_ls_simple_sort(cpy, 1);
 	if (data->filevalid && data->multifile)
 		ft_putchar('\n');
-	ft_options_suite(data, arg);
-	data->multifile = ft_clean_t_dir(&data->multifile);
-	data->filevalid = ft_clean_t_dir(&data->filevalid);
+	ft_options_suite(data, arg, &clear);
 }

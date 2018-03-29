@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/20 16:03:29 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 15:43:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 16:30:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ static void		ft_ls_simple_sort_two(t_lst *lst)
 	}
 }
 
-static void		ft_ls_simple_sort(t_lst *lst, int amin)
+void			ft_ls_simple_sort(t_lst *lst, int amin)
 {
 	if (amin == 1)
 	{
@@ -38,7 +38,6 @@ static void		ft_ls_simple_sort(t_lst *lst, int amin)
 			ft_putstr("\n");
 			lst = lst->next;
 		}
-		return ;
 	}
 	else
 		ft_ls_simple_sort_two(lst);
@@ -78,7 +77,10 @@ void			ft_print_ls(t_struct *data)
 	while (recur)
 	{
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
+		{
+			printf("HERE\n");
 			recur->otherfile = ft_print(recur->otherfile, data);
+		}
 		if (recur->denied != NULL && data->rmaj == 1)
 		{
 			ft_print_error(recur->denied, data->amin);

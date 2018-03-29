@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 14:37:48 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/29 16:41:46 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -178,7 +178,8 @@ void					ft_print_ls_liste(t_struct *data);
 t_lst					*ft_print_liste(t_lst *recur, t_struct *data);
 void					ft_display_one(t_lst **da, int link, int use);
 void					ft_display_two(t_lst **data, int size, int mi, int ma);
-void					ft_print_file(char **path, t_struct *data);
+void					ft_print_file(char **path, t_struct *data, t_lst **ret);
 void					ft_display_grp(int grp, t_lst **da);
+void					ft_ls_simple_sort(t_lst *lst, int amin);
 
 #endif
