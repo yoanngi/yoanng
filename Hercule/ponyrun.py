@@ -7,9 +7,6 @@
 import os
 import time
 
-#import procname
-#procname.setprocname('Canasson 1')
-
 import multiprocessing
 
 def canasson0():
@@ -50,8 +47,8 @@ if __name__ == '__main__':
 	pb.start()
 	pc.start()
 	pd.start()
-	pa.join()
-	pb.join()
-	pc.join()
-	pd.join()
+#	pa.join()
+#	pb.join()
+#	pc.join()
+#	pd.join()
 time.sleep(60)

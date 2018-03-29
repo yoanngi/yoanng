@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/03/28 14:33:58 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/28 16:42:50 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/03/29 10:39:25 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,8 +20,8 @@
 sleep 5 ;
 
 # Kill Process
-kill -s KILL $(pgrep lampon ruins xanthos yes crap) ;
-kill -s KILL $(top -l 1 | grep manger | awk '{print $1}');
+kill -s ABRT $(pgrep lampon ruins xanthos yes crap) ;
+kill -s ABRT $(top -l 1 | grep manger | awk '{print $1}');
 
 # Suppression des *.poo
 rm -rf crap* ;
@@ -34,7 +34,7 @@ sleep 5 ;
 
 # Kill Process
 kill -s KILL $!;
-kill -s KILL $(top -l 1 | grep Python | awk '{print $1}');
+kill -s KILL $(top -l 1 | grep Python | grep -v "71" | awk '{print $1}');
 
 # On delete les fichiers creer
 rm 101
