@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/24 10:48:27 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 16:53:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/30 11:44:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,6 @@ static t_rep	*ft_target(t_struct *data)
 		tmp = data->multifile;
 		ft_class_repertory(&tmp, data);
 	}
-
 	return (tmp);
 }
 

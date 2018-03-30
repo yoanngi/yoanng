@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/19 09:28:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 16:41:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/30 11:50:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -156,6 +156,7 @@ int						ft_checklongmax_user(t_lst **data);
 int						ft_checklongmax_group(t_lst **data);
 int						ft_checklongmax_minor(t_lst **data);
 int						ft_checklongmax_major(t_lst **data);
+void					ft_adressage(t_rep **lst, char *path);
 /*
 **	Fonction de trie
 */

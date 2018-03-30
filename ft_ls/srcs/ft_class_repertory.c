@@ -1,4 +1,17 @@
-# include "ft_ls.h"
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_class_repertory.c                             .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/03/30 09:45:41 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/30 09:49:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
+#include "ft_ls.h"
 
 static void			swap_light(t_rep **s1, t_rep **s2)
 {
@@ -30,7 +43,7 @@ static t_rep		*reverse_dir(t_rep *prime)
 	return (tete);
 }
 
-static int		class_time_suite(t_rep **lst)
+static int			class_time_suite(t_rep **lst)
 {
 	int		i;
 

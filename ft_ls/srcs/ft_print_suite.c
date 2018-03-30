@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/02/20 16:03:29 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 16:30:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/03/30 11:24:23 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,10 +77,7 @@ void			ft_print_ls(t_struct *data)
 	while (recur)
 	{
 		if (recur->otherfile != NULL && data->rmaj == 1 && recur->access == 1)
-		{
-			printf("HERE\n");
 			recur->otherfile = ft_print(recur->otherfile, data);
-		}
 		if (recur->denied != NULL && data->rmaj == 1)
 		{
 			ft_print_error(recur->denied, data->amin);
