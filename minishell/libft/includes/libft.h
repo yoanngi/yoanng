@@ -16,7 +16,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <fcntl.h>
 
+# define BUFF_SIZE 64
 /*
 ** Listes
 */
@@ -109,4 +111,8 @@ int					ft_islower(int c);
 char				**ft_malloc_tab(char **tab, int len);
 void				ft_print_carre(char **tab, int len);
 
+/*
+**	GNL
+*/
+int					get_next_line(const int fd, char **line);
 #endif

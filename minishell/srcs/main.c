@@ -15,5 +15,21 @@
 
 int		main(int argc, char **argv)
 {
+	int		ret;
+	char	*line;
+	char	buff[BUFF_SIZE];
+	int		fd;
+
+	ret = 0;
+	argc = 1;
+	fd = 2;
+	line = NULL;
+	while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
+	{
+		buff[ret] = '\0';
+		ft_putendl(buff);
+		ft_bzero(buff, ft_strlen(buff));
+	}
+	basic_error(argv[0]);
 	return (0);
 }

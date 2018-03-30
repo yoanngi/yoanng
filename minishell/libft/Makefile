@@ -94,6 +94,7 @@ SRC_NAME =	ft_memset.c \
 			ft_print_bits.c \
 			ft_isupper.c \
 			ft_islower.c \
+			get_next_line.c \
 
 all: $(NAME)
 

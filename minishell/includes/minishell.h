@@ -30,5 +30,6 @@
 /*
 **	Fonctions
 */
+void		basic_error(char *name);
 
 #endif
