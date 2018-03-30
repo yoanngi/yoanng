@@ -21,7 +21,8 @@ int		main(int argc, char **argv)
 	int		fd;
 
 	ret = 0;
-	argc = 1;
+	(void)argc;
+	(void)argv;
 	fd = 2;
 	line = NULL;
 	while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
@@ -30,6 +31,5 @@ int		main(int argc, char **argv)
 		ft_putendl(buff);
 		ft_bzero(buff, ft_strlen(buff));
 	}
-	basic_error(argv[0]);
 	return (0);
 }
