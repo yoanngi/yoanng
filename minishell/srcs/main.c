@@ -13,23 +13,33 @@
 
 #include "minishell.h"
 
+static int	ft_print(char **line)
+{
+	int i;
+
+	i = 0;
+	printf("line = %s", *line);
+	if (ft_strcmp(*line, "exit\n") == 0)
+		i = 1;
+	ft_bzero(*line, 255);
+	if (i == 0)
+		ft_putstr(">$ ");
+	return (i);
+}
+
 int		main(int argc, char **argv)
 {
-	int		ret;
 	char	*line;
-	char	buff[BUFF_SIZE];
-	int		fd;
+	int		exit;
 
-	ret = 0;
 	(void)argc;
 	(void)argv;
-	fd = 2;
-	line = NULL;
-	while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
+	exit = 0;
+	line = ft_strnew(255);
+	ft_putstr(">$ ");
+	while (read(0, line, 255) && exit == 0)
 	{
-		buff[ret] = '\0';
-		ft_putendl(buff);
-		ft_bzero(buff, ft_strlen(buff));
+		exit = ft_print(&line);
 	}
 	return (0);
 }
