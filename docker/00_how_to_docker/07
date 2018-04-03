@@ -1,1 +1,1 @@
-docker exec overlord /usr/bin/ip address
+docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" overlord
