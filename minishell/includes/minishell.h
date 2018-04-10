@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 15:00:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/10 14:44:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,5 +31,6 @@
 **	Fonctions
 */
 void		basic_error(char *name);
+void		ft_execute(char **line);
 
 #endif
