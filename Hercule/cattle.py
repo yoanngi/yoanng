@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/04/11 09:29:20 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/11 12:42:54 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/11 14:23:50 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -45,7 +45,11 @@ def ping(target):
     if (hostalive == 0):
         print (GREEN + target + " is up" + NOC)
     else:
-        print (RED + target + " is down" + NOC)
+        index = target.find('http://')
+        if (index == -1):
+            print (RED + target + " is down" + NOC)
+        else:
+            print (RED + target + ": invalide format" + NOC)
         sys.exit()
 
 def asciiart():
@@ -70,10 +74,15 @@ def asciiart():
     print " `-----------------------------------------------------' " + NOC
 
 def mise_en_forme(target):
-    entete = "http://www."
+    entete1 = "http://www."
+    entete2 = "http://"
     if target == None:
         return
-    retour = entete + target
+    index = target.find('www')
+    if (index == -1):
+        retour = entete1 + target
+    else:
+        retour = entete2 + target
     return retour
 
 
@@ -81,11 +90,13 @@ def time_response(target):
     if target == None:
         return
     start = time.time()
-    req = requests.Request('GET', target)
-    print req.response.elapsed()
+    r = requests.Request('GET', target)
+    print GREEN + "Response time(1) : ",
+    print requests.get(target).elapsed.total_seconds()
     end = time.time() - start
-    print end
-
+    print "Response time(2) : ",
+    print (end),
+    print NOC
 
 ################################ Programme #################################
 
@@ -108,8 +119,18 @@ else:
 
 # Start benchmark
 asciiart()
+
+# Time
 target1 = mise_en_forme(target1)
 target2 = mise_en_forme(target2)
+print target1
 time_response(target1)
+print target2
 time_response(target2)
+
+# SSL
+
+# Montee de charge
+
+#
 
