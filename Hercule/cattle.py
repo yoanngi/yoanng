@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/04/11 09:29:20 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/11 14:23:50 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/11 15:27:26 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -21,12 +21,15 @@ import sys
 import time
 import requests
 import subprocess
+# import pytest
+# python 3 seulement
 from subprocess import PIPE, Popen
 
 NOC="\033[30m"
 RED="\033[31m"
 GREEN="\033[32m"
 BLUE="\033[34m"
+WHITE="\033[37m"
 
 ################################ Fonctions #################################
 
@@ -89,18 +92,14 @@ def mise_en_forme(target):
 def time_response(target):
     if target == None:
         return
-    start = time.time()
     r = requests.Request('GET', target)
     print GREEN + "Response time(1) : ",
     print requests.get(target).elapsed.total_seconds()
-    end = time.time() - start
-    print "Response time(2) : ",
-    print (end),
     print NOC
 
 ################################ Programme #################################
 
-# Check Arguments
+# Check & Verif Arguments
 if (len(sys.argv) == 1):
     usage()
     sys.exit()
@@ -120,13 +119,16 @@ else:
 # Start benchmark
 asciiart()
 
-# Time
+# Add "http://"
 target1 = mise_en_forme(target1)
 target2 = mise_en_forme(target2)
-print target1
+
+# Time
+print WHITE + target1 + NOC
 time_response(target1)
-print target2
-time_response(target2)
+if (target2 != None):
+    print WHITE + target2 + NOC
+    time_response(target2)
 
 # SSL
 
