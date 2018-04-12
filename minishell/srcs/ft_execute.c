@@ -17,6 +17,7 @@
 **	Fonction pour print la variable env
 */
 /****************************************************/
+/*
 static void		print_env(char **env)
 {
 	int i;
@@ -28,14 +29,15 @@ static void		print_env(char **env)
 		i++;
 	}
 }
+*/
 /****************************************************/
 
 /*
 **	Recupere la commande passer en parametre et la variable env
 */
 
-void		ft_execute(char **line, char **env)
+void		ft_execute(char **line, t_struct *data)
 {
-	print_env(env);
-	execve(*line, &line[0], env);
+	printf("PATH = %s\n", data->path);
+	printf("line = %s\n", *line);
 }

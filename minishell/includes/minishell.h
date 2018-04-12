@@ -28,9 +28,29 @@
 # include <stdio.h>
 
 /*
-**	Fonctions
+**	***	Structures ***
 */
-void		basic_error(char *name);
-void		ft_execute(char **line, char **env);
+typedef struct		s_struct
+{
+	char	*path;
+}					t_struct;
 
+/*
+**	***	Fonctions ***
+*/
+
+/*
+**	ft_error.c
+*/
+void				basic_error(char *name);
+/*
+**	ft_execute.c
+*/
+void				ft_execute(char **line, t_struct *data);
+
+/*
+**	ft_struct.c
+*/
+t_struct			*ft_my_struct(char **env);
+void				ft_delete_struct(t_struct *data);
 #endif
