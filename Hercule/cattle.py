@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/04/12 10:53:53 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/12 14:35:27 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/12 15:18:28 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -41,7 +41,20 @@ class MonThread (threading.Thread):
     def run(self):
         self.etat = True
         for i in range(0, self.jusqua):
-            r = requests.Request(requete, tar1)
+            if (requete == 'GET'):
+                r = requests.get(tar1)
+                a = r.status_code
+                fichier = open("logs_1.txt", "a")
+                fichier.write(str(a))
+                fichier.write("\n")
+                fichier.close()
+            else:
+                r = requests.post(tar1)
+                a = r.status_code
+                fichier = open("logs_1.txt", "a")
+                fichier.write(str(a))
+                fichier.write("\n")
+                fichier.close()
         self.etat = False
 
 class MonThread2 (threading.Thread):
@@ -53,8 +66,27 @@ class MonThread2 (threading.Thread):
     def run(self):
         self.etat = True
         for i in range(0, self.jusqua):
-            r = requests.Request(requete, tar2)
+            if (requete == 'GET'):
+                r = requests.get(tar2)
+                a = r.status_code
+                fichier = open("logs_2.txt", "a")
+                fichier.write(str(a))
+                fichier.write("\n")
+                fichier.close()
+            else:
+                r = requests.post(tar2)
+                a = r.status_code
+                fichier = open("logs_2.txt", "a")
+                fichier.write(str(a))
+                fichier.write("\n")
+                fichier.close()
         self.etat = False
+    
+    def ft_logs2(status):
+        fichier = open("logs_2.txt", "a")
+        fichier.write(status)
+        fichier.write("\n")
+        fichier.close()
 
 def usage():
     print ("usage: python cattle.py -1 [TARGET_1]")
@@ -177,7 +209,7 @@ total1 = 0
 total2 = 0
 jobs = []
 print WHITE
-saisi = raw_input("Veuillez saisir le nombres de requetes : ")
+saisi = raw_input("Veuillez saisir le nombres de tests : ")
 try:
     int(saisi)
     req = int(saisi)
@@ -227,7 +259,7 @@ if (target2 == None):
         print "%.3f" % moy
         print NOC
 else:
-	print WHITE + "                                  " + target1 + "		" + target2 + NOC
+	print WHITE + "                                     " + target1 + "		" + target2 + NOC
 	while (i != req):
             m1 = MonThread(req)
             m1.start()
@@ -293,3 +325,4 @@ else:
     (output, err) = p4.communicate()
     print output
     print NOC
+print WHITE + "END test, you can consult log***.txt for status code request"
