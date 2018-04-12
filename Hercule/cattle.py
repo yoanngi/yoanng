@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/04/12 10:53:53 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/12 13:15:56 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/12 14:35:27 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -116,6 +116,9 @@ def time_response(target):
     if target == None:
         return
     r = requests.Request(requete, target)
+    print WHITE,
+    print r,
+    print NOC,
     return requests.get(target).elapsed.total_seconds()
 
 def	ft_total(to1, to2, req):
@@ -185,11 +188,14 @@ except:
 global requete
 saisi2 = raw_input("Veuillez saisir le type de requetes : GET = 1 / POST = 2 ")
 try:
-    int(saisi2)
-    if (saisi2 == 1):
+    sa = int(saisi2)
+    if (sa == 1):
         a = "GET"
-    else:
+    elif (sa == 2):
         a = "POST"
+    else:
+        print RED + "Vous n'avez pas rentrer un nombre valide..... exit" + NOC
+        sys.exit()
     requete = a
 except:
     print RED + "Vous n'avez pas rentrer un nombre valide..... exit" + NOC
@@ -221,7 +227,7 @@ if (target2 == None):
         print "%.3f" % moy
         print NOC
 else:
-	print WHITE + target1 + "		" + target2 + NOC
+	print WHITE + "                                  " + target1 + "		" + target2 + NOC
 	while (i != req):
             m1 = MonThread(req)
             m1.start()
