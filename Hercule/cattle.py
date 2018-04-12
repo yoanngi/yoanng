@@ -101,14 +101,14 @@ def	ft_total(to1, to2, req):
 	if (t1 < t2):
 		print GREEN,
 		print t1,
-		print "				",
+		print "			",
 		print RED,
 		print t2,
 		print NOC
 	else:
 		print RED,
 		print t1,
-		print "				",
+		print "			",
 		print GREEN,
 		print t2,
 		print NOC
@@ -186,6 +186,7 @@ else:
 		print result2
 		print NOC,
 		i = i + 1
+	print BLUE + "*****************************************************" + NOC
 	ft_total(total1, total2, req)
 
 # SSL
