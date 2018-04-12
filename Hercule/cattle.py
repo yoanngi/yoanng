@@ -134,5 +134,11 @@ if (target2 != None):
 
 # Montee de charge
 
-#
 
+# Sources:
+# https://github.com/locustio/locust/blob/master/locust/web.py
+# https://pypi.python.org/pypi/performance/0.3.2
+# https://github.com/svanoort/python-client-benchmarks/blob/master/benchmark.py
+# https://openclassrooms.com/courses/creez-vos-applications-web-avec-flask/requetes-et-reponses
+# Flask et gunicorn
+# https://github.com/jeffbski/bench-rest
