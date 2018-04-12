@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/04/12 10:53:53 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/12 15:18:28 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/12 15:20:59 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -158,6 +158,7 @@ def	ft_total(to1, to2, req):
 	t2 = to2 / req
 	if (t1 < t2):
 		print GREEN,
+		print "	                    		",
 		print "%.3f" % t1,
 		print "			",
 		print RED,
