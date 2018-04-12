@@ -93,9 +93,25 @@ def time_response(target):
     if target == None:
         return
     r = requests.Request('GET', target)
-    print GREEN + "Response time(1) : ",
-    print requests.get(target).elapsed.total_seconds()
-    print NOC
+    return requests.get(target).elapsed.total_seconds()
+
+def	ft_total(to1, to2, req):
+	t1 = to1 / req
+	t2 = to2 / req
+	if (t1 < t2):
+		print GREEN,
+		print t1,
+		print "				",
+		print RED,
+		print t2,
+		print NOC
+	else:
+		print RED,
+		print t1,
+		print "				",
+		print GREEN,
+		print t2,
+		print NOC
 
 ################################ Programme #################################
 
@@ -109,12 +125,12 @@ if (sys.argv[1] == "-1" and len(sys.argv) == 3):
     ping(target1)
     target2 = None
 elif (sys.argv[1] == "-c" and len(sys.argv) == 4):
-    target1 = sys.argv[2]
-    ping(target1)
-    target2 = sys.argv[3]
-    ping(target2)
+	target1 = sys.argv[2]
+	ping(target1)
+	target2 = sys.argv[3]
+	ping(target2)
 else:
-    usage()
+	usage()
 
 # Start benchmark
 asciiart()
@@ -123,12 +139,54 @@ asciiart()
 target1 = mise_en_forme(target1)
 target2 = mise_en_forme(target2)
 
-# Time
-print WHITE + target1 + NOC
-time_response(target1)
-if (target2 != None):
-    print WHITE + target2 + NOC
-    time_response(target2)
+# Time (1 requests)
+print WHITE + "1 request:" + NOC
+if (target2 == None):
+	print WHITE + target1 + NOC
+	result1 = time_response(target1)
+	print GREEN + "1 request = ",
+	print result1,
+	print NOC
+else:
+	print WHITE + target1 + "		" + target2 + NOC
+	result1 = time_response(target1)
+	result2 = time_response(target2)
+	print GREEN,
+	print result1,
+	print "			",
+	print result2
+	print NOC
+
+# Time ('req' requests)
+i = 0
+total1 = 0
+total2 = 0
+req = 20
+print WHITE,
+print req,
+print " requests:" + NOC
+if (target2 == None):
+	print WHITE + target1 + NOC
+	while (i != req):
+		result1 = time_response(target1)
+		print (GREEN + "%d request = ", i),
+		print result1,
+		print NOC
+		i = i + 1
+else:
+	print WHITE + target1 + "		" + target2 + NOC
+	while (i != req):
+		result1 = time_response(target1)
+		result2 = time_response(target2)
+		total1 = total1 + result1
+		total2 = total2 + result2
+		print GREEN,
+		print result1,
+		print "			",
+		print result2
+		print NOC,
+		i = i + 1
+	ft_total(total1, total2, req)
 
 # SSL
 
