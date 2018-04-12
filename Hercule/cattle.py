@@ -5,8 +5,8 @@
 #                                                  +:+:+   +:    +:  +:+:+     #
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
-#    Created: 2018/04/11 09:29:20 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/11 15:46:09 by yoginet     ###    #+. /#+    ###.fr      #
+#    Created: 2018/04/12 10:53:53 by yoginet      #+#   ##    ##    #+#        #
+#    Updated: 2018/04/12 13:07:13 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -21,8 +21,7 @@ import sys
 import time
 import requests
 import subprocess
-# import pytest
-# python 3 seulement
+import threading
 from subprocess import PIPE, Popen
 
 NOC="\033[30m"
@@ -32,6 +31,30 @@ BLUE="\033[34m"
 WHITE="\033[37m"
 
 ################################ Fonctions #################################
+
+class MonThread (threading.Thread):
+    def __init__(self, jusqua):
+        threading.Thread.__init__(self)
+        self.jusqua = jusqua
+        self.etat = False
+
+    def run(self):
+        self.etat = True
+        for i in range(0, self.jusqua):
+            r = requests.Request(requete, tar1)
+        self.etat = False
+
+class MonThread2 (threading.Thread):
+    def __init__(self, jusqua):
+        threading.Thread.__init__(self)
+        self.jusqua = jusqua
+        self.etat = False
+
+    def run(self):
+        self.etat = True
+        for i in range(0, self.jusqua):
+            r = requests.Request(requete, tar2)
+        self.etat = False
 
 def usage():
     print ("usage: python cattle.py -1 [TARGET_1]")
@@ -92,7 +115,7 @@ def mise_en_forme(target):
 def time_response(target):
     if target == None:
         return
-    r = requests.Request('GET', target)
+    r = requests.Request(requete, target)
     return requests.get(target).elapsed.total_seconds()
 
 def	ft_total(to1, to2, req):
@@ -100,17 +123,17 @@ def	ft_total(to1, to2, req):
 	t2 = to2 / req
 	if (t1 < t2):
 		print GREEN,
-		print t1,
+		print "%.3f" % t1,
 		print "			",
 		print RED,
-		print t2,
+		print "%.3f" % t2,
 		print NOC
 	else:
 		print RED,
-		print t1,
+		print "%.3f" % t1,
 		print "			",
 		print GREEN,
-		print t2,
+		print "%.3f" % t2,
 		print NOC
 
 ################################ Programme #################################
@@ -139,65 +162,128 @@ asciiart()
 target1 = mise_en_forme(target1)
 target2 = mise_en_forme(target2)
 
-# Time (1 requests)
-print WHITE + "1 request:" + NOC
-if (target2 == None):
-	print WHITE + target1 + NOC
-	result1 = time_response(target1)
-	print GREEN + "1 request = ",
-	print result1,
-	print NOC
-else:
-	print WHITE + target1 + "		" + target2 + NOC
-	result1 = time_response(target1)
-	result2 = time_response(target2)
-	print GREEN,
-	print result1,
-	print "			",
-	print result2
-	print NOC
+global tar1
+global tar2
 
-# Time ('req' requests)
+tar1 = target1
+tar2 = target2
+
+################################## Infos complementaires
 i = 0
 total1 = 0
 total2 = 0
-req = 20
+jobs = []
+print WHITE
+saisi = raw_input("Veuillez saisir le nombres de requetes : ")
+try:
+    int(saisi)
+    req = int(saisi)
+except:
+    print RED + "Vous n'avez pas rentrer un nombre..... exit" + NOC
+    sys.exit()
+
+global requete
+saisi2 = raw_input("Veuillez saisir le type de requetes : GET = 1 / POST = 2 ")
+try:
+    int(saisi2)
+    if (saisi2 == 1):
+        a = "GET"
+    else:
+        a = "POST"
+    requete = a
+except:
+    print RED + "Vous n'avez pas rentrer un nombre valide..... exit" + NOC
+    sys.exit()
+
+################################## Time ('req' requests)
+print NOC,
 print WHITE,
+print "Test 1 -> ",
 print req,
 print " requests:" + NOC
 if (target2 == None):
 	print WHITE + target1 + NOC
 	while (i != req):
-		result1 = time_response(target1)
-		print (GREEN + "%d request = ", i),
-		print result1,
-		print NOC
-		i = i + 1
+            m1 = MonThread(req)
+            m1.start()
+	    result1 = time_response(target1)
+            total1 = total1 + result1
+            print WHITE,
+	    print "request = ", i,
+            print GREEN,
+	    print "%.3f" % result1
+	    i = i + 1
+        print NOC
+	print BLUE + "*****************************************************" + NOC
+        print GREEN,
+        print "moyenne = ",
+        moy = total1 / req
+        print "%.3f" % moy
+        print NOC
 else:
 	print WHITE + target1 + "		" + target2 + NOC
 	while (i != req):
-		result1 = time_response(target1)
-		result2 = time_response(target2)
-		total1 = total1 + result1
-		total2 = total2 + result2
-		print GREEN,
-		print result1,
+            m1 = MonThread(req)
+            m1.start()
+	    result1 = time_response(target1)
+            m2 = MonThread2(req)
+            m2.start()
+	    result2 = time_response(target2)
+	    total1 = total1 + result1
+	    total2 = total2 + result2
+            if (result1 < result2):
+	        print GREEN,
+		print "%.3f" % result1,
 		print "			",
-		print result2
+                print RED,
+		print "%.3f" % result2
 		print NOC,
-		i = i + 1
+            else:
+		print RED,
+                print "%.3f" % result1,
+		print "			",
+                print GREEN,
+		print "%.3f" % result2
+		print NOC,
+	    i = i + 1
 	print BLUE + "*****************************************************" + NOC
 	ft_total(total1, total2, req)
 
-# SSL
-
-# Montee de charge
-
-
-# Sources:
-# https://github.com/locustio/locust/blob/master/locust/web.py
-# https://pypi.python.org/pypi/performance/0.3.2
-# https://github.com/svanoort/python-client-benchmarks/blob/master/benchmark.py
-# https://openclassrooms.com/courses/creez-vos-applications-web-avec-flask/requetes-et-reponses
-# Flask et gunicorn
-# https://github.com/jeffbski/bench-rest
+####################################### Infos Sup
+if (target2 == None):
+    print WHITE
+    print "Informations supplementaire"
+    print ""
+    print target1
+    commandeinfo = 'ab -n 10 -c 2 ' + target1 + '/' + '| grep Server | grep Software'
+    p = subprocess.Popen(commandeinfo, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p.communicate()
+    print output,
+    commandeinfo = 'ab -n 10 -c 2 ' + target1 + '/' + '| grep Port'
+    p = subprocess.Popen(commandeinfo, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p.communicate()
+    print output
+    print NOC
+else:
+    print WHITE
+    print "Informations supplementaire"
+    print ""
+    print target1
+    commandeinfo1 = 'ab -n 10 -c 2 ' + target1 + '/' + '| grep Server | grep Software'
+    p1 = subprocess.Popen(commandeinfo1, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p1.communicate()
+    print output,
+    commandeinfo2 = 'ab -n 10 -c 2 ' + target1 + '/' + '| grep Port'
+    p2 = subprocess.Popen(commandeinfo2, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p2.communicate()
+    print output
+    print target2
+    commandeinfo3 = 'ab -n 10 -c 2 ' + target2 + '/' + '| grep Server | grep Software'
+    p3 = subprocess.Popen(commandeinfo3, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p3.communicate()
+    print output,
+    commandeinfo4 = 'ab -n 10 -c 2 ' + target2 + '/' + '| grep Port'
+    p4 = subprocess.Popen(commandeinfo4, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p4.communicate()
+    print output
+    print NOC
