@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/04/12 10:53:53 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/12 13:07:13 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/12 13:15:56 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -168,7 +168,7 @@ global tar2
 tar1 = target1
 tar2 = target2
 
-################################## Infos complementaires
+################################## Demande complementaires
 i = 0
 total1 = 0
 total2 = 0
