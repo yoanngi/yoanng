@@ -1,19 +1,9 @@
 #include "minishell.h"
 
-static char		*ft_delete_start(char *str, int len)
-{
-	char	*tmp;
-
-	if (!str)
-		return (NULL);
-	tmp = ft_strsub(str, len, ft_strlen(str) - len);
-	ft_strdel(&str);
-	str = ft_strdup(tmp);
-	ft_strdel(&tmp);
-	return (str);
-}
-
-static char		*ft_check_path(char **env)
+/*
+**	Take infos in Env
+*/
+static char		*ft_check_infos(char **env, char *find)
 {
 	int		i;
 	char	*path;
@@ -22,27 +12,42 @@ static char		*ft_check_path(char **env)
 	path = NULL;
 	while (env[i])
 	{
-		if (ft_strstr(env[i], "PATH"))
+		if (ft_strstr(env[i], find))
 			path = ft_strdup(env[i]);
 		i++;
 	}
-	path = ft_delete_start(path, 5);
 	return (path);
 }
 
+/*
+**	Allocation memory for struct and initialise datas
+*/
 t_struct		*ft_my_struct(char **env)
 {
 	t_struct	*data;
+	char		*tmp;
 
 	if (!(data = (t_struct *)malloc(sizeof(t_struct))))
 		return (NULL);
-	data->path = ft_check_path(env);
+	tmp = ft_check_infos(env, "PATH");
+	data->path = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
+	ft_strdel(&tmp);
+	data->tab_path = ft_strsplit(data->path, ':');
+	tmp = ft_check_infos(env, "PWD");
+	data->pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
+	ft_strdel(&tmp);
 	return (data);
 }
 
+/*
+**	Delete struct ans datas
+*/
 void			ft_delete_struct(t_struct *data)
 {
 	ft_strdel(&data->path);
+	ft_strdel(&data->pwd);
+	// Tab :
+	//ft_del_tab(data->tab_path);
 	free(data);
 	data = NULL;
 }

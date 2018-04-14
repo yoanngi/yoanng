@@ -32,7 +32,9 @@
 */
 typedef struct		s_struct
 {
-	char	*path;
+	char			*path;
+	char			**tab_path;
+	char			*pwd;
 }					t_struct;
 
 /*

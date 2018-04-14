@@ -27,10 +27,24 @@ static void		ft_display(void)
 */
 static int		ft_check_command(char **line, t_struct *data)
 {
-	int test;
+	int		exec;
+	int		i;
+	char	**tab;
+	char	*tmp;
 
-	test = execve(data->path, line, NULL);
-	printf("Valeur de execve = %d\n", test);
+	test = -1;
+	i = 0;
+	tab = ft_strsplit(*line, ' ');
+	tmp = NULL;
+	while (exec != -1 || data->tab_path[i])
+	{
+		tmp = ft_add_line(data->tab_path[i]);
+		exec = execve(tmp, tab, NULL);
+		ft_strdel(&tmp);
+		printf("Valeur de execve = %d\n", test);
+		i++;
+	}
+	// ft_del_tab(tab);
 	ft_execute(line, data);
 	return (0);
 }

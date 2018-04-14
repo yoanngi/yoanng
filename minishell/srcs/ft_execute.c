@@ -38,6 +38,11 @@ static void		print_env(char **env)
 
 void		ft_execute(char **line, t_struct *data)
 {
-	printf("PATH = %s\n", data->path);
+	printf("data->path = %s\n", data->path);
+	printf("data->pwd = %s\n", data->pwd);
+	printf("data->tab_path[0] = %s\n", data->tab_path[0]);
+	printf("data->tab_path[1] = %s\n", data->tab_path[1]);
+	printf("data->tab_path[2] = %s\n", data->tab_path[2]);
+	printf("data->tab_path[3] = %s\n", data->tab_path[3]);
 	printf("line = %s\n", *line);
 }
