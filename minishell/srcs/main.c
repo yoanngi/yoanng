@@ -23,6 +23,19 @@ static void		ft_display(void)
 }
 
 /*
+**	Add commande in end of path
+*/
+static char		*ft_add_line(char *str, char *add)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(str, "/");
+	ft_strdel(&str);
+	str = ft_strjoin(tmp, add);
+	ft_strdel(&tmp);
+	return (str);
+}
+/*
 **	Check commande and execute
 */
 static int		ft_check_command(char **line, t_struct *data)
@@ -32,16 +45,16 @@ static int		ft_check_command(char **line, t_struct *data)
 	char	**tab;
 	char	*tmp;
 
-	test = -1;
+	exec = -1;
 	i = 0;
 	tab = ft_strsplit(*line, ' ');
 	tmp = NULL;
 	while (exec != -1 || data->tab_path[i])
 	{
-		tmp = ft_add_line(data->tab_path[i]);
+		tmp = ft_add_line(data->tab_path[i], *line);
 		exec = execve(tmp, tab, NULL);
 		ft_strdel(&tmp);
-		printf("Valeur de execve = %d\n", test);
+		printf("Valeur de execve = %d\n", exec);
 		i++;
 	}
 	// ft_del_tab(tab);
