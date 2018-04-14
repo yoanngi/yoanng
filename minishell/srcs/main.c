@@ -13,41 +13,47 @@
 
 #include "minishell.h"
 
-static int		ft_check_exit(char **line, t_struct *data)
+/*
+**	Print infos in term
+*/
+static void		ft_display(void)
 {
-	int i;
-
-	i = 0;
-	if (*line == NULL)
-		return (i);
-	if (ft_strcmp(*line, "exit\n") == 0)
-		i = 1;
-	if (i == 0)
-		ft_execute(line, data);
-	ft_bzero(*line, 255);
-	if (i == 0)
-		ft_putstr(">$ ");
-	return (i);
+	ft_putstr("$> ");
+	// Add print User
 }
 
+/*
+**	Check commande and execute
+*/
+static int		ft_check_command(char **line, t_struct *data)
+{
+	int test;
+
+	test = execve(data->path, line, NULL);
+	printf("Valeur de execve = %d\n", test);
+	ft_execute(line, data);
+	return (0);
+}
+
+/*
+**	Core Minishell
+*/
 int				main(int argc, char **argv, char **env)
 {
 	char		*line;
-	int			exit;
 	t_struct	*data;
 
 	(void)argc;
 	(void)argv;
-	exit = 0;
-	line = ft_strnew(255);
+	line = NULL;
 	data = ft_my_struct(env);
-	ft_putstr(">$ ");
-	while (exit == 0)
+	while (1)
 	{
-		read(0, line, 255);
-		exit = ft_check_exit(&line, data);
+		ft_display();
+		get_next_line(0, &line);
+		ft_check_command(&line, data);
+		ft_strdel(&line);
 	}
-	ft_strdel(&line);
 	ft_delete_struct(data);
 	return (0);
 }

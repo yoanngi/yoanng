@@ -13,76 +13,71 @@
 
 #include "libft.h"
 
-static int		ft_get_nl(char **s, char **line, int i)
+static char		*safe_join(char *s1, char const *s2)
 {
-	int		len;
-	char	*cpy;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*result;
 
-	cpy = ft_strdup(*s);
-	len = ft_strlen(cpy);
-	ft_strdel(s);
-	while (i != len && cpy[i] != '\n')
-		i++;
-	if (len == 0)
-		return (0);
-	else if (i > 0 || cpy[i] == '\n')
+	s1_len = (s1) ? ft_strlen(s1) : 0;
+	s2_len = ft_strlen(s2);
+	result = ft_strnew(s1_len + s2_len);
+	if (result)
 	{
-		*line = ft_strsub(cpy, 0, i);
-		*s = ft_strsub(cpy, i + 1, len - i);
+		if (s1)
+			ft_memcpy(result, s1, s1_len);
+		ft_memcpy(result + s1_len, s2, s2_len);
 	}
-	else
-	{
-		*line = ft_strdup("");
-		*s = ft_strsub(cpy, 1, len);
-	}
-	ft_strdel(&cpy);
-	return (1);
+	if (s1)
+		ft_strdel(&s1);
+	return (result);
 }
 
-static	char	*ft_strjoin_free(char *buf, char *s)
+static int		cut_at_newline(char **s_buff, char **line)
 {
-	size_t	len_buf;
-	size_t	len_s;
-	char	*str;
+	char	*at;
 
-	len_buf = 0;
-	len_s = 0;
-	if (buf)
-		len_buf = ft_strlen(buf);
-	if (s)
-		len_s = ft_strlen(s);
-	str = (char *)malloc(sizeof(*str) * (len_buf + len_s + 1));
-	ft_memcpy(str, buf, len_buf);
-	ft_memcpy(str + len_buf, s, len_s);
-	str[len_buf + len_s] = '\0';
-	free(buf);
-	ft_bzero(s, BUFF_SIZE + 1);
-	return (str);
+	if ((at = ft_strchr(*s_buff, '\n')))
+	{
+		*line = ft_strsub(*s_buff, 0, at - *s_buff);
+		ft_strcpy(*s_buff, at + 1);
+		return (1);
+	}
+	return (0);
 }
 
-int				get_next_line(const int fd, char **line)
+static void		clear(char **s_buff, char **line)
 {
-	static char		*s[BUFF_SIZE + 1];
+	if (*s_buff)
+		ft_strdel(s_buff);
+	ft_strdel(line);
+}
+
+int				get_next_line(int const fd, char **line)
+{
+	int				bytes_read;
 	char			buff[BUFF_SIZE + 1];
-	int				retour;
-	int				i;
-	int				ret;
+	static char		*s_buff = NULL;
 
-	i = 0;
-	retour = 0;
-	if (fd < 0 || fd > 4864 || !line || BUFF_SIZE <= 0
-	|| (read(fd, buff, 0)) < 0)
+	if (!line)
 		return (-1);
-	if (!s[fd])
+	if (s_buff && cut_at_newline(&s_buff, line))
+		return (1);
+	while ((bytes_read = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
-		{
-			buff[ret] = '\0';
-			s[fd] = ft_strjoin_free(s[fd], buff);
-		}
-		if (s[fd] == NULL)
-			return (0);
+		buff[bytes_read] = '\0';
+		s_buff = safe_join(s_buff, buff);
+		if (cut_at_newline(&s_buff, line))
+			return (1);
 	}
-	retour = ft_get_nl(&s[fd], line, i);
-	return (retour);
+	if (bytes_read == -1)
+		return (-1);
+	if (s_buff && *s_buff)
+	{
+		*line = ft_strdup(s_buff);
+		ft_strdel(&s_buff);
+		return (1);
+	}
+	clear(&s_buff, line);
+	return (0);
 }

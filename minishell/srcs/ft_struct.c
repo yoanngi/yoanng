@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+static char		*ft_delete_start(char *str, int len)
+{
+	char	*tmp;
+
+	if (!str)
+		return (NULL);
+	tmp = ft_strsub(str, len, ft_strlen(str) - len);
+	ft_strdel(&str);
+	str = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	return (str);
+}
+
 static char		*ft_check_path(char **env)
 {
 	int		i;
@@ -13,6 +26,7 @@ static char		*ft_check_path(char **env)
 			path = ft_strdup(env[i]);
 		i++;
 	}
+	path = ft_delete_start(path, 5);
 	return (path);
 }
 
