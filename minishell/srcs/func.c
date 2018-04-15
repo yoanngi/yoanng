@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   func.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:06:21 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 10:06:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 11:16:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ char		*ft_del_tab(char **tab)
 	i = 0;
 	if (!*tab)
 		return (NULL);
-	while(tab[i])
+	while (tab[i])
 	{
 		ft_strdel(&tab[i]);
 		i++;

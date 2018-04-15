@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 10:33:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 11:22:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,9 +47,9 @@ typedef struct		s_struct
 void				basic_error(char *name);
 int					ft_error(int cmd, char **line);
 /*
-**	ft_execute.c
+**	ft_cmd_annexe.c
 */
-//void				ft_execute(char **line, t_struct *data);
+int					ft_cmd_annexe(char **line, t_struct *data);
 /*
 **	ft_struct.c
 */

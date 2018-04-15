@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/10 14:32:08 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/15 11:21:05 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -34,7 +34,7 @@ INC = -I $(INC_PATH) -I $(LIB_PATH)includes/
 OBJ_NAME = $(N_SRCS:.c=.o)
 
 N_SRCS = 	ft_error.c\
-			ft_execute.c\
+			ft_cmd_annexe.c\
 			ft_struct.c\
 			ft_fork.c\
 			func.c\
