@@ -6,14 +6,14 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:21:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 15:27:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 15:38:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		*func_return_target(char *line, char *home)
+static char		*func_return_target(char *line, t_struct *data)
 {
 	char	*target;
 	char	**tab;
@@ -24,21 +24,21 @@ static char		*func_return_target(char *line, char *home)
 	while (tab[i])
 		i++;
 	if (i == 1)
-		target = ft_strdup(home);
+		target = ft_strdup(data->home);
 	else
 		target = ft_strdup(tab[i - 1]);
 	ft_del_tab(tab);
 	return (target);
 }
 
-int		func_cd(char **line, t_struct *data)
+int				func_cd(char **line, t_struct *data)
 {
 	int		i;
 	int		ret;
 	char	*tmp;
 
 	i = 0;
-	tmp = func_return_target(*line, data->home);
+	tmp = func_return_target(*line, data);
 	if ((ret = chdir(tmp)) == -1)
 	{
 		ft_putstr_fd("cd: no such file of directory: ", 2);
