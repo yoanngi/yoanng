@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   minishell.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/10 15:16:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 10:33:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,6 +45,7 @@ typedef struct		s_struct
 **	ft_error.c
 */
 void				basic_error(char *name);
+int					ft_error(int cmd, char **line);
 /*
 **	ft_execute.c
 */

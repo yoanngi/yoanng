@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/10 15:32:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 10:43:01 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 /*
 **	Print infos in term
 */
+
 static void		ft_display(void)
 {
 	ft_putstr("$> ");
@@ -25,6 +26,7 @@ static void		ft_display(void)
 /*
 **	Add commande in end of path
 */
+
 static char		*ft_add_line(char *str, char *add)
 {
 	char	*tmp;
@@ -35,9 +37,11 @@ static char		*ft_add_line(char *str, char *add)
 	ft_strdel(&tmp);
 	return (new);
 }
+
 /*
 **	Check commande and execute
 */
+
 static int		ft_check_command(char **line, t_struct *data)
 {
 	int		exec;
@@ -45,39 +49,47 @@ static int		ft_check_command(char **line, t_struct *data)
 	char	**tab;
 	char	*tmp;
 
-	exec = 0;
+	exec = -1;
 	i = 0;
 	tab = ft_strsplit(*line, ' ');
 	tmp = NULL;
 	while (data->tab_path[i])
 	{
-	//	printf("Valeur de execve = %d || tab_path[%d] = %s\n", exec, i, data->tab_path[i]);
 		tmp = ft_add_line(data->tab_path[i], *line);
-		exec = ft_process(tmp, tab);
+		if ((exec = ft_process(tmp, tab)) > -1)
+		{
+			ft_strdel(&tmp);
+			ft_del_tab(tab);
+			return (0);
+		}
 		ft_strdel(&tmp);
 		i++;
 	}
 	ft_del_tab(tab);
-	return (0);
+	return (1);
 }
 
 /*
 **	Core Minishell
 */
+
 int				main(int argc, char **argv, char **env)
 {
 	char		*line;
 	t_struct	*data;
+	int			cmd;
 
 	(void)argc;
 	(void)argv;
 	line = NULL;
 	data = ft_my_struct(env);
+	cmd = 0;
 	while (1)
 	{
 		ft_display();
 		get_next_line(0, &line);
-		ft_check_command(&line, data);
+		cmd = ft_check_command(&line, data);
+		ft_error(cmd, &line);
 		ft_strdel(&line);
 	}
 	ft_delete_struct(data);

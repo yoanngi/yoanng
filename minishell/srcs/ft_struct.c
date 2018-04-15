@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_struct.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/04/15 10:05:23 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/15 10:06:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 **	Take infos in Env
 */
+
 static char		*ft_check_infos(char **env, char *find)
 {
 	int		i;
@@ -22,6 +36,7 @@ static char		*ft_check_infos(char **env, char *find)
 /*
 **	Allocation memory for struct and initialise datas
 */
+
 t_struct		*ft_my_struct(char **env)
 {
 	t_struct	*data;
@@ -42,6 +57,7 @@ t_struct		*ft_my_struct(char **env)
 /*
 **	Delete struct ans datas
 */
+
 void			ft_delete_struct(t_struct *data)
 {
 	ft_strdel(&data->path);
