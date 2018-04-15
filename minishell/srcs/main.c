@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 10:43:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 11:06:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,7 @@ static int		ft_check_command(char **line, t_struct *data)
 	tmp = NULL;
 	while (data->tab_path[i])
 	{
-		tmp = ft_add_line(data->tab_path[i], *line);
+		tmp = ft_add_line(data->tab_path[i], tab[0]);
 		if ((exec = ft_process(tmp, tab)) > -1)
 		{
 			ft_strdel(&tmp);
