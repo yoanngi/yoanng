@@ -36,6 +36,8 @@ OBJ_NAME = $(N_SRCS:.c=.o)
 N_SRCS = 	ft_error.c\
 			ft_execute.c\
 			ft_struct.c\
+			ft_fork.c\
+			func.c\
 			main.c\
 
 all: $(NAME)

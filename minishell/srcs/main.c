@@ -19,7 +19,7 @@
 static void		ft_display(void)
 {
 	ft_putstr("$> ");
-	// Add print User
+	// Print User
 }
 
 /*
@@ -28,12 +28,12 @@ static void		ft_display(void)
 static char		*ft_add_line(char *str, char *add)
 {
 	char	*tmp;
+	char	*new;
 
 	tmp = ft_strjoin(str, "/");
-	ft_strdel(&str);
-	str = ft_strjoin(tmp, add);
+	new = ft_strjoin(tmp, add);
 	ft_strdel(&tmp);
-	return (str);
+	return (new);
 }
 /*
 **	Check commande and execute
@@ -45,20 +45,19 @@ static int		ft_check_command(char **line, t_struct *data)
 	char	**tab;
 	char	*tmp;
 
-	exec = -1;
+	exec = 0;
 	i = 0;
 	tab = ft_strsplit(*line, ' ');
 	tmp = NULL;
-	while (exec != -1 || data->tab_path[i])
+	while (data->tab_path[i])
 	{
+	//	printf("Valeur de execve = %d || tab_path[%d] = %s\n", exec, i, data->tab_path[i]);
 		tmp = ft_add_line(data->tab_path[i], *line);
-		exec = execve(tmp, tab, NULL);
+		exec = ft_process(tmp, tab);
 		ft_strdel(&tmp);
-		printf("Valeur de execve = %d\n", exec);
 		i++;
 	}
-	// ft_del_tab(tab);
-	ft_execute(line, data);
+	ft_del_tab(tab);
 	return (0);
 }
 

@@ -38,7 +38,7 @@ char			**ft_strsplit(char const *s, char c)
 		return (NULL);
 	len = ft_strlen(s);
 	nb_mot = ft_count_word(s, c);
-	tab = (char **)malloc(sizeof(char *) * nb_mot + 1);
+	tab = (char **)malloc(sizeof(char *) * (nb_mot + 1));
 	if (tab == NULL)
 		return (NULL);
 	i = 0;

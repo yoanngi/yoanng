@@ -35,9 +35,10 @@ static void		print_env(char **env)
 /*
 **	Recupere la commande passer en parametre et la variable env
 */
-
+/*
 void		ft_execute(char **line, t_struct *data)
 {
+	printf("DEBUG*****************************\n");
 	printf("data->path = %s\n", data->path);
 	printf("data->pwd = %s\n", data->pwd);
 	printf("data->tab_path[0] = %s\n", data->tab_path[0]);
@@ -46,3 +47,4 @@ void		ft_execute(char **line, t_struct *data)
 	printf("data->tab_path[3] = %s\n", data->tab_path[3]);
 	printf("line = %s\n", *line);
 }
+*/

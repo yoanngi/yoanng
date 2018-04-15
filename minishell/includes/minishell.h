@@ -48,11 +48,18 @@ void				basic_error(char *name);
 /*
 **	ft_execute.c
 */
-void				ft_execute(char **line, t_struct *data);
-
+//void				ft_execute(char **line, t_struct *data);
 /*
 **	ft_struct.c
 */
 t_struct			*ft_my_struct(char **env);
 void				ft_delete_struct(t_struct *data);
+/*
+**	ft_fork.c
+*/
+int					ft_process(char *rep, char **cmd);
+/*
+**	func.c
+*/
+char				*ft_del_tab(char **tab);
 #endif

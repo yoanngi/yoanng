@@ -46,8 +46,7 @@ void			ft_delete_struct(t_struct *data)
 {
 	ft_strdel(&data->path);
 	ft_strdel(&data->pwd);
-	// Tab :
-	//ft_del_tab(data->tab_path);
+	ft_del_tab(data->tab_path);
 	free(data);
 	data = NULL;
 }
