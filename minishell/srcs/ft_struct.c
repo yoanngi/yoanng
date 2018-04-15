@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_struct.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:05:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 10:06:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 15:27:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,13 +44,17 @@ t_struct		*ft_my_struct(char **env)
 
 	if (!(data = (t_struct *)malloc(sizeof(t_struct))))
 		return (NULL);
-	tmp = ft_check_infos(env, "PATH");
+	tmp = ft_check_infos(env, "PATH=");
 	data->path = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
 	ft_strdel(&tmp);
 	data->tab_path = ft_strsplit(data->path, ':');
-	tmp = ft_check_infos(env, "PWD");
+	tmp = ft_check_infos(env, "PWD=");
 	data->pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
 	ft_strdel(&tmp);
+	tmp = ft_check_infos(env, "HOME=");
+	data->home = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
+	ft_strdel(&tmp);
+	data->current_path = ft_strdup(data->pwd);
 	return (data);
 }
 
@@ -62,6 +66,8 @@ void			ft_delete_struct(t_struct *data)
 {
 	ft_strdel(&data->path);
 	ft_strdel(&data->pwd);
+	ft_strdel(&data->home);
+	ft_strdel(&data->current_path);
 	ft_del_tab(data->tab_path);
 	free(data);
 	data = NULL;

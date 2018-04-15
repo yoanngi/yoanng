@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/15 11:21:05 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/15 13:24:02 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -38,6 +38,12 @@ N_SRCS = 	ft_error.c\
 			ft_struct.c\
 			ft_fork.c\
 			func.c\
+			func_cd.c\
+			func_echo.c\
+			func_exit.c\
+			func_env.c\
+			func_setenv.c\
+			func_unsetenv.c\
 			main.c\
 
 all: $(NAME)

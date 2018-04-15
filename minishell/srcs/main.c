@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 11:38:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 15:27:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,28 +14,14 @@
 #include "minishell.h"
 
 /*
-**	Print infos in term
+**	Print prompt
+**	User or path in bonus
 */
 
-static void		ft_display(void)
+static void		ft_display(t_struct *data)
 {
-	ft_putstr("$> ");
-	// Print User
-}
-
-/*
-**	Add commande in end of path
-*/
-
-static char		*ft_add_line(char *str, char *add)
-{
-	char	*tmp;
-	char	*new;
-
-	tmp = ft_strjoin(str, "/");
-	new = ft_strjoin(tmp, add);
-	ft_strdel(&tmp);
-	return (new);
+	ft_putstr(data->current_path);
+	ft_putstr(" $> ");
 }
 
 /*
@@ -88,7 +74,7 @@ int				main(int argc, char **argv, char **env)
 	cmd = 0;
 	while (1)
 	{
-		ft_display();
+		ft_display(data);
 		get_next_line(0, &line);
 		cmd = ft_check_command(&line, data);
 		ft_error(cmd, &line);

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 11:20:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 11:38:54 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/15 15:20:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,26 +29,44 @@ static char		**ft_initialise_builtins(void)
 	return (tab);
 }
 
+static int		ft_search_func(char **line, t_struct *data, int i)
+{
+	if (i == 0)
+		func_cd(line, data);
+	else if (i == 1)
+		func_echo(line, data);
+	else if (i == 2)
+		func_setenv(line, data);
+	else if (i == 3)
+		func_unsetenv(line, data);
+	else if (i == 4)
+		func_env(line, data);
+	else if (i == 5)
+		func_exit(line, data);
+	return (0);
+}
+
 int				ft_cmd_annexe(char **line, t_struct *data)
 {
 	char	**tab;
 	char	**builtins;
 	int		i;
+	int		ret;
 
-	(void)data;
-	i = 0;
-	builtins = ft_initialise_builtins();
 	tab = ft_strsplit(*line, ' ');
+	builtins = ft_initialise_builtins();
+	i = 0;
+	ret = 1;
 	while (builtins[i])
 	{
 		if (ft_strcmp(tab[0], builtins[i]) == 0)
 		{
-			printf("Commande found !\n");
-			return (0);
+			ft_search_func(line, data, i);
+			ret = 0;
 		}
 		i++;
 	}
 	ft_del_tab(tab);
 	ft_del_tab(builtins);
-	return (1);
+	return (ret);
 }
