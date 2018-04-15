@@ -34,9 +34,8 @@ int			ft_error(int cmd, char **line)
 		return (0);
 	else
 	{
-		ft_putstr_fd("minishell: command not found :", 2);
 		ft_putstr_fd(*line, 2);
-		ft_putstr_fd("\n", 2);
+		ft_putstr_fd(": command not found\n", 2);
 	}
 	return (0);
 }

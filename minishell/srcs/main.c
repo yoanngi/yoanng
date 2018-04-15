@@ -76,8 +76,11 @@ int				main(int argc, char **argv, char **env)
 	{
 		ft_display(data);
 		get_next_line(0, &line);
-		cmd = ft_check_command(&line, data);
-		ft_error(cmd, &line);
+		if ((ft_strcmp("", line)) != 0)
+		{
+			cmd = ft_check_command(&line, data);
+			ft_error(cmd, &line);
+		}
 		ft_strdel(&line);
 	}
 	ft_delete_struct(data);
