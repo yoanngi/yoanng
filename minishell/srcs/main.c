@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/16 14:30:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/16 15:44:11 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@
 static void		ft_display(t_struct *data)
 {
 	(void)data;
-	ft_putstr(" $> ");
+	ft_putstr("\033[32m $> \033[0m");
 }
 
 /*
@@ -48,7 +48,6 @@ static int		ft_check_command(char **line, t_struct *data)
 		{
 			ft_strdel(&tmp);
 			ft_del_tab(tab);
-			kill(exec, SIGQUIT);
 			return (0);
 		}
 		ft_strdel(&tmp);
