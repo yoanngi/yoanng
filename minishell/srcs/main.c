@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 15:38:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/16 13:23:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ static int		ft_check_command(char **line, t_struct *data)
 		{
 			ft_strdel(&tmp);
 			ft_del_tab(tab);
+			kill(exec, SIGQUIT);
 			return (0);
 		}
 		ft_strdel(&tmp);

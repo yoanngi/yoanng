@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:05:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 15:27:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/16 11:55:15 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,30 @@ static char		*ft_check_infos(char **env, char *find)
 }
 
 /*
+**	Copy env in struct
+*/
+static char		**ft_copie_env(char **env)
+{
+	int		i;
+	char	**cpy;
+	
+	i = 0;
+	cpy = NULL;
+	while (env[i])
+		i++;
+	if (!(cpy = (char **)malloc(sizeof(char *) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (env[i])
+	{
+		cpy[i] = ft_strdup(env[i]);
+		i++;
+	}
+	cpy[i] = NULL;
+	return (cpy);
+}
+	
+/*
 **	Allocation memory for struct and initialise datas
 */
 
@@ -55,6 +79,7 @@ t_struct		*ft_my_struct(char **env)
 	data->home = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
 	ft_strdel(&tmp);
 	data->current_path = ft_strdup(data->pwd);
+	data->env = ft_copie_env(env);
 	return (data);
 }
 
@@ -69,6 +94,7 @@ void			ft_delete_struct(t_struct *data)
 	ft_strdel(&data->home);
 	ft_strdel(&data->current_path);
 	ft_del_tab(data->tab_path);
+	ft_del_tab(data->env);
 	free(data);
 	data = NULL;
 }

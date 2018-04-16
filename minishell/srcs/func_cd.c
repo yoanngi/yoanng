@@ -6,12 +6,16 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:21:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 15:38:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/16 13:54:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Check target for change directory
+*/
 
 static char		*func_return_target(char *line, t_struct *data)
 {
@@ -30,6 +34,14 @@ static char		*func_return_target(char *line, t_struct *data)
 	ft_del_tab(tab);
 	return (target);
 }
+
+/*
+**	Change directory
+*/
+
+/*
+**	Add pid in struct ?
+*/
 
 int				func_cd(char **line, t_struct *data)
 {

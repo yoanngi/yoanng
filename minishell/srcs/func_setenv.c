@@ -3,18 +3,34 @@
 /*                                                              /             */
 /*   func_setenv.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 13:22:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/16 12:57:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	func_setenv(char **line, t_struct *data)
+char	**func_setenv(char **line, t_struct *data)
 {
-	(void)line;
-	(void)data;
+	int		i;
+	char	**tmp;
+
+	i = 0;
+	while (data->env[i])
+		i++;
+	if (!(tmp = (char **)malloc(sizeof(char *) * (i + 2))))
+		return (NULL);
+	i = 0;
+	while (data->env[i])
+	{
+		tmp[i] = ft_strdup(data->env[i]);
+		i++;
+	}
+	tmp[i] = ft_strsub(*line, 7, ft_strlen(*line) - 7);
+	tmp[i + 1] = NULL;
+	ft_del_tab(data->env);
+	return (tmp);
 }
