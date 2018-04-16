@@ -39,6 +39,11 @@ int				func_cd(char **line, t_struct *data)
 
 	i = 0;
 	tmp = func_return_target(*line, data);
+	if (ft_access(tmp) == -1)
+	{
+		ft_strdel(&tmp);
+		return (1);
+	}
 	if ((ret = chdir(tmp)) == -1)
 	{
 		ft_putstr_fd("cd: no such file of directory: ", 2);

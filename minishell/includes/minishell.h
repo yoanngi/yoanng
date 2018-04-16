@@ -44,10 +44,11 @@ typedef struct		s_struct
 */
 
 /*
-**	ft_error.c
+**	ft_error.c && func_access.c
 */
 void				basic_error(char *name);
 int					ft_error(int cmd, char **line);
+int					ft_access(char *path);
 /*
 **	ft_cmd_annexe.c
 */

@@ -38,6 +38,7 @@ N_SRCS = 	ft_error.c\
 			ft_struct.c\
 			ft_fork.c\
 			func.c\
+			func_access.c\
 			func_cd.c\
 			func_echo.c\
 			func_exit.c\
