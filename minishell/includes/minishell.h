@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/15 15:11:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/16 13:24:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 
 # include "libft.h"
 # include <dirent.h>
+# include <signal.h>
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
@@ -34,6 +35,7 @@ typedef struct		s_struct
 {
 	char			*path;
 	char			**tab_path;
+	char			**env;
 	char			*pwd;
 	char			*home;
 	char			*current_path;
@@ -77,8 +79,8 @@ char				*ft_add_line(char *str, char *add);
 */
 int					func_cd(char **line, t_struct *data);
 int					func_echo(char **line, t_struct *data);
-void				func_setenv(char **line, t_struct *data);
-void				func_unsetenv(char **line, t_struct *data);
+char				**func_setenv(char **line, t_struct *data);
+char				**func_unsetenv(char **line, t_struct *data);
 void				func_env(char **line, t_struct *data);
 void				func_exit(char **line, t_struct *data);
 #endif
