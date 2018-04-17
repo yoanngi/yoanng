@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 15:05:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 15:32:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,27 +15,43 @@
 
 /*
 **	Part 2 : Split line for commande echo	
+**	34 = "
+**	92 = \
 */
-/*
+
 static char		**func_split_echo_suite(char **tab)
 {
-	char	**new_tab;
-	int		len;
 	int		i;
+	int		j1;
+	int		j2;
+	char	*tmp;
 
-	new_tab = NULL;
-	len = ft_len_tab(tab);
 	i = 1;
-	while (i != len)
+	while (tab[i])
 	{
-		new_tab = ft_strsplit(tab[i], ' ');
-			
+		j1 = 0;
+		j2 = 0;
+		tmp = ft_strnew(ft_strlen(tab[i]));
+		while (tab[i][j1])
+		{
+			if (tab[i][j1] == 34 && tab[i][j1 - 1] != 92)
+				j1++;
+			else
+			{
+				tmp[j2] = tab[i][j1]; 
+				j1++;
+				j2++;
+			}
+		}
+		tmp[j2] = '\0';
+		ft_strdel(&tab[i]);
+		tab[i] = ft_strdup(tmp);
+		ft_strdel(&tmp);
+		i++;
 	}
-	
-	
-	return (new_tab);
+	return (tab);
 }
-*/
+
 /*
 **	Part 1 : Split line for commande echo	
 **	34 = "
@@ -57,8 +73,8 @@ static char		**func_split_echo(char *line)
 		i++;
 	}
 	tab = ft_strsplit(line, ' ');
-//	if (quit == 1)
-//		tab = func_split_echo_suite(char **tab);
+	if (quit == 1)
+		tab = func_split_echo_suite(tab);
 	return (tab);
 }
 
