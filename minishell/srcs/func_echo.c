@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 15:32:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 15:35:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,6 +80,7 @@ static char		**func_split_echo(char *line)
 
 /*
 **	Core echo
+**	!!!!!!!!!!! dquote a gerer ?
 */
 
 int				func_echo(char **line, t_struct *data)
