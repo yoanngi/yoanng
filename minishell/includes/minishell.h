@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/16 13:24:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 11:47:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ typedef struct		s_struct
 */
 void				basic_error(char *name);
 int					ft_error(int cmd, char **line);
+void				ft_error_dir(char *name, char *pre);
 int					ft_access(char *path);
 /*
 **	ft_cmd_annexe.c
@@ -69,6 +70,8 @@ int					ft_process(char *rep, char **cmd);
 */
 char				*ft_del_tab(char **tab);
 char				*ft_add_line(char *str, char *add);
+int					ft_len_tab(char **tab);
+int					ft_dir_exist(char *path);
 /*
 **	func_cd.c
 **	func_echo.c

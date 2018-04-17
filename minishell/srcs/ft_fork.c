@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:04:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/16 15:53:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/17 10:54:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,8 +21,17 @@ static int		good_path(char *target, char *cmd)
 {
 	DIR				*dir;
 	struct dirent	*fl;
+	char			*tmp;
 	
-	dir = opendir(target);
+	tmp = ft_strsub(target, 0, (ft_strlen(target) - ft_strlen(cmd)));
+	if (!(dir = opendir(tmp)))
+	{
+		ft_putstr_fd(tmp, 2);
+		ft_putstr_fd(" : Permission Denied\n", 2);
+		ft_strdel(&tmp);
+		return (0);
+	}
+	ft_strdel(&tmp);
 	while ((fl = readdir(dir)) != NULL)
 	{
 		if (ft_strcmp(cmd, fl->d_name) == 0)
@@ -54,12 +63,11 @@ int				ft_process(char *rep, char **cmd)
 	else if (father == 0)
 	{
 		exec = execve(rep, cmd, NULL);
+		if (exec == -1)
+			kill(father, SIGQUIT);
 		return (exec);
 	}
 	else
-	{
-		waitpid(father, &exec, 0);
-		kill(father, SIGQUIT);
-	}
+		wait(&exec);
 	return (father);
 }
