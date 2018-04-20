@@ -38,6 +38,7 @@ N_SRCS = 	ft_error.c\
 			ft_struct.c\
 			ft_fork.c\
 			func.c\
+			func_spe.c\
 			func_access.c\
 			func_cd.c\
 			func_echo.c\
@@ -45,6 +46,7 @@ N_SRCS = 	ft_error.c\
 			func_env.c\
 			func_setenv.c\
 			func_unsetenv.c\
+			core_minishell.c\
 			main.c\
 
 all: $(NAME)

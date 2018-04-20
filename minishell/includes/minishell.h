@@ -34,6 +34,8 @@
 typedef struct		s_struct
 {
 	char			*path;
+	char			*prompt;
+	char			*prompt_current;
 	char			**tab_path;
 	char			**env;
 	char			*pwd;
@@ -45,6 +47,14 @@ typedef struct		s_struct
 **	***	Fonctions ***
 */
 
+/*
+**	minishell.c
+*/
+int					ft_minishell(char **line, t_struct *data);
+/*
+**	func_spe.c
+*/
+int					func_spe(char **line, char **line_2, t_struct *data);
 /*
 **	ft_error.c && func_access.c
 */
@@ -72,6 +82,7 @@ char				*ft_del_tab(char **tab);
 char				*ft_add_line(char *str, char *add);
 int					ft_len_tab(char **tab);
 int					ft_dir_exist(char *path);
+int					ft_search_cd(char *str, char c, char d);
 /*
 **	func_cd.c
 **	func_echo.c

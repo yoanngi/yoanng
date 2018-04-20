@@ -16,6 +16,7 @@
 /*
 **	Part 2 : print env with valeur
 */
+
 static void		env_dir_suite(char *cpy, char *tab, t_struct *data)
 {
 	int		i;
@@ -37,6 +38,7 @@ static void		env_dir_suite(char *cpy, char *tab, t_struct *data)
 		}
 		i++;
 	}
+	ft_strdel(&tmp);
 }
 
 /*
@@ -72,7 +74,7 @@ static void		print_full_env(t_struct *data)
 
 	i = 0;
 	while (data->env[i])
-	{	
+	{
 		ft_putendl(data->env[i]);
 		i++;
 	}
@@ -86,7 +88,7 @@ void			func_env(char **line, t_struct *data)
 {
 	int		len;
 	char	**tmp;
-	
+
 	tmp = NULL;
 	if (ft_strlen(*line) == 3)
 		print_full_env(data);

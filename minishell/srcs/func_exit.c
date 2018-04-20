@@ -21,5 +21,9 @@ void	func_exit(char **line, t_struct *data)
 {
 	ft_strdel(line);
 	ft_delete_struct(data);
+	// A delete
+	ft_putstr_fd("Mode sleep(150)\n", 2);
+	sleep(150);
+	// end
 	exit(EXIT_SUCCESS);
 }

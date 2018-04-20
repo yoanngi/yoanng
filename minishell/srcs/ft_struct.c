@@ -36,11 +36,12 @@ static char		*ft_check_infos(char **env, char *find)
 /*
 **	Copy env in struct
 */
+
 static char		**ft_copie_env(char **env)
 {
 	int		i;
 	char	**cpy;
-	
+
 	i = 0;
 	cpy = NULL;
 	while (env[i])
@@ -56,7 +57,7 @@ static char		**ft_copie_env(char **env)
 	cpy[i] = NULL;
 	return (cpy);
 }
-	
+
 /*
 **	Allocation memory for struct and initialise datas
 */
@@ -80,6 +81,8 @@ t_struct		*ft_my_struct(char **env)
 	ft_strdel(&tmp);
 	data->current_path = ft_strdup(data->pwd);
 	data->env = ft_copie_env(env);
+	data->prompt = ft_strdup("$> ");
+	data->prompt_current = NULL;
 	return (data);
 }
 

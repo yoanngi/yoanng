@@ -76,7 +76,7 @@ char			**func_unsetenv(char **line, t_struct *data)
 		ft_putstr_fd("unsetenv: Pattern not found: ", 2);
 		ft_putstr_fd(regex, 2);
 		ft_putstr_fd("\n", 2);
-	}		
+	}
 	else if (ft_count(data->env, regex) > 1)
 	{
 		ft_putstr_fd("unsetenv: Multiple pattern found: ", 2);

@@ -78,3 +78,34 @@ int			ft_dir_exist(char *path)
 	closedir(dir);
 	return (1);
 }
+
+/*
+**	Search c && d in string
+*/
+
+int			ft_search_cd(char *str, char c, char d)
+{
+	int 	i;
+	int		prime;
+
+	i = 0;
+	prime = 0;
+	if (ft_strlen(str) <= 1  && str[0] == c)
+		return (1);
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			prime = i;
+			i++;
+			while(str[i] || str[i] != d)
+				i++;
+			if (str[i] == d)
+				i = prime + 1;
+			else
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
