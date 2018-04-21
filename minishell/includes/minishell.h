@@ -41,6 +41,7 @@ typedef struct		s_struct
 	char			*pwd;
 	char			*home;
 	char			*current_path;
+	char			*charfound;
 }					t_struct;
 
 /*

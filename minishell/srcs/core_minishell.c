@@ -69,50 +69,56 @@ static int		ft_check_command(char **line, t_struct *data)
 static int		cmd_special(char *line, t_struct *data)
 {
 	if (ft_search_cd(line, '(', ')') == 1)
-    {
+	{
 		data->prompt_current = ft_strdup("subsh> ");
-        return (1);
-    }
+		data->charfound = ft_strdup(")");
+		return (1);
+	}
 	if (ft_search_cd(line,'{', '}') == 1)
-    {
+	{
 		data->prompt_current = ft_strdup("cursh> ");
-        return (1);
-    }
+		data->charfound = ft_strdup("}");
+		return (1);
+	}
 	if (ft_search_cd(line, 39, 39) == 1)
-    {
+	{
 		data->prompt_current = ft_strdup("quote> ");
-        return (1);
-    }
+		data->charfound = ft_strdup("'");
+		return (1);
+	}
 	if (ft_search_cd(line, '"', '"') == 1)
-    {
+	{
 		data->prompt_current = ft_strdup("dquote> ");
-        return (1);
-    }
+		data->charfound = ft_strdup("\"");
+		return (1);
+	}
 	return (0);
 }
 
-static int      ft_minishell_spe(t_struct *data, char **line)
+static int		ft_minishell_spe(t_struct *data, char **line)
 {
-    char    *line_2;
-    int     quit;
-    int     ret;
+	char	 *line_2;
+	int		quit;
+	int		ret;
 
-    line_2 = NULL;
-    quit = 0;
-    ret = 0;
-    while (quit == 0)
-    {
-        ft_display(data);
-        get_next_line(0, &line_2);
-        if (line_2[ft_strlen(line_2) - 1] == *line[0])
-            quit = 1;
-        func_spe(line, &line_2, data);
-        ft_strdel(&line_2);
-    }
+	line_2 = NULL;
+	quit = 0;
+	ret = 0;
+	while (quit == 0)
+	{
+		ft_display(data);
+		get_next_line(0, &line_2);
+		if (ft_strstr(line_2, data->charfound))
+			quit = 1;
+		func_spe(line, &line_2, data);
+		ft_strdel(&line_2);
+	}
+	// add parse string for delete ' "
 	ret = ft_check_command(line, data);
 	ft_error(ret, line);
-    ft_strdel(&data->prompt_current);
-    return (ret);
+	ft_strdel(&data->prompt_current);
+	ft_strdel(&data->charfound);
+	return (ret);
 }
 
 /*
@@ -135,8 +141,8 @@ int				ft_minishell(char **line, t_struct *data)
 				cmd = ft_check_command(line, data);
 				ft_error(cmd, line);
 			}
-            else
-                ft_minishell_spe(data, line);
+			else
+				ft_minishell_spe(data, line);
 		}
 		ft_strdel(line);
 	}

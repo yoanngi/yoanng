@@ -83,6 +83,7 @@ t_struct		*ft_my_struct(char **env)
 	data->env = ft_copie_env(env);
 	data->prompt = ft_strdup("$> ");
 	data->prompt_current = NULL;
+	data->charfound = NULL;
 	return (data);
 }
 
@@ -95,6 +96,7 @@ void			ft_delete_struct(t_struct *data)
 	ft_strdel(&data->path);
 	ft_strdel(&data->pwd);
 	ft_strdel(&data->home);
+	ft_strdel(&data->charfound);
 	ft_strdel(&data->current_path);
 	ft_del_tab(data->tab_path);
 	ft_del_tab(data->env);

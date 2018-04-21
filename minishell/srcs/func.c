@@ -72,7 +72,7 @@ int			ft_len_tab(char **tab)
 int			ft_dir_exist(char *path)
 {
 	DIR		*dir;
-	
+
 	if (!(dir = opendir(path)))
 		return (0);
 	closedir(dir);
@@ -87,25 +87,24 @@ int			ft_search_cd(char *str, char c, char d)
 {
 	int 	i;
 	int		prime;
+	int		two;
+	int		len;
 
 	i = 0;
 	prime = 0;
-	if (ft_strlen(str) <= 1  && str[0] == c)
+	two = 0;
+	len = ft_strlen(str);
+	if (len == 1 && str[0] == c)
 		return (1);
 	while (str[i])
 	{
 		if (str[i] == c)
-		{
-			prime = i;
-			i++;
-			while(str[i] || str[i] != d)
-				i++;
-			if (str[i] == d)
-				i = prime + 1;
-			else
-				return (1);
-		}
+			prime++;
+		if (str[i] == d)
+			two++;
 		i++;
 	}
-	return (0);
+	if (prime == two)
+		return (0);
+	return (1);
 }
