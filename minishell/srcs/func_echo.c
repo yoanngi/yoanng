@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 15:07:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:23:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,14 +19,10 @@
 **	92 = \
 */
 
-static char		**func_split_echo_suite(char **tab)
+static char		**func_split_echo_suite(char **tab, int i, int j1, int j2)
 {
-	int		i;
-	int		j1;
-	int		j2;
 	char	*tmp;
 
-	i = 1;
 	while (tab[i])
 	{
 		j1 = 0;
@@ -74,7 +70,7 @@ static char		**func_split_echo(char *line)
 	}
 	tab = ft_strsplit(line, ' ');
 	if (quit == 1)
-		tab = func_split_echo_suite(tab);
+		tab = func_split_echo_suite(tab, 1, 0, 0);
 	return (tab);
 }
 
