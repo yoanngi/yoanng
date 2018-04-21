@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 15:35:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 10:00:41 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "minishell.h"
 
 /*
-**	Part 2 : Split line for commande echo	
+**	Part 2 : Split line for commande echo
 **	34 = "
 **	92 = \
 */
@@ -38,7 +38,7 @@ static char		**func_split_echo_suite(char **tab)
 				j1++;
 			else
 			{
-				tmp[j2] = tab[i][j1]; 
+				tmp[j2] = tab[i][j1];
 				j1++;
 				j2++;
 			}
@@ -53,7 +53,7 @@ static char		**func_split_echo_suite(char **tab)
 }
 
 /*
-**	Part 1 : Split line for commande echo	
+**	Part 1 : Split line for commande echo
 **	34 = "
 **	92 = \
 */

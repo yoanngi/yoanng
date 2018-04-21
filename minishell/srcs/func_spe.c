@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   func_spe.c                                       .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/04/21 09:57:38 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/21 10:01:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
- **  func_bracket : check ( && {
- */
+**	func_bracket : check ( && {
+*/
 
-static int      func_bracket(char **line, char **line_2, t_struct *data)
+static int			func_bracket(char **line, char **line_2, t_struct *data)
 {
 	(void)line;
 	(void)line_2;
@@ -12,8 +25,7 @@ static int      func_bracket(char **line, char **line_2, t_struct *data)
 	return (0);
 }
 
-
-static void		ft_clean_string(char **str, t_struct *data)
+static void			ft_clean_string(char **str, t_struct *data)
 {
 	char	*tmp;
 	int		i;
@@ -36,12 +48,12 @@ static void		ft_clean_string(char **str, t_struct *data)
 }
 
 /*
- **	func_spe : check ' && "
- **	39 = '
- **	34 = "
- */
+**	func_spe : check ' && "
+**	39 = '
+**	34 = "
+*/
 
-int				func_spe(char **line, char **line_2, t_struct *data)
+int					func_spe(char **line, char **line_2, t_struct *data)
 {
 	char	*str;
 	char	*tmp;

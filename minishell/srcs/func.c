@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:06:21 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 13:00:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 09:58:46 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,7 +85,7 @@ int			ft_dir_exist(char *path)
 
 int			ft_search_cd(char *str, char c, char d)
 {
-	int 	i;
+	int		i;
 	int		prime;
 	int		two;
 	int		len;

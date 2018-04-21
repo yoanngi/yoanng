@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:42 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/16 13:54:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 10:00:01 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ static int		ft_count(char **env, char *pattern)
 
 	i = 0;
 	j = 0;
-	while(env[i])
+	while (env[i])
 	{
 		if (ft_strncmp(env[i], pattern, ft_strlen(pattern)) == 0)
 			j++;
@@ -42,7 +42,7 @@ static char		**func_unsetenv_two(char *regex, t_struct *data)
 	i = 0;
 	j = 0;
 	tmp = NULL;
-	while(data->env[i])
+	while (data->env[i])
 		i++;
 	if (!(tmp = (char **)malloc(sizeof(char *) * i)))
 		return (NULL);

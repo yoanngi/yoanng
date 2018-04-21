@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:04:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 14:31:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 09:57:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ static int		good_path(char *target, char *cmd)
 	DIR				*dir;
 	struct dirent	*fl;
 	char			*tmp;
-	
+
 	tmp = ft_strsub(target, 0, (ft_strlen(target) - ft_strlen(cmd)));
 	if (!(dir = opendir(tmp)))
 	{
@@ -37,7 +37,7 @@ static int		good_path(char *target, char *cmd)
 		if (ft_strcmp(cmd, fl->d_name) == 0)
 			return (1);
 	}
-	closedir(dir);	
+	closedir(dir);
 	return (0);
 }
 
