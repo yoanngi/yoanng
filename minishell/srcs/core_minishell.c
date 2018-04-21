@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 15:07:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:53:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,6 @@
 
 static void		ft_display(t_struct *data)
 {
-	(void)data;
 	ft_putstr("\033[32m");
 	if (data->prompt_current == NULL)
 		ft_putstr(data->prompt);
@@ -139,6 +138,7 @@ int				ft_minishell(char **line, t_struct *data)
 	{
 		ft_display(data);
 		get_next_line(0, line);
+		signal(SIGINT, monsignal);
 		if ((ft_strcmp("exit", *line)) == 0)
 			quit = 1;
 		if ((ft_strcmp("", *line)) != 0 && quit == 0)

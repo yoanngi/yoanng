@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 15:11:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:52:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,6 +59,10 @@ typedef struct		s_struct
 **	minishell.c
 */
 int					ft_minishell(char **line, t_struct *data);
+/*
+**	func_signal.c
+*/
+void				monsignal(int sig);
 /*
 **	func_spe.c
 */

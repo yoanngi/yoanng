@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/24 10:18:55 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/03/29 11:19:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:54:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
-
 # define BUFF_SIZE 32
+
 /*
 ** Listes
 */

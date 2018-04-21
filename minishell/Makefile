@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/21 13:30:50 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/21 15:53:09 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -36,6 +36,7 @@ OBJ_NAME = $(N_SRCS:.c=.o)
 N_SRCS = 	main.c\
 			ft_error.c\
 			core_minishell.c\
+			func_signal.c\
 			ft_struct.c\
 			ft_fork.c\
 			format_line.c\
