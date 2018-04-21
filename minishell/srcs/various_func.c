@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   func.c                                           .::    .:/ .      .::   */
+/*   various_func.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:06:21 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 09:58:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 14:25:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ char		*ft_del_tab(char **tab)
 	int i;
 
 	i = 0;
-	if (!*tab)
+	if (!tab)
 		return (NULL);
 	while (tab[i])
 	{
@@ -76,35 +76,5 @@ int			ft_dir_exist(char *path)
 	if (!(dir = opendir(path)))
 		return (0);
 	closedir(dir);
-	return (1);
-}
-
-/*
-**	Search c && d in string
-*/
-
-int			ft_search_cd(char *str, char c, char d)
-{
-	int		i;
-	int		prime;
-	int		two;
-	int		len;
-
-	i = 0;
-	prime = 0;
-	two = 0;
-	len = ft_strlen(str);
-	if (len == 1 && str[0] == c)
-		return (1);
-	while (str[i])
-	{
-		if (str[i] == c)
-			prime++;
-		if (str[i] == d)
-			two++;
-		i++;
-	}
-	if (prime == two)
-		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:04:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 13:48:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:12:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,4 +49,24 @@ int			ft_error(int cmd, char **line)
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	return (0);
+}
+
+/*
+**	Error unsetenv
+*/
+
+void		ft_error_unset(char *str, int what)
+{
+	if (what == 1)
+	{
+		ft_putstr_fd("unsetenv: Pattern not found: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\n", 2);
+	}
+	else if (what == 2)
+	{
+		ft_putstr_fd("unsetenv: Multiple pattern found: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\n", 2);
+	}
 }

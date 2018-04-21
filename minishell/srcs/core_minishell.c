@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 10:02:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:07:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,8 +14,7 @@
 #include "minishell.h"
 
 /*
-**	Print prompt
-**	User or path in bonus
+**	Print good prompt
 */
 
 static void		ft_display(t_struct *data)
@@ -33,7 +32,7 @@ static void		ft_display(t_struct *data)
 **	Check commande and execute
 */
 
-static int		ft_check_command(char **line, t_struct *data)
+static int		ft_check_command(char **line, t_struct *data, int epur)
 {
 	int		exec;
 	int		i;
@@ -42,10 +41,10 @@ static int		ft_check_command(char **line, t_struct *data)
 
 	exec = -1;
 	i = 0;
-	tab = ft_strsplit(*line, ' ');
-	tmp = NULL;
 	if ((ft_cmd_annexe(line, data)) == 0)
 		return (0);
+	tab = epur_tab(*line, epur);
+	tmp = NULL;
 	while (data->tab_path[i])
 	{
 		tmp = ft_add_line(data->tab_path[i], tab[0]);
@@ -68,25 +67,25 @@ static int		ft_check_command(char **line, t_struct *data)
 
 static int		cmd_special(char *line, t_struct *data)
 {
-	if (ft_search_cd(line, '(', ')') == 1)
+	if (ft_search_enclosing(line, '(', ')') == 1)
 	{
 		data->prompt_current = ft_strdup("subsh> ");
 		data->charfound = ft_strdup(")");
 		return (1);
 	}
-	if (ft_search_cd(line,'{', '}') == 1)
+	if (ft_search_enclosing(line, '{', '}') == 1)
 	{
 		data->prompt_current = ft_strdup("cursh> ");
 		data->charfound = ft_strdup("}");
 		return (1);
 	}
-	if (ft_search_cd(line, 39, 39) == 1)
+	if (ft_search_enclosing(line, '\'', '\'') == 1)
 	{
 		data->prompt_current = ft_strdup("quote> ");
-		data->charfound = ft_strdup("'");
+		data->charfound = ft_strdup("\'");
 		return (1);
 	}
-	if (ft_search_cd(line, '"', '"') == 1)
+	if (ft_search_enclosing(line, '\"', '\"') == 1)
 	{
 		data->prompt_current = ft_strdup("dquote> ");
 		data->charfound = ft_strdup("\"");
@@ -95,9 +94,13 @@ static int		cmd_special(char *line, t_struct *data)
 	return (0);
 }
 
+/*
+**	Minishell cmd_special
+*/
+
 static int		ft_minishell_spe(t_struct *data, char **line)
 {
-	char	 *line_2;
+	char	*line_2;
 	int		quit;
 	int		ret;
 
@@ -113,11 +116,11 @@ static int		ft_minishell_spe(t_struct *data, char **line)
 		func_spe(line, &line_2, data);
 		ft_strdel(&line_2);
 	}
-	// add parse string for delete ' "
-	ret = ft_check_command(line, data);
+	ret = ft_check_command(line, data, 0);
 	ft_error(ret, line);
 	ft_strdel(&data->prompt_current);
 	ft_strdel(&data->charfound);
+	ft_strdel(&line_2);
 	return (ret);
 }
 
@@ -128,17 +131,21 @@ static int		ft_minishell_spe(t_struct *data, char **line)
 int				ft_minishell(char **line, t_struct *data)
 {
 	int			cmd;
+	int			quit;
 
 	cmd = 0;
-	while (1)
+	quit = 0;
+	while (quit == 0)
 	{
 		ft_display(data);
 		get_next_line(0, line);
-		if ((ft_strcmp("", *line)) != 0)
+		if ((ft_strcmp("exit", *line)) == 0)
+			quit = 1;
+		if ((ft_strcmp("", *line)) != 0 && quit == 0)
 		{
 			if (cmd_special(*line, data) == 0)
 			{
-				cmd = ft_check_command(line, data);
+				cmd = ft_check_command(line, data, 0);
 				ft_error(cmd, line);
 			}
 			else

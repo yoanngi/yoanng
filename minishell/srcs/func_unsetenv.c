@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:42 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 10:00:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:12:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,17 +72,9 @@ char			**func_unsetenv(char **line, t_struct *data)
 	tmp = NULL;
 	regex = ft_strsub(*line, 9, ft_strlen(*line) - 9);
 	if (ft_count(data->env, regex) < 1)
-	{
-		ft_putstr_fd("unsetenv: Pattern not found: ", 2);
-		ft_putstr_fd(regex, 2);
-		ft_putstr_fd("\n", 2);
-	}
+		ft_error_unset(regex, 1);
 	else if (ft_count(data->env, regex) > 1)
-	{
-		ft_putstr_fd("unsetenv: Multiple pattern found: ", 2);
-		ft_putstr_fd(regex, 2);
-		ft_putstr_fd("\n", 2);
-	}
+		ft_error_unset(regex, 2);
 	else
 	{
 		tmp = func_unsetenv_two(regex, data);

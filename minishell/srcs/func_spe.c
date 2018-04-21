@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   func_spe.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/21 09:57:38 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 10:01:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 13:20:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,28 +25,6 @@ static int			func_bracket(char **line, char **line_2, t_struct *data)
 	return (0);
 }
 
-static void			ft_clean_string(char **str, t_struct *data)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = ft_strdup(*str);
-	ft_strdel(str);
-	while (tmp[i])
-	{
-		if (tmp[i] == data->charfound[0])
-		{
-			*str = ft_strsub(tmp, 0, i);
-			ft_strdel(&tmp);
-			return ;
-		}
-		i++;
-	}
-	*str = ft_strdup(tmp);
-	ft_strdel(&tmp);
-}
-
 /*
 **	func_spe : check ' && "
 **	39 = '
@@ -60,17 +38,16 @@ int					func_spe(char **line, char **line_2, t_struct *data)
 
 	str = NULL;
 	tmp = NULL;
-	ft_clean_string(line_2, data);
-	if (*line[0] == 34 || *line[0] == 39)
+	if (data->charfound[0] == '\'' || data->charfound[0] == '\"')
 	{
-		str = ft_strdup("\\n");
+		str = ft_strdup("\n");
 		tmp = ft_strdup(*line);
 		ft_strdel(line);
 		*line = ft_strjoin(tmp, str);
 		ft_strdel(&tmp);
+		ft_strdel(&str);
 		tmp = ft_strjoin(*line, *line_2);
 		ft_strdel(line);
-		ft_strdel(&str);
 		*line = ft_strdup(tmp);
 		ft_strdel(&tmp);
 	}

@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_cmd_annexe.c                                  .::    .:/ .      .::   */
+/*   good_func.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 11:20:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/16 13:54:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 13:31:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		**ft_initialise_builtins(void)
-{
-	char	**tab;
-
-	if (!(tab = (char**)malloc(sizeof(char *) * 7)))
-		return (NULL);
-	tab[0] = ft_strdup("cd");
-	tab[1] = ft_strdup("echo");
-	tab[2] = ft_strdup("setenv");
-	tab[3] = ft_strdup("unsetenv");
-	tab[4] = ft_strdup("env");
-	tab[5] = ft_strdup("exit");
-	tab[6] = NULL;
-	return (tab);
-}
+/*
+**	start good function (for commande sup)
+*/
 
 static int		ft_search_func(char **line, t_struct *data, int i)
 {
@@ -41,25 +29,25 @@ static int		ft_search_func(char **line, t_struct *data, int i)
 		data->env = func_unsetenv(line, data);
 	else if (i == 4)
 		func_env(line, data);
-	else if (i == 5)
-		func_exit(line, data);
 	return (0);
 }
+
+/*
+**	Check if other commande is good
+*/
 
 int				ft_cmd_annexe(char **line, t_struct *data)
 {
 	char	**tab;
-	char	**builtins;
 	int		i;
 	int		ret;
 
 	tab = ft_strsplit(*line, ' ');
-	builtins = ft_initialise_builtins();
 	i = 0;
 	ret = 1;
-	while (builtins[i])
+	while (data->builtins[i])
 	{
-		if (ft_strcmp(tab[0], builtins[i]) == 0)
+		if (ft_strcmp(tab[0], data->builtins[i]) == 0)
 		{
 			ft_search_func(line, data, i);
 			ret = 0;
@@ -67,6 +55,5 @@ int				ft_cmd_annexe(char **line, t_struct *data)
 		i++;
 	}
 	ft_del_tab(tab);
-	ft_del_tab(builtins);
 	return (ret);
 }

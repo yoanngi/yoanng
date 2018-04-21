@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/04/15 13:24:02 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/04/21 13:30:50 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,21 +33,22 @@ INC = -I $(INC_PATH) -I $(LIB_PATH)includes/
 
 OBJ_NAME = $(N_SRCS:.c=.o)
 
-N_SRCS = 	ft_error.c\
-			ft_cmd_annexe.c\
+N_SRCS = 	main.c\
+			ft_error.c\
+			core_minishell.c\
 			ft_struct.c\
 			ft_fork.c\
-			func.c\
+			format_line.c\
 			func_spe.c\
 			func_access.c\
+			various_func.c\
+			ft_enclosing.c\
+			good_func.c\
 			func_cd.c\
 			func_echo.c\
-			func_exit.c\
 			func_env.c\
 			func_setenv.c\
 			func_unsetenv.c\
-			core_minishell.c\
-			main.c\
 
 all: $(NAME)
 

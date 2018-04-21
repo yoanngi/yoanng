@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:04:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 09:57:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 15:07:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,9 +22,11 @@ static int		good_path(char *target, char *cmd)
 	DIR				*dir;
 	struct dirent	*fl;
 	char			*tmp;
+	int				ret;
 
+	ret = 0;
 	tmp = ft_strsub(target, 0, (ft_strlen(target) - ft_strlen(cmd)));
-	if (!(dir = opendir(tmp)))
+	if ((dir = opendir(tmp)) == NULL)
 	{
 		ft_putstr_fd(tmp, 2);
 		ft_putstr_fd(" : Permission Denied\n", 2);
@@ -32,13 +34,14 @@ static int		good_path(char *target, char *cmd)
 		return (0);
 	}
 	ft_strdel(&tmp);
-	while ((fl = readdir(dir)) != NULL)
+	while (((fl = readdir(dir)) != NULL) && ret == 0)
 	{
 		if (ft_strcmp(cmd, fl->d_name) == 0)
-			return (1);
+			ret = 1;
 	}
-	closedir(dir);
-	return (0);
+	if ((closedir(dir)) == -1)
+		return (-1);
+	return (ret);
 }
 
 /*
@@ -58,7 +61,7 @@ int				ft_process(char *rep, char **cmd)
 	if (father < 0)
 	{
 		basic_error("Erreur de creation de processus");
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	else if (father == 0)
 	{

@@ -6,12 +6,31 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:05:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 13:00:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/21 14:34:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	initialise commande sup in struct
+*/
+
+static char		**ft_initialise_builtins(void)
+{
+	char	**tab;
+
+	if (!(tab = (char**)malloc(sizeof(char *) * 6)))
+		return (NULL);
+	tab[0] = ft_strdup("cd");
+	tab[1] = ft_strdup("echo");
+	tab[2] = ft_strdup("setenv");
+	tab[3] = ft_strdup("unsetenv");
+	tab[4] = ft_strdup("env");
+	tab[5] = NULL;
+	return (tab);
+}
 
 /*
 **	Take infos in Env
@@ -27,10 +46,13 @@ static char		*ft_check_infos(char **env, char *find)
 	while (env[i])
 	{
 		if (ft_strstr(env[i], find))
+		{
 			path = ft_strdup(env[i]);
+			return (path);
+		}
 		i++;
 	}
-	return (path);
+	return (NULL);
 }
 
 /*
@@ -84,6 +106,7 @@ t_struct		*ft_my_struct(char **env)
 	data->prompt = ft_strdup("$> ");
 	data->prompt_current = NULL;
 	data->charfound = NULL;
+	data->builtins = ft_initialise_builtins();
 	return (data);
 }
 
@@ -98,8 +121,11 @@ void			ft_delete_struct(t_struct *data)
 	ft_strdel(&data->home);
 	ft_strdel(&data->charfound);
 	ft_strdel(&data->current_path);
+	ft_strdel(&data->prompt);
+	ft_strdel(&data->prompt_current);
 	ft_del_tab(data->tab_path);
 	ft_del_tab(data->env);
+	ft_del_tab(data->builtins);
 	free(data);
 	data = NULL;
 }
