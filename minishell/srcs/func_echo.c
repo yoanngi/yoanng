@@ -93,6 +93,11 @@ int				func_echo(char **line, t_struct *data)
 		if ((ft_process(echo, tab)) > -1)
 		{
 			ft_strdel(&echo);
+			if (ft_strlen(*line) > 7)
+			{
+				if (ft_strcmp(tab[1], "-n") == 0)
+					ft_putstr("\033[7m%\033[0m\n");
+			}
 			ft_del_tab(tab);
 			return (0);
 		}
