@@ -8,7 +8,28 @@
 
 static void						proxy_suite(int fd)
 {
-	void(fd);
+	pid_t	pid;
+	char	buffer[512];
+	char	t1[512];
+	char	t2[512];
+	char	t3[10];
+
+	pid = fork();
+	bzero((char*)buffer,512);
+	bzero((char*)t1,512);
+	bzero((char*)t2,512);
+	bzero((char*)t3,10);
+	if (pid == 0)
+	{
+		while (1)
+		{
+			recv(fd,buffer,512,0);
+			sscanf(buffer,"%s %s %s",t1,t2,t3);
+
+		}
+	}
+	else
+		printf("Error: Process not run\n");
 }
 
 static struct sockaddr_in		ft_server_socket(int p)
