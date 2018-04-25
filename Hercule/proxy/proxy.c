@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/25 11:30:21 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 11:40:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 13:26:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,13 +43,13 @@ static int						verif(char *req, char *pro, char *url)
 
 static int						proxy_suite(int fd)
 {
-	struct stockaddr_in		c_addr;
+	struct sockaddr_in		c_addr;
 	socklen_t				c_len;
 	char					tmp[512];
 	int						client_fd;
 
 	c_len = sizeof(c_addr);
-	if ((client_fd = accept(server_socket, (struct sockaddr *)NULL, NULL)) < 0)
+	if ((client_fd = accept(fd, (struct sockaddr *)NULL, NULL)) < 0)
 		return (-1);
 	bzero((char*)tmp, 512);
 	if ((recv(fd, tmp, 512, 0)) < 0)
@@ -58,7 +58,7 @@ static int						proxy_suite(int fd)
 	return (0);
 }
 
-static void						check_request(int fd, char buf)
+void							check_request(int fd, char *buf)
 {
 	char	req[512];
 	char	url[512];
@@ -69,7 +69,10 @@ static void						check_request(int fd, char buf)
 	bzero((void *)pro, 10);
 	sscanf(buf, "%s %s %s", req, url, pro);
 	if (verif(req, pro, url) == 1)
+	{
+		strcpy(req, url);
 		analyse_request(fd, url, pro, req);
+	}
 	else
 		send(fd, "Error 400: BAD REQUEST\n", 18, 0);
 }

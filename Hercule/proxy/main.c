@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/25 11:30:30 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 11:33:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 13:11:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ static int		ft_usage(int ac, char **av)
 			return (1);
 		if (strcmp(av[1], "--h") == 0 || strcmp(av[1], "--help") == 0)
 			return (1);
-		if (atoi(av[1]) < 0 || atoi(av[1] > 65535))
+		if (atoi(av[1]) < 0 || atoi(av[1]) > 65535)
 			printf("Erreur : Port invalid\n");
 	}
 	return (0);

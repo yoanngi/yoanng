@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/25 11:30:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 11:30:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 13:08:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,8 @@
 # include <sys/types.h>
 # include <sys/socket.h>
 
-int				proxy(char **av);
+int				proxy(int p);
+void			check_request(int fd, char *buf);
+void			analyse_request(int fd, char *url, char *pro, char *req);
 
 #endif
