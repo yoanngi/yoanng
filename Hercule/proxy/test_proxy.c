@@ -95,7 +95,7 @@ accepting:
 			}
 
 			sprintf(t2,"%s",temp);
-			printf("host = %s",t2);
+			printf("(line 98) --> host = %s",t2);
 			host=gethostbyname(t2);
 
 			if(flag==1)
