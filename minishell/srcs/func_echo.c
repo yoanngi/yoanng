@@ -6,12 +6,33 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 09:47:24 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 15:54:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int		ft_check_split(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\' && str[i + 1] == 'n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static char		**ft_modif_tab(char **tab, int i)
+{
+	i = 1;
+	(void)tab;
+	return (NULL);
+}
 
 /*
 **	Part 2 : Split line for commande echo
@@ -71,6 +92,13 @@ static char		**func_split_echo(char *line)
 	tab = ft_strsplit(line, ' ');
 	if (quit == 1)
 		tab = func_split_echo_suite(tab, 1, 0, 0);
+	i = 1;
+	while (tab[i])
+	{
+		if (ft_check_split(tab[i]) == 1)
+			tab = ft_modif_tab(tab, i);
+		i++;
+	}
 	return (tab);
 }
 
@@ -87,6 +115,16 @@ int				func_echo(char **line, t_struct *data)
 
 	i = 0;
 	tab = func_split_echo(*line);
+	// debug
+	ft_putstr("DEBUG\n");
+	while (tab[i])
+	{
+		ft_putendl(tab[i]);
+		i++;
+	}
+	i = 0;
+	ft_putstr("END DEBUG\n");
+	// end debug
 	while (data->tab_path[i])
 	{
 		echo = ft_add_line(data->tab_path[i], "echo");
