@@ -6,12 +6,31 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:21:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/16 14:26:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 09:38:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char		*ft_tild(char *target, t_struct *data)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	if (ft_strlen(target) > 1)
+		tmp = ft_strsub(target, 1, ft_strlen(target) - 1);
+	else
+		tmp = ft_strdup("/");
+	ft_strdel(&target);
+	target = ft_strdup(data->home);
+	tmp2 = ft_strjoin(target, tmp);
+	ft_strdel(&target);
+	target = ft_strdup(tmp2);
+	ft_strdel(&tmp);
+	ft_strdel(&tmp2);
+	return (target);
+}
 
 /*
 **	Check target for change directory
@@ -31,16 +50,14 @@ static char		*func_return_target(char *line, t_struct *data)
 		target = ft_strdup(data->home);
 	else
 		target = ft_strdup(tab[i - 1]);
+	if (strstr(target, "~") != NULL)
+		target = ft_tild(target, data);
 	ft_del_tab(tab);
 	return (target);
 }
 
 /*
 **	Change directory
-*/
-
-/*
-**	Add pid in struct ?
 */
 
 int				func_cd(char **line, t_struct *data)

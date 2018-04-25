@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:04:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 15:53:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 10:46:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,10 +17,11 @@
 **	Error std
 */
 
-void		basic_error(char *name)
+void		basic_error(char *name, char *cmd)
 {
-	ft_putstr_fd("Error :", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(name, 2);
+	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd("\n", 2);
 }
 
@@ -41,9 +42,9 @@ void		ft_error_dir(char *name, char *pre)
 
 int			ft_error(int cmd, char **line)
 {
-	if (cmd == 0)
+	if (cmd == 0 || cmd == -2)
 		return (0);
-	else
+	if (cmd == 1)
 	{
 		ft_putstr_fd(*line, 2);
 		ft_putstr_fd(": command not found\n", 2);

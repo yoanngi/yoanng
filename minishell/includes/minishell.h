@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 15:52:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 10:35:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,7 @@ int					func_spe(char **line, char **line_2, t_struct *data);
 /*
 **	ft_error.c && func_access.c
 */
-void				basic_error(char *name);
+void				basic_error(char *name, char *cmd);
 int					ft_error(int cmd, char **line);
 void				ft_error_dir(char *name, char *pre);
 void				ft_error_unset(char *str, int what);
