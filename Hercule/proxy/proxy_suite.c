@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/25 11:35:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 13:34:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/25 14:26:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@ void		analyse_request(int fd, char *url, char *pro, char *req)
 {
 	int				flag;
 	int				i;
+	int				port;
 	char			*tmp;
 	struct hostent	*host;
 
@@ -31,12 +32,23 @@ void		analyse_request(int fd, char *url, char *pro, char *req)
 	}
 	tmp = strtok(req, "//");
 	if (flag == 0)
+	{
+		port = 80;
 		tmp = strtok(NULL, "/");
+	}
 	else
 		tmp = strtok(NULL, ":");
 	host = gethostbyname(pro);
-	printf("url = %s\n", url);
-	printf("pro = %s\n", pro);
-	printf("req = %s\n", req);
-	printf("fd = %d\n", fd);
+	if (flag == 1)
+	{
+		tmp = strtok(NULL, "/");
+		port = atoi(tmp);
+	}
+	strcat(url, "^]");
+	tmp = strtok(url, "//");
+	tmp = strtok(NULL, "/");
+	if (tmp != NULL)
+		tmp = strtok(NULL, "^]");
+	printf("path = %s, port = %d\n", tmp, port);
+
 }
