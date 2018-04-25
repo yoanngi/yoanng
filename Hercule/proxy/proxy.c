@@ -1,9 +1,22 @@
-#include "proxy.h"
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   proxy.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/04/25 11:30:21 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/25 11:40:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 
+#include "proxy.h"
 
 /*
 ** http://godlytalias.blogspot.fr/2013/02/simple-proxy-server-using-c.html
 ** https://forum.hardware.fr/hfr/Programmation/C/socket-programmer-proxy-sujet_88089_1.htm
+** https://stackoverflow.com/questions/226784/how-to-create-a-simple-proxy-in-c
 */
 
 static struct sockaddr_in		ft_server_socket(int p)
@@ -51,6 +64,9 @@ static void						check_request(int fd, char buf)
 	char	url[512];
 	char	pro[10];
 
+	bzero((void *)req, 512);
+	bzero((void *)url, 512);
+	bzero((void *)pro, 10);
 	sscanf(buf, "%s %s %s", req, url, pro);
 	if (verif(req, pro, url) == 1)
 		analyse_request(fd, url, pro, req);
