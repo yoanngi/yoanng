@@ -32,11 +32,9 @@ static struct sockaddr_in		ft_server_socket(int p)
 
 static int						verif(char *req, char *pro, char *url)
 {
-	if (strncmp(req, "GET", 3) != 0)
-		return (0);
-	if (strncmp(url, "http://", 7) != 0)
-		return (0);
-	if (strncmp(pro, "HTTP/1.1", 8) != 0 || strncmp(pro, "HTTP/1.0", 8) != 0)
+	if ((!strncmp(req, "GET", 3)) &&
+	(!strncmp(url, "http://", 7)) &&
+	((!strncmp(pro, "HTTP/1.1", 8)) || (!strncmp(pro, "HTTP/1.0", 8))))
 		return (0);
 	return (1);
 }
@@ -64,15 +62,21 @@ void							check_request(int fd, char *buf)
 	char	url[512];
 	char	pro[10];
 
-	bzero((void *)req, 512);
-	bzero((void *)url, 512);
-	bzero((void *)pro, 10);
+//	bzero((void *)req, 512);
+//	bzero((void *)url, 512);
+//	bzero((void *)pro, 10);
 	sscanf(buf, "%s %s %s", req, url, pro);
 	printf("sscan ok\n");
 	if (verif(req, pro, url) == 1)
+	{
+		printf("Verif ok : url = %s\n", url);
 		analyse_request(fd, url, pro);
+	}
 	else
+	{
+		printf("Verif NON ok : url = %s\n", url);
 		send(fd, "Error 400: BAD REQUEST\n", 18, 0);
+	}
 }
 
 int								proxy(int p)

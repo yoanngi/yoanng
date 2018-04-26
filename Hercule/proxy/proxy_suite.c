@@ -62,6 +62,7 @@ static char		*get_domain(char *url)
 	char	*ret;
 	char	*tmp;
 
+	printf("url = |%s|\n", url);
 	tmp = strdup(url);
 	ret = strtok(tmp, "//");
 	ret = strdup(strtok(NULL, "/"));
@@ -75,7 +76,8 @@ static char		*get_path(char *url)
 	char	*ret;
 	char	*tmp;
 
-	tmp = ft_strsub(url, 8, strlen(url) - 8);
+	tmp = strdup(url);
+	tmp += 8;
 	ret = strchr(tmp, '/');
 	free(tmp);
 	tmp = NULL;
