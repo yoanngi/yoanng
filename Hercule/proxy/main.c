@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/25 11:30:30 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 13:11:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/26 14:49:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,10 +45,10 @@ int				main(int ac, char **av)
 	printf("101 Proxy (Hercule Project)\n");
 	err = proxy(port);
 	if (err == 1)
-		printf("Erreur: socket failled\n");
+		printf("\nErreur: socket failled\n");
 	if (err == 2)
-		printf("Erreur: bind failled\n");
+		printf("\nErreur: bind failled\n");
 	if (err == 3)
-		printf("Erreur: connection failled\n");
+		printf("\nErreur: connection failled\n");
 	return (0);
 }

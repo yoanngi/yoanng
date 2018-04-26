@@ -6,13 +6,13 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 15:54:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/26 09:51:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static int		ft_check_split(char *str)
 {
 	int i;
@@ -33,7 +33,7 @@ static char		**ft_modif_tab(char **tab, int i)
 	(void)tab;
 	return (NULL);
 }
-
+*/
 /*
 **	Part 2 : Split line for commande echo
 **	34 = "
@@ -93,12 +93,12 @@ static char		**func_split_echo(char *line)
 	if (quit == 1)
 		tab = func_split_echo_suite(tab, 1, 0, 0);
 	i = 1;
-	while (tab[i])
-	{
-		if (ft_check_split(tab[i]) == 1)
-			tab = ft_modif_tab(tab, i);
-		i++;
-	}
+//	while (tab[i])
+//	{
+//		if (ft_check_split(tab[i]) == 1)
+//			tab = ft_modif_tab(tab, i);
+//		i++;
+//	}
 	return (tab);
 }
 
