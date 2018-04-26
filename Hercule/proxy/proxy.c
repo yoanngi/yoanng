@@ -69,10 +69,7 @@ void							check_request(int fd, char *buf)
 	bzero((void *)pro, 10);
 	sscanf(buf, "%s %s %s", req, url, pro);
 	if (verif(req, pro, url) == 1)
-	{
-		strcpy(req, url);
-		analyse_request(fd, url, pro, req);
-	}
+		analyse_request(fd, url, pro);
 	else
 		send(fd, "Error 400: BAD REQUEST\n", 18, 0);
 }
