@@ -99,14 +99,14 @@ void			analyse_request(int fd, char *url, char *pro)
 	i = send(fdc, buf, strlen(buf), 0);
 	if (i < 0)
 	{
-		printf("Error writing to socket");
+		printf("Error: socket");
 		return ;
 	}
 	i = 1;
 	while (i > 0)
 	{
-		bzero((char*)buf, 500);
-		i = recv(fdc, buf, 500, 0);
+		bzero((char*)buf, 512);
+		i = recv(fdc, buf, 512, 0);
 		if (i > 0)
 			send(fd, buf, i, 0);
 	}

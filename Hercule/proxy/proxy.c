@@ -49,11 +49,11 @@ static int						proxy_suite(int fd)
 	int						client_fd;
 
 	c_len = sizeof(c_addr);
-	if ((client_fd = accept(fd, (struct sockaddr *)NULL, NULL)) < 0)
+	client_fd = accept(fd, (struct sockaddr *)NULL, NULL);
+	if (client_fd < 0)
 		return (-1);
 	bzero((char*)tmp, 512);
-	if ((recv(fd, tmp, 512, 0)) < 0)
-		return (-1);
+	recv(fd, tmp, 512, 0);
 	check_request(client_fd, tmp);
 	return (0);
 }
@@ -68,6 +68,7 @@ void							check_request(int fd, char *buf)
 	bzero((void *)url, 512);
 	bzero((void *)pro, 10);
 	sscanf(buf, "%s %s %s", req, url, pro);
+	printf("sscan ok\n");
 	if (verif(req, pro, url) == 1)
 		analyse_request(fd, url, pro);
 	else
@@ -77,20 +78,17 @@ void							check_request(int fd, char *buf)
 int								proxy(int p)
 {
 	int					server_socket;
-	int					ret;
 	struct sockaddr_in	s_addr;
 
-	ret = 0;
 	if ((server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
 		return (1);
 	s_addr = ft_server_socket(p);
 	if (bind(server_socket, (struct sockaddr *)&s_addr, sizeof(s_addr)) < 0)
 		return (2);
 	listen(server_socket, 42);
-	while (ret == 0)
-		ret = proxy_suite(server_socket);
-	if (ret == -1)
-		return (3);
+	printf("Listening...\n");
+	while (1)
+		proxy_suite(server_socket);
 	close(server_socket);
 	return (0);
 }

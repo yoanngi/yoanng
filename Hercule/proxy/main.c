@@ -42,6 +42,7 @@ int				main(int ac, char **av)
 		return (0);
 	}
 	port = atoi(av[1]);
+	printf("101 Proxy (Hercule Project)\n");
 	err = proxy(port);
 	if (err == 1)
 		printf("Erreur: socket failled\n");
