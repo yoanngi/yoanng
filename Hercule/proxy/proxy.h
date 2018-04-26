@@ -26,6 +26,6 @@
 
 int				proxy(int p);
 void			check_request(int fd, char *buf);
-void			analyse_request(int fd, char *url, char *pro, char *req);
+int				analyse_request(int fd, char *url, char *pro, char *req);
 
 #endif
