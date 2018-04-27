@@ -12,28 +12,51 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 static int		ft_check_split(char *str)
 {
-	int i;
+	int		i;
+	int		nb;
+	size_t	len;
 
 	i = 0;
-	while (str[i])
+	nb = 0;
+	len = ft_strlen(str);
+	while (i < (int)len)
 	{
-		if (str[i] == '\' && str[i + 1] == 'n')
-			return (1);
+		if (str[i] == '\\' && str[i + 1] == 'n')
+		{
+			nb++;
+			i += 1;
+		}
+		if (str[i] == '\\' && str[i + 1] == 't')
+		{
+			nb++;
+			i += 1;
+		}
 		i++;
 	}
+	if (nb != 0)
+		return (nb);
 	return (0);
 }
 
-static char		**ft_modif_tab(char **tab, int i)
+static char		**ft_modif_tab(char **tab, int i, int nb)
 {
-	i = 1;
-	(void)tab;
-	return (NULL);
+	int		len;
+	int		compt;
+	char	**new;
+
+	len = ft_len_tab(tab);
+	compt = 0;
+	new = (char **)malloc(sizeof(char *) * (len + nb + 1));
+	while (compt != (len + nb))
+	{
+		compt++;
+	}
+	return (tab);
 }
-*/
+
 /*
 **	Part 2 : Split line for commande echo
 **	34 = "
@@ -93,12 +116,13 @@ static char		**func_split_echo(char *line)
 	if (quit == 1)
 		tab = func_split_echo_suite(tab, 1, 0, 0);
 	i = 1;
-//	while (tab[i])
-//	{
-//		if (ft_check_split(tab[i]) == 1)
-//			tab = ft_modif_tab(tab, i);
-//		i++;
-//	}
+	quit = 0;
+	while (tab[i])
+	{
+		if ((quit = ft_check_split(tab[i])) != 0)
+			tab = ft_modif_tab(tab, i, quit);
+		i++;
+	}
 	return (tab);
 }
 
@@ -115,16 +139,6 @@ int				func_echo(char **line, t_struct *data)
 
 	i = 0;
 	tab = func_split_echo(*line);
-	// debug
-	ft_putstr("DEBUG\n");
-	while (tab[i])
-	{
-		ft_putendl(tab[i]);
-		i++;
-	}
-	i = 0;
-	ft_putstr("END DEBUG\n");
-	// end debug
 	while (data->tab_path[i])
 	{
 		echo = ft_add_line(data->tab_path[i], "echo");
