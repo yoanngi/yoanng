@@ -12,7 +12,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static int		ft_check_split(char *str)
 {
 	int		i;
@@ -45,18 +45,29 @@ static char		**ft_modif_tab(char **tab, int i, int nb)
 {
 	int		len;
 	int		compt;
+	int		ct;
 	char	**new;
 
 	len = ft_len_tab(tab);
 	compt = 0;
+	ct = 0
 	new = (char **)malloc(sizeof(char *) * (len + nb + 1));
 	while (compt != (len + nb))
 	{
+		if (compt < i)
+		{
+			new[compt] = ft_strdup(tab[ct]);
+			ct++;
+		}
+		else
+		{
+			
+		}
 		compt++;
 	}
 	return (tab);
 }
-
+*/
 /*
 **	Part 2 : Split line for commande echo
 **	34 = "
@@ -117,12 +128,21 @@ static char		**func_split_echo(char *line)
 		tab = func_split_echo_suite(tab, 1, 0, 0);
 	i = 1;
 	quit = 0;
-	while (tab[i])
-	{
-		if ((quit = ft_check_split(tab[i])) != 0)
-			tab = ft_modif_tab(tab, i, quit);
-		i++;
-	}
+//	while (tab[i])
+//	{
+//		if ((quit = ft_check_split(tab[i])) != 0)
+//			tab = ft_modif_tab(tab, i, quit);
+//		i++;
+//	}
+	char	**test;
+
+	test = (char **)malloc(sizeof(char *) * 5);
+	test[0] = ft_strdup("echo");
+	test[1] = ft_strdup("bonjour\n");
+	test[2] = ft_strdup("ca\n");
+	test[3] = ft_strdup("va\n");
+	test[4] = NULL;
+	return (test);
 	return (tab);
 }
 
