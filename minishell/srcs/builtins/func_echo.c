@@ -25,25 +25,6 @@ static void		option_echo(int j)
 		ft_putendl("\033[7m%\033[0m");
 }
 
-/*
-**	Print good line env
-*/
-
-static void		echo_env(char *str, t_struct *data)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	tmp = ft_strsub(str, 1, ft_strlen(str) - 1);
-	while (data->env[i])
-	{
-		if (ft_strncmp(tmp, data->env[i], ft_strlen(tmp)) == 0)
-			ft_putstr(data->env[i] + ft_strlen(str));
-		i++;
-	}
-	ft_strdel(&tmp);
-}
 
 /*
 **	Print good char special if is in the line
@@ -69,10 +50,6 @@ static int		echo_clear_suite(char *str, int i)
 	return (0);
 }
 
-/*
-**	Check special char && print line
-*/
-
 static void		echo_clear_string(char *str)
 {
 	int		i;
@@ -81,11 +58,7 @@ static void		echo_clear_string(char *str)
 
 	i = 0;
 	ret = 0;
-	if (ft_strstr(str, "\\r") != NULL || ft_strstr(str, "\\b") != NULL)
-	{
-		ft_putstr("char special r or b\n");
-		return ;
-	}
+	echo_clear_special(&str);
 	len = ft_strlen(str);
 	while (i < (int)len)
 	{
@@ -104,40 +77,24 @@ static void		echo_clear_string(char *str)
 		}
 	}
 }
-/*
-**	Print line and check \[...]
-*/
-
-static void		echo_clear_string_simple(char *str)
-{
-	int		i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
-	{
-		if (str[i] == '\0')
-			return ;
-		else if (str[i] == '\\' && str[i + 1] != '\\')
-		{
-			i++;
-			ft_putchar(str[i]);
-		}
-		else if (str[i] == '\\' && str[i + 1] == '\\')
-		{
-			ft_putstr("\t");
-			i += 2;
-		}
-		else
-			ft_putchar(str[i]);
-		i++;
-	}
-}
 
 /*
 **	Core echo
 */
+
+static void		func_echo_suite(char **tab, int i, t_struct *data)
+{
+	while (tab[i])
+	{
+		if (ft_strstr(tab[i], "$") != NULL)
+			echo_env(tab[i], data);
+		else if (ft_strstr(tab[i], "\"") != NULL || ft_strstr(tab[i], "\'") != NULL)
+			echo_clear_string(tab[i]);
+		else
+			echo_clear_string_simple(tab[i]);
+		i++;
+	}
+}
 
 int				func_echo(char **line, t_struct *data)
 {
@@ -155,16 +112,7 @@ int				func_echo(char **line, t_struct *data)
 	i = 1;
 	if (j == 1)
 		i = 2;
-	while (tab[i])
-	{
-		if (ft_strstr(tab[i], "$") != NULL)
-			echo_env(tab[i], data);
-		else if (ft_strstr(tab[i], "\"") != NULL || ft_strstr(tab[i], "\'") != NULL)
-			echo_clear_string(tab[i]);
-		else
-			echo_clear_string_simple(tab[i]);
-		i++;
-	}
+	func_echo_suite(tab, i, data);
 	option_echo(j);
 	ft_del_tab(tab);
 	return (0);

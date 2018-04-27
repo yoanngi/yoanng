@@ -107,12 +107,16 @@ int					ft_cmd_annexe(char **line, t_struct *data);
 /*
 **	func_cd.c
 **	func_echo.c
+**	func_echo_suite.c
 **	func_setenv.c
 **	func_unsetenv.c
 **	func_env.c
 */
 int					func_cd(char **line, t_struct *data);
 int					func_echo(char **line, t_struct *data);
+void	 		   	echo_clear_string_simple(char *str);
+void	    		echo_clear_special(char **str);
+void	    		echo_env(char *str, t_struct *data);
 char				**func_setenv(char **line, t_struct *data);
 char				**func_unsetenv(char **line, t_struct *data);
 void				func_env(char **line, t_struct *data);

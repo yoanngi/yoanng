@@ -28,10 +28,8 @@ OBJ_PATH = ./obj/
 LIB_PATH = ./libft/
 
 SRC = $(addprefix $(SRC_PATH),$(N_SRCS))
-OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
+OBJ = $(addprefix $(OBJ_PATH), $(N_SRCS:.c=.o))
 INC = -I $(INC_PATH) -I $(LIB_PATH)includes/
-
-OBJ_NAME = $(N_SRCS:.c=.o)
 
 N_SRCS = 	main.c\
 			ft_error.c\
@@ -46,10 +44,11 @@ N_SRCS = 	main.c\
 			ft_enclosing.c\
 			good_func.c\
 			func_cd.c\
-			func_echo.c\
-			func_env.c\
-			func_setenv.c\
-			func_unsetenv.c\
+			builtins/func_echo.c\
+			builtins/func_echo_suite.c\
+			builtins/func_env.c\
+			builtins/func_setenv.c\
+			builtins/func_unsetenv.c\
 
 all: $(NAME)
 
@@ -61,6 +60,7 @@ $(NAME): $(OBJ)
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@echo "$(VERT)\c"
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/builtins
 	@$(CC) -c $(FLAGS) $(INC) -o $@ $<
 	@echo -n █
 	@echo "$(NOCOLOR)\c"
