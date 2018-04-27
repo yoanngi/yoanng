@@ -6,177 +6,166 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/26 09:51:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/04/27 15:49:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
-static int		ft_check_split(char *str)
+**	if option -n, print %
+*/
+
+static void		option_echo(int j)
+{
+	if (j == 0)
+		ft_putchar('\n');
+	else
+		ft_putendl("\033[7m%\033[0m");
+}
+
+/*
+**	Print good line env
+*/
+
+static void		echo_env(char *str, t_struct *data)
 {
 	int		i;
-	int		nb;
-	size_t	len;
+	char	*tmp;
 
 	i = 0;
-	nb = 0;
-	len = ft_strlen(str);
-	while (i < (int)len)
+	tmp = ft_strsub(str, 1, ft_strlen(str) - 1);
+	while (data->env[i])
 	{
-		if (str[i] == '\\' && str[i + 1] == 'n')
-		{
-			nb++;
-			i += 1;
-		}
-		if (str[i] == '\\' && str[i + 1] == 't')
-		{
-			nb++;
-			i += 1;
-		}
+		if (ft_strncmp(tmp, data->env[i], ft_strlen(tmp)) == 0)
+			ft_putstr(data->env[i] + ft_strlen(str));
 		i++;
 	}
-	if (nb != 0)
-		return (nb);
+	ft_strdel(&tmp);
+}
+
+/*
+**	Print good char special if is in the line
+*/
+
+static int		echo_clear_suite(char *str, int i)
+{
+	if (str[i] == '\\' && (str[i + 1] == 'n' || str[i + 1] == 't' ||
+	str[i + 1] == 'a' || str[i + 1] == 'v' || str[i + 1] == 'f'))
+	{
+		if (str[i + 1] == 'n')
+			ft_putstr("\n");
+		else if (str[i + 1] == 't')
+			ft_putstr("\t");
+		else if (str[i + 1] == 'a')
+			ft_putstr("\a");
+		else if (str[i + 1] == 'v')
+			ft_putstr("\v");
+		else if (str[i + 1] == 'f')
+			ft_putstr("\f");
+		return (2);
+	}
 	return (0);
 }
 
-static char		**ft_modif_tab(char **tab, int i, int nb)
-{
-	int		len;
-	int		compt;
-	int		ct;
-	char	**new;
-
-	len = ft_len_tab(tab);
-	compt = 0;
-	ct = 0
-	new = (char **)malloc(sizeof(char *) * (len + nb + 1));
-	while (compt != (len + nb))
-	{
-		if (compt < i)
-		{
-			new[compt] = ft_strdup(tab[ct]);
-			ct++;
-		}
-		else
-		{
-			
-		}
-		compt++;
-	}
-	return (tab);
-}
-*/
 /*
-**	Part 2 : Split line for commande echo
-**	34 = "
-**	92 = \
+**	Check special char && print line
 */
 
-static char		**func_split_echo_suite(char **tab, int i, int j1, int j2)
+static void		echo_clear_string(char *str)
 {
-	char	*tmp;
-
-	while (tab[i])
-	{
-		j1 = 0;
-		j2 = 0;
-		tmp = ft_strnew(ft_strlen(tab[i]));
-		while (tab[i][j1])
-		{
-			if (tab[i][j1] == 34 && tab[i][j1 - 1] != 92)
-				j1++;
-			else
-			{
-				tmp[j2] = tab[i][j1];
-				j1++;
-				j2++;
-			}
-		}
-		tmp[j2] = '\0';
-		ft_strdel(&tab[i]);
-		tab[i] = ft_strdup(tmp);
-		ft_strdel(&tmp);
-		i++;
-	}
-	return (tab);
-}
-
-/*
-**	Part 1 : Split line for commande echo
-**	34 = "
-**	92 = \
-*/
-
-static char		**func_split_echo(char *line)
-{
-	char	**tab;
 	int		i;
-	int		quit;
+	int		ret;
+	size_t	len;
 
 	i = 0;
-	quit = 0;
-	while (quit == 0 && ((size_t)i < ft_strlen(line)))
+	ret = 0;
+	if (ft_strstr(str, "\\r") != NULL || ft_strstr(str, "\\b") != NULL)
 	{
-		if (line[i] == 34 && line[i - 1] != 92)
-			quit = 1;
+		ft_putstr("char special r or b\n");
+		return ;
+	}
+	len = ft_strlen(str);
+	while (i < (int)len)
+	{
+		if (str[i] == '\"')
+			i++;
+		else
+		{
+			ret = echo_clear_suite(str, i);
+			if (ret == 0)
+			{
+				ft_putchar(str[i]);
+				i++;
+			}
+			else
+				i += ret;
+		}
+	}
+}
+/*
+**	Print line and check \[...]
+*/
+
+static void		echo_clear_string_simple(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (str == NULL)
+		return ;
+	while (str[i])
+	{
+		if (str[i] == '\0')
+			return ;
+		else if (str[i] == '\\' && str[i + 1] != '\\')
+		{
+			i++;
+			ft_putchar(str[i]);
+		}
+		else if (str[i] == '\\' && str[i + 1] == '\\')
+		{
+			ft_putstr("\t");
+			i += 2;
+		}
+		else
+			ft_putchar(str[i]);
 		i++;
 	}
-	tab = ft_strsplit(line, ' ');
-	if (quit == 1)
-		tab = func_split_echo_suite(tab, 1, 0, 0);
-	i = 1;
-	quit = 0;
-//	while (tab[i])
-//	{
-//		if ((quit = ft_check_split(tab[i])) != 0)
-//			tab = ft_modif_tab(tab, i, quit);
-//		i++;
-//	}
-	char	**test;
-
-	test = (char **)malloc(sizeof(char *) * 5);
-	test[0] = ft_strdup("echo");
-	test[1] = ft_strdup("bonjour\n");
-	test[2] = ft_strdup("ca\n");
-	test[3] = ft_strdup("va\n");
-	test[4] = NULL;
-	return (test);
-	return (tab);
 }
 
 /*
 **	Core echo
-**	!!!!!!!!!!! dquote a gerer ?
 */
 
 int				func_echo(char **line, t_struct *data)
 {
-	int		i;
 	char	**tab;
-	char	*echo;
+	int		i;
+	int		j;
 
-	i = 0;
-	tab = func_split_echo(*line);
-	while (data->tab_path[i])
+	j = 0;
+	tab = ft_strsplit(*line, ' ');
+	if (ft_len_tab(tab) >= 1)
 	{
-		echo = ft_add_line(data->tab_path[i], "echo");
-		if ((ft_process(echo, tab)) > -1)
-		{
-			ft_strdel(&echo);
-			if (ft_strlen(*line) > 7)
-			{
-				if (ft_strcmp(tab[1], "-n") == 0)
-					ft_putstr("\033[7m%\033[0m\n");
-			}
-			ft_del_tab(tab);
-			return (0);
-		}
-		ft_strdel(&echo);
+		if (ft_strcmp(tab[1], "-n") == 0)
+			j = 1;
+	}
+	i = 1;
+	if (j == 1)
+		i = 2;
+	while (tab[i])
+	{
+		if (ft_strstr(tab[i], "$") != NULL)
+			echo_env(tab[i], data);
+		else if (ft_strstr(tab[i], "\"") != NULL || ft_strstr(tab[i], "\'") != NULL)
+			echo_clear_string(tab[i]);
+		else
+			echo_clear_string_simple(tab[i]);
 		i++;
 	}
+	option_echo(j);
 	ft_del_tab(tab);
-	ft_error(1, line);
-	return (1);
+	return (0);
 }
