@@ -14,33 +14,11 @@
 #include "minishell.h"
 
 /*
-**	Search c && d in string
+**	Search if open a new term in term
 */
 
-int			ft_search_enclosing(char *str, char c, char d)
+int			ft_search_enclosing(char **str)
 {
-	int		i;
-	int		prime;
-	int		two;
-	int		len;
-
-	i = 0;
-	prime = 0;
-	two = 0;
-	len = ft_strlen(str);
-	if (len == 1 && str[0] == c)
-		return (1);
-	while (str[i])
-	{
-		if (str[i] == c)
-			prime++;
-		if (str[i] == d)
-			two++;
-		i++;
-	}
-	if (prime == 0 || prime == two)
-		return (0);
-	if (c == d && (prime % 2 != 0))
-		return (1);
-	return (1);
+	(void)str;
+	return (0);
 }

@@ -94,7 +94,7 @@ int					ft_dir_exist(char *path);
 /*
 **	ft_enclosing.c
 */
-int					ft_search_enclosing(char *str, char c, char d);
+int					ft_search_enclosing(char **str);
 /*
 **	format_line.c
 */

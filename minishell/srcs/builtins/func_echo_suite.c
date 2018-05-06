@@ -20,10 +20,20 @@
 void			echo_env(char *str, t_struct *data)
 {
 	int		i;
+	size_t	len;
+	int		start;
 	char	*tmp;
 
 	i = 0;
-	tmp = ft_strsub(str, 1, ft_strlen(str) - 1);
+	start = 1;
+	len = ft_strlen(str);
+	if ((str[0] == '\'' && str[(int)len - 1] == '\'')
+	|| (str[0] == '\"' && str[(int)len - 1] == '\"'))
+	{
+		start = 2;
+		len -= 2;
+	}
+	tmp = ft_strsub(str, start, len - 1);
 	while (data->env[i])
 	{
 		if (ft_strncmp(tmp, data->env[i], ft_strlen(tmp)) == 0)

@@ -66,25 +66,28 @@ static int		ft_check_command(char **line, t_struct *data, int epur)
 
 static int		cmd_special(char *line, t_struct *data)
 {
-	if (ft_search_enclosing(line, '(', ')') == 1)
+	int		ret;
+
+	ret = ft_search_enclosing(&line);
+	if (ret == 1)
 	{
 		data->prompt_current = ft_strdup("subsh> ");
 		data->charfound = ft_strdup(")");
 		return (1);
 	}
-	if (ft_search_enclosing(line, '{', '}') == 1)
+	if (ret == 2)
 	{
 		data->prompt_current = ft_strdup("cursh> ");
 		data->charfound = ft_strdup("}");
 		return (1);
 	}
-	if (ft_search_enclosing(line, '\'', '\'') == 1)
+	if (ret == 3)
 	{
 		data->prompt_current = ft_strdup("quote> ");
 		data->charfound = ft_strdup("\'");
 		return (1);
 	}
-	if (ft_search_enclosing(line, '\"', '\"') == 1)
+	if (ret == 4)
 	{
 		data->prompt_current = ft_strdup("dquote> ");
 		data->charfound = ft_strdup("\"");

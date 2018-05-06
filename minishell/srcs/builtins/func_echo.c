@@ -62,7 +62,7 @@ static void		echo_clear_string(char *str)
 	len = ft_strlen(str);
 	while (i < (int)len)
 	{
-		if (str[i] == '\"')
+		if (str[i] == '\"' || str[i] == '\'')
 			i++;
 		else
 		{
@@ -84,6 +84,9 @@ static void		echo_clear_string(char *str)
 
 static void		func_echo_suite(char **tab, int i, t_struct *data)
 {
+	int		len;
+
+	len = ft_len_tab(tab);
 	while (tab[i])
 	{
 		if (ft_strstr(tab[i], "$") != NULL)
@@ -92,6 +95,8 @@ static void		func_echo_suite(char **tab, int i, t_struct *data)
 			echo_clear_string(tab[i]);
 		else
 			echo_clear_string_simple(tab[i]);
+		if (i < len - 1)
+			ft_putchar(' ');
 		i++;
 	}
 }
