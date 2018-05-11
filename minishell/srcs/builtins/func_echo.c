@@ -17,7 +17,7 @@
 **	Print special char
 */
 
-static int		ft_print_special(char *str, int i, int len)
+int				ft_print_special(char *str, int i, int len)
 {
 	if (i >= len)
 		return (0);
@@ -37,24 +37,6 @@ static int		ft_print_special(char *str, int i, int len)
 		return (2);
 	}
 	return (0);
-}
-
-/*
-**	Print char or go to print special char
-*/
-
-static int		ft_print_echo_suite(char *str, int i, int len, int quote)
-{
-	if ((str[i] == '\'' || str[i] == '\"') && quote == 1)
-		ft_putchar(str[i]);
-	else if ((str[i] == '\\') && quote == 1)
-	{
-		ft_print_special(str, i, len);
-		return (2);
-	}
-	else if (str[i] > 31)
-		ft_putchar(str[i]);
-	return (1);
 }
 
 /*

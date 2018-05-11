@@ -122,6 +122,8 @@ int					func_echo(char **line, t_struct *data);
 void				option_echo(int j, t_struct *data);
 int					ft_check_option(char *line, int n_or_e);
 int					ft_search_env(char *str, int i, t_struct *data);
+void				ft_print_echo(char *str, t_struct *data, size_t len);
+int					ft_print_special(char *str, int i, int len);
 
 char				**func_setenv(char **line, t_struct *data);
 char				**func_unsetenv(char **line, t_struct *data);
