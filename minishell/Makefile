@@ -48,6 +48,7 @@ N_SRCS = 	main.c\
 			builtins/func_echo_suite.c\
 			builtins/func_echo_print.c\
 			builtins/func_env.c\
+			builtins/func_env_print.c\
 			builtins/func_setenv.c\
 			builtins/func_unsetenv.c\
 

@@ -65,28 +65,11 @@ static void		env_dir(char **tab, t_struct *data)
 }
 
 /*
-**	Print all env
-*/
-
-static void		print_full_env(t_struct *data)
-{
-	int		i;
-
-	i = 0;
-	while (data->env[i])
-	{
-		ft_putendl(data->env[i]);
-		i++;
-	}
-}
-
-/*
 **	Core env
 */
 
 void			func_env(char **line, t_struct *data)
 {
-	int		len;
 	char	**tmp;
 
 	tmp = NULL;
@@ -95,11 +78,14 @@ void			func_env(char **line, t_struct *data)
 	else
 	{
 		tmp = ft_strsplit(*line, ' ');
-		len = ft_len_tab(tmp);
-		if (len == 2)
-			env_dir(tmp, data);
+		if (ft_strcmp(tmp[1], "-iv") == 0)
+			ft_putstr("-iv\n");
+		if (ft_strcmp(tmp[1], "-i") == 0)
+			ft_putstr("-i\n");
+		if (ft_strcmp(tmp[1], "-u") == 0)
+			ft_putstr("-u\n");
 		else
-			ft_error_dir(tmp[1], "env: ");
+			env_dir(tmp, data);
 		ft_del_tab(tmp);
 	}
 }

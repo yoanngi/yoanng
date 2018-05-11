@@ -115,17 +115,17 @@ int					ft_cmd_annexe(char **line, t_struct *data);
 **	func_setenv.c
 **	func_unsetenv.c
 **	func_env.c
+**	func_env_print.c
 */
 int					func_cd(char **line, t_struct *data);
-
 int					func_echo(char **line, t_struct *data);
 void				option_echo(int j, t_struct *data);
 int					ft_check_option(char *line, int n_or_e);
 int					ft_search_env(char *str, int i, t_struct *data);
 void				ft_print_echo(char *str, t_struct *data, size_t len);
 int					ft_print_special(char *str, int i, int len);
-
 char				**func_setenv(char **line, t_struct *data);
 char				**func_unsetenv(char **line, t_struct *data);
 void				func_env(char **line, t_struct *data);
+void				print_full_env(t_struct *data);
 #endif
