@@ -22,7 +22,7 @@ int				main(int argc, char **argv, char **env)
 	(void)argv;
 	line = NULL;
 	data = ft_my_struct(env);
-	ft_minishell(&line, data);
+	ft_minishell(&line, data, 0, 0);
 	ft_strdel(&line);
 	ft_delete_struct(data);
 	return (0);

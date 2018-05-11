@@ -94,31 +94,29 @@ static int		ft_minishell_spe(t_struct *data, char **line)
 **	Core Minishell
 */
 
-int				ft_minishell(char **line, t_struct *data)
+int				ft_minishell(char **line, t_struct *data, int q, int cmd)
 {
-	int			cmd;
-	int			quit;
-
-	cmd = 0;
-	quit = 0;
-	while (quit == 0)
+	while (q == 0)
 	{
 		ft_display(data);
+		signal(SIGINT, ft_control_c);
 		get_next_line(0, line);
-		signal(SIGINT, monsignal);
-		if ((ft_strcmp("exit", *line)) == 0)
-			quit = 1;
-		if ((ft_strcmp("", *line)) != 0 && quit == 0)
+		if (*line != NULL)
 		{
-			if (cmd_special(*line, data, 0) == 0)
+			if ((ft_strcmp("exit", *line)) == 0)
+				q = 1;
+			if ((ft_strcmp("", *line)) != 0 && q == 0)
 			{
-				cmd = ft_check_command(line, data, 0);
-				ft_error(cmd, line);
+				if (cmd_special(*line, data, 0) == 0)
+				{
+					cmd = ft_check_command(line, data, 0);
+					ft_error(cmd, line);
+				}
+				else
+					ft_minishell_spe(data, line);
 			}
-			else
-				ft_minishell_spe(data, line);
+			ft_strdel(line);
 		}
-		ft_strdel(line);
 	}
 	return (0);
 }

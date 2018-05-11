@@ -50,6 +50,7 @@ typedef struct		s_struct
 	char			**env;
 	char			**builtins;
 	int				option_echo;
+	char			*char_echo;
 }					t_struct;
 
 /*
@@ -59,11 +60,11 @@ typedef struct		s_struct
 /*
 **	minishell.c
 */
-int					ft_minishell(char **line, t_struct *data);
+int					ft_minishell(char **line, t_struct *data, int q, int cmd);
 /*
 **	func_signal.c
 */
-void				monsignal(int sig);
+void				ft_control_c(int sig);
 /*
 **	func_spe.c
 */
@@ -110,6 +111,7 @@ int					ft_cmd_annexe(char **line, t_struct *data);
 **	func_cd.c
 **	func_echo.c
 **	func_echo_suite.c
+**	func_echo_print.c
 **	func_setenv.c
 **	func_unsetenv.c
 **	func_env.c

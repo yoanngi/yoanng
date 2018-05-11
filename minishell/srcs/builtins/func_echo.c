@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/11 11:04:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/11 14:02:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,39 +55,6 @@ static int		ft_print_echo_suite(char *str, int i, int len, int quote)
 	else if (str[i] > 31)
 		ft_putchar(str[i]);
 	return (1);
-}
-
-/*
-**	verify if print env
-*/
-
-static void		ft_print_echo(char *str, t_struct *data, size_t len)
-{
-	int		quote;
-	int		i;
-
-	quote = 0;
-	i = 0;
-	len = ft_strlen(str);
-	while (str[i])
-	{
-		if ((str[i] == '\"' || str[i] == '\'') && quote == 0)
-			quote = 1;
-		else if ((str[i] == '\"' || str[i] == '\'') && quote == 1)
-			quote = 0;
-		else
-		{
-			if (str[i] == '$')
-				i += ft_search_env(str, i, data);
-			else
-			{
-				i += ft_print_echo_suite(str, i, (int)len, quote);
-				data->option_echo = 0;
-			}
-			i--;
-		}
-		i++;
-	}
 }
 
 /*

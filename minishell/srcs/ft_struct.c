@@ -106,6 +106,8 @@ t_struct		*ft_my_struct(char **env)
 	data->prompt = ft_strdup("$> ");
 	data->prompt_current = NULL;
 	data->charfound = NULL;
+	data->char_echo = NULL;
+	data->option_echo = 0;
 	data->builtins = ft_initialise_builtins();
 	return (data);
 }

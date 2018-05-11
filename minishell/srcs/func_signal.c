@@ -13,7 +13,11 @@
 
 #include "minishell.h"
 
-void		monsignal(int sig)
+/*
+**	Gestion du control C
+*/
+
+void		ft_control_c(int sig)
 {
 	if (sig & SIGINT)
 	{
