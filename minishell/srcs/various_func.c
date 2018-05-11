@@ -38,13 +38,44 @@ char		*ft_del_tab(char **tab)
 **	Add commande in end of path
 */
 
-char		*ft_add_line(char *str, char *add)
+static char	*ft_cmp_path(char *str, char **add)
+{
+	int		i;
+	char	*tmp;
+
+	i = ft_strlen(*add);
+	tmp = ft_strdup(*add);
+	while (i > 0 && tmp[i] != '/')
+		i--;
+	ft_strdel(&tmp);
+	tmp = ft_strsub(*add, 0, i);
+	if (ft_strcmp(tmp, str) == 0)
+	{
+		ft_strdel(&tmp);
+		tmp = ft_strdup(*add);
+		ft_strdel(add);
+		*add = ft_strsub(tmp, i + 1, (ft_strlen(tmp) - i - 1));
+		return (tmp);
+	}
+	else
+		ft_strdel(&tmp);
+	return (NULL);
+}
+
+char		*ft_add_line(char *str, char **add)
 {
 	char	*tmp;
 	char	*new;
 
+	tmp = NULL;
+	new = NULL;
+	if (ft_strstr(*add, "/") != NULL)
+	{
+		new = ft_cmp_path(str, add);
+		return (new);
+	}
 	tmp = ft_strjoin(str, "/");
-	new = ft_strjoin(tmp, add);
+	new = ft_strjoin(tmp, *add);
 	ft_strdel(&tmp);
 	return (new);
 }

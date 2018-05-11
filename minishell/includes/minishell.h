@@ -92,7 +92,7 @@ int					ft_process(char *rep, char **cmd);
 **	various_func.c
 */
 char				*ft_del_tab(char **tab);
-char				*ft_add_line(char *str, char *add);
+char				*ft_add_line(char *str, char **add);
 int					ft_len_tab(char **tab);
 int					ft_dir_exist(char *path);
 /*

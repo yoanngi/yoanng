@@ -46,7 +46,7 @@ static int		ft_check_command(char **line, t_struct *data, int epur)
 	tmp = NULL;
 	while (data->tab_path[i])
 	{
-		tmp = ft_add_line(data->tab_path[i], tab[0]);
+		tmp = ft_add_line(data->tab_path[i], &tab[0]);
 		if ((exec = ft_process(tmp, tab)) > -1)
 		{
 			ft_strdel(&tmp);
