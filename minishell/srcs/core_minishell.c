@@ -61,42 +61,6 @@ static int		ft_check_command(char **line, t_struct *data, int epur)
 }
 
 /*
-**	Special command
-*/
-
-static int		cmd_special(char *line, t_struct *data)
-{
-	int		ret;
-
-	ret = ft_search_enclosing(&line);
-	if (ret == 1)
-	{
-		data->prompt_current = ft_strdup("subsh> ");
-		data->charfound = ft_strdup(")");
-		return (1);
-	}
-	if (ret == 2)
-	{
-		data->prompt_current = ft_strdup("cursh> ");
-		data->charfound = ft_strdup("}");
-		return (1);
-	}
-	if (ret == 3)
-	{
-		data->prompt_current = ft_strdup("quote> ");
-		data->charfound = ft_strdup("\'");
-		return (1);
-	}
-	if (ret == 4)
-	{
-		data->prompt_current = ft_strdup("dquote> ");
-		data->charfound = ft_strdup("\"");
-		return (1);
-	}
-	return (0);
-}
-
-/*
 **	Minishell cmd_special
 */
 
@@ -146,7 +110,7 @@ int				ft_minishell(char **line, t_struct *data)
 			quit = 1;
 		if ((ft_strcmp("", *line)) != 0 && quit == 0)
 		{
-			if (cmd_special(*line, data) == 0)
+			if (cmd_special(*line, data, 0) == 0)
 			{
 				cmd = ft_check_command(line, data, 0);
 				ft_error(cmd, line);
