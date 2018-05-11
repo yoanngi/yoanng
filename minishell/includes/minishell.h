@@ -49,6 +49,7 @@ typedef struct		s_struct
 	char			**tab_path;
 	char			**env;
 	char			**builtins;
+	int				option_echo;
 }					t_struct;
 
 /*
@@ -113,10 +114,12 @@ int					ft_cmd_annexe(char **line, t_struct *data);
 **	func_env.c
 */
 int					func_cd(char **line, t_struct *data);
+
 int					func_echo(char **line, t_struct *data);
-void	 		   	echo_clear_string_simple(char *str);
-void	    		echo_clear_special(char **str);
-void	    		echo_env(char *str, t_struct *data);
+void				option_echo(int j, t_struct *data);
+int					ft_check_option(char *line, int n_or_e);
+int					ft_search_env(char *str, int i, t_struct *data);
+
 char				**func_setenv(char **line, t_struct *data);
 char				**func_unsetenv(char **line, t_struct *data);
 void				func_env(char **line, t_struct *data);

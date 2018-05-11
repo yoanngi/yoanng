@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 15:49:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/11 11:06:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,118 +14,90 @@
 #include "minishell.h"
 
 /*
-**	Print good line env
+**	if option -n > print %\n
 */
 
-void			echo_env(char *str, t_struct *data)
+void		option_echo(int j, t_struct *data)
 {
-	int		i;
-	size_t	len;
-	int		start;
-	char	*tmp;
-
-	i = 0;
-	start = 1;
-	len = ft_strlen(str);
-	if ((str[0] == '\'' && str[(int)len - 1] == '\'')
-	|| (str[0] == '\"' && str[(int)len - 1] == '\"'))
+	if (j == 0)
+		ft_putchar('\n');
+	else
 	{
-		start = 2;
-		len -= 2;
+		if (data->option_echo == 0)
+			ft_putendl("\033[7m%\033[0m");
 	}
-	tmp = ft_strsub(str, start, len - 1);
-	while (data->env[i])
-	{
-		if (ft_strncmp(tmp, data->env[i], ft_strlen(tmp)) == 0)
-			ft_putstr(data->env[i] + ft_strlen(str));
-		i++;
-	}
-	ft_strdel(&tmp);
 }
 
 /*
- **	Check special char && print line
- */
+**	Check options -n/-e/-ne/-en in line
+*/
 
-static int		echo_b(char **cpy, int i, int len)
+int			ft_check_option(char *line, int n_or_e)
 {
-	char	*tmp;
-	char	*tmp2;
+	char	**tab;
+	int		ret;
 
-	tmp = ft_strsub(*cpy, 0, i - 1);
-	tmp2 = ft_strsub(*cpy, i + 2, len - i - 2);
-	ft_strdel(cpy);
-	*cpy = ft_strjoin(tmp, tmp2);
-	ft_strdel(&tmp);
-	ft_strdel(&tmp2);
-	return (0);
-}
-
-static int		echo_r(char **cpy, int i, int len)
-{
-	char	*tmp;
-
-	tmp = ft_strsub(*cpy, i + 2, len - i - 2);
-	ft_strdel(cpy);
-	*cpy = ft_strdup(tmp);
-	ft_strdel(&tmp);
-	return (0);
-}
-
-void			echo_clear_special(char **str)
-{
-	int		i;
-	size_t	len;
-	char	*cpy;
-
-	i = 0;
-	len = ft_strlen(*str);
-	cpy = ft_strdup(*str);
-	if (ft_strstr(cpy, "\\r") != NULL || ft_strstr(cpy, "\\b") != NULL)
+	ret = 0;
+	tab = ft_strsplit(line, ' ');
+	if (ft_len_tab(tab) >= 2)
 	{
-		while (i < (int)len)
-		{
-			if (cpy[i] == '\\' && cpy[i + 1] == 'r')
-				i = echo_r(&cpy, i, len);
-			if (cpy[i] == '\\' && cpy[i + 1] == 'b')
-				i = echo_b(&cpy, i, len);
-			len = ft_strlen(cpy);
-			i++;
-		}
-		ft_strdel(str);
-		*str = ft_strdup(cpy);
-		ft_strdel(&cpy);
+		if (ft_strcmp(tab[1], "-n") == 0 && n_or_e == 0)
+			ret = 1;
+		else if (ft_strcmp(tab[1], "-ne") == 0 && n_or_e == 0)
+			ret = 2;
+		else if (ft_strcmp(tab[1], "-en") == 0 && n_or_e == 0)
+			ret = 2;
+		else if (ft_strcmp(tab[1], "-e") == 0 && n_or_e == 1)
+			ret = 1;
 	}
-	ft_strdel(&cpy);
+	ft_del_tab(tab);
+	return (ret);
 }
 
 /*
- **	Print line and check \[...]
- */
+**	print good line in env if exist
+*/
 
-void			echo_clear_string_simple(char *str)
+static int	ft_search_env_suite(char *str, int i)
 {
-	int		i;
+	int quit;
 
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
+	quit = 0;
+	while (quit == 0)
 	{
-		if (str[i] == '\0')
-			return ;
-		else if (str[i] == '\\' && str[i + 1] != '\\')
-		{
-			i++;
-			ft_putchar(str[i]);
-		}
-		else if (str[i] == '\\' && str[i + 1] == '\\')
-		{
-			ft_putstr("\t");
-			i += 2;
-		}
+		if (str[i] == '\t' || str[i] == ' ' || str[i] == '\n' ||
+	str[i] == '\r' || str[i] == '\f' || str[i] == '\v' || str[i] == '\0')
+			quit = 1;
 		else
-			ft_putchar(str[i]);
-		i++;
+			i++;
 	}
+	return (i);
+}
+
+int			ft_search_env(char *str, int i, t_struct *data)
+{
+	char	*search;
+	int		i2;
+
+	search = NULL;
+	i2 = i;
+	i = ft_search_env_suite(str, i);
+	search = ft_strsub(str, i2 + 1, (i - i2 - 1));
+	i2 = 0;
+	while (data->env[i2])
+	{
+		if (ft_strncmp(data->env[i2], search, ft_strlen(search)) == 0)
+		{
+			ft_putstr(data->env[i2] + (ft_strlen(search) + 1));
+			i2 = ft_strlen(search);
+			ft_strdel(&search);
+			data->option_echo = 0;
+			return (i2 + 1);
+		}
+		i2++;
+	}
+	i2 = ft_strlen(search);
+	ft_strdel(&search);
+	data->option_echo = 1;
+	return (i2 + 1);
 }

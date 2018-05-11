@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/27 15:49:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/11 11:04:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,26 +14,15 @@
 #include "minishell.h"
 
 /*
-**	if option -n, print %
+**	Print special char
 */
 
-static void		option_echo(int j)
+static int		ft_print_special(char *str, int i, int len)
 {
-	if (j == 0)
-		ft_putchar('\n');
-	else
-		ft_putendl("\033[7m%\033[0m");
-}
-
-
-/*
-**	Print good char special if is in the line
-*/
-
-static int		echo_clear_suite(char *str, int i)
-{
+	if (i >= len)
+		return (0);
 	if (str[i] == '\\' && (str[i + 1] == 'n' || str[i + 1] == 't' ||
-	str[i + 1] == 'a' || str[i + 1] == 'v' || str[i + 1] == 'f'))
+				str[i + 1] == 'a' || str[i + 1] == 'v' || str[i + 1] == 'f'))
 	{
 		if (str[i + 1] == 'n')
 			ft_putstr("\n");
@@ -50,31 +39,54 @@ static int		echo_clear_suite(char *str, int i)
 	return (0);
 }
 
-static void		echo_clear_string(char *str)
-{
-	int		i;
-	int		ret;
-	size_t	len;
+/*
+**	Print char or go to print special char
+*/
 
-	i = 0;
-	ret = 0;
-	echo_clear_special(&str);
-	len = ft_strlen(str);
-	while (i < (int)len)
+static int		ft_print_echo_suite(char *str, int i, int len, int quote)
+{
+	if ((str[i] == '\'' || str[i] == '\"') && quote == 1)
+		ft_putchar(str[i]);
+	else if ((str[i] == '\\') && quote == 1)
 	{
-		if (str[i] == '\"' || str[i] == '\'')
-			i++;
+		ft_print_special(str, i, len);
+		return (2);
+	}
+	else if (str[i] > 31)
+		ft_putchar(str[i]);
+	return (1);
+}
+
+/*
+**	verify if print env
+*/
+
+static void		ft_print_echo(char *str, t_struct *data, size_t len)
+{
+	int		quote;
+	int		i;
+
+	quote = 0;
+	i = 0;
+	len = ft_strlen(str);
+	while (str[i])
+	{
+		if ((str[i] == '\"' || str[i] == '\'') && quote == 0)
+			quote = 1;
+		else if ((str[i] == '\"' || str[i] == '\'') && quote == 1)
+			quote = 0;
 		else
 		{
-			ret = echo_clear_suite(str, i);
-			if (ret == 0)
-			{
-				ft_putchar(str[i]);
-				i++;
-			}
+			if (str[i] == '$')
+				i += ft_search_env(str, i, data);
 			else
-				i += ret;
+			{
+				i += ft_print_echo_suite(str, i, (int)len, quote);
+				data->option_echo = 0;
+			}
+			i--;
 		}
+		i++;
 	}
 }
 
@@ -82,43 +94,30 @@ static void		echo_clear_string(char *str)
 **	Core echo
 */
 
-static void		func_echo_suite(char **tab, int i, t_struct *data)
-{
-	int		len;
-
-	len = ft_len_tab(tab);
-	while (tab[i])
-	{
-		if (ft_strstr(tab[i], "$") != NULL)
-			echo_env(tab[i], data);
-		else if (ft_strstr(tab[i], "\"") != NULL || ft_strstr(tab[i], "\'") != NULL)
-			echo_clear_string(tab[i]);
-		else
-			echo_clear_string_simple(tab[i]);
-		if (i < len - 1)
-			ft_putchar(' ');
-		i++;
-	}
-}
-
 int				func_echo(char **line, t_struct *data)
 {
-	char	**tab;
+	char	*str;
 	int		i;
-	int		j;
+	int		tiret_n;
+	int		tiret_e;
 
-	j = 0;
-	tab = ft_strsplit(*line, ' ');
-	if (ft_len_tab(tab) >= 1)
+	str = NULL;
+	i = 0;
+	data->option_echo = 0;
+	tiret_n = ft_check_option(*line, 0);
+	tiret_e = ft_check_option(*line, 1);
+	if (tiret_n == 0 && tiret_e == 0)
+		str = ft_strsub(*line, 5, ft_strlen(*line) - 5);
+	else
 	{
-		if (ft_strcmp(tab[1], "-n") == 0)
-			j = 1;
+		if (tiret_n == 1 || tiret_e == 1)
+			str = ft_strsub(*line, 8, ft_strlen(*line) - 8);
+		else if (tiret_n == 2)
+			str = ft_strsub(*line, 9, ft_strlen(*line) - 9);
 	}
-	i = 1;
-	if (j == 1)
-		i = 2;
-	func_echo_suite(tab, i, data);
-	option_echo(j);
-	ft_del_tab(tab);
+	if (str)
+		ft_print_echo(str, data, 0);
+	option_echo(tiret_n, data);
+	ft_strdel(&str);
 	return (0);
 }
