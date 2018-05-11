@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 10:35:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/11 15:46:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,8 @@
 **	Leaks : valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all
 **	--leak-resolution=high --show-reachable=no --gen-suppressions=yes
 **	--track-origins=yes ./minishell
+**
+**	Test erreur : https://forum.intra.42.fr/topics/431/messages?page=1#22608
 */
 
 /*
