@@ -14,6 +14,30 @@
 #include "minishell.h"
 
 /*
+**	Special cmd echo
+*/
+
+static int		ft_echo_path(char *line, t_struct *data)
+{
+	if (ft_strcmp(line, "echo ~"))
+	{
+		ft_putendl(data->home);
+		return (1);
+	}
+	if (ft_strcmp(line, "echo ~+"))
+	{
+		ft_putendl(data->pwd);
+		return (1);
+	}
+	if (ft_strcmp(line, "echo ~-"))
+	{
+		ft_putendl(data->oldpwd);
+		return (1);
+	}
+	return (0);
+}
+
+/*
 **	Print special char
 */
 
@@ -53,6 +77,8 @@ int				func_echo(char **line, t_struct *data)
 	str = NULL;
 	i = 0;
 	data->option_echo = 0;
+	if (ft_echo_path(*line, data) == 1)
+		return (0);
 	tiret_n = ft_check_option(*line, 0);
 	tiret_e = ft_check_option(*line, 1);
 	if (tiret_n == 0 && tiret_e == 0)

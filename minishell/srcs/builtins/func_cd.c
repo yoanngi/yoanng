@@ -17,21 +17,11 @@
 **	Sycronise path in env
 */
 
-static void		ft_insert_in_env(t_struct *data)
+static void		ft_insert_in_env_suite(t_struct *data)
 {
-	char	*buf;
 	int		i;
 
 	i = 0;
-	if (data->env == NULL)
-		return ;
-	buf = ft_strnew(512);
-	getcwd(buf, 512);
-	ft_strdel(&data->oldpwd);
-	data->oldpwd = ft_strdup(data->pwd);
-	ft_strdel(&data->pwd);
-	data->pwd = ft_strdup(buf);
-	ft_strdel(&buf);
 	while (data->env[i])
 	{
 		if (ft_strncmp(data->env[i], "PWD=", 4) == 0)
@@ -46,6 +36,22 @@ static void		ft_insert_in_env(t_struct *data)
 		}
 		i++;
 	}
+}
+
+static void		ft_insert_in_env(t_struct *data)
+{
+	char	*buf;
+
+	if (data->env == NULL)
+		return ;
+	buf = ft_strnew(512);
+	getcwd(buf, 512);
+	ft_strdel(&data->oldpwd);
+	data->oldpwd = ft_strdup(data->pwd);
+	ft_strdel(&data->pwd);
+	data->pwd = ft_strdup(buf);
+	ft_strdel(&buf);
+	ft_insert_in_env_suite(data);
 }
 
 /*
