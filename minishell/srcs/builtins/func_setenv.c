@@ -19,6 +19,8 @@ char	**func_setenv(char **line, t_struct *data)
 	char	**tmp;
 
 	i = 0;
+	if (data->env == NULL)
+		return (NULL);
 	while (data->env[i])
 		i++;
 	if (!(tmp = (char **)malloc(sizeof(char *) * (i + 2))))

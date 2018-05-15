@@ -66,7 +66,7 @@ int					ft_minishell(char **line, t_struct *data, int q, int cmd);
 /*
 **	func_signal.c
 */
-void				ft_control_c(int sig);
+void				my_signal(int sig);
 /*
 **	func_spe.c
 */
@@ -79,11 +79,6 @@ int					ft_error(int cmd, char **line);
 void				ft_error_dir(char *name, char *pre);
 void				ft_error_unset(char *str, int what);
 int					ft_access(char *path);
-/*
-**	ft_struct.c
-*/
-t_struct			*ft_my_struct(char **env);
-void				ft_delete_struct(t_struct *data);
 /*
 **	ft_fork.c
 */
@@ -105,11 +100,8 @@ int					cmd_special(char *line, t_struct *data, int ret);
 */
 char				**epur_tab(char *line, int epur);
 /*
+**	BUILTINS
 **	good_func.c
-*/
-int					ft_cmd_annexe(char **line, t_struct *data);
-
-/*
 **	func_cd.c
 **	func_echo.c
 **	func_echo_suite.c
@@ -119,6 +111,7 @@ int					ft_cmd_annexe(char **line, t_struct *data);
 **	func_env.c
 **	func_env_print.c
 */
+int					ft_cmd_annexe(char **line, t_struct *data);
 int					func_cd(char **line, t_struct *data);
 int					func_echo(char **line, t_struct *data);
 void				option_echo(int j, t_struct *data);
@@ -130,4 +123,13 @@ char				**func_setenv(char **line, t_struct *data);
 char				**func_unsetenv(char **line, t_struct *data);
 void				func_env(char **line, t_struct *data);
 void				print_full_env(t_struct *data);
+/*
+**	INIT
+**	ft_struct.c
+*/
+t_struct			*ft_my_struct(char **env);
+t_struct			*ft_my_struct_null(void);
+void				ft_delete_struct(t_struct *data);
+char				**ft_initialise_builtins(void);
+
 #endif

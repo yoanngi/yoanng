@@ -84,17 +84,20 @@ int			ft_search_env(char *str, int i, t_struct *data)
 	i = ft_search_env_suite(str, i);
 	search = ft_strsub(str, i2 + 1, (i - i2 - 1));
 	i2 = 0;
-	while (data->env[i2])
+	if (data->env != NULL)
 	{
-		if (ft_strncmp(data->env[i2], search, ft_strlen(search)) == 0)
+		while (data->env[i2])
 		{
-			ft_putstr(data->env[i2] + (ft_strlen(search) + 1));
-			i2 = ft_strlen(search);
-			ft_strdel(&search);
-			data->option_echo = 0;
-			return (i2 + 1);
+			if (ft_strncmp(data->env[i2], search, ft_strlen(search)) == 0)
+			{
+				ft_putstr(data->env[i2] + (ft_strlen(search) + 1));
+				i2 = ft_strlen(search);
+				ft_strdel(&search);
+				data->option_echo = 0;
+				return (i2 + 1);
+			}
+			i2++;
 		}
-		i2++;
 	}
 	i2 = ft_strlen(search);
 	ft_strdel(&search);

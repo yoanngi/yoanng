@@ -55,5 +55,10 @@ int				ft_cmd_annexe(char **line, t_struct *data)
 		i++;
 	}
 	ft_del_tab(tab);
+	if (data->env == NULL && ret == 1)
+	{
+		ft_error(1, line);
+		return (0);
+	}
 	return (ret);
 }

@@ -14,25 +14,6 @@
 #include "minishell.h"
 
 /*
-**	initialise commande sup in struct
-*/
-
-static char		**ft_initialise_builtins(void)
-{
-	char	**tab;
-
-	if (!(tab = (char**)malloc(sizeof(char *) * 6)))
-		return (NULL);
-	tab[0] = ft_strdup("cd");
-	tab[1] = ft_strdup("echo");
-	tab[2] = ft_strdup("setenv");
-	tab[3] = ft_strdup("unsetenv");
-	tab[4] = ft_strdup("env");
-	tab[5] = NULL;
-	return (tab);
-}
-
-/*
 **	Take infos in Env
 */
 
@@ -110,24 +91,4 @@ t_struct		*ft_my_struct(char **env)
 	data->option_echo = 0;
 	data->builtins = ft_initialise_builtins();
 	return (data);
-}
-
-/*
-**	Delete struct ans datas
-*/
-
-void			ft_delete_struct(t_struct *data)
-{
-	ft_strdel(&data->path);
-	ft_strdel(&data->pwd);
-	ft_strdel(&data->home);
-	ft_strdel(&data->charfound);
-	ft_strdel(&data->current_path);
-	ft_strdel(&data->prompt);
-	ft_strdel(&data->prompt_current);
-	ft_del_tab(data->tab_path);
-	ft_del_tab(data->env);
-	ft_del_tab(data->builtins);
-	free(data);
-	data = NULL;
 }

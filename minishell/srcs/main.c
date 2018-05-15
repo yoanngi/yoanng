@@ -21,7 +21,10 @@ int				main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	line = NULL;
-	data = ft_my_struct(env);
+	if (env[0] == NULL)
+		data = ft_my_struct_null();
+	else
+		data = ft_my_struct(env);
 	ft_minishell(&line, data, 0, 0);
 	ft_strdel(&line);
 	ft_delete_struct(data);

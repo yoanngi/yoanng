@@ -17,10 +17,11 @@
 **	Gestion du control C
 */
 
-void		ft_control_c(int sig)
+void		my_signal(int sig)
 {
 	if (sig & SIGINT)
 	{
+		printf("control C\n");
 		ft_putstr("\n");
 		ft_putstr("\033[32m");
 		ft_putstr("$> ");

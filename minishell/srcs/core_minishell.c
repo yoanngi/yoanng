@@ -12,6 +12,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <termios.h>
 
 /*
 **	Print good prompt
@@ -99,7 +100,7 @@ int				ft_minishell(char **line, t_struct *data, int q, int cmd)
 	while (q == 0)
 	{
 		ft_display(data);
-		signal(SIGINT, ft_control_c);
+		signal(SIGINT, my_signal);
 		get_next_line(0, line);
 		if (*line != NULL)
 		{

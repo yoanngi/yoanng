@@ -73,6 +73,8 @@ void			func_env(char **line, t_struct *data)
 	char	**tmp;
 
 	tmp = NULL;
+	if (data->env == NULL)
+		return ;
 	if (ft_strlen(*line) == 3)
 		print_full_env(data);
 	else

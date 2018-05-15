@@ -35,15 +35,18 @@ N_SRCS = 	main.c\
 			ft_error.c\
 			core_minishell.c\
 			func_signal.c\
-			ft_struct.c\
 			ft_fork.c\
 			format_line.c\
 			func_spe.c\
 			func_access.c\
 			various_func.c\
 			ft_enclosing.c\
-			good_func.c\
-			func_cd.c\
+			init/ft_struct.c\
+			init/ft_struct_null.c\
+			init/ft_delete_struct.c\
+			init/ft_init_builtins.c\
+			builtins/good_func.c\
+			builtins/func_cd.c\
 			builtins/func_echo.c\
 			builtins/func_echo_suite.c\
 			builtins/func_echo_print.c\
@@ -63,6 +66,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@echo "$(VERT)\c"
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)/builtins
+	@mkdir -p $(OBJ_PATH)/init
 	@$(CC) -c $(FLAGS) $(INC) -o $@ $<
 	@echo -n █
 	@echo "$(NOCOLOR)\c"

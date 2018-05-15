@@ -70,6 +70,8 @@ char			**func_unsetenv(char **line, t_struct *data)
 
 	i = 0;
 	tmp = NULL;
+	if (data->env == NULL)
+		return (NULL);
 	regex = ft_strsub(*line, 9, ft_strlen(*line) - 9);
 	if (ft_count(data->env, regex) < 1)
 		ft_error_unset(regex, 1);
