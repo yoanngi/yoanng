@@ -74,10 +74,9 @@ static int	ft_search_env_suite(char *str, int i)
 	return (i);
 }
 
-int			ft_search_env(char *str, int i, t_struct *data)
+int			ft_search_env(char *str, int i, t_struct *data, int i2)
 {
 	char	*search;
-	int		i2;
 
 	search = NULL;
 	i2 = i;

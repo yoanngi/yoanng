@@ -73,7 +73,7 @@ void			ft_print_echo(char *str, t_struct *data, size_t len)
 		else
 		{
 			if (str[i] == '$')
-				i += ft_search_env(str, i, data);
+				i += ft_search_env(str, i, data, 0);
 			else
 			{
 				i += ft_print_echo_suite(str, i, (int)len, quote);
