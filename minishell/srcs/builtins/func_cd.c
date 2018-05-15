@@ -13,6 +13,45 @@
 
 #include "minishell.h"
 
+/*
+**	Sycronise path in env
+*/
+
+static void		ft_insert_in_env(t_struct *data)
+{
+	char	*buf;
+	int		i;
+
+	i = 0;
+	if (data->env == NULL)
+		return ;
+	buf = ft_strnew(512);
+	getcwd(buf, 512);
+	ft_strdel(&data->oldpwd);
+	data->oldpwd = ft_strdup(data->pwd);
+	ft_strdel(&data->pwd);
+	data->pwd = ft_strdup(buf);
+	ft_strdel(&buf);
+	while (data->env[i])
+	{
+		if (ft_strstr(data->env[i], "PWD=") != NULL)
+		{
+			ft_strdel(&data->env[i]);
+			data->env[i] = ft_strjoin("PWD=", data->pwd);
+		}
+		if (ft_strstr(data->env[i], "OLDPWD=") != NULL)
+		{
+			ft_strdel(&data->env[i]);
+			data->env[i] = ft_strjoin("OLDPWD=", data->oldpwd);
+		}
+		i++;
+	}
+}
+
+/*
+**	Special func for ~
+*/
+
 static char		*ft_tild(char *target, t_struct *data)
 {
 	char	*tmp;
@@ -48,9 +87,13 @@ static char		*func_return_target(char *line, t_struct *data)
 		i++;
 	if (i == 1)
 		target = ft_strdup(data->home);
+	else if (ft_strlen(line) == 4 && line[3] == '-')
+		target = ft_strdup(data->oldpwd);
+	else if (ft_strlen(line) == 5 && line[3] == '~' && line[4] == '-')
+		target = ft_strdup(data->home);
 	else
 		target = ft_strdup(tab[i - 1]);
-	if (strstr(target, "~") != NULL)
+	if (ft_strstr(target, "~") != NULL)
 		target = ft_tild(target, data);
 	ft_del_tab(tab);
 	return (target);
@@ -80,10 +123,7 @@ int				func_cd(char **line, t_struct *data)
 		ft_putstr_fd("\n", 2);
 	}
 	else
-	{
-		ft_strdel(&data->current_path);
-		data->current_path = ft_strdup(tmp);
-	}
+		ft_insert_in_env(data);
 	ft_strdel(&tmp);
 	return (1);
 }

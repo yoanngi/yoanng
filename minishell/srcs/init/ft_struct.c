@@ -83,6 +83,7 @@ t_struct		*ft_my_struct(char **env)
 	data->home = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
 	ft_strdel(&tmp);
 	data->current_path = ft_strdup(data->pwd);
+	data->oldpwd = ft_strdup(data->pwd);
 	data->env = ft_copie_env(env);
 	data->prompt = ft_strdup("$> ");
 	data->prompt_current = NULL;

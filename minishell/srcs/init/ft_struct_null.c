@@ -22,6 +22,7 @@ t_struct		*ft_my_struct_null(void)
 	data->path = NULL;
 	data->tab_path = NULL;
 	data->pwd = NULL;
+	data->oldpwd = NULL;
 	data->home = NULL;
 	data->current_path = NULL;
 	data->env = NULL;

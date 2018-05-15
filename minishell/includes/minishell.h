@@ -43,6 +43,7 @@ typedef struct		s_struct
 {
 	char			*path;
 	char			*pwd;
+	char			*oldpwd;
 	char			*home;
 	char			*charfound;
 	char			*current_path;

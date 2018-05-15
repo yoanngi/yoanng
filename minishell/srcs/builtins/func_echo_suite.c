@@ -66,7 +66,8 @@ static int	ft_search_env_suite(char *str, int i)
 	while (quit == 0)
 	{
 		if (str[i] == '\t' || str[i] == ' ' || str[i] == '\n' ||
-	str[i] == '\r' || str[i] == '\f' || str[i] == '\v' || str[i] == '\0')
+	str[i] == '\r' || str[i] == '\f' || str[i] == '\v' ||
+	str[i] == '\0' || str[i] == '\"' || str[i] == '\'')
 			quit = 1;
 		else
 			i++;
@@ -78,12 +79,11 @@ int			ft_search_env(char *str, int i, t_struct *data, int i2)
 {
 	char	*search;
 
-	search = NULL;
 	i2 = i;
 	i = ft_search_env_suite(str, i);
 	search = ft_strsub(str, i2 + 1, (i - i2 - 1));
 	i2 = 0;
-	if (data->env != NULL)
+	if (data->env != NULL && search != NULL)
 	{
 		while (data->env[i2])
 		{
