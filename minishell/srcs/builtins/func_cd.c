@@ -34,12 +34,12 @@ static void		ft_insert_in_env(t_struct *data)
 	ft_strdel(&buf);
 	while (data->env[i])
 	{
-		if (ft_strstr(data->env[i], "PWD=") != NULL)
+		if (ft_strncmp(data->env[i], "PWD=", 4) == 0)
 		{
 			ft_strdel(&data->env[i]);
 			data->env[i] = ft_strjoin("PWD=", data->pwd);
 		}
-		if (ft_strstr(data->env[i], "OLDPWD=") != NULL)
+		if (ft_strncmp(data->env[i], "OLDPWD=", 7) == 0)
 		{
 			ft_strdel(&data->env[i]);
 			data->env[i] = ft_strjoin("OLDPWD=", data->oldpwd);
