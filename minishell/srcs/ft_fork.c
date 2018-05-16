@@ -34,17 +34,15 @@ static int		good_path_suite(char *cmd, char *name, int ret, char *target)
 
 int				good_path(char *target, char *cmd)
 {
-	DIR				*dir;
+	DIR		*dir;
 	struct dirent	*fl;
-	char			*tmp;
-	int				ret;
+	char		*tmp;
+	int		ret;
 
 	ret = -1;
 	tmp = ft_strsub(target, 0, (ft_strlen(target) - ft_strlen(cmd)));
 	if ((dir = opendir(tmp)) == NULL)
 	{
-		ft_putstr_fd(tmp, 2);
-		ft_putstr_fd(" : Permission Denied\n", 2);
 		ft_strdel(&tmp);
 		return (ret);
 	}

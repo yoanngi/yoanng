@@ -53,6 +53,7 @@ static int		ft_check_command(char **line, t_struct *data, int epur)
 			ft_del_tab(tab);
 			return (0);
 		}
+		else
 		ft_strdel(&tmp);
 		i++;
 	}

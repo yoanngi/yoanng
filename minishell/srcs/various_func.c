@@ -40,7 +40,7 @@ char		*ft_del_tab(char **tab)
 
 static char	*ft_cmp_path(char *str, char **add)
 {
-	int		i;
+	int	i;
 	char	*tmp;
 
 	i = ft_strlen(*add);
@@ -72,6 +72,8 @@ char		*ft_add_line(char *str, char **add)
 	if (ft_strstr(*add, "/") != NULL)
 	{
 		new = ft_cmp_path(str, add);
+		if (new == NULL)
+			new = ft_strjoin(str, *add);
 		return (new);
 	}
 	tmp = ft_strjoin(str, "/");
