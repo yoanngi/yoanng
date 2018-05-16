@@ -42,12 +42,13 @@ static void		ft_insert_in_env(t_struct *data)
 {
 	char	*buf;
 
-	if (data->env == NULL)
-		return ;
 	buf = ft_strnew(512);
 	getcwd(buf, 512);
 	ft_strdel(&data->oldpwd);
-	data->oldpwd = ft_strdup(data->pwd);
+	if (data->pwd != NULL)
+		data->oldpwd = ft_strdup(data->pwd);
+	else
+		data->oldpwd = ft_strdup(buf);
 	ft_strdel(&data->pwd);
 	data->pwd = ft_strdup(buf);
 	ft_strdel(&buf);
@@ -116,6 +117,7 @@ int				func_cd(char **line, t_struct *data)
 	char	*tmp;
 
 	i = 0;
+	ft_check_error_cd(&data);
 	tmp = func_return_target(*line, data);
 	if (ft_access(tmp) == -1)
 	{

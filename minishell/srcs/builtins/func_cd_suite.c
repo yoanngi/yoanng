@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   func_env_print.c                                 .::    .:/ .      .::   */
+/*   func_cd_suite.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/05/11 15:17:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/11 15:18:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/16 09:12:25 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/16 09:12:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,17 +14,24 @@
 #include "minishell.h"
 
 /*
-**	Print all env
+**	For builtins/func_cd.c
+**	Check data in t_struct *data
 */
 
-void		print_full_env(t_struct *data)
+void		ft_check_error_cd(t_struct **data)
 {
-	int		i;
+	char	*buf;
 
-	i = 0;
-	while (data->env[i])
+	buf = NULL;
+	if ((*data)->home == NULL)
+		(*data)->home = ft_strdup("/");
+	if ((*data)->pwd == NULL)
 	{
-		ft_putendl(data->env[i]);
-		i++;
+		buf = ft_strnew(512);
+		buf = getcwd(buf, 512);
+		(*data)->pwd = ft_strdup(buf);
+		ft_strdel(&buf);
 	}
+	if ((*data)->oldpwd == NULL)
+		(*data)->oldpwd = ft_strdup((*data)->pwd);
 }

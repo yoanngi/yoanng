@@ -29,29 +29,29 @@ void		option_echo(int j, t_struct *data)
 }
 
 /*
-**	Check options -n/-e/-ne/-en in line
+**	Print special char
 */
 
-int			ft_check_option(char *line, int n_or_e)
+int				ft_print_special(char *str, int i, int len)
 {
-	char	**tab;
-	int		ret;
-
-	ret = 0;
-	tab = ft_strsplit(line, ' ');
-	if (ft_len_tab(tab) >= 2)
+	if (i >= len)
+		return (0);
+	if (str[i] == '\\' && (str[i + 1] == 'n' || str[i + 1] == 't' ||
+				str[i + 1] == 'a' || str[i + 1] == 'v' || str[i + 1] == 'f'))
 	{
-		if (ft_strcmp(tab[1], "-n") == 0 && n_or_e == 0)
-			ret = 1;
-		else if (ft_strcmp(tab[1], "-ne") == 0 && n_or_e == 0)
-			ret = 2;
-		else if (ft_strcmp(tab[1], "-en") == 0 && n_or_e == 0)
-			ret = 2;
-		else if (ft_strcmp(tab[1], "-e") == 0 && n_or_e == 1)
-			ret = 1;
+		if (str[i + 1] == 'n')
+			ft_putstr("\n");
+		else if (str[i + 1] == 't')
+			ft_putstr("\t");
+		else if (str[i + 1] == 'a')
+			ft_putstr("\a");
+		else if (str[i + 1] == 'v')
+			ft_putstr("\v");
+		else if (str[i + 1] == 'f')
+			ft_putstr("\f");
+		return (2);
 	}
-	ft_del_tab(tab);
-	return (ret);
+	return (0);
 }
 
 /*

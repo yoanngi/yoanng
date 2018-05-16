@@ -31,8 +31,8 @@ void		basic_error(char *name, char *cmd)
 
 void		ft_error_dir(char *name, char *pre)
 {
-	ft_putstr_fd(pre, 2);
 	ft_putstr_fd(name, 2);
+	ft_putstr_fd(pre, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 }
 

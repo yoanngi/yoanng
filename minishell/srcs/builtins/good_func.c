@@ -36,7 +36,7 @@ static int		ft_search_func(char **line, t_struct *data, int i)
 **	Check if other commande is good
 */
 
-int				ft_cmd_annexe(char **line, t_struct *data)
+int				ft_builtins(char **line, t_struct *data)
 {
 	char	**tab;
 	int		i;
@@ -55,7 +55,7 @@ int				ft_cmd_annexe(char **line, t_struct *data)
 		i++;
 	}
 	ft_del_tab(tab);
-	if (data->env == NULL && ret == 1)
+	if (data->tab_path == NULL && ret == 1)
 	{
 		ft_error(1, line);
 		return (0);

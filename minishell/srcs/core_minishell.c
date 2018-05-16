@@ -12,7 +12,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <termios.h>
 
 /*
 **	Print good prompt
@@ -41,7 +40,7 @@ static int		ft_check_command(char **line, t_struct *data, int epur)
 
 	exec = -1;
 	i = 0;
-	if ((ft_cmd_annexe(line, data)) == 0)
+	if ((ft_builtins(line, data)) == 0)
 		return (0);
 	tab = epur_tab(*line, epur);
 	tmp = NULL;
@@ -62,7 +61,8 @@ static int		ft_check_command(char **line, t_struct *data, int epur)
 }
 
 /*
-**	Minishell cmd_special
+**	Minishell spe
+**	For change prompt (quote, dquote, ....)
 */
 
 static int		ft_minishell_spe(t_struct *data, char **line)

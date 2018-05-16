@@ -14,54 +14,79 @@
 #include "minishell.h"
 
 /*
-**	Part 2 : print env with valeur
+**	No options
 */
 
-static void		env_dir_suite(char *cpy, char *tab, t_struct *data)
+static void		ft_env_suite(t_struct *data, char **tab, int j)
+{
+	int		exec;
+	int		i;
+	char	*tmp;
+
+	exec = -1;
+	i = 0;
+	tmp = NULL;
+	while (data->tab_path[i])
+	{
+		tmp = ft_add_line(data->tab_path[i], &tab[j]);
+		if ((exec = ft_process(tmp, tab + j)) > -1)
+		{
+			ft_strdel(&tmp);
+			return ;
+		}
+		ft_strdel(&tmp);
+		i++;
+	}
+	return ;
+}
+
+/*
+**	Probleme de segfault a gerer + norme
+*/
+
+static void		ft_env(t_struct *data, char **tab, int j)
 {
 	int		i;
 	char	*tmp;
 
 	i = 0;
 	tmp = NULL;
-	while (data->env[i])
+	if (tab[j][0] == '$')
+		tab[j] = ft_return_env(tab[j], data);
+	if (tab[j] == NULL)
+		ft_env(data, tab, j + 1);
+	while (data->tab_path[i])
 	{
-		if (ft_strncmp(data->env[i], cpy, ft_strlen(cpy)) == 0)
+		tmp = ft_add_line(data->tab_path[i], &tab[j]);
+		if (good_path(tmp, tab[j]) == 1)
 		{
-			tmp = ft_strsub(data->env[i], ft_strlen(cpy) + 1,
-	ft_strlen(data->env[i]) - ft_strlen(cpy) + 1);
-			if (ft_dir_exist(tmp) == 1)
-				ft_putendl(tmp);
-			else
-				ft_error_dir(tab, "env: ");
+			ft_env_suite(data, tab, j);
 			ft_strdel(&tmp);
+			return ;
 		}
+		ft_strdel(&tmp);
 		i++;
 	}
-	ft_strdel(&tmp);
+	print_full_env(data);
+	while (tab[j])
+	{
+		ft_putendl(tab[j]);
+		j++;
+	}
 }
 
 /*
-**	Part 1 : print env with valeur
+**	Option -i
 */
 
-static void		env_dir(char **tab, t_struct *data)
+static void		ft_env_i(t_struct *data, char *line, char **tab, int i)
 {
-	int		i;
-	char	*cpy;
-
-	i = 0;
-	cpy = NULL;
-	if (!tab || !data)
+	if (ft_strcmp(line, "env -i") == 0)
 		return ;
-	cpy = ft_strdup(tab[1]);
-	while (tab[1][i])
-	{
-		cpy[i] = ft_toupper(tab[1][i]);
-		i++;
-	}
-	env_dir_suite(cpy, tab[1], data);
-	ft_strdel(&cpy);
+	if (ft_len_tab(tab) == i)
+		return ;
+	else
+		ft_env(data, tab, i + 1);
 }
 
 /*
@@ -71,23 +96,25 @@ static void		env_dir(char **tab, t_struct *data)
 void			func_env(char **line, t_struct *data)
 {
 	char	**tmp;
+	int		i;
+	size_t	len;
 
 	tmp = NULL;
-	if (data->env == NULL)
-		return ;
-	if (ft_strlen(*line) == 3)
-		print_full_env(data);
-	else
+	i = 0;
+	tmp = ft_strsplit(*line, ' ');
+	len = ft_len_tab(tmp);
+	while (tmp[i] && ft_strcmp(tmp[i], "env") == 0)
+		i++;
+	if ((int)len == i)
 	{
-		tmp = ft_strsplit(*line, ' ');
-		if (ft_strcmp(tmp[1], "-iv") == 0)
-			ft_putstr("-iv\n");
-		if (ft_strcmp(tmp[1], "-i") == 0)
-			ft_putstr("-i\n");
-		if (ft_strcmp(tmp[1], "-u") == 0)
-			ft_putstr("-u\n");
-		else
-			env_dir(tmp, data);
-		ft_del_tab(tmp);
+		print_full_env(data);
+		return ;
 	}
+	if (ft_strcmp(tmp[i], "-i") == 0)
+		ft_env_i(data, *line, tmp, i);
+	else if (ft_strcmp(tmp[i], "-i") != 0 && ft_strstr(tmp[i], "-i") != NULL)
+		ft_print_usage(tmp[i]);
+	else
+		ft_env(data, tmp, i);
+	ft_del_tab(tmp);
 }

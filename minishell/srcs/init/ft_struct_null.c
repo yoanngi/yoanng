@@ -13,6 +13,15 @@
 
 #include "minishell.h"
 
+static char		*ft_return_pwd(void)
+{
+	char	*buf;
+
+	buf = ft_strnew(512);
+	buf = getcwd(buf, 512);
+	return (buf);
+}
+
 t_struct		*ft_my_struct_null(void)
 {
 	t_struct	*data;
@@ -21,11 +30,13 @@ t_struct		*ft_my_struct_null(void)
 		return (NULL);
 	data->path = NULL;
 	data->tab_path = NULL;
-	data->pwd = NULL;
+	data->pwd = ft_return_pwd();
 	data->oldpwd = NULL;
 	data->home = NULL;
 	data->current_path = NULL;
-	data->env = NULL;
+	data->env = (char **)malloc(sizeof(char *) * 2);
+	data->env[0] = ft_strjoin("PWD=", data->pwd);
+	data->env[1] = NULL;
 	data->prompt = ft_strdup("$> ");
 	data->prompt_current = NULL;
 	data->charfound = NULL;

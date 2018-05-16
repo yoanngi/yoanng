@@ -32,7 +32,7 @@ static int		good_path_suite(char *cmd, char *name, int ret, char *target)
 	return (ret);
 }
 
-static int		good_path(char *target, char *cmd)
+int				good_path(char *target, char *cmd)
 {
 	DIR				*dir;
 	struct dirent	*fl;

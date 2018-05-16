@@ -47,11 +47,12 @@ N_SRCS = 	main.c\
 			init/ft_init_builtins.c\
 			builtins/good_func.c\
 			builtins/func_cd.c\
+			builtins/func_cd_suite.c\
 			builtins/func_echo.c\
 			builtins/func_echo_suite.c\
 			builtins/func_echo_print.c\
 			builtins/func_env.c\
-			builtins/func_env_print.c\
+			builtins/func_env_suite.c\
 			builtins/func_setenv.c\
 			builtins/func_unsetenv.c\
 
