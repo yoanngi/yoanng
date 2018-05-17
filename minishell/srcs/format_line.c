@@ -64,3 +64,12 @@ char			**epur_tab(char *line, int epur)
 	}
 	return (tab);
 }
+
+void			ft_check_line(t_struct *data, char **line)
+{
+	(void)data;
+	(void)line;
+	// parse line :
+	// replace ~
+	// replace $
+}
