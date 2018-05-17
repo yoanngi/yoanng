@@ -14,7 +14,7 @@
 #include "minishell.h"
 
 /*
-**	start good function (for commande sup)
+**	start good function (for builtins)
 */
 
 static int		ft_search_func(char **line, t_struct *data, int i)
@@ -33,7 +33,7 @@ static int		ft_search_func(char **line, t_struct *data, int i)
 }
 
 /*
-**	Check if other commande is good
+**	Search if commande is a builtins
 */
 
 int				ft_builtins(char **line, t_struct *data)

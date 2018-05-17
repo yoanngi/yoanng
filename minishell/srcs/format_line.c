@@ -47,6 +47,7 @@ char			**epur_tab(char *line, int epur)
 	char	**tab;
 
 	i = 1;
+	tab = NULL;
 	tab = ft_strsplit(line, ' ');
 	if (epur == 1)
 		return (tab);

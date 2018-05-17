@@ -61,9 +61,12 @@ typedef struct		s_struct
 */
 
 /*
-**	minishell.c
+**	core_minishell.c
+**	core_minishell_suite.c
 */
-int					ft_minishell(char **line, t_struct *data, int q, int cmd);
+int					ft_minishell(char **line, t_struct *data);
+int					ft_minishell_spe(t_struct *data, char **line);
+int					ft_check_command(char **line, t_struct *data, int epur);
 /*
 **	func_signal.c
 */
@@ -73,25 +76,9 @@ void				my_signal(int sig);
 */
 int					func_spe(char **line, char **line_2, t_struct *data);
 /*
-**	ft_error.c && func_access.c
-*/
-void				basic_error(char *name, char *cmd);
-int					ft_error(int cmd, char **line);
-void				ft_error_dir(char *name, char *pre);
-void				ft_error_unset(char *str, int what);
-int					ft_access(char *path);
-/*
 **	ft_fork.c
 */
-int					ft_process(char *rep, char **cmd);
-int					good_path(char *target, char *cmd);
-/*
-**	various_func.c
-*/
-char				*ft_del_tab(char **tab);
-char				*ft_add_line(char *str, char **add, t_struct *data);
-int					ft_len_tab(char **tab);
-int					ft_dir_exist(char *path);
+int					ft_process(char *rep, char **cmd, char **env);
 /*
 **	ft_enclosing.c
 */
@@ -135,5 +122,24 @@ t_struct			*ft_my_struct(char **env);
 t_struct			*ft_my_struct_null(void);
 void				ft_delete_struct(t_struct *data);
 char				**ft_initialise_builtins(void);
-
+/*
+**	LIB_MINISHELL
+*/
+char				*ft_del_tab(char **tab);
+char				*ft_add_line(char *str, char **add, t_struct *data);
+int					ft_len_tab(char **tab);
+int					ft_dir_exist(char *path);
+void				ft_display(t_struct *data);
+int					ft_access(char *path);
+void				basic_error(char *name, char *cmd);
+int					ft_error(int cmd, char **line);
+void				ft_error_dir(char *name, char *pre);
+void				ft_error_unset(char *str, int what);
+void				ft_error_fork(int father);
+void				ft_check_path(t_struct *data, char **path);
+int					good_path(char *target, char *cmd);
+char				*ft_return_path(char *str);
+/*
+**	END
+*/
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_delete_struct.c                               .::    .:/ .      .::   */
+/*   core_minishell_suite.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/05/15 13:57:17 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/15 13:57:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/17 09:21:15 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 09:21:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,23 +14,32 @@
 #include "minishell.h"
 
 /*
-**	Delete struct ans datas
+**	Minishell spe
+**	For change prompt (quote, dquote, ....)
 */
 
-void			ft_delete_struct(t_struct *data)
+int			ft_minishell_spe(t_struct *data, char **line)
 {
-	ft_strdel(&data->path);
-	ft_strdel(&data->pwd);
-	ft_strdel(&data->oldpwd);
-	ft_strdel(&data->home);
-	ft_strdel(&data->charfound);
-	ft_strdel(&data->current_path);
-	ft_strdel(&data->prompt);
+	char	*line_2;
+	int		quit;
+	int		ret;
+
+	line_2 = NULL;
+	quit = 0;
+	ret = 0;
+	while (quit == 0)
+	{
+		ft_display(data);
+		get_next_line(0, &line_2);
+		if (ft_strstr(line_2, data->charfound))
+			quit = 1;
+		func_spe(line, &line_2, data);
+		ft_strdel(&line_2);
+	}
+	ret = ft_check_command(line, data, 0);
+	ft_error(ret, line);
 	ft_strdel(&data->prompt_current);
-	ft_strdel(&data->char_echo);
-	ft_del_tab(data->tab_path);
-	ft_del_tab(data->env);
-	ft_del_tab(data->builtins);
-	free(data);
-	data = NULL;
+	ft_strdel(&data->charfound);
+	ft_strdel(&line_2);
+	return (ret);
 }

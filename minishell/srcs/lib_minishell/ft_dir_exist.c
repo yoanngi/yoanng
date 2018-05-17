@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_fork.c                                        .::    .:/ .      .::   */
+/*   ft_dir_exist.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/04/15 10:04:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 13:46:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/17 09:38:58 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 09:39:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,29 +14,15 @@
 #include "minishell.h"
 
 /*
-**	Create process
+**	Directory exist of not
 */
 
-int				ft_process(char *rep, char **cmd, char **env)
+int			ft_dir_exist(char *path)
 {
-	pid_t	father;
-	int		exec;
+	DIR		*dir;
 
-	father = fork();
-	exec = -1;
-	if (father < 0)
-	{
-		ft_error_fork(father);
-		exit(EXIT_FAILURE);
-	}
-	else if (father == 0)
-	{
-		exec = execve(rep, cmd, env);
-		if (exec == -1)
-			kill(father, SIGQUIT);
-		return (exec);
-	}
-	else
-		wait(&exec);
-	return (father);
+	if (!(dir = opendir(path)))
+		return (0);
+	closedir(dir);
+	return (1);
 }

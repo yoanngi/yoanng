@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_fork.c                                        .::    .:/ .      .::   */
+/*   ft_return_path.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/04/15 10:04:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 13:46:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/17 13:15:04 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 13:16:41 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,29 +14,24 @@
 #include "minishell.h"
 
 /*
-**	Create process
+**  Return path in str
 */
 
-int				ft_process(char *rep, char **cmd, char **env)
+char		*ft_return_path(char *str)
 {
-	pid_t	father;
-	int		exec;
+	char	*new;
+	size_t	i;
 
-	father = fork();
-	exec = -1;
-	if (father < 0)
+	new = NULL;
+	i = ft_strlen(str);
+	while ((int)i >= 0)
 	{
-		ft_error_fork(father);
-		exit(EXIT_FAILURE);
+		if (str[i] == '/')
+		{
+			new = ft_strsub(str, 0, i);
+			return (new);
+		}
+		i--;
 	}
-	else if (father == 0)
-	{
-		exec = execve(rep, cmd, env);
-		if (exec == -1)
-			kill(father, SIGQUIT);
-		return (exec);
-	}
-	else
-		wait(&exec);
-	return (father);
+	return (new);
 }

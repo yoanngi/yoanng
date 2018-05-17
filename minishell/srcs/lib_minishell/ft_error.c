@@ -71,3 +71,17 @@ void		ft_error_unset(char *str, int what)
 		ft_putstr_fd("\n", 2);
 	}
 }
+
+/*
+**	Error Fork
+*/
+
+void		ft_error_fork(int father)
+{
+	char *tmp;
+
+	tmp = NULL;
+	tmp = ft_itoa(father);
+	basic_error("Erreur de creation de processus", tmp);
+	ft_strdel(&tmp);
+}

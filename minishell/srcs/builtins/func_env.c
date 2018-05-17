@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/17 13:51:50 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 15:25:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ static void		ft_env_suite(t_struct *data, char **tab, int j)
 	while (data->tab_path[i])
 	{
 		tmp = ft_add_line(data->tab_path[i], &tab[j], data);
-		if ((exec = ft_process(tmp, tab + j)) > -1)
+		if ((exec = ft_process(tmp, tab + j, data->env)) > -1)
 		{
 			ft_strdel(&tmp);
 			return ;

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/11 11:06:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/17 15:25:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void		option_echo(int j, t_struct *data)
 **	Print special char
 */
 
-int				ft_print_special(char *str, int i, int len)
+int			ft_print_special(char *str, int i, int len)
 {
 	if (i >= len)
 		return (0);

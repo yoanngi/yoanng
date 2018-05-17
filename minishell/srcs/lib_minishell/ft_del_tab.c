@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_fork.c                                        .::    .:/ .      .::   */
+/*   ft_del_tab.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/04/15 10:04:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 13:46:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/17 09:38:44 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 09:38:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,29 +14,22 @@
 #include "minishell.h"
 
 /*
-**	Create process
+**	Delete tab and return NULL
 */
 
-int				ft_process(char *rep, char **cmd, char **env)
+char		*ft_del_tab(char **tab)
 {
-	pid_t	father;
-	int		exec;
+	int i;
 
-	father = fork();
-	exec = -1;
-	if (father < 0)
+	i = 0;
+	if (!tab)
+		return (NULL);
+	while (tab[i])
 	{
-		ft_error_fork(father);
-		exit(EXIT_FAILURE);
+		ft_strdel(&tab[i]);
+		i++;
 	}
-	else if (father == 0)
-	{
-		exec = execve(rep, cmd, env);
-		if (exec == -1)
-			kill(father, SIGQUIT);
-		return (exec);
-	}
-	else
-		wait(&exec);
-	return (father);
+	free(tab);
+	tab = NULL;
+	return (NULL);
 }
