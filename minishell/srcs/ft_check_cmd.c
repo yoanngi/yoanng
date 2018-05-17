@@ -97,7 +97,7 @@ int				ft_check_command(char **line, t_struct *data, int epur)
 	if ((ft_builtins(line, data)) == 0)
 		return (0);
 	tab = epur_tab(*line, epur);
-	if (ft_check_suite(data, tab) != -1)
+	if (ft_check_suite(data, tab) == -1)
 		ret = ft_exec_cmd_path(data, tab, &tmp);
 	ft_strdel(&tmp);
 	ft_del_tab(tab);
