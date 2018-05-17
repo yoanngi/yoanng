@@ -17,10 +17,14 @@
 **	Verifie Directory behind fork
 */
 
+// A mettre au propre (gestion d'un path diffent de l'env)
+// ./a.out , ./minishell etc...
+
 static int		good_path_suite(char *cmd, char *name, int ret, char *target)
 {
 	if (ft_strcmp(cmd, name) == 0)
 	{
+		printf("name ok\n");
 		if (!(access(target, X_OK) & EACCES))
 			ret = 1;
 		else
@@ -28,6 +32,11 @@ static int		good_path_suite(char *cmd, char *name, int ret, char *target)
 			basic_error("permission denied: ", cmd);
 			ret = 0;
 		}
+	}
+	if (ft_strstr(cmd, "./") != NULL)
+	{
+		if (ft_strcmp(cmd + 2, name) == 0)
+			ret = 1;
 	}
 	return (ret);
 }

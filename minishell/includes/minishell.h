@@ -89,7 +89,7 @@ int					good_path(char *target, char *cmd);
 **	various_func.c
 */
 char				*ft_del_tab(char **tab);
-char				*ft_add_line(char *str, char **add);
+char				*ft_add_line(char *str, char **add, t_struct *data);
 int					ft_len_tab(char **tab);
 int					ft_dir_exist(char *path);
 /*

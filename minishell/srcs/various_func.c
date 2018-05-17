@@ -38,13 +38,15 @@ char		*ft_del_tab(char **tab)
 **	Add commande in end of path
 */
 
-static char	*ft_cmp_path(char *str, char **add)
+static char	*ft_cmp_path(char *str, char **add, t_struct *data)
 {
 	int	i;
 	char	*tmp;
+	char	*tmp2;
 
 	i = ft_strlen(*add);
 	tmp = ft_strdup(*add);
+	tmp2 = NULL;
 	while (i > 0 && tmp[i] != '/')
 		i--;
 	ft_strdel(&tmp);
@@ -58,11 +60,17 @@ static char	*ft_cmp_path(char *str, char **add)
 		return (tmp);
 	}
 	else
+	{
 		ft_strdel(&tmp);
-	return (NULL);
+		tmp = ft_strjoin(data->pwd, "/");
+		tmp2 = ft_strjoin(tmp, *add);
+		ft_strdel(&tmp);
+	}
+	printf("tmp2 = %s\n", tmp2);
+	return (tmp2);
 }
 
-char		*ft_add_line(char *str, char **add)
+char		*ft_add_line(char *str, char **add, t_struct *data)
 {
 	char	*tmp;
 	char	*new;
@@ -71,7 +79,7 @@ char		*ft_add_line(char *str, char **add)
 	new = NULL;
 	if (ft_strstr(*add, "/") != NULL)
 	{
-		new = ft_cmp_path(str, add);
+		new = ft_cmp_path(str, add, data);
 		if (new == NULL)
 			new = ft_strjoin(str, *add);
 		return (new);

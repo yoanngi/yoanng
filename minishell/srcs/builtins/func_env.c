@@ -28,7 +28,7 @@ static void		ft_env_suite(t_struct *data, char **tab, int j)
 	tmp = NULL;
 	while (data->tab_path[i])
 	{
-		tmp = ft_add_line(data->tab_path[i], &tab[j]);
+		tmp = ft_add_line(data->tab_path[i], &tab[j], data);
 		if ((exec = ft_process(tmp, tab + j)) > -1)
 		{
 			ft_strdel(&tmp);
@@ -57,7 +57,7 @@ static void		ft_env(t_struct *data, char **tab, int j)
 		ft_env(data, tab, j + 1);
 	while (data->tab_path[i])
 	{
-		tmp = ft_add_line(data->tab_path[i], &tab[j]);
+		tmp = ft_add_line(data->tab_path[i], &tab[j], data);
 		if (good_path(tmp, tab[j]) == 1)
 		{
 			ft_env_suite(data, tab, j);
