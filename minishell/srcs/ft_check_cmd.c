@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 12:27:19 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 15:44:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/22 09:21:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,7 +96,7 @@ int				ft_check_command(char **line, t_struct *data, int epur)
 	tmp = NULL;
 	if ((ft_builtins(line, data)) == 0)
 		return (0);
-	ft_check_line(data, line);
+	ft_check_line(data, line, 0);
 	tab = epur_tab(*line, epur);
 	if (ft_check_suite(data, tab) == -1)
 		ret = ft_exec_cmd_path(data, tab, &tmp);

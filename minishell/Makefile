@@ -50,6 +50,8 @@ N_SRCS = 	main.c\
 			lib_minishell/ft_check_path.c\
 			lib_minishell/ft_good_path.c\
 			lib_minishell/ft_return_path.c\
+			lib_minishell/ft_insert_tild.c\
+			lib_minishell/ft_insert_dollar.c\
 			init/ft_struct.c\
 			init/ft_struct_null.c\
 			init/ft_delete_struct.c\

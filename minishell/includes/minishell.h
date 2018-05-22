@@ -88,6 +88,7 @@ int					cmd_special(char *line, t_struct *data, int ret);
 **	format_line.c
 */
 char				**epur_tab(char *line, int epur);
+void				ft_check_line(t_struct *data, char **line, int i);
 /*
 **	BUILTINS
 **	good_func.c
@@ -139,6 +140,8 @@ void				ft_error_fork(int father);
 void				ft_check_path(t_struct *data, char **path);
 int					good_path(char *target, char *cmd);
 char				*ft_return_path(char *str);
+int					ft_insert_tild(t_struct *data, char **str, int i);
+int					ft_insert_dollar(t_struct *data, char **str, int i);
 /*
 **	END
 */

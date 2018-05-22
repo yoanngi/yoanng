@@ -14,9 +14,50 @@
 #include "minishell.h"
 
 /*
-**	Delete char (index in string = target)
+static int		ft_search_other(char *str, int i, char c)
+{
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 */
 
+static int		ft_incremente_i(char *str, int i)
+{
+	int j;
+
+	j = 0;
+	if (str[i] == '\'')
+	{
+		while (str[i] != '\'')
+		{
+			if ((size_t)i == ft_strlen(str))
+				return (j);
+			i++;
+			j++;
+		}
+	}
+	else if (str[i] == '\"')
+	{
+		while (str[i] != '\"')
+		{
+			if ((size_t)i == ft_strlen(str))
+				return (j);
+			i++;
+			j++;
+		}
+	}
+	return (j);
+}
+
+/*
+**	Delete char (index in string = target)
+*/
+/*
 static char		*ft_delete_char(char *str, int target)
 {
 	char	*tmp;
@@ -24,7 +65,8 @@ static char		*ft_delete_char(char *str, int target)
 
 	len = ft_strlen(str);
 	tmp = ft_strnew((int)len - 1);
-	ft_strncpy(tmp, str, target);
+	if (target != 0)
+		ft_strncpy(tmp, str, target);
 	while (target < (int)len)
 	{
 		tmp[target] = str[target + 1];
@@ -34,7 +76,7 @@ static char		*ft_delete_char(char *str, int target)
 	ft_strdel(&str);
 	return (tmp);
 }
-
+*/
 /*
 **	If epur = 1 -> no epur and return tab
 **	Epur string ' or "
@@ -43,33 +85,51 @@ static char		*ft_delete_char(char *str, int target)
 char			**epur_tab(char *line, int epur)
 {
 	int		i;
-	int		j;
 	char	**tab;
+	char	*tmp;
 
-	i = 1;
-	tab = NULL;
+	i = 0;
+	tmp = NULL;
 	tab = ft_strsplit(line, ' ');
 	if (epur == 1)
 		return (tab);
 	while (tab[i])
 	{
-		j = 0;
-		while (tab[i][j])
+		if ((tab[i][0] == '\'' && tab[i][ft_strlen(tab[i]) - 1] == '\'') ||
+	(tab[i][0] == '\"' && tab[i][ft_strlen(tab[i]) - 1] == '\"'))
 		{
-			if (tab[i][j] == '\'' || tab[i][j] == '\"')
-				tab[i] = ft_delete_char(tab[i], j);
-			j++;
+			tmp = ft_strdup(tab[i]);
+			ft_strdel(&tab[i]);
+			tab[i] = ft_strsub(tmp, 1, ft_strlen(tmp) - 2);
+			ft_strdel(&tmp);
+			printf("tab[i] == |%s|\n", tab[i]);
 		}
 		i++;
 	}
 	return (tab);
 }
 
-void			ft_check_line(t_struct *data, char **line)
+/*
+**	Insert good valeur (replace ~ or $)
+*/
+
+void			ft_check_line(t_struct *data, char **line, int i)
 {
-	(void)data;
-	(void)line;
-	// parse line :
-	// replace ~
-	// replace $
+	char	*str;
+
+	str = ft_strdup(*line);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '~')
+			i += ft_insert_tild(data, &str, i);
+		else if (str[i] == '$')
+			i += ft_insert_dollar(data, &str, i);
+		else if (str[i] == '\'' || str[i] == '\"')
+			i += ft_incremente_i(str, i);
+		i++;
+	}
+	ft_strdel(line);
+	*line = ft_strdup(str);
+	ft_strdel(&str);
 }
