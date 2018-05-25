@@ -13,80 +13,47 @@
 
 #include "minishell.h"
 
-/*
-**	No options
-*/
-
-static void		ft_env_suite(t_struct *data, char **tab, int j)
-{
-	int		exec;
-	int		i;
-	char	*tmp;
-
-	exec = -1;
-	i = 0;
-	tmp = NULL;
-	while (data->tab_path[i])
-	{
-		tmp = ft_add_line(data->tab_path[i], &tab[j], data);
-		if ((exec = ft_process(tmp, tab + j, data->env)) > -1)
-		{
-			ft_strdel(&tmp);
-			return ;
-		}
-		ft_strdel(&tmp);
-		i++;
-	}
-	return ;
-}
-
-/*
-**	Probleme de segfault a gerer + norme
-*/
-
-static void		ft_env(t_struct *data, char **tab, int j)
+static int		ft_is_commande(t_struct *data, char *str)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
-	tmp = NULL;
-	if (tab[j][0] == '$')
-		tab[j] = ft_return_env(tab[j], data);
-	if (tab[j] == NULL)
-		ft_env(data, tab, j + 1);
 	while (data->tab_path[i])
 	{
-		tmp = ft_add_line(data->tab_path[i], &tab[j], data);
-		if (good_path(tmp, tab[j]) == 1)
-		{
-			ft_env_suite(data, tab, j);
-			ft_strdel(&tmp);
-			return ;
-		}
-		ft_strdel(&tmp);
+		if (good_path(data->tab_path[i], str, 0) == 1)
+			return (i);
 		i++;
 	}
-	print_full_env(data);
-	while (tab[j])
-	{
-		ft_putendl(tab[j]);
-		j++;
-	}
+	return (0);
 }
 
-/*
-**	Option -i
-*/
-
-static void		ft_env_i(t_struct *data, char *line, char **tab, int i)
+static void		ft_env(t_struct *data, char **tmp, int i, int option)
 {
-	if (ft_strcmp(line, "env -i") == 0)
-		return ;
-	if (ft_len_tab(tab) == i)
-		return ;
-	else
-		ft_env(data, tab, i + 1);
+	int		x;
+	char	*tmp2;
+	char	*ttt;
+
+	x = 0;
+	while (tmp[i])
+	{
+		if (tmp[i][0] == '-' && ft_strlen(tmp[i]) > 1)
+			ft_print_usage(tmp[i]);
+		else if ((x = ft_is_commande(data, tmp[i])) != 0)
+		{
+			tmp2 = ft_strjoin(data->tab_path[x], "/");
+			ttt = ft_strjoin(tmp2, tmp[0]);
+			if (option == 1)
+				ft_process(ttt, tmp, data->env);
+			else
+				ft_process(ttt, tmp, NULL);
+			ft_strdel(&tmp2);
+			ft_strdel(&ttt);
+			return ;
+		}
+		else
+			ft_error_dir("env : ", tmp[0]);
+		i++;
+	}
 }
 
 /*
@@ -101,20 +68,21 @@ void			func_env(char **line, t_struct *data)
 
 	tmp = NULL;
 	i = 0;
+	ft_check_line(data, line, 0);
 	tmp = ft_strsplit(*line, ' ');
 	len = ft_len_tab(tmp);
 	while (tmp[i] && ft_strcmp(tmp[i], "env") == 0)
 		i++;
 	if ((int)len == i)
-	{
 		print_full_env(data);
-		return ;
-	}
-	if (ft_strcmp(tmp[i], "-i") == 0)
-		ft_env_i(data, *line, tmp, i);
-	else if (ft_strcmp(tmp[i], "-i") != 0 && ft_strstr(tmp[i], "-i") != NULL)
-		ft_print_usage(tmp[i]);
 	else
-		ft_env(data, tmp, i);
+	{
+		ft_del_tab(tmp);
+		tmp = ft_strsplit(*line + (i * 4), ' ');
+		if (ft_options_i(tmp, i) == 0)
+			ft_env(data, tmp, 0, 0);
+		else
+			ft_env(data, tmp, 0, 1);
+	}
 	ft_del_tab(tmp);
 }

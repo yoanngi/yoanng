@@ -33,5 +33,6 @@ char		*ft_return_path(char *str)
 		}
 		i--;
 	}
+	new = ft_strdup(str);
 	return (new);
 }

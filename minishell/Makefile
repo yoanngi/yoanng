@@ -33,12 +33,9 @@ INC = -I $(INC_PATH) -I $(LIB_PATH)includes/
 
 N_SRCS = 	main.c\
 			core_minishell.c\
-			core_minishell_suite.c\
 			format_line.c\
-			ft_enclosing.c\
 			ft_fork.c\
 			func_signal.c\
-			func_spe.c\
 			ft_check_cmd.c\
 			lib_minishell/ft_add_line.c\
 			lib_minishell/ft_del_tab.c\
@@ -52,6 +49,7 @@ N_SRCS = 	main.c\
 			lib_minishell/ft_return_path.c\
 			lib_minishell/ft_insert_tild.c\
 			lib_minishell/ft_insert_dollar.c\
+			lib_minishell/ft_existe_in_path.c\
 			init/ft_struct.c\
 			init/ft_struct_null.c\
 			init/ft_delete_struct.c\

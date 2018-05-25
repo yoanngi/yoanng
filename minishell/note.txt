@@ -1,0 +1,11 @@
+a faire :
+
+ls ~-
+ls ~+
+
+gestion d'erreur : afficher minishell
+
+cd : to many arguments a gerer
+
+ligne vide et espace : segfault
+

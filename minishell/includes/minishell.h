@@ -65,25 +65,15 @@ typedef struct		s_struct
 **	core_minishell_suite.c
 */
 int					ft_minishell(char **line, t_struct *data);
-int					ft_minishell_spe(t_struct *data, char **line);
 int					ft_check_command(char **line, t_struct *data, int epur);
 /*
 **	func_signal.c
 */
 void				my_signal(int sig);
 /*
-**	func_spe.c
-*/
-int					func_spe(char **line, char **line_2, t_struct *data);
-/*
 **	ft_fork.c
 */
 int					ft_process(char *rep, char **cmd, char **env);
-/*
-**	ft_enclosing.c
-*/
-int					ft_search_enclosing(char **str);
-int					cmd_special(char *line, t_struct *data, int ret);
 /*
 **	format_line.c
 */
@@ -115,6 +105,7 @@ void				func_env(char **line, t_struct *data);
 void				print_full_env(t_struct *data);
 void				ft_print_usage(char *str);
 char				*ft_return_env(char *str, t_struct *data);
+int					ft_options_i(char **tmp, int i);
 /*
 **	INIT
 **	ft_struct.c
@@ -138,10 +129,11 @@ void				ft_error_dir(char *name, char *pre);
 void				ft_error_unset(char *str, int what);
 void				ft_error_fork(int father);
 void				ft_check_path(t_struct *data, char **path);
-int					good_path(char *target, char *cmd);
+int					good_path(char *target, char *cmd, int opt);
 char				*ft_return_path(char *str);
 int					ft_insert_tild(t_struct *data, char **str, int i);
 int					ft_insert_dollar(t_struct *data, char **str, int i);
+int					ft_existe_in_path(t_struct *data, char **path);
 /*
 **	END
 */

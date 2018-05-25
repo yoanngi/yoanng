@@ -67,21 +67,15 @@ int				ft_insert_dollar(t_struct *data, char **str, int i)
 	int		j;
 	int		ret;
 
-	if ((tmp = ft_strdup(*str)) == NULL)
-		return (1);
+	tmp = ft_strdup(*str);
+	ret = 1;
 	j = i;
-	i = 0;
-	ret = 0;
 	while (tmp[i] || tmp[i] == ' ')
 		i++;
-	if ((j - i) <= 1)
-	{
-		ft_strdel(&tmp);
-		return (1);
-	}
+	if (i - j > 1)
+		ret = ft_suite(data, &tmp, i, j);
 	ft_strdel(str);
-	ft_strdel(&tmp);
-	ret = ft_suite(data, str, i, j);
+	*str = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (ret);
 }

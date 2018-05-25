@@ -14,7 +14,10 @@
 #include "minishell.h"
 
 /*
-**	Create process
+**	Create process and execute commande
+**	Repertoire : rep
+**	commande : cmd
+**	Environement : env
 */
 
 int				ft_process(char *rep, char **cmd, char **env)

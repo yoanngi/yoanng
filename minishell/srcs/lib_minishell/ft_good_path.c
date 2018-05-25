@@ -26,13 +26,13 @@ static int		good_path_suite(char *cmd, char *name, int ret, char *target)
 		else
 		{
 			basic_error("permission denied: ", cmd);
-			ret = 0;
+			ret = 2;
 		}
 	}
 	return (ret);
 }
 
-int				good_path(char *target, char *cmd)
+int				good_path(char *target, char *cmd, int opt)
 {
 	DIR				*dir;
 	struct dirent	*fl;
@@ -40,7 +40,10 @@ int				good_path(char *target, char *cmd)
 	int				ret;
 
 	ret = -1;
-	tmp = ft_strsub(target, 0, (ft_strlen(target) - ft_strlen(cmd)));
+	if (opt == 1)
+		tmp = ft_strsub(target, 0, (ft_strlen(target) - ft_strlen(cmd)));
+	else
+		tmp = ft_strdup(target);
 	if ((dir = opendir(tmp)) == NULL)
 	{
 		ft_strdel(&tmp);

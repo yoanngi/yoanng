@@ -38,13 +38,10 @@ static char		*ft_cmp_path(char *str, char **add, t_struct *data)
 		*add = ft_strsub(tmp, i + 1, (ft_strlen(tmp) - i - 1));
 		return (tmp);
 	}
-	else
-	{
-		ft_strdel(&tmp);
-		tmp = ft_strjoin(data->pwd, "/");
-		tmp2 = ft_strjoin(tmp, *add);
-		ft_strdel(&tmp);
-	}
+	ft_strdel(&tmp);
+	tmp = ft_strjoin(data->pwd, "/");
+	tmp2 = ft_strjoin(tmp, *add);
+	ft_strdel(&tmp);
 	return (tmp2);
 }
 

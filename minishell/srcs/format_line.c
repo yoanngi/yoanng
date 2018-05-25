@@ -14,16 +14,7 @@
 #include "minishell.h"
 
 /*
-static int		ft_search_other(char *str, int i, char c)
-{
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+**	incremente i de la bonne valeur
 */
 
 static int		ft_incremente_i(char *str, int i)
@@ -55,29 +46,6 @@ static int		ft_incremente_i(char *str, int i)
 }
 
 /*
-**	Delete char (index in string = target)
-*/
-/*
-static char		*ft_delete_char(char *str, int target)
-{
-	char	*tmp;
-	size_t	len;
-
-	len = ft_strlen(str);
-	tmp = ft_strnew((int)len - 1);
-	if (target != 0)
-		ft_strncpy(tmp, str, target);
-	while (target < (int)len)
-	{
-		tmp[target] = str[target + 1];
-		target++;
-	}
-	tmp[target] = '\0';
-	ft_strdel(&str);
-	return (tmp);
-}
-*/
-/*
 **	If epur = 1 -> no epur and return tab
 **	Epur string ' or "
 */
@@ -102,7 +70,6 @@ char			**epur_tab(char *line, int epur)
 			ft_strdel(&tab[i]);
 			tab[i] = ft_strsub(tmp, 1, ft_strlen(tmp) - 2);
 			ft_strdel(&tmp);
-			printf("tab[i] == |%s|\n", tab[i]);
 		}
 		i++;
 	}
