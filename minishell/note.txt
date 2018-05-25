@@ -4,8 +4,13 @@ ls ~-
 ls ~+
 
 gestion d'erreur : afficher minishell
+minishell : ....
 
 cd : to many arguments a gerer
 
-ligne vide et espace : segfault
+revoir clear string (dans format line pour delete ' & ")
+gestion du ; ?
 
+Lien utile :
+https://forum.intra.42.fr/topics/5091/messages/last
+https://forum.intra.42.fr/topics/431/messages/1#6659
