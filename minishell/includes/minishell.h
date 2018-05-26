@@ -81,7 +81,6 @@ int					ft_process(char *rep, char **cmd, char **env);
 */
 char				**epur_tab(char *line, int epur);
 void				ft_check_line(t_struct *data, char **line, int i);
-void				clear_line(char **line);
 /*
 **	BUILTINS
 **	good_func.c
@@ -146,4 +145,6 @@ int					ft_existe_in_path(t_struct *data, char **path);
 /*
 **	END
 */
+char				**ft_split_separator(char **line);
+void				clear_line(char **line);
 #endif

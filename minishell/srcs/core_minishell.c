@@ -40,13 +40,26 @@ static int		ft_line_is_valid(char *line)
 
 static int		ft_minishell_suite(t_struct *data, char **line)
 {
-	clear_line(line);
-	if ((ft_strcmp("exit", *line)) == 0 ||
-	ft_strcmp("\"exit\"", *line) == 0 ||
-	ft_strcmp("\'exit\'", *line) == 0)
-		return (1);
-	if (ft_line_is_valid(*line) == 1)
-		ft_check_command(line, data, 0);
+	char	**tab;
+	int		i;
+
+	tab = ft_split_separator(line);
+	i = 0;
+	while (tab[i])
+	{
+		clear_line(line);
+		if ((ft_strcmp("exit", tab[i])) == 0 ||
+		ft_strcmp("\"exit\"", tab[i]) == 0 ||
+		ft_strcmp("\'exit\'", tab[i]) == 0)
+		{
+			tab = ft_del_tab(tab);
+			return (1);
+		}
+		if (ft_line_is_valid(tab[i]) == 1)
+			ft_check_command(&tab[i], data, 0);
+		i++;
+	}
+	tab = ft_del_tab(tab);
 	return (0);
 }
 
