@@ -13,6 +13,10 @@
 
 #include "minishell.h"
 
+/*
+**	Check if commande existe int dir data->tab_path and return index
+*/
+
 static int		ft_is_commande(t_struct *data, char *str)
 {
 	int		i;
@@ -24,34 +28,66 @@ static int		ft_is_commande(t_struct *data, char *str)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
-static void		ft_env(t_struct *data, char **tmp, int i, int option)
-{
-	int		x;
-	char	*tmp2;
-	char	*ttt;
+/*
+**	Call good func if cmd, rep, variable ... of print error
+*/
 
-	x = 0;
-	while (tmp[i])
+static void		ft_env_suite(t_struct *data, char **tab, int i, int x)
+{
+	while (tab[i])
 	{
-		if (tmp[i][0] == '-' && ft_strlen(tmp[i]) > 1)
-			ft_print_usage(tmp[i]);
-		else if ((x = ft_is_commande(data, tmp[i])) != 0)
+		if ((x = ft_is_commande(data, tab[i])) != -1)
 		{
-			tmp2 = ft_strjoin(data->tab_path[x], "/");
-			ttt = ft_strjoin(tmp2, tmp[0]);
-			if (option == 1)
-				ft_process(ttt, tmp, data->env);
-			else
-				ft_process(ttt, tmp, NULL);
-			ft_strdel(&tmp2);
-			ft_strdel(&ttt);
+			ft_env_cmd(data, tab, i, x);
 			return ;
 		}
+		else if (tab[i][0] == '/' || tab[i][0] == '.')
+		{
+			ft_env_rep(data, tab, i);
+			return ;
+		}
+		else if (ft_strstr(tab[i], "=") != NULL)
+		{
+			data->env_tmp = ft_insert_in_tab(data->env_tmp, tab[i]);
+		}
 		else
-			ft_error_dir("env : ", tmp[0]);
+		{
+			ft_error_dir("env : ", tab[i]);
+			return ;
+		}
+		i++;
+	}
+	ft_print_tab(data->env_tmp);
+}
+
+/*
+**	Check if tab[i] is NULL or if option -i is ok
+**	if needed, print usage or go ft_env_suite
+*/
+
+static void		ft_env(t_struct *data, char **tab, int i)
+{
+	while (tab[i])
+	{
+		if (tab[i] == NULL)
+			return ;
+		else if (ft_option_i(tab[i]) == 1)
+			data->option_i_env = 1;
+		else if (ft_strcmp(tab[i], "env") != 0)
+		{
+			if (tab[i][0] == '-')
+				ft_print_usage(tab[i]);
+			else
+			{
+				if (data->option_i_env == 0)
+					data->env_tmp = ft_duplicate_tab(data->env);
+				ft_env_suite(data, tab, i, 0);
+			}
+			return ;
+		}
 		i++;
 	}
 }
@@ -62,27 +98,24 @@ static void		ft_env(t_struct *data, char **tmp, int i, int option)
 
 void			func_env(char **line, t_struct *data)
 {
-	char	**tmp;
+	char	**tab;
 	int		i;
-	size_t	len;
 
-	tmp = NULL;
+	tab = NULL;
 	i = 0;
+	data->option_i_env = 0;
 	ft_check_line(data, line, 0);
-	tmp = ft_strsplit(*line, ' ');
-	len = ft_len_tab(tmp);
-	while (tmp[i] && ft_strcmp(tmp[i], "env") == 0)
+	tab = ft_strsplit(*line, ' ');
+	while (tab[i] && (ft_strcmp(tab[i], "env") == 0 ||
+	ft_strcmp(tab[i], "/usr/bin/env") == 0))
 		i++;
-	if ((int)len == i)
-		print_full_env(data);
-	else
+	if (ft_len_tab(tab) == i)
 	{
-		ft_del_tab(tmp);
-		tmp = ft_strsplit(*line + (i * 4), ' ');
-		if (ft_options_i(tmp, i) == 0)
-			ft_env(data, tmp, 0, 0);
-		else
-			ft_env(data, tmp, 0, 1);
+		ft_del_tab(tab);
+		print_full_env(data);
+		return ;
 	}
-	ft_del_tab(tmp);
+	ft_env(data, tab, i);
+	tab = ft_del_tab(tab);
+	data->env_tmp = ft_del_tab(data->env_tmp);
 }

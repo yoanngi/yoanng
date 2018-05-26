@@ -53,6 +53,8 @@ typedef struct		s_struct
 	char			**env;
 	char			**builtins;
 	int				option_echo;
+	int				option_i_env;
+	char			**env_tmp;
 	char			*char_echo;
 }					t_struct;
 
@@ -105,7 +107,9 @@ void				func_env(char **line, t_struct *data);
 void				print_full_env(t_struct *data);
 void				ft_print_usage(char *str);
 char				*ft_return_env(char *str, t_struct *data);
-int					ft_options_i(char **tmp, int i);
+int					ft_option_i(char *str);
+int					ft_env_cmd(t_struct *data, char **tmp, int i, int x);
+int					ft_env_rep(t_struct *data, char **tmp, int i);
 /*
 **	INIT
 **	ft_struct.c
@@ -117,9 +121,13 @@ char				**ft_initialise_builtins(void);
 /*
 **	LIB_MINISHELL
 */
-char				*ft_del_tab(char **tab);
-char				*ft_add_line(char *str, char **add, t_struct *data);
+char				**ft_del_tab(char **tab);
 int					ft_len_tab(char **tab);
+char				**ft_duplicate_tab(char **tab);
+char				**ft_insert_in_tab(char **tab, char *str);
+void				ft_print_tab(char **tab);
+char				**ft_del_tab_index(char **tab, int max);
+char				*ft_add_line(char *str, char **add, t_struct *data);
 int					ft_dir_exist(char *path);
 void				ft_display(t_struct *data);
 int					ft_access(char *path);

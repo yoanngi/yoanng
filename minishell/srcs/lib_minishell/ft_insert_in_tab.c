@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_del_tab.c                                     .::    .:/ .      .::   */
+/*   ft_insert_in_tab.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/05/17 09:38:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 09:38:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/26 11:33:43 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/26 11:34:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,51 +14,43 @@
 #include "minishell.h"
 
 /*
-**	Delete tab and return NULL
+**  Insert str in tab and return
 */
 
-char		**ft_del_tab(char **tab)
+static char		**ft_insert_suite(char *str)
 {
-	int		i;
+	char	**new;
 
-	i = 0;
-	if (tab == NULL)
+	new = NULL;
+	if (!(new = (char **)malloc(sizeof(char *) * 2)))
 		return (NULL);
-	while (tab[i])
-	{
-		ft_strdel(&tab[i]);
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-	return (NULL);
+	new[0] = ft_strdup(str);
+	new[1] = NULL;
+	return (new);
 }
 
-/*
-**	Clean tab until int max and reposition tab
-*/
-
-char		**ft_del_tab_index(char **tab, int max)
+char			**ft_insert_in_tab(char **tab, char *str)
 {
-	int		i;
+	char	**new;
 	int		len;
+	int		i;
 
-	if (tab == NULL)
-		return (NULL);
+	new = NULL;
 	i = 0;
-	len = ft_len_tab(tab);
-	while (tab[i] && i != max)
+	if (tab != NULL)
 	{
-		if (max <= len)
+		len = ft_len_tab(tab);
+		if (!(new = (char **)malloc(sizeof(char *) * (len + 2))))
+			return (NULL);
+		while (tab[i])
 		{
-			ft_strdel(&tab[i]);
-			tab[i] = ft_strdup(tab[max]);
-			ft_strdel(&tab[max]);
-			max++;
+			new[i] = ft_strdup(tab[i]);
+			i++;
 		}
-		else
-			ft_strdel(&tab[i]);
-		i++;
+		new[len] = ft_strdup(str);
+		new[len + 1] = NULL;
 	}
-	return (tab);
+	else
+		new = ft_insert_suite(str);
+	return (new);
 }

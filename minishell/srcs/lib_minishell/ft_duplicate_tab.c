@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_del_tab.c                                     .::    .:/ .      .::   */
+/*   ft_duplicate_tab.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/05/17 09:38:44 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 09:38:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/26 11:24:31 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/26 11:25:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,51 +14,27 @@
 #include "minishell.h"
 
 /*
-**	Delete tab and return NULL
+**  Duplicate tab and return tab
 */
 
-char		**ft_del_tab(char **tab)
+char		**ft_duplicate_tab(char **tab)
 {
+	char	**new;
+	int		len;
 	int		i;
 
-	i = 0;
+	new = NULL;
 	if (tab == NULL)
+		return (NULL);
+	len = ft_len_tab(tab);
+	i = 0;
+	if (!(new = (char **)malloc(sizeof(char *) * len)))
 		return (NULL);
 	while (tab[i])
 	{
-		ft_strdel(&tab[i]);
+		new[i] = ft_strdup(tab[i]);
 		i++;
 	}
-	free(tab);
-	tab = NULL;
-	return (NULL);
-}
-
-/*
-**	Clean tab until int max and reposition tab
-*/
-
-char		**ft_del_tab_index(char **tab, int max)
-{
-	int		i;
-	int		len;
-
-	if (tab == NULL)
-		return (NULL);
-	i = 0;
-	len = ft_len_tab(tab);
-	while (tab[i] && i != max)
-	{
-		if (max <= len)
-		{
-			ft_strdel(&tab[i]);
-			tab[i] = ft_strdup(tab[max]);
-			ft_strdel(&tab[max]);
-			max++;
-		}
-		else
-			ft_strdel(&tab[i]);
-		i++;
-	}
-	return (tab);
+	new[len - 1] = NULL;
+	return (new);
 }

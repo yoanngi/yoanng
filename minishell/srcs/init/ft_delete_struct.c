@@ -28,9 +28,10 @@ void			ft_delete_struct(t_struct *data)
 	ft_strdel(&data->prompt);
 	ft_strdel(&data->prompt_current);
 	ft_strdel(&data->char_echo);
-	ft_del_tab(data->tab_path);
-	ft_del_tab(data->env);
-	ft_del_tab(data->builtins);
+	data->tab_path = ft_del_tab(data->tab_path);
+	data->env = ft_del_tab(data->env);
+	data->builtins = ft_del_tab(data->builtins);
+	data->env_tmp = ft_del_tab(data->env_tmp);
 	free(data);
 	data = NULL;
 }

@@ -65,6 +65,15 @@ static char		**ft_copie_env(char **env)
 **	Allocation memory for struct and initialise datas
 */
 
+void			ft_struct_suite(t_struct **data)
+{
+	(*data)->option_echo = 0;
+	(*data)->option_i_env = 0;
+	(*data)->charfound = NULL;
+	(*data)->char_echo = NULL;
+	(*data)->env_tmp = NULL;
+}
+
 t_struct		*ft_my_struct(char **env)
 {
 	t_struct	*data;
@@ -87,9 +96,7 @@ t_struct		*ft_my_struct(char **env)
 	data->env = ft_copie_env(env);
 	data->prompt = ft_strdup("$> ");
 	data->prompt_current = NULL;
-	data->charfound = NULL;
-	data->char_echo = NULL;
-	data->option_echo = 0;
 	data->builtins = ft_initialise_builtins();
+	ft_struct_suite(&data);
 	return (data);
 }

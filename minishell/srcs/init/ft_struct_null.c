@@ -42,6 +42,8 @@ t_struct		*ft_my_struct_null(void)
 	data->charfound = NULL;
 	data->char_echo = NULL;
 	data->option_echo = 0;
+	data->option_i_env = 0;
+	data->env_tmp = NULL;
 	data->builtins = ft_initialise_builtins();
 	return (data);
 }

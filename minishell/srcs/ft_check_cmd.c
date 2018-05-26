@@ -80,7 +80,7 @@ int				ft_check_command(char **line, t_struct *data, int epur)
 	if ((ret = ft_check_suite(data, tab)) == -1)
 		ret = ft_exec_cmd_path(data, tab, &tmp);
 	ft_strdel(&tmp);
-	ft_del_tab(tab);
+	tab = ft_del_tab(tab);
 	ft_error(ret, line);
 	return (ret);
 }
