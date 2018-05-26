@@ -37,6 +37,7 @@ N_SRCS = 	main.c\
 			ft_fork.c\
 			func_signal.c\
 			ft_check_cmd.c\
+			clear_line.c\
 			lib_minishell/ft_add_line.c\
 			lib_minishell/ft_del_tab.c\
 			lib_minishell/ft_duplicate_tab.c\

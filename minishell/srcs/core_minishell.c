@@ -40,6 +40,7 @@ static int		ft_line_is_valid(char *line)
 
 static int		ft_minishell_suite(t_struct *data, char **line)
 {
+	clear_line(line);
 	if ((ft_strcmp("exit", *line)) == 0 ||
 	ft_strcmp("\"exit\"", *line) == 0 ||
 	ft_strcmp("\'exit\'", *line) == 0)
