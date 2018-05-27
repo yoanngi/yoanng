@@ -28,13 +28,13 @@ char		**ft_duplicate_tab(char **tab)
 		return (NULL);
 	len = ft_len_tab(tab);
 	i = 0;
-	if (!(new = (char **)malloc(sizeof(char *) * len)))
+	if (!(new = (char **)malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
 	while (tab[i])
 	{
 		new[i] = ft_strdup(tab[i]);
 		i++;
 	}
-	new[len - 1] = NULL;
+	new[len] = NULL;
 	return (new);
 }

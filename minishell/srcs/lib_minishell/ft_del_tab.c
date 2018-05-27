@@ -47,17 +47,15 @@ char		**ft_del_tab_index(char **tab, int max)
 		return (NULL);
 	i = 0;
 	len = ft_len_tab(tab);
-	while (tab[i] && i != max)
+	while (i <= len)
 	{
-		if (max <= len)
+		if (max < len)
 		{
 			ft_strdel(&tab[i]);
 			tab[i] = ft_strdup(tab[max]);
 			ft_strdel(&tab[max]);
 			max++;
 		}
-		else
-			ft_strdel(&tab[i]);
 		i++;
 	}
 	return (tab);
