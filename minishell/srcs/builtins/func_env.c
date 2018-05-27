@@ -104,6 +104,7 @@ void			func_env(char **line, t_struct *data)
 	tab = NULL;
 	i = 0;
 	data->option_i_env = 0;
+	data->env_tmp = ft_del_tab(data->env_tmp);
 	ft_check_line(data, line, 0);
 	tab = ft_strsplit(*line, ' ');
 	while (tab[i] && (ft_strcmp(tab[i], "env") == 0 ||

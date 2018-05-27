@@ -74,10 +74,11 @@ int			ft_env_cmd(t_struct *data, char **tab, int i, int x)
 	tmp2 = NULL;
 	tmp = ft_strjoin(data->tab_path[x], "/");
 	tmp2 = ft_strjoin(tmp, tab[i]);
-	ft_del_tab_index(tab, i);
+	tab = ft_del_tab_index(tab, i);
 	ft_process(tmp2, tab, data->env_tmp);
 	ft_strdel(&tmp);
 	ft_strdel(&tmp2);
+	data->env_tmp = ft_del_tab(data->env_tmp);
 	return (0);
 }
 

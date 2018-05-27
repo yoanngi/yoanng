@@ -1,15 +1,10 @@
 a faire :
 
+leaks env + commande
 ls ~-
 ls ~+
-
-gestion d'erreur : afficher minishell
-minishell : ....
-
 cd : to many arguments a gerer
-
 revoir clear string (dans format line pour delete ' & ")
-gestion du ; ?
 
 Lien utile :
 https://forum.intra.42.fr/topics/5091/messages/last
