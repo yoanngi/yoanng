@@ -65,12 +65,6 @@ void		ft_error_unset(char *str, int what)
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd("\n", 2);
 	}
-	else if (what == 2)
-	{
-		ft_putstr_fd("unsetenv: Multiple pattern found: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\n", 2);
-	}
 }
 
 /*

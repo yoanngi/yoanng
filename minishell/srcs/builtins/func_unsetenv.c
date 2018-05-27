@@ -17,73 +17,52 @@
 **	Delete good line in env
 */
 
-static int		ft_count(char **env, char *pattern)
+static char		*ft_return_tmp(char *line)
 {
 	int		i;
-	int		j;
+	char	*tmp;
 
 	i = 0;
-	j = 0;
-	while (env[i])
+	tmp = ft_strsub(line, 9, ft_strlen(line) - 9);
+	while (tmp[i])
 	{
-		if (ft_strncmp(env[i], pattern, ft_strlen(pattern)) == 0)
-			j++;
+		tmp[i] = ft_toupper(tmp[i]);
 		i++;
 	}
-	return (j);
+	return (tmp);
 }
 
-static char		**func_unsetenv_two(char *regex, t_struct *data)
+static void		ft_delete(t_struct *data, int i)
 {
-	int		i;
-	int		j;
-	char	**tmp;
-
-	i = 0;
-	j = 0;
-	tmp = NULL;
-	while (data->env[i])
-		i++;
-	if (!(tmp = (char **)malloc(sizeof(char *) * i)))
-		return (NULL);
-	i = 0;
-	while (data->env[j])
-	{
-		if ((ft_strncmp(regex, data->env[j], ft_strlen(regex))) != 0)
-		{
-			tmp[i] = ft_strdup(data->env[j]);
-			i++;
-			j++;
-		}
-		else
-			j++;
-	}
-	tmp[i] = NULL;
-	return (tmp);
+	ft_strdel(&data->env[i]);
+	data->env[i] = ft_strdup(data->env[i + 1]);
 }
 
 char			**func_unsetenv(char **line, t_struct *data)
 {
 	int		i;
-	char	**tmp;
-	char	*regex;
+	int		len;
+	char	*tmp;
 
 	i = 0;
-	tmp = NULL;
-	if (data->env == NULL)
-		return (NULL);
-	regex = ft_strsub(*line, 9, ft_strlen(*line) - 9);
-	if (ft_count(data->env, regex) < 1)
-		ft_error_unset(regex, 1);
-	else if (ft_count(data->env, regex) > 1)
-		ft_error_unset(regex, 2);
-	else
+	len = ft_len_tab(data->env);
+	tmp = ft_return_tmp(*line);
+	while (data->env[i])
 	{
-		tmp = func_unsetenv_two(regex, data);
-		ft_del_tab(data->env);
-		ft_strdel(&regex);
-		return (tmp);
+		if (ft_strncmp(data->env[i], tmp, ft_strlen(tmp)) == 0)
+		{
+			ft_strdel(&tmp);
+			while (i != len - 1)
+			{
+				ft_delete(data, i);
+				i++;
+			}
+			ft_strdel(&data->env[i]);
+			return (data->env);
+		}
+		i++;
 	}
-	ft_strdel(&regex);
+	ft_error_unset(tmp, 1);
+	ft_strdel(&tmp);
 	return (data->env);
 }
