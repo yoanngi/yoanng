@@ -47,7 +47,7 @@ static int		ft_minishell_suite(t_struct *data, char **line)
 	i = 0;
 	while (tab[i])
 	{
-		clear_line(line);
+		clear_line(&tab[i]);
 		if ((ft_strcmp("exit", tab[i])) == 0 ||
 		ft_strcmp("\"exit\"", tab[i]) == 0 ||
 		ft_strcmp("\'exit\'", tab[i]) == 0)

@@ -36,7 +36,7 @@ int				ft_process(char *rep, char **cmd, char **env)
 	{
 		exec = execve(rep, cmd, env);
 		if (exec == -1)
-			kill(father, SIGQUIT);
+			kill(father, 0);
 		return (exec);
 	}
 	else
