@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 09:12:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/16 09:12:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 09:23:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,4 +34,20 @@ void		ft_check_error_cd(t_struct **data)
 	}
 	if ((*data)->oldpwd == NULL)
 		(*data)->oldpwd = ft_strdup((*data)->pwd);
+}
+
+int			ft_error_cd(char *line)
+{
+	char	**tab;
+
+	tab = ft_strsplit(line, ' ');
+	if (ft_len_tab(tab) > 3)
+	{
+		tab = ft_del_tab(tab);
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (1);
+	}
+	else
+		tab = ft_del_tab(tab);
+	return (0);
 }

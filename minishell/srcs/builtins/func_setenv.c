@@ -13,25 +13,44 @@
 
 #include "minishell.h"
 
+static int		ft_check_setenv(char *line)
+{
+	char	**tab;
+	int		ret;
+
+	tab = NULL;
+	ret = 0;
+	if (ft_strstr(line, "=") == NULL)
+		ret = 1;
+	if (ft_strlen(line) < 8)
+		ret = 1;
+	tab = ft_strsplit(line, ' ');
+	if (ft_len_tab(tab) != 2)
+		ret = 1;
+	tab = ft_del_tab(tab);
+	if (ret == 1)
+	{
+		ft_putstr_fd("setenv: Invalid format\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
 static char		*ft_valid_env(char *line)
 {
 	char	*str;
 	int		i;
 	int		q;
 
+	if (ft_check_setenv(line) == 1)
+		return (NULL);
 	str = ft_strsub(line, 7, ft_strlen(line) - 7);
 	i = 0;
 	q = 0;
-	while (q == 0)
+	while (q == 0 && (size_t)i < ft_strlen(str))
 	{
 		if (str[i] == '=')
 			q = 1;
-		else if (str[i] == '\0')
-		{
-			ft_strdel(&str);
-			ft_putstr_fd("setenv : Invalid format\n", 2);
-			return (NULL);
-		}
 		else
 			str[i] = ft_toupper(str[i]);
 		i++;
@@ -73,8 +92,8 @@ char			**func_setenv(char **line, t_struct *data)
 	char	*str;
 
 	i = 0;
-	str = NULL;
-	str = ft_valid_env(*line);
+	if ((str = ft_valid_env(*line)) == NULL)
+		return (data->env);
 	data->env = ft_existe_or_not(data, &str);
 	if (str == NULL || data->env == NULL)
 		return (data->env);

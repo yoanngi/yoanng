@@ -56,6 +56,8 @@ char		**ft_del_tab_index(char **tab, int max)
 			ft_strdel(&tab[max]);
 			max++;
 		}
+		else
+			ft_strdel(&tab[i]);
 		i++;
 	}
 	return (tab);

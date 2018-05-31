@@ -32,8 +32,6 @@
 **	Leaks : valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all
 **	--leak-resolution=high --show-reachable=no --gen-suppressions=yes
 **	--track-origins=yes ./minishell
-**
-**	Test erreur : https://forum.intra.42.fr/topics/431/messages?page=1#22608
 */
 
 /*
@@ -95,6 +93,7 @@ void				ft_check_line(t_struct *data, char **line, int i);
 */
 int					ft_builtins(char **line, t_struct *data);
 int					func_cd(char **line, t_struct *data);
+int					ft_error_cd(char *line);
 void				ft_check_error_cd(t_struct **data);
 int					func_echo(char **line, t_struct *data);
 void				option_echo(int j, t_struct *data);

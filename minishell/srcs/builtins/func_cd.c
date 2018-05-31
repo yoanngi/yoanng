@@ -94,7 +94,8 @@ static char		*func_return_target(char *line, t_struct *data)
 		i++;
 	if (i == 1)
 		target = ft_strdup(data->home);
-	else if (ft_strlen(line) == 4 && line[3] == '-')
+	else if ((ft_strlen(line) == 4 && line[3] == '-') ||
+	(ft_strlen(line) == 5 && line[3] == '-' && line[4] == '/'))
 		target = ft_strdup(data->oldpwd);
 	else if (ft_strlen(line) == 5 && line[3] == '~' && line[4] == '-')
 		target = ft_strdup(data->home);
@@ -117,6 +118,8 @@ int				func_cd(char **line, t_struct *data)
 	char	*tmp;
 
 	i = 0;
+	if (ft_error_cd(*line) == 1)
+		return (1);
 	ft_check_error_cd(&data);
 	tmp = func_return_target(*line, data);
 	if (ft_access(tmp) == -1)

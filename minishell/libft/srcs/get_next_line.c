@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/12/15 12:28:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/19 14:14:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 11:26:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@ static char		*safe_join(char *s1, char const *s2)
 	size_t	s2_len;
 	char	*result;
 
+	result = NULL;
 	s1_len = (s1) ? ft_strlen(s1) : 0;
 	s2_len = ft_strlen(s2);
 	result = ft_strnew(s1_len + s2_len);
@@ -37,6 +38,7 @@ static int		cut_at_newline(char **s_buff, char **line)
 {
 	char	*at;
 
+	at = NULL;
 	if ((at = ft_strchr(*s_buff, '\n')))
 	{
 		*line = ft_strsub(*s_buff, 0, at - *s_buff);
