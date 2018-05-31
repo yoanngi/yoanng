@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/11 14:02:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/05/31 15:23:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,8 @@ static int		ft_echo_path(char *line, t_struct *data)
 		ft_putendl(data->oldpwd);
 		return (1);
 	}
+	if (ft_strcmp(line, "echo -n") == 0)
+		return (1);
 	return (0);
 }
 
