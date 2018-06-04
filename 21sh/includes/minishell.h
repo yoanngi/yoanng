@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 14:59:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/04 11:16:15 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/04 13:56:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,14 @@
 **	--leak-resolution=high --show-reachable=no --gen-suppressions=yes
 **	--track-origins=yes ./minishell
 */
+
+/*
+**	A Faire :
+**	Si variable path suprimer, ne pas lancer de commande (sauf si chemin indiquer)
+**	gestion des cotes et doubles code pour setenv et unsetenv
+**
+*/
+
 
 /*
 **	***	Structures ***
