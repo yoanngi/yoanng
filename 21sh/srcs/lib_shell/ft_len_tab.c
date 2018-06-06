@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 09:39:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 09:39:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:42:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **	Return len tab

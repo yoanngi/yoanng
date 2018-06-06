@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/26 11:42:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/26 11:42:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:43:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 void		ft_print_tab(char **tab)
 {

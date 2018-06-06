@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/25 13:41:48 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/25 13:42:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:41:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 int			ft_existe_in_path(t_struct *data, char **path)
 {

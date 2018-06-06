@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 10:42:59 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 15:26:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:38:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **  ft_check_path : check on string if ./ or ~/ and replace

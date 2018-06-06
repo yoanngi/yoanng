@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/04 14:43:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:46:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,12 +30,6 @@
 # include <stdio.h>
 
 /*
-**	Leaks : valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all
-**	--leak-resolution=high --show-reachable=no --gen-suppressions=yes
-**	--track-origins=yes ./minishell
-*/
-
-/*
 **	A Faire :
 **	Si variable path suprimer, ne pas lancer de commande (sauf si chemin indiquer)
 **	gestion des cotes et doubles code pour setenv et unsetenv
@@ -45,6 +39,8 @@
 
 /*
 **	***	Structures ***
+**
+**	t_struct -> On la ballade partout
 */
 typedef struct		s_struct
 {
@@ -63,32 +59,24 @@ typedef struct		s_struct
 	int				option_i_env;
 	char			**env_tmp;
 	char			*char_echo;
+	struct t_cmd	*commandes;
 }					t_struct;
-
+/*
+**	t_cmd -> liste chainer des commandes a executer
+*/
+typedef struct		s_cmd
+{
+	char			*rep;
+	char			**tab_cmd;
+	char			**env;
+	struct s_cmd	*next;
+}					t_cmd;
 /*
 **	***	Fonctions ***
+**
+**	CORE
 */
-char				**ft_split_separator(char **line);
-void				clear_line(char **line);
-/*
-**	core_minishell.c
-**	core_minishell_suite.c
-*/
-int					ft_minishell(char **line, t_struct *data);
-int					ft_check_command(char **line, t_struct *data, int epur);
-/*
-**	func_signal.c
-*/
-void				my_signal(int sig);
-/*
-**	ft_fork.c
-*/
-int					ft_process(char *rep, char **cmd, char **env);
-/*
-**	format_line.c
-*/
-char				**epur_tab(char *line, int epur);
-void				ft_check_line(t_struct *data, char **line, int i);
+void				core_shell(char **line, t_struct *data);
 /*
 **	BUILTINS
 **	good_func.c
@@ -121,14 +109,13 @@ int					ft_env_cmd(t_struct *data, char **tmp, int i, int x);
 int					ft_env_rep(t_struct *data, char **tmp, int i);
 /*
 **	INIT
-**	ft_struct.c
 */
-t_struct			*ft_my_struct(char **env);
-t_struct			*ft_my_struct_null(void);
-void				ft_delete_struct(t_struct *data);
+t_struct			*init_struct(char **env);
+char				**ft_check_infos(char **env, char *find);
 char				**ft_initialise_builtins(void);
+void				ft_delete_struct(t_struct *data);
 /*
-**	LIB_MINISHELL
+**	LIB_SHELL
 */
 char				**ft_del_tab(char **tab);
 int					ft_len_tab(char **tab);
@@ -151,9 +138,6 @@ char				*ft_return_path(char *str);
 int					ft_insert_tild(t_struct *data, char **str, int i);
 int					ft_insert_dollar(t_struct *data, char **str, int i);
 int					ft_existe_in_path(t_struct *data, char **path);
-/*
-**	Termios
-*/
 /*
 **	END
 */

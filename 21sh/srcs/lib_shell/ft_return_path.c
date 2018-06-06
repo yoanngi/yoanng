@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 13:15:04 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 13:16:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:43:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **  Return path in str

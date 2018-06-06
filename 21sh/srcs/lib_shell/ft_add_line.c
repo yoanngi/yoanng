@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 09:30:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 15:38:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:38:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **	Add commande in end of path

@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 10:04:43 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/25 10:46:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 15:39:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **	Error std
@@ -19,7 +19,7 @@
 
 void		basic_error(char *name, char *cmd)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("21sh: ", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd("\n", 2);
@@ -46,7 +46,7 @@ int			ft_error(int cmd, char **line)
 		return (0);
 	if (cmd == 1)
 	{
-		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putstr_fd("21sh: command not found: ", 2);
 		ft_putstr_fd(*line, 2);
 		ft_putstr_fd("\n", 2);
 	}
