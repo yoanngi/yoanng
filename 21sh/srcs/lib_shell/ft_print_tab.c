@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_print_tab.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:56:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/26 11:42:26 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/26 11:42:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				main(int argc, char **argv, char **env)
+void		ft_print_tab(char **tab)
 {
-	char		*line;
-	t_struct	*data;
+	int		i;
 
-	(void)argc;
-	(void)argv;
-	line = NULL;
-	data = init_struct(env);
-	core_shell(&line, data);
-	ft_strdel(&line);
-	ft_delete_struct(data);
-	return (0);
+	i = 0;
+	if (tab == NULL)
+		return ;
+	while (tab[i])
+	{
+		ft_putendl(tab[i]);
+		i++;
+	}
 }

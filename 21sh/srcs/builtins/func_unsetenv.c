@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:42 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 15:12:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 14:00:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **	Delete good line in env

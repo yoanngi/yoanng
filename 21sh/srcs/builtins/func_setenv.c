@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/16 12:57:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 14:00:08 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 static int		ft_check_setenv(char *line)
 {

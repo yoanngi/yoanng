@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_return_path.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:56:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/17 13:15:04 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 13:16:41 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				main(int argc, char **argv, char **env)
-{
-	char		*line;
-	t_struct	*data;
+/*
+**  Return path in str
+*/
 
-	(void)argc;
-	(void)argv;
-	line = NULL;
-	data = init_struct(env);
-	core_shell(&line, data);
-	ft_strdel(&line);
-	ft_delete_struct(data);
-	return (0);
+char		*ft_return_path(char *str)
+{
+	char	*new;
+	size_t	i;
+
+	new = NULL;
+	i = ft_strlen(str);
+	while ((int)i >= 0)
+	{
+		if (str[i] == '/')
+		{
+			new = ft_strsub(str, 0, i);
+			return (new);
+		}
+		i--;
+	}
+	new = ft_strdup(str);
+	return (new);
 }

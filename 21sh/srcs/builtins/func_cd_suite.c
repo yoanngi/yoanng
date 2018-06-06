@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 09:12:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/31 09:23:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 13:58:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **	For builtins/func_cd.c

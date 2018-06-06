@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/11 14:02:38 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/11 14:03:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 13:58:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **	Print char or go to print special char

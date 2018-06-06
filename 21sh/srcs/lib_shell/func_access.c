@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_delete_struct.c                               .::    .:/ .      .::   */
+/*   func_access.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/05/15 13:57:17 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/15 13:57:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/04/16 11:47:26 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/16 11:47:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,24 +14,23 @@
 #include "minishell.h"
 
 /*
-**	Delete struct ans datas
+**	Check access or not (cmd cd)
 */
 
-void			ft_delete_struct(t_struct *data)
+int		ft_access(char *path)
 {
-	ft_strdel(&data->path);
-	ft_strdel(&data->pwd);
-	ft_strdel(&data->oldpwd);
-	ft_strdel(&data->home);
-	ft_strdel(&data->charfound);
-	ft_strdel(&data->current_path);
-	ft_strdel(&data->prompt);
-	ft_strdel(&data->prompt_current);
-	ft_strdel(&data->char_echo);
-	data->tab_path = ft_del_tab(data->tab_path);
-	data->env = ft_del_tab(data->env);
-	data->builtins = ft_del_tab(data->builtins);
-	data->env_tmp = ft_del_tab(data->env_tmp);
-	free(data);
-	data = NULL;
+	if (access(path, F_OK))
+	{
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": No such file of directory\n", 2);
+		return (-1);
+	}
+	if (access(path, R_OK))
+	{
+		ft_putstr_fd("cd: permission denied: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd("\n", 2);
+		return (-1);
+	}
+	return (0);
 }

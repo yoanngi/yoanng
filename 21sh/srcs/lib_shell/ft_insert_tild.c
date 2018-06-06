@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_init_builtins.c                               .::    .:/ .      .::   */
+/*   ft_insert_tild.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/06 13:00:14 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:34:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/22 11:48:06 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/22 11:53:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "minishell.h"
 
 /*
-**	initialise builtins in struct
+**  replace ~ for the path and return len path
 */
 
-char		**ft_initialise_builtins(void)
+int		ft_insert_tild(t_struct *data, char **str, int i)
 {
-	char	**tab;
+	char	*tmp;
+	char	*tmp2;
+	int		j;
 
-	if (!(tab = (char**)malloc(sizeof(char *) * 6)))
-		return (NULL);
-	tab[0] = ft_strdup("cd");
-	tab[1] = ft_strdup("echo");
-	tab[2] = ft_strdup("setenv");
-	tab[3] = ft_strdup("unsetenv");
-	tab[4] = ft_strdup("env");
-	tab[5] = NULL;
-	return (tab);
+	j = i;
+	tmp = ft_strsub(*str, 0, i);
+	tmp2 = ft_strsub(*str, i + 1, ft_strlen(*str) - i - 1);
+	ft_strdel(str);
+	*str = ft_strjoin(tmp, data->home);
+	ft_strdel(&tmp);
+	tmp = ft_strjoin(*str, tmp2);
+	ft_strdel(&tmp2);
+	ft_strdel(str);
+	*str = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	return (ft_strlen(data->home));
 }

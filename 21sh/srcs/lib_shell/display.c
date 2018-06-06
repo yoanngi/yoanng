@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   display.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:56:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/17 09:20:56 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 09:20:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				main(int argc, char **argv, char **env)
-{
-	char		*line;
-	t_struct	*data;
+/*
+**	Print good prompt
+*/
 
-	(void)argc;
-	(void)argv;
-	line = NULL;
-	data = init_struct(env);
-	core_shell(&line, data);
-	ft_strdel(&line);
-	ft_delete_struct(data);
-	return (0);
+void		ft_display(t_struct *data)
+{
+	ft_putstr("\033[32m");
+	if (data->prompt_current == NULL)
+		ft_putstr(data->prompt);
+	else
+		ft_putstr(data->prompt_current);
+	ft_putstr("\033[0m");
 }

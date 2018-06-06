@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_existe_in_path.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:56:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/25 13:41:48 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/25 13:42:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				main(int argc, char **argv, char **env)
+int			ft_existe_in_path(t_struct *data, char **path)
 {
-	char		*line;
-	t_struct	*data;
+	char	*pat;
+	int		i;
 
-	(void)argc;
-	(void)argv;
-	line = NULL;
-	data = init_struct(env);
-	core_shell(&line, data);
-	ft_strdel(&line);
-	ft_delete_struct(data);
+	pat = ft_return_path(*path);
+	i = 0;
+	while (data->tab_path[i])
+	{
+		if (ft_strcmp(data->tab_path[i], pat) == 0)
+		{
+			ft_strdel(&pat);
+			return (1);
+		}
+		i++;
+	}
+	ft_strdel(&pat);
 	return (0);
 }

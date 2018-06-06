@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_init_builtins.c                               .::    .:/ .      .::   */
+/*   ft_duplicate_tab.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/06 13:00:14 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:34:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/05/26 11:24:31 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/26 11:25:59 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "minishell.h"
 
 /*
-**	initialise builtins in struct
+**  Duplicate tab and return tab
 */
 
-char		**ft_initialise_builtins(void)
+char		**ft_duplicate_tab(char **tab)
 {
-	char	**tab;
+	char	**new;
+	int		len;
+	int		i;
 
-	if (!(tab = (char**)malloc(sizeof(char *) * 6)))
+	new = NULL;
+	if (tab == NULL)
 		return (NULL);
-	tab[0] = ft_strdup("cd");
-	tab[1] = ft_strdup("echo");
-	tab[2] = ft_strdup("setenv");
-	tab[3] = ft_strdup("unsetenv");
-	tab[4] = ft_strdup("env");
-	tab[5] = NULL;
-	return (tab);
+	len = ft_len_tab(tab);
+	i = 0;
+	if (!(new = (char **)malloc(sizeof(char *) * (len + 1))))
+		return (NULL);
+	while (tab[i])
+	{
+		new[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	new[len] = NULL;
+	return (new);
 }

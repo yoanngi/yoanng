@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ft_return_pwd.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:56:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/06 10:58:38 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/06 10:59:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
-int				main(int argc, char **argv, char **env)
+static char		*ft_return_pwd(void)
 {
-	char		*line;
-	t_struct	*data;
+	char	*buf;
 
-	(void)argc;
-	(void)argv;
-	line = NULL;
-	data = init_struct(env);
-	core_shell(&line, data);
-	ft_strdel(&line);
-	ft_delete_struct(data);
-	return (0);
+	buf = ft_strnew(512);
+	buf = getcwd(buf, 512);
+	return (buf);
 }

@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 11:20:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/04/21 13:31:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/06 14:00:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
 /*
 **	start good function (for builtins)
