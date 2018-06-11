@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/11 15:17:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:59:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 11:10:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,8 @@ int			ft_env_cmd(t_struct *data, char **tab, int i, int x)
 	tmp = ft_strjoin(data->tab_path[x], "/");
 	tmp2 = ft_strjoin(tmp, tab[i]);
 	tab = ft_del_tab_index(tab, i);
-	ft_process(tmp2, tab, data->env_tmp);
+	//ft_process(tmp2, tab, data->env_tmp);
+	execute_commandes(data);
 	ft_strdel(&tmp);
 	ft_strdel(&tmp2);
 	data->env_tmp = ft_del_tab(data->env_tmp);
@@ -101,7 +102,8 @@ int			ft_env_rep(t_struct *data, char **tab, int i)
 		path = ft_strdup(tab[0]);
 		ft_strdel(&tab[0]);
 		tab[0] = ft_strdup(cmd);
-		ft_process(path, tab, data->env_tmp);
+		//ft_process(path, tab, data->env_tmp);
+		execute_commandes(data);
 	}
 	ft_strdel(&path);
 	ft_strdel(&cmd);

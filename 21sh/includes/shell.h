@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:46:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 11:08:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,16 @@
 /*
 **	***	Structures ***
 **
+**	t_cmd -> liste chainer des commandes a executer
+*/
+typedef struct		s_cmd
+{
+	char			*rep;
+	char			**tab_cmd;
+	char			**env;
+	struct s_cmd	*next;
+}					t_cmd;
+/*
 **	t_struct -> On la ballade partout
 */
 typedef struct		s_struct
@@ -59,35 +69,26 @@ typedef struct		s_struct
 	int				option_i_env;
 	char			**env_tmp;
 	char			*char_echo;
-	struct t_cmd	*commandes;
+	int				pipe;
+	int				redirection;
+	t_cmd			*commandes;
 }					t_struct;
-/*
-**	t_cmd -> liste chainer des commandes a executer
-*/
-typedef struct		s_cmd
-{
-	char			*rep;
-	char			**tab_cmd;
-	char			**env;
-	struct s_cmd	*next;
-}					t_cmd;
 /*
 **	***	Fonctions ***
 **
 **	CORE
 */
 void				core_shell(char **line, t_struct *data);
+int					execute_commandes(t_struct *data);
+int					exec_pipe(t_struct *data);
+int					exec_pipe_suite(t_struct *data);
+int					ft_process(t_struct *data);
+/*
+**	PARSING
+*/
+t_cmd				*ft_split_commandes(char **line, t_struct **data);
 /*
 **	BUILTINS
-**	good_func.c
-**	func_cd.c
-**	func_echo.c
-**	func_echo_suite.c
-**	func_echo_print.c
-**	func_setenv.c
-**	func_unsetenv.c
-**	func_env.c
-**	func_env_print.c
 */
 int					ft_builtins(char **line, t_struct *data);
 int					func_cd(char **line, t_struct *data);
@@ -111,9 +112,11 @@ int					ft_env_rep(t_struct *data, char **tmp, int i);
 **	INIT
 */
 t_struct			*init_struct(char **env);
-char				**ft_check_infos(char **env, char *find);
+char				*ft_check_infos(char **env, char *find);
 char				**ft_initialise_builtins(void);
 void				ft_delete_struct(t_struct *data);
+t_cmd				*clear_commandes(t_cmd *start);
+t_cmd				*ft_init_commandes(void);
 /*
 **	LIB_SHELL
 */
@@ -138,6 +141,9 @@ char				*ft_return_path(char *str);
 int					ft_insert_tild(t_struct *data, char **str, int i);
 int					ft_insert_dollar(t_struct *data, char **str, int i);
 int					ft_existe_in_path(t_struct *data, char **path);
+char				*ft_return_pwd(void);
+void				ft_check_line(t_struct *data, char **line, int i);
+
 /*
 **	END
 */

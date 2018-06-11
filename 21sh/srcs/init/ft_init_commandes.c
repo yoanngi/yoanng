@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_return_pwd.c                                  .::    .:/ .      .::   */
+/*   ft_init_commandes.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/06 10:58:38 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 11:02:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/11 10:17:46 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/11 11:34:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char		*ft_return_pwd(void)
+t_cmd			*ft_init_commandes(void)
 {
-	char	*buf;
+	t_cmd	*new;
 
-	buf = ft_strnew(512);
-	buf = getcwd(buf, 512);
-	return (buf);
+	new = NULL;
+	new = (t_cmd *)malloc(sizeof(t_cmd));
+	if (new == NULL)
+		return (NULL);
+	new->rep = NULL;
+	new->tab_cmd = NULL;
+	new->env = NULL;
+	new->next = NULL;
+	return (new);
 }

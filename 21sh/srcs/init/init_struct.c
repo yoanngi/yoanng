@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:39:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:55:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 11:07:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ static void		init_base(t_struct **data)
 	{
 		(*data)->path = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
 		ft_strdel(&tmp);
-		(*data)->tab_path = ft_strsplit(data->path, ':');
+		(*data)->tab_path = ft_strsplit((*data)->path, ':');
 		tmp = ft_check_infos((*data)->env, "PWD=");
 		(*data)->pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
 		ft_strdel(&tmp);
@@ -67,8 +67,8 @@ static void		init_base(t_struct **data)
 		(*data)->home = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
 		ft_strdel(&tmp);
 	}
-	(*data)->current_path = ft_strdup(data->pwd);
-	(*data)->oldpwd = ft_strdup(data->pwd);
+	(*data)->current_path = ft_strdup((*data)->pwd);
+	(*data)->oldpwd = ft_strdup((*data)->pwd);
 	(*data)->prompt = ft_strdup("$> ");
 	(*data)->prompt_current = NULL;
 	(*data)->builtins = ft_initialise_builtins();
@@ -89,6 +89,6 @@ t_struct		*init_struct(char **env)
 	else
 		data->env = init_env(env);
 	init_base(&data);
-	data->commande = NULL;
+	data->commandes = NULL;
 	return (data);
 }
