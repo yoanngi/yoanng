@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 18:45:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 20:25:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,9 +64,9 @@ typedef struct		s_cmd
 {
 	char			*rep;
 	char			**tab_cmd;
-//	int				stdin_cmd;
-//	int				stdout_cmd;
-//	int				stderr_cmd;
+	int				stdin_cmd;
+	int				stdout_cmd;
+	int				stderr_cmd;
 	char			**env;
 	struct s_cmd	*next;
 }					t_cmd;

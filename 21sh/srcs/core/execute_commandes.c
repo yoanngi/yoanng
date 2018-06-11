@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 19:08:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 20:27:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,10 @@ static int			exec_cmd_father(t_cmd *commandes, int pipe_fd[2])
 	int		exec;
 
 	exec = 0;
-	close(pipe_fd[0]);
+	if (commandes->stdin_cmd == 1)
+		close(pipe_fd[1]);
+	else
+		close(pipe_fd[0]);
 	dup2(pipe_fd[1], 1);
 	close(pipe_fd[1]);
 	exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
@@ -77,43 +80,49 @@ static int			exec_cmd_child(t_cmd *commandes, int pipe_fd[2])
 	exec = 0;
 	close(pipe_fd[1]);
 	dup2(pipe_fd[0], 0);
-	close(pipe_fd[0]);
+	if (commandes->stdout_cmd == 1)
+		close(pipe_fd[1]);
+	else
+		close(pipe_fd[0]);
 	exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
 	ft_putstr_fd("Failled (child)\n", 2);
 	return (exec);
+}
+
+static int			exec_cmd_recur(t_cmd *start)
+{
+	int		ret;
+	pid_t	pid;
+	int		pipe_fd[3];
+
+	ret = 0;
+	printf("%s\n", __func__);
+	if (pipe(pipe_fd) == -1)
+		ft_putstr_fd("Une Erreur c'est produite (pipe)\n", 2);
+	if ((pid = fork()) == -1)
+		ft_putstr_fd("Une Erreur c'est produite (fork)\n", 2);
+	if (pid == 0)
+	{
+		ret = exec_cmd_child(start->next, pipe_fd);
+		exec_cmd_recur(start->next);
+	}
+	ret = exec_cmd_father(start, pipe_fd);
+	return (ret);
 }
 
 int			execute_commandes(t_struct *data)
 {
 	t_cmd	*start;
 	int		ret;
-	int		pipe_fd[3];
-	pid_t	pid;
 	pid_t	pid_p;
 
 	debug(data);
 	start = data->commandes;
 	ret = 0;
 	if ((pid_p = fork()) == 0)
-	{
-		while (1)
-		{
-			printf("Tour de boucle\n");
-			if (pipe(pipe_fd) == -1)
-				ft_putstr_fd("Une Erreur c'est produite (pipe)\n", 2);
-			if ((pid = fork()) == -1)
-					ft_putstr_fd("Une Erreur c'est produite (fork)\n", 2);
-			if (pid == 0)
-			{
-				ret = exec_cmd_child(start->next, pipe_fd);
-				start = start->next;
-			}
-			ret = exec_cmd_father(start, pipe_fd);
-			if (start->next == NULL)
-				break ;
-		}
-	}
+		ret = exec_cmd_recur(start);
 	else
 		wait(&pid_p);
 	return (ret);
 }
+
