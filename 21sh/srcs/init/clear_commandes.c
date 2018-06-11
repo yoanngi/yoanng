@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:47:46 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 11:34:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 18:51:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,10 @@ t_cmd		*clear_commandes(t_cmd *start)
 	t_cmd	*clear;
 	t_cmd	*cpy;
 
+	// freed being was not allocated
+	return (NULL);
+	if (start == NULL)
+		return (NULL);
 	clear = start;
 	cpy = NULL;
 	while (clear)

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 17:24:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 19:08:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,18 +15,20 @@
 
 static void	debug(t_struct *data)
 {
-	/* DEBUG */
-	printf("Debug : (%s)\n", __func__);
-	printf("data->commandes->rep = %s\n", data->commandes->rep);
-	printf("data->commandes->tab_cmd[0] = %s\n", data->commandes->tab_cmd[0]);
-	printf("data->commandes->tab_cmd[1] = %s\n", data->commandes->tab_cmd[1]);
-	printf("data->commandes->next->rep = %s\n", data->commandes->next->rep);
-	printf("data->commandes->next->tab_cmd_[0] = %s\n", data->commandes->next->tab_cmd[0]);
-	printf("data->commandes->next->tab_cmd_[1] = %s\n", data->commandes->next->tab_cmd[1]);
-	printf("data->commandes->next->next->rep = %s\n", data->commandes->next->next->rep);
-	printf("data->commandes->next->next->tab_cmd_[0] = %s\n", data->commandes->next->next->tab_cmd[0]);
-	printf("data->commandes->next->next->tab_cmd_[1] = %s\n", data->commandes->next->next->tab_cmd[1]);
-	/* END DEBUG */
+	t_cmd	*test;
+
+	test = data->commandes;
+	printf("(%s)\n", __func__);
+	while (data->commandes)
+	{
+		printf("data->commandes->rep = %s\n", data->commandes->rep);
+		printf("data->commandes->tab_cmd[0] = %s\n", data->commandes->tab_cmd[0]);
+		printf("data->commandes->tab_cmd[1] = %s\n", data->commandes->tab_cmd[1]);
+		printf("next\n");
+		data->commandes = data->commandes->next;
+	}
+	data->commandes = test;
+	printf("End debug ******************************************\n\n");
 }
 /*
 int				ft_process(t_struct *data)
@@ -55,50 +57,63 @@ int				ft_process(t_struct *data)
 }
 */
 
-int			exec_cmd(t_struct *data)
+static int			exec_cmd_father(t_cmd *commandes, int pipe_fd[2])
 {
-	int		ret;
-	int		pipe_fd[2];
-	pid_t	pid;
+	int		exec;
 
-	ret = 0;
-	debug(data);
-	if (pipe(pipe_fd) == -1 || (pid = fork()) == -1)
-	{
-		ft_putstr_fd("Une erreur c'est produite (fork ou pipe)\n", 2);
-		return (-1);
-	}
-	if (pid == 0)
-	{
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
-		close(pipe_fd[0]);
-		exec = execve(data->commandes->next->rep, data->commandes->next->tab_cmd,
-				data->commandes->next->env);
-	}
-	return (ret);
+	exec = 0;
+	close(pipe_fd[0]);
+	dup2(pipe_fd[1], 1);
+	close(pipe_fd[1]);
+	exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
+	ft_putstr_fd("Failled (father)\n", 2);
+	return (exec);
+}
+
+static int			exec_cmd_child(t_cmd *commandes, int pipe_fd[2])
+{
+	int		exec;
+
+	exec = 0;
+	close(pipe_fd[1]);
+	dup2(pipe_fd[0], 0);
+	close(pipe_fd[0]);
+	exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
+	ft_putstr_fd("Failled (child)\n", 2);
+	return (exec);
 }
 
 int			execute_commandes(t_struct *data)
 {
 	t_cmd	*start;
 	int		ret;
-	int		pipe_fd[2];
+	int		pipe_fd[3];
 	pid_t	pid;
+	pid_t	pid_p;
 
+	debug(data);
 	start = data->commandes;
 	ret = 0;
-	if (pipe(pipe_fd) == -1)
-		ft_putstr_fd("Une Erreur c'est produite\n", 2);
-	if ((pid = fork()) == -1)
-		ft_putstr_fd("Une Erreur c'est produite\n", 2);
-	while (start)
+	if ((pid_p = fork()) == 0)
 	{
-		if (pid == 0)
-			ret = exec_cmd(start);
-		else
-			ret = exec_cmd_son(start);
-		start = start->next;
+		while (1)
+		{
+			printf("Tour de boucle\n");
+			if (pipe(pipe_fd) == -1)
+				ft_putstr_fd("Une Erreur c'est produite (pipe)\n", 2);
+			if ((pid = fork()) == -1)
+					ft_putstr_fd("Une Erreur c'est produite (fork)\n", 2);
+			if (pid == 0)
+			{
+				ret = exec_cmd_child(start->next, pipe_fd);
+				start = start->next;
+			}
+			ret = exec_cmd_father(start, pipe_fd);
+			if (start->next == NULL)
+				break ;
+		}
 	}
+	else
+		wait(&pid_p);
 	return (ret);
 }

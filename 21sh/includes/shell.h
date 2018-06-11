@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 11:08:00 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/11 18:45:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #ifndef SHELL_H
 # define SHELL_H
 
-# include "libft.h"
+# include "../libft/includes/libft.h"
 # include <unistd.h>
 # include <dirent.h>
 # include <signal.h>
@@ -36,16 +36,37 @@
 **
 */
 
+/*
+**	Source :
+**	http://putaindecode.io/fr/articles/shell/redirections/
+**	https://www.gnu.org/software/bash/manual/bashref.html#Redirections
+**	https://abs.traduc.org/abs-5.3-fr/ch19.html
+**	https://openclassrooms.com/forum/sujet/executer-fonctions-sur-pipes-successifs
+**
+**
+*/
 
 /*
 **	***	Structures ***
 **
 **	t_cmd -> liste chainer des commandes a executer
+**	Code operateur:
+**	0 : NULL
+**	1 : |
+**	2 : <
+**	3 : >
+**	4 : >>
+**	5 : <<
+**	6 : &
+**	7 : &&
 */
 typedef struct		s_cmd
 {
 	char			*rep;
 	char			**tab_cmd;
+//	int				stdin_cmd;
+//	int				stdout_cmd;
+//	int				stderr_cmd;
 	char			**env;
 	struct s_cmd	*next;
 }					t_cmd;
