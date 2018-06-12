@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/11 11:06:32 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/12 07:28:05 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -58,6 +58,7 @@ N_SRCS = 	main.c\
 			lib_shell/ft_return_pwd.c\
 			lib_shell/func_access.c\
 			lib_shell/format_line.c\
+			lib_shell/len_list.c\
 			builtins/good_func.c\
 			builtins/func_cd.c\
 			builtins/func_cd_suite.c\

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 20:25:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/12 17:14:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,7 @@
 **	https://www.gnu.org/software/bash/manual/bashref.html#Redirections
 **	https://abs.traduc.org/abs-5.3-fr/ch19.html
 **	https://openclassrooms.com/forum/sujet/executer-fonctions-sur-pipes-successifs
+**	https://stackoverflow.com/questions/17630247/coding-multiple-pipe-in-c/17631589
 **
 **
 */
@@ -92,6 +93,7 @@ typedef struct		s_struct
 	char			*char_echo;
 	int				pipe;
 	int				redirection;
+	int				ret_func;
 	t_cmd			*commandes;
 }					t_struct;
 /*
@@ -164,6 +166,7 @@ int					ft_insert_dollar(t_struct *data, char **str, int i);
 int					ft_existe_in_path(t_struct *data, char **path);
 char				*ft_return_pwd(void);
 void				ft_check_line(t_struct *data, char **line, int i);
+int					len_list(t_cmd *lst);
 
 /*
 **	END

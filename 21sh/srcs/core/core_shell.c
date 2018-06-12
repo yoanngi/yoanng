@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 20:15:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/12 18:14:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,17 +18,11 @@ static int		parse_line(t_struct *data, char **line)
 	int		ret;
 
 	ret = 0;
-	// retourne une liste chainer des commandes separer et clean
 	data->commandes = ft_split_commandes(line, &data);
-	printf("PARSING OK\n");
-
-	// Execution des commmandes.
 	ret = execute_commandes(data);
-	printf("EXECUTION OK\n");
-
-	// del liste chainer
+	printf("%s -> retour = %d\n", __func__, ret);
+	printf("%s -> data->ret_func = %d\n", __func__, data->ret_func);
 	data->commandes = clear_commandes(data->commandes);
-	printf("CLEAR COMMANDE OK\n");
 	return (ret);
 }
 
