@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/12 18:18:15 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 09:13:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,7 @@ static void	debug(t_struct *data)
 		printf("data->commandes->rep = %s\n", data->commandes->rep);
 		printf("data->commandes->tab_cmd[0] = %s\n", data->commandes->tab_cmd[0]);
 		printf("data->commandes->tab_cmd[1] = %s\n", data->commandes->tab_cmd[1]);
+		printf("data->commandes->tab_cmd[2] = %s\n", data->commandes->tab_cmd[2]);
 		printf("data->commandes->stdin_cmd = %d\n", data->commandes->stdin_cmd);
 		printf("data->commandes->stdout_cmd = %d\n", data->commandes->stdout_cmd);
 		printf("data->commandes->stderr_cmd = %d\n", data->commandes->stderr_cmd);
@@ -71,11 +72,8 @@ static int			exec_cmd_child(t_cmd *commandes, int pipe_fd[2], int *fd_in)
 	close(pipe_fd[0]);
 	exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
 	if (exec == -1)
-	{
-		ft_putstr_fd("Une erreur c'est produite (child)\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	return (-1);
+		return (-1);
+	return (0);
 }
 
 static int			exec_cmd_recur(t_struct *data)
@@ -90,15 +88,15 @@ static int			exec_cmd_recur(t_struct *data)
 	while (data->commandes)
 	{
 		if (pipe(pipe_fd) == -1)
-			ft_putstr_fd("Une Erreur c'est produite (pipe)\n", 2);
+			return (EXIT_FAILURE);
 		if ((pid = fork()) == -1)
-			ft_putstr_fd("Une Erreur c'est produite (fork)\n", 2);
+			return (EXIT_FAILURE);
 		if (pid == 0)
 		{
 			if (exec_cmd_child(data->commandes, pipe_fd, &fd_in) == -1)
 			{
-				ft_putstr_fd("Une erreur c'est produite (child)\n", 2);
-				return (-1);
+				kill(pid, 0);
+				return (EXIT_FAILURE);
 			}
 		}
 		else
@@ -110,25 +108,27 @@ static int			exec_cmd_recur(t_struct *data)
 		}
 	}
 	data->ret_func = WEXITSTATUS(status);
-	printf("data->ret_func = %d\n\n", data->ret_func);
-	return (WEXITSTATUS(status));
+	return (EXIT_SUCCESS);
 }
 
 int			execute_commandes(t_struct *data)
 {
 	int		ret;
+	int		status;
 	pid_t	pid_p;
 
+	// A delete
 	debug(data);
+	// *******
 	ret = 0;
 	if (len_list(data->commandes) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)
-		ft_putstr_fd("Error Fork father\n", 2);
+		ft_putstr_fd("Error Fork Father\n", 2);
 	else if (pid_p == 0)
 		ret = exec_cmd_recur(data);
 	else
-		wait(&pid_p);
-	return (ret);
+		waitpid(pid_p, &status, 0);
+	ret == 1 ? ft_putstr_fd("Un erreur c'est produite\n", 2) : 0;
+	return (EXIT_SUCCESS);
 }
-
