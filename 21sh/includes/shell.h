@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/12 17:14:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 14:21:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,23 +51,37 @@
 **	***	Structures ***
 **
 **	t_cmd -> liste chainer des commandes a executer
+**
+**	rep = Repertoire de commande
+**	tab_cmd : commande et options sous forme de tableau
+**	pathname : Si redirection dans un fichier, pathanme != NULL
+
 **	Code operateur:
 **	0 : NULL
 **	1 : |
-**	2 : <
-**	3 : >
-**	4 : >>
+**	2 : >
+**	3 : >>
+**	4 : <
 **	5 : <<
 **	6 : &
 **	7 : &&
+**	8 : ||
+**
+**	env : Environnement a envoyer pour la commande
 */
 typedef struct		s_cmd
 {
 	char			*rep;
 	char			**tab_cmd;
+	char			*pathname;
+
+	int				op_before;
+	int				op_next;
+
 	int				stdin_cmd;
 	int				stdout_cmd;
 	int				stderr_cmd;
+
 	char			**env;
 	struct s_cmd	*next;
 }					t_cmd;

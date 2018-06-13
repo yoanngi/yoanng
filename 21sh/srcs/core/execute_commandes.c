@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 09:13:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 13:52:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,9 +23,13 @@ static void	debug(t_struct *data)
 	while (data->commandes)
 	{
 		printf("data->commandes->rep = %s\n", data->commandes->rep);
-		printf("data->commandes->tab_cmd[0] = %s\n", data->commandes->tab_cmd[0]);
-		printf("data->commandes->tab_cmd[1] = %s\n", data->commandes->tab_cmd[1]);
-		printf("data->commandes->tab_cmd[2] = %s\n", data->commandes->tab_cmd[2]);
+		printf("data->commandes->pathname = %s\n", data->commandes->pathname);
+		if (data->commandes->tab_cmd != NULL)
+		{
+			printf("data->commandes->tab_cmd[0] = %s\n", data->commandes->tab_cmd[0]);
+			printf("data->commandes->tab_cmd[1] = %s\n", data->commandes->tab_cmd[1]);
+			printf("data->commandes->tab_cmd[2] = %s\n", data->commandes->tab_cmd[2]);
+		}
 		printf("data->commandes->stdin_cmd = %d\n", data->commandes->stdin_cmd);
 		printf("data->commandes->stdout_cmd = %d\n", data->commandes->stdout_cmd);
 		printf("data->commandes->stderr_cmd = %d\n", data->commandes->stderr_cmd);
@@ -61,19 +65,38 @@ int				ft_process(t_struct *data)
 	return (father);
 }
 
-static int			exec_cmd_child(t_cmd *commandes, int pipe_fd[2], int *fd_in)
+static int			exec_pipe_child(t_cmd *commandes, int pipe_fd[2], int *fd_in)
 {
 	int		exec;
+	int		fd;
 
 	exec = 0;
-	dup2(*fd_in, 0);
-	if (commandes->next != NULL)
+	if ((commandes->op_next == 2 || commandes->op_next == 3) && commandes->pathname != NULL)
+	{
+		if (commandes->op_next == 2)
+			fd = open(commandes->pathname, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (commandes->op_next == 3)
+			fd = open(commandes->pathname, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (fd == -1)
+			return (EXIT_FAILURE);
+		dup2(*fd_in, 0);
+		dup2(fd, 1);
+		close(pipe_fd[0]);
+		close(fd);
+		exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
+		if (exec == -1)
+			return (EXIT_FAILURE);
+	}
+	else if (commandes->next != NULL)
+	{
+		dup2(*fd_in, 0);
 		dup2(pipe_fd[1], 1);
-	close(pipe_fd[0]);
-	exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
-	if (exec == -1)
-		return (-1);
-	return (0);
+		close(pipe_fd[0]);
+		exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
+		if (exec == -1)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
 
 static int			exec_cmd_recur(t_struct *data)
@@ -82,6 +105,7 @@ static int			exec_cmd_recur(t_struct *data)
 	int		pipe_fd[2];
 	int		fd_in;
 	int		status;
+	int		ret;
 
 	fd_in = 0;
 	status = 0;
@@ -93,7 +117,8 @@ static int			exec_cmd_recur(t_struct *data)
 			return (EXIT_FAILURE);
 		if (pid == 0)
 		{
-			if (exec_cmd_child(data->commandes, pipe_fd, &fd_in) == -1)
+			ret = exec_pipe_child(data->commandes, pipe_fd, &fd_in);
+			if (ret == 1)
 			{
 				kill(pid, 0);
 				return (EXIT_FAILURE);

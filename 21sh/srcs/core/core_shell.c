@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 09:18:54 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 09:53:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,9 +30,7 @@ static int		parse_line(t_struct *data, char **line)
 	ret = execute_commandes(data);
 
 	// Add check Builtins and exit
-	printf("%s -> Valeur de retour = %d\n", __func__, ret);
 	printf("%s -> Valeur de data->ret_func = %d\n", __func__, data->ret_func);
-
 	if (ret == 1)
 		printf("On a une erreur\n");
 	if (ret == -1)
