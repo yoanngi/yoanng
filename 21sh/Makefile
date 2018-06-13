@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/12 07:28:05 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/13 15:38:48 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,6 +33,7 @@ INC = -I $(INC_PATH) -I $(LIB_PATH)includes/
 
 N_SRCS = 	main.c\
 			core/core_shell.c\
+			core/ft_process.c\
 			core/execute_commandes.c\
 			init/ft_check_infos.c\
 			init/ft_delete_struct.c\

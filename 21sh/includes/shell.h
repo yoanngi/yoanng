@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 14:21:38 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 19:15:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@
 **	https://abs.traduc.org/abs-5.3-fr/ch19.html
 **	https://openclassrooms.com/forum/sujet/executer-fonctions-sur-pipes-successifs
 **	https://stackoverflow.com/questions/17630247/coding-multiple-pipe-in-c/17631589
+**	https://openclassrooms.com/forum/sujet/dup-dup2-et-close-12008
 **
 **
 */
@@ -75,7 +76,7 @@ typedef struct		s_cmd
 	char			**tab_cmd;
 	char			*pathname;
 
-	int				op_before;
+	int				op_redir;
 	int				op_next;
 
 	int				stdin_cmd;
@@ -105,9 +106,10 @@ typedef struct		s_struct
 	int				option_i_env;
 	char			**env_tmp;
 	char			*char_echo;
-	int				pipe;
-	int				redirection;
 	int				ret_func;
+	int				stdin_shell;
+	int				stdout_shell;
+	int				stderr_shell;
 	t_cmd			*commandes;
 }					t_struct;
 /*
