@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:21:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:57:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:16:15 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Sycronise path in env
@@ -85,12 +85,12 @@ static char		*ft_tild(char *target, t_struct *data)
 static char		*func_return_target(char *line, t_struct *data)
 {
 	char	*target;
-	char	**tab;
+	char	**tabl;
 	int		i;
 
 	i = 0;
-	tab = ft_strsplit(line, ' ');
-	while (tab[i])
+	tabl = ft_strsplit(line, ' ');
+	while (tabl[i])
 		i++;
 	if (i == 1)
 		target = ft_strdup(data->home);
@@ -100,10 +100,10 @@ static char		*func_return_target(char *line, t_struct *data)
 	else if (ft_strlen(line) == 5 && line[3] == '~' && line[4] == '-')
 		target = ft_strdup(data->home);
 	else
-		target = ft_strdup(tab[i - 1]);
+		target = ft_strdup(tabl[i - 1]);
 	if (ft_strstr(target, "~") != NULL)
 		target = ft_tild(target, data);
-	ft_del_tab(tab);
+	ft_del_tab(tabl);
 	return (target);
 }
 

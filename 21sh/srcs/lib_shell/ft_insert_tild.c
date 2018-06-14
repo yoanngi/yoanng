@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/22 11:48:06 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:42:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 11:59:44 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **  replace ~ for the path and return len path

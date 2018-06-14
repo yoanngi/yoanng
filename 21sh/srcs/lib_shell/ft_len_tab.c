@@ -6,25 +6,25 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 09:39:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:42:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:00:13 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Return len tab
 */
 
-int			ft_len_tab(char **tab)
+int			ft_len_tab(char **tabl)
 {
 	int		i;
 
 	i = 0;
-	if (tab == NULL)
+	if (tabl == NULL)
 		return (0);
-	while (tab[i])
+	while (tabl[i])
 		i++;
 	return (i);
 }

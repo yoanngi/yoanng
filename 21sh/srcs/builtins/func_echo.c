@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:58:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:18:01 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Special cmd echo
@@ -45,23 +45,23 @@ static int		ft_echo_path(char *line, t_struct *data)
 
 static int		ft_check_option(char *line, int n_or_e)
 {
-	char	**tab;
+	char	**tabl;
 	int		ret;
 
 	ret = 0;
-	tab = ft_strsplit(line, ' ');
-	if (ft_len_tab(tab) >= 2)
+	tabl = ft_strsplit(line, ' ');
+	if (ft_len_tab(tabl) >= 2)
 	{
-		if (ft_strcmp(tab[1], "-n") == 0 && n_or_e == 0)
+		if (ft_strcmp(tabl[1], "-n") == 0 && n_or_e == 0)
 			ret = 1;
-		else if (ft_strcmp(tab[1], "-ne") == 0 && n_or_e == 0)
+		else if (ft_strcmp(tabl[1], "-ne") == 0 && n_or_e == 0)
 			ret = 2;
-		else if (ft_strcmp(tab[1], "-en") == 0 && n_or_e == 0)
+		else if (ft_strcmp(tabl[1], "-en") == 0 && n_or_e == 0)
 			ret = 2;
-		else if (ft_strcmp(tab[1], "-e") == 0 && n_or_e == 1)
+		else if (ft_strcmp(tabl[1], "-e") == 0 && n_or_e == 1)
 			ret = 1;
 	}
-	ft_del_tab(tab);
+	ft_del_tab(tabl);
 	return (ret);
 }
 

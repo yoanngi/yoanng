@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/16 09:12:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:58:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:16:50 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	For builtins/func_cd.c
@@ -38,16 +38,16 @@ void		ft_check_error_cd(t_struct **data)
 
 int			ft_error_cd(char *line)
 {
-	char	**tab;
+	char	**tabl;
 
-	tab = ft_strsplit(line, ' ');
-	if (ft_len_tab(tab) > 3)
+	tabl = ft_strsplit(line, ' ');
+	if (ft_len_tab(tabl) > 3)
 	{
-		tab = ft_del_tab(tab);
+		tabl = ft_del_tab(tabl);
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
 	else
-		tab = ft_del_tab(tab);
+		tabl = ft_del_tab(tabl);
 	return (0);
 }

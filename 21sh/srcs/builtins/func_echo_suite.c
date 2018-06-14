@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:07 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:58:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:18:22 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	if option -n > print %\n

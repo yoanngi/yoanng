@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 11:20:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 14:00:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:21:19 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	start good function (for builtins)
@@ -38,23 +38,23 @@ static int		ft_search_func(char **line, t_struct *data, int i)
 
 int				ft_builtins(char **line, t_struct *data)
 {
-	char	**tab;
+	char	**tabl;
 	int		i;
 	int		ret;
 
-	tab = ft_strsplit(*line, ' ');
+	tabl = ft_strsplit(*line, ' ');
 	i = 0;
 	ret = 1;
 	while (data->builtins[i])
 	{
-		if (ft_strcmp(tab[0], data->builtins[i]) == 0)
+		if (ft_strcmp(tabl[0], data->builtins[i]) == 0)
 		{
 			ft_search_func(line, data, i);
 			ret = 0;
 		}
 		i++;
 	}
-	ft_del_tab(tab);
+	ft_del_tab(tabl);
 	if (data->tab_path == NULL && ret == 1)
 	{
 		ft_error(1, line);

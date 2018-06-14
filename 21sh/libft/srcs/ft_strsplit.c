@@ -3,54 +3,37 @@
 /*                                                              /             */
 /*   ft_strsplit.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:16:59 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/12 07:22:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 12:04:15 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/17 14:32:31 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_len_word(const char *s, size_t index, char c)
+char	**ft_strsplit(char const *s, char c)
 {
-	size_t j;
+	char			**output;
+	size_t			count;
+	unsigned int	i;
+	size_t			j;
 
-	j = 0;
-	while (s[index] != c && s[index] != '\0')
-	{
-		index++;
-		j++;
-	}
-	return (j);
-}
-
-char			**ft_strsplit(char const *s, char c)
-{
-	char	**tab;
-	size_t	nb_mot;
-	size_t	i;
-	size_t	j;
-	size_t	len;
-
-	if (s == NULL)
-		return (NULL);
-	len = ft_strlen(s);
-	nb_mot = ft_count_word(s, c);
-	tab = (char **)malloc(sizeof(char *) * (nb_mot + 1));
-	if (tab == NULL)
+	count = ft_wordcount(s, c);
+	if (!s || !(output = (char**)malloc(sizeof(char*) * (count + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (nb_mot--)
+	while (j < count && s[i])
 	{
-		while (s[i] == c && i < len)
-			i++;
-		tab[j++] = ft_strsub(s, i, ft_len_word(s, i, c));
-		while (s[i] != c && s[i] != '\0')
-			i++;
+		if ((i == 0 && s[i] != c) || (i > 0 && (s[i] != c && s[i - 1] == c)))
+		{
+			output[j] = ft_strsub(s, i, word_length(s + i, c));
+			j++;
+		}
+		i++;
 	}
-	tab[j] = NULL;
-	return (tab);
+	output[j] = NULL;
+	return (output);
 }

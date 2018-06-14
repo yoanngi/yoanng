@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/13 15:38:48 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/14 08:46:09 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -41,6 +41,8 @@ N_SRCS = 	main.c\
 			init/ft_init_commandes.c\
 			init/clear_commandes.c\
 			init/init_struct.c\
+			lib_termcaps/term.c\
+			lib_termcaps/keys.c\
 			lib_shell/display.c\
 			lib_shell/ft_add_line.c\
 			lib_shell/ft_check_path.c\
@@ -76,7 +78,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_PATH)
-	@$(CC) $(FLAGS) $(OBJ) $(INC) -L$(LIB_PATH) -lft -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(INC) -L$(LIB_PATH) -ltermcap -lft -o $(NAME)
 	@echo "$(VERT)$(NAME): compilation success!$(NOCOLOR)"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
@@ -85,6 +87,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)/core
 	@mkdir -p $(OBJ_PATH)/init
 	@mkdir -p $(OBJ_PATH)/lib_shell
+	@mkdir -p $(OBJ_PATH)/lib_termcaps
 	@mkdir -p $(OBJ_PATH)/builtins
 	@mkdir -p $(OBJ_PATH)/parsing
 	@$(CC) -c $(FLAGS) $(INC) -o $@ $<

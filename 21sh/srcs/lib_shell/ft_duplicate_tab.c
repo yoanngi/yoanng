@@ -6,33 +6,33 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/26 11:24:31 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:39:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 11:57:02 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **  Duplicate tab and return tab
 */
 
-char		**ft_duplicate_tab(char **tab)
+char		**ft_duplicate_tab(char **tabl)
 {
 	char	**new;
 	int		len;
 	int		i;
 
 	new = NULL;
-	if (tab == NULL)
+	if (tabl == NULL)
 		return (NULL);
-	len = ft_len_tab(tab);
+	len = ft_len_tab(tabl);
 	i = 0;
 	if (!(new = (char **)malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
-	while (tab[i])
+	while (tabl[i])
 	{
-		new[i] = ft_strdup(tab[i]);
+		new[i] = ft_strdup(tabl[i]);
 		i++;
 	}
 	new[len] = NULL;

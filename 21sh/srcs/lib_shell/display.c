@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 09:20:56 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:37:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/14 09:13:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Print good prompt

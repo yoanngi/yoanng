@@ -3,17 +3,21 @@
 /*                                                              /             */
 /*   ft_putnbr.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 10:11:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 11:53:09 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/10 20:01:58 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int nb)
+int	ft_putnbr(int n)
 {
-	ft_putnbr_fd(nb, 1);
+	int	ret;
+
+	ret = 0;
+	ret += ft_putnbr_fd(n, 1);
+	return (ret);
 }

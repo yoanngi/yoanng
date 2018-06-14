@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 11:07:50 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:42:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 11:58:23 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Verifiy is cmd is in directory (target)

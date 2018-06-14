@@ -3,17 +3,19 @@
 /*                                                              /             */
 /*   ft_putchar_fd.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:11:08 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 10:11:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 10:36:58 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/10 20:05:51 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
+	return (1);
 }

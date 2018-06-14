@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/17 09:38:58 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:39:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 11:56:35 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Directory exist of not

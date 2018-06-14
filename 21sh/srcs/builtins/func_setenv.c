@@ -6,28 +6,28 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 14:00:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:20:46 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 static int		ft_check_setenv(char *line)
 {
-	char	**tab;
+	char	**tabl;
 	int		ret;
 
-	tab = NULL;
+	tabl = NULL;
 	ret = 0;
 	if (ft_strstr(line, "=") == NULL)
 		ret = 1;
 	if (ft_strlen(line) < 8)
 		ret = 1;
-	tab = ft_strsplit(line, ' ');
-	if (ft_len_tab(tab) != 2)
+	tabl = ft_strsplit(line, ' ');
+	if (ft_len_tab(tabl) != 2)
 		ret = 1;
-	tab = ft_del_tab(tab);
+	tabl = ft_del_tab(tabl);
 	if (ret == 1)
 	{
 		ft_putstr_fd("setenv: Invalid format\n", 2);
@@ -47,7 +47,7 @@ static char		*ft_valid_env(char *line)
 	str = ft_strsub(line, 7, ft_strlen(line) - 7);
 	i = 0;
 	q = 0;
-	while (q == 0 && (size_t)i < ft_strlen(str))
+	while (q == 0 && i < ft_strlen(str))
 	{
 		if (str[i] == '=')
 			q = 1;

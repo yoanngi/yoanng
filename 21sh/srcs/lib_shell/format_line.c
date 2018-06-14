@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/21 10:09:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 11:06:50 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:12:19 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	incremente i de la bonne valeur
@@ -26,7 +26,7 @@ static int		ft_incremente_i(char *str, int i)
 	{
 		while (str[i] != '\'')
 		{
-			if ((size_t)i == ft_strlen(str))
+			if (i == ft_strlen(str))
 				return (j);
 			i++;
 			j++;
@@ -36,7 +36,7 @@ static int		ft_incremente_i(char *str, int i)
 	{
 		while (str[i] != '\"')
 		{
-			if ((size_t)i == ft_strlen(str))
+			if (i == ft_strlen(str))
 				return (j);
 			i++;
 			j++;
@@ -53,27 +53,27 @@ static int		ft_incremente_i(char *str, int i)
 char			**epur_tab(char *line, int epur)
 {
 	int		i;
-	char	**tab;
+	char	**tabl;
 	char	*tmp;
 
 	i = 0;
 	tmp = NULL;
-	tab = ft_strsplit(line, ' ');
+	tabl = ft_strsplit(line, ' ');
 	if (epur == 1)
-		return (tab);
-	while (tab[i])
+		return (tabl);
+	while (tabl[i])
 	{
-		if ((tab[i][0] == '\'' && tab[i][ft_strlen(tab[i]) - 1] == '\'') ||
-	(tab[i][0] == '\"' && tab[i][ft_strlen(tab[i]) - 1] == '\"'))
+		if ((tabl[i][0] == '\'' && tabl[i][ft_strlen(tabl[i]) - 1] == '\'') ||
+	(tabl[i][0] == '\"' && tabl[i][ft_strlen(tabl[i]) - 1] == '\"'))
 		{
-			tmp = ft_strdup(tab[i]);
-			ft_strdel(&tab[i]);
-			tab[i] = ft_strsub(tmp, 1, ft_strlen(tmp) - 2);
+			tmp = ft_strdup(tabl[i]);
+			ft_strdel(&tabl[i]);
+			tabl[i] = ft_strsub(tmp, 1, ft_strlen(tmp) - 2);
 			ft_strdel(&tmp);
 		}
 		i++;
 	}
-	return (tab);
+	return (tabl);
 }
 
 /*

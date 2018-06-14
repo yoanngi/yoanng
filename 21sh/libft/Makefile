@@ -6,7 +6,7 @@
 #    By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/03/29 13:47:55 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/14 09:10:43 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -84,17 +84,54 @@ SRC_NAME =	ft_memset.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \
 			ft_lstnew.c \
+			ft_isupper.c\
+			ft_islower.c\
+			ft_iswhite.c\
+			ft_wordcount.c\
 			ft_lstdelone.c \
 			ft_lstdel.c \
 			ft_lstadd.c \
 			ft_lstiter.c \
 			ft_lstmap.c \
 			ft_strrev.c \
+			ft_putwchar_fd.c \
+			ft_putwchar.c \
+			ft_itoa_base.c \
+			ft_power.c \
+			ft_atoi_base.c \
+			ft_nb_len.c \
+			ft_uitoa_base.c \
+			ft_atoui_base.c \
+			ft_atol_base.c \
+			wchar_len.c \
+			wstrlen.c \
+			ft_printf.c \
+			sized.c \
+			type_c.c \
+			type_di.c \
+			type_oub.c \
+			type_p.c \
+			type_ws.c \
+			type_s.c \
+			type_x.c \
+			ft_modify.c \
+			lenfinder.c \
+		   	ft_parse.c \
+			ft_format.c \
+			str_append.c \
+			lst_dup.c \
+			tab_to_lst.c \
+			lst_to_tab.c \
+			to_upper_str.c \
+			free_lst.c \
+			ft_strsub_fr.c \
+			word_length.c \
+			ft_putchar_err.c \
 			ft_count_word.c \
 			ft_print_bits.c \
-			ft_isupper.c \
-			ft_islower.c \
 			get_next_line.c \
+			get_next_line2.c \
+			get_line.c \
 
 all: $(NAME)
 

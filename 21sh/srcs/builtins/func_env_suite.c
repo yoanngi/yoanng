@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/11 15:17:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/11 11:10:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:20:21 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Print all env
@@ -65,7 +65,7 @@ int			ft_option_i(char *str)
 **	Execute commande env
 */
 
-int			ft_env_cmd(t_struct *data, char **tab, int i, int x)
+int			ft_env_cmd(t_struct *data, char **tabl, int i, int x)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -73,8 +73,8 @@ int			ft_env_cmd(t_struct *data, char **tab, int i, int x)
 	tmp = NULL;
 	tmp2 = NULL;
 	tmp = ft_strjoin(data->tab_path[x], "/");
-	tmp2 = ft_strjoin(tmp, tab[i]);
-	tab = ft_del_tab_index(tab, i);
+	tmp2 = ft_strjoin(tmp, tabl[i]);
+	tabl = ft_del_tab_index(tabl, i);
 	//ft_process(tmp2, tab, data->env_tmp);
 	execute_commandes(data);
 	ft_strdel(&tmp);
@@ -87,21 +87,21 @@ int			ft_env_cmd(t_struct *data, char **tab, int i, int x)
 **	Execute rep
 */
 
-int			ft_env_rep(t_struct *data, char **tab, int i)
+int			ft_env_rep(t_struct *data, char **tabl, int i)
 {
 	char	*path;
 	char	*cmd;
 
-	path = ft_return_path(tab[i]);
-	cmd = ft_strdup(tab[i] + ft_strlen(path) + 1);
-	ft_del_tab_index(tab, i);
+	path = ft_return_path(tabl[i]);
+	cmd = ft_strdup(tabl[i] + ft_strlen(path) + 1);
+	ft_del_tab_index(tabl, i);
 	i = 0;
-	if (good_path(tab[0], cmd, 1) == 1)
+	if (good_path(tabl[0], cmd, 1) == 1)
 	{
 		ft_strdel(&path);
-		path = ft_strdup(tab[0]);
-		ft_strdel(&tab[0]);
-		tab[0] = ft_strdup(cmd);
+		path = ft_strdup(tabl[0]);
+		ft_strdel(&tabl[0]);
+		tabl[0] = ft_strdup(cmd);
 		//ft_process(path, tab, data->env_tmp);
 		execute_commandes(data);
 	}

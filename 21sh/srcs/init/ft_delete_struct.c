@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/15 13:57:17 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:45:23 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:22:07 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Delete struct ans datas

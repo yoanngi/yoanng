@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 13:59:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:19:36 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Check if commande existe int dir data->tab_path and return index
@@ -35,27 +35,27 @@ static int		ft_is_commande(t_struct *data, char *str)
 **	Call good func if cmd, rep, variable ... of print error
 */
 
-static void		ft_env_suite(t_struct *data, char **tab, int i, int x)
+static void		ft_env_suite(t_struct *data, char **tabl, int i, int x)
 {
-	while (tab[i])
+	while (tabl[i])
 	{
-		if ((x = ft_is_commande(data, tab[i])) != -1)
+		if ((x = ft_is_commande(data, tabl[i])) != -1)
 		{
-			ft_env_cmd(data, tab, i, x);
+			ft_env_cmd(data, tabl, i, x);
 			return ;
 		}
-		else if (tab[i][0] == '/' || tab[i][0] == '.')
+		else if (tabl[i][0] == '/' || tabl[i][0] == '.')
 		{
-			ft_env_rep(data, tab, i);
+			ft_env_rep(data, tabl, i);
 			return ;
 		}
-		else if (ft_strstr(tab[i], "=") != NULL)
+		else if (ft_strstr(tabl[i], "=") != NULL)
 		{
-			data->env_tmp = ft_insert_in_tab(data->env_tmp, tab[i]);
+			data->env_tmp = ft_insert_in_tab(data->env_tmp, tabl[i]);
 		}
 		else
 		{
-			ft_error_dir("env : ", tab[i]);
+			ft_error_dir("env : ", tabl[i]);
 			return ;
 		}
 		i++;
@@ -68,23 +68,23 @@ static void		ft_env_suite(t_struct *data, char **tab, int i, int x)
 **	if needed, print usage or go ft_env_suite
 */
 
-static void		ft_env(t_struct *data, char **tab, int i)
+static void		ft_env(t_struct *data, char **tabl, int i)
 {
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (tab[i] == NULL)
+		if (tabl[i] == NULL)
 			return ;
-		else if (ft_option_i(tab[i]) == 1)
+		else if (ft_option_i(tabl[i]) == 1)
 			data->option_i_env = 1;
-		else if (ft_strcmp(tab[i], "env") != 0)
+		else if (ft_strcmp(tabl[i], "env") != 0)
 		{
-			if (tab[i][0] == '-')
-				ft_print_usage(tab[i]);
+			if (tabl[i][0] == '-')
+				ft_print_usage(tabl[i]);
 			else
 			{
 				if (data->option_i_env == 0)
 					data->env_tmp = ft_duplicate_tab(data->env);
-				ft_env_suite(data, tab, i, 0);
+				ft_env_suite(data, tabl, i, 0);
 			}
 			return ;
 		}
@@ -98,25 +98,25 @@ static void		ft_env(t_struct *data, char **tab, int i)
 
 void			func_env(char **line, t_struct *data)
 {
-	char	**tab;
+	char	**tabl;
 	int		i;
 
-	tab = NULL;
+	tabl = NULL;
 	i = 0;
 	data->option_i_env = 0;
 	data->env_tmp = ft_del_tab(data->env_tmp);
 	ft_check_line(data, line, 0);
-	tab = ft_strsplit(*line, ' ');
-	while (tab[i] && (ft_strcmp(tab[i], "env") == 0 ||
-	ft_strcmp(tab[i], "/usr/bin/env") == 0))
+	tabl = ft_strsplit(*line, ' ');
+	while (tabl[i] && (ft_strcmp(tabl[i], "env") == 0 ||
+	ft_strcmp(tabl[i], "/usr/bin/env") == 0))
 		i++;
-	if (ft_len_tab(tab) == i)
+	if (ft_len_tab(tabl) == i)
 	{
-		ft_del_tab(tab);
+		ft_del_tab(tabl);
 		print_full_env(data);
 		return ;
 	}
-	ft_env(data, tab, i);
-	tab = ft_del_tab(tab);
+	ft_env(data, tabl, i);
+	tabl = ft_del_tab(tabl);
 	data->env_tmp = ft_del_tab(data->env_tmp);
 }

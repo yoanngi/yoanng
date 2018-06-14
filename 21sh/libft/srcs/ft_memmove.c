@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_memmove.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:10:19 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 10:10:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 11:47:24 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/03 11:47:27 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,20 +15,26 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*s;
-	char	*d;
+	size_t			i;
+	unsigned char	*cast_dst;
+	unsigned char	*cast_src;
 
-	d = (char *)dst;
-	s = (char *)src;
-	if (s < d)
+	i = 0;
+	cast_dst = (unsigned char*)dst;
+	cast_src = (unsigned char*)src;
+	if (src < dst)
 	{
 		while (len != 0)
 		{
-			d[len - 1] = s[len - 1];
+			cast_dst[len - 1] = cast_src[len - 1];
 			len--;
 		}
 	}
-	else
-		ft_memcpy(dst, src, len);
+	while (i < len)
+	{
+		cast_dst[i] = cast_src[i];
+		i++;
+	}
+	dst = (void *)cast_dst;
 	return (dst);
 }

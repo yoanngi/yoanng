@@ -3,58 +3,28 @@
 /*                                                              /             */
 /*   ft_strtrim.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:17:28 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 13:21:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 12:04:58 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/03 12:05:01 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_check(const char *s)
+char	*ft_strtrim(char const *s)
 {
-	size_t i;
-
-	i = 0;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	return (i);
-}
-
-static int	ft_check_behind(const char *s)
-{
-	size_t j;
-	size_t i;
-
-	j = ft_strlen(s) - 1;
-	i = ft_strlen(s);
-	while (s[j] == ' ' || s[j] == '\n' || s[j] == '\t')
-		j--;
-	return (i - j);
-}
-
-char		*ft_strtrim(char const *s)
-{
-	char	*new;
-	size_t	i;
-	size_t	x;
-	size_t	y;
+	char const	*end;
 
 	if (s == NULL)
 		return (NULL);
-	i = ft_check(s);
-	x = ft_check_behind(s);
-	y = ft_strlen(s);
-	if (i == y)
-	{
-		new = (char *)malloc(sizeof(char) * 1);
-		if (new == NULL)
-			return (NULL);
-		new[0] = '\0';
-		return (new);
-	}
-	new = ft_strsub((const char *)s, i, (1 + y - (i + x)));
-	return (new);
+	while (ft_iswhite(*s))
+		s++;
+	if (*s == '\0')
+		return (ft_strnew(0));
+	end = s + ft_strlen(s) - 1;
+	while (ft_iswhite(*end))
+		end--;
+	return (ft_strsub(s, 0, end - s + 1));
 }

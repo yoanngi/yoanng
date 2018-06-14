@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 19:15:43 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/14 08:55:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,11 @@
 # include <sys/acl.h>
 # include <uuid/uuid.h>
 # include <stdio.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include <termcap.h>
+# include <fcntl.h>
+# include <term.h>
 
 /*
 **	A Faire :
@@ -159,12 +164,12 @@ t_cmd				*ft_init_commandes(void);
 /*
 **	LIB_SHELL
 */
-char				**ft_del_tab(char **tab);
-int					ft_len_tab(char **tab);
-char				**ft_duplicate_tab(char **tab);
-char				**ft_insert_in_tab(char **tab, char *str);
-void				ft_print_tab(char **tab);
-char				**ft_del_tab_index(char **tab, int max);
+char				**ft_del_tab(char **tabl);
+int					ft_len_tab(char **tabl);
+char				**ft_duplicate_tab(char **tabl);
+char				**ft_insert_in_tab(char **tabl, char *str);
+void				ft_print_tab(char **tabl);
+char				**ft_del_tab_index(char **tabl, int max);
 char				*ft_add_line(char *str, char **add, t_struct *data);
 int					ft_dir_exist(char *path);
 void				ft_display(t_struct *data);
@@ -183,6 +188,23 @@ int					ft_existe_in_path(t_struct *data, char **path);
 char				*ft_return_pwd(void);
 void				ft_check_line(t_struct *data, char **line, int i);
 int					len_list(t_cmd *lst);
+/*
+**	LIB_TERMCAPS
+*/
+# define KEY_CODE_NONE 0
+# define KEY_CODE_UP buff[0] == 27 && buff[1] == 91 && buff[2] == 65
+# define KEY_CODE_DOWN buff[0] == 27 && buff[1] == 91 && buff[2] == 66
+# define KEY_CODE_RIGHT buff[0] == 27 && buff[1] == 91 && buff[2] == 67
+# define KEY_CODE_LEFT buff[0] == 27 && buff[1] == 91 && buff[2] == 68
+# define KEY_CODE_BSP *(int*)buff == 127
+# define KEY_CODE_RC *(int*)buff == 10
+
+# define KEY_CODE_CTRL_D *(int*)buff == 4
+# define KEY_CODE_TAB *(int*)buff == 9
+
+void				default_term_mode(void);
+void				raw_term_mode(void);
+char				*get_key(int *loop, char *line, int *curs_idx);
 
 /*
 **	END

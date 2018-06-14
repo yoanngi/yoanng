@@ -3,25 +3,39 @@
 /*                                                              /             */
 /*   ft_lstmap.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:08:55 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 10:08:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 11:39:02 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/03 11:43:51 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*new;
+	t_list	*first_link;
+	t_list	*result;
+	t_list	*elem;
 
-	if (lst)
+	if (lst == NULL || f == NULL)
+		return (NULL);
+	elem = f(lst);
+	result = ft_lstnew(elem->content, elem->content_size);
+	if (result == NULL)
+		return (NULL);
+	lst = lst->next;
+	first_link = result;
+	while (lst != NULL)
 	{
-		new = f(lst);
-		new->next = ft_lstmap(lst->next, f);
-		return (new);
+		elem = f(lst);
+		result->next = ft_lstnew(elem->content, elem->content_size);
+		if (result->next == NULL)
+			return (NULL);
+		result = result->next;
+		lst = lst->next;
 	}
-	return (NULL);
+	return (first_link);
 }

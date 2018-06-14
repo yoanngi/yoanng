@@ -3,19 +3,19 @@
 /*                                                              /             */
 /*   ft_isupper.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:07:33 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 10:07:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 11:37:40 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/03 11:37:43 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isupper(int c)
+int	ft_isupper(int c)
 {
-	if ('A' <= c && c <= 'Z')
+	if (c >= 'A' && c <= 'Z')
 		return (1);
 	return (0);
 }

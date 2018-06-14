@@ -6,23 +6,23 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/26 11:42:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/06 15:43:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:01:00 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
-void		ft_print_tab(char **tab)
+void		ft_print_tab(char **tabl)
 {
 	int		i;
 
 	i = 0;
-	if (tab == NULL)
+	if (tabl == NULL)
 		return ;
-	while (tab[i])
+	while (tabl[i])
 	{
-		ft_putendl(tab[i]);
+		ft_putendl(tabl[i]);
 		i++;
 	}
 }

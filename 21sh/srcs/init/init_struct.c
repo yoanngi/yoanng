@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:39:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/12 17:14:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/13 12:22:51 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 static char		**init_env_null(void)
 {
@@ -89,7 +89,6 @@ t_struct		*init_struct(char **env)
 	else
 		data->env = init_env(env);
 	init_base(&data);
-	data->ret_func = 0;
 	data->commandes = NULL;
 	return (data);
 }

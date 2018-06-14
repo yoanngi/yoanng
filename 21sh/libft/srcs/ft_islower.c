@@ -3,19 +3,19 @@
 /*                                                              /             */
 /*   ft_islower.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:06:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 10:07:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 11:37:13 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/05/16 12:00:57 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_islower(int c)
+int	ft_islower(int c)
 {
-	if ('a' <= c && c <= 'z')
+	if (c >= 'a' && c <= 'z')
 		return (1);
 	return (0);
 }

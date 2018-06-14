@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_strstr.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/24 10:17:08 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/24 10:17:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/03 12:04:40 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/20 17:03:44 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,23 +17,22 @@ char	*ft_strstr(const char *haystack, const char *needle)
 {
 	size_t	i;
 	size_t	j;
-	size_t	lo;
 
-	j = 0;
-	lo = ft_strlen(needle);
-	if ((needle == '\0' && haystack == '\0') || lo == 0)
+	i = 0;
+	if (haystack == NULL)
+		return (NULL);
+	if (ft_strlen(needle) == 0)
 		return ((char *)haystack);
-	while (haystack[j])
+	while (haystack[i])
 	{
-		i = 0;
-		if (haystack[j] == needle[i])
+		j = 0;
+		while (needle[j] == haystack[i + j])
 		{
-			while (haystack[j + i] == needle[i] && i < lo)
-				i++;
-			if (lo == i)
-				return ((char *)haystack + j);
+			if (needle[j + 1] == '\0')
+				return ((char*)haystack + i);
+			j++;
 		}
-		j++;
+		i++;
 	}
 	return (NULL);
 }
