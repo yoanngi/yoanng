@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 19:14:59 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/14 14:30:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "shell.h"
 
 //********************************************************************* A Delete !
-#include <assert.h>
+/*
 static void	debug(t_struct *data)
 {
 	t_cmd	*test;
@@ -42,47 +42,48 @@ static void	debug(t_struct *data)
 	data->commandes = test;
 	printf("End debug ******************************************\n\n");
 }
+*/
+//**************************************************************************
 
-static int			exec_pipe_child(t_cmd *commandes, int pipe_fd[2], int *fd_in)
+static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 {
-	int		exec;
 	int		fd;
 
-	exec = 0;
 	fd = 0;
-	ft_putstr_fd("********************************** FONCTION\n", 2);
-	ft_putstr_fd(commandes->rep, 2);
-	ft_putstr_fd("\n\n", 2);
-	if ((commandes->op_redir == 2 || commandes->op_redir == 3) && commandes->pathname != NULL)
+	if (lst->op_redir == 2)
+		fd = open(lst->pathname, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	else if (lst->op_redir == 3)
+		fd = open(lst->pathname, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		exit(EXIT_FAILURE);
+	dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
+	dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
+	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+	close(fd) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+	if (execve(lst->rep, lst->tab_cmd, lst->env) == -1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
+{
+	int		exec;
+
+	exec = 0;
+	if ((lst->op_redir == 2 || lst->op_redir == 3) && lst->pathname != NULL)
 	{
-		if (commandes->op_redir == 2)
-			fd = open(commandes->pathname, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		else if (commandes->op_redir == 3)
-			fd = open(commandes->pathname, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		if (fd == -1)
+		if (exec_redirection(lst, fd_in, pipe_fd) == 1)
 			exit(EXIT_FAILURE);
-		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-		dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-		close(fd) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-		ft_putstr_fd("********************************** Here 1\n", 2);
-		exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
-		ft_putstr_fd("********************************** Here 1\n", 2);
-		//if (exec == -1)
-		//	exit(EXIT_FAILURE);
 	}
-	//if (commandes->op_next == 1)
-	//{
+	if (lst->op_next == 1)
+	{
 		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		dup2(pipe_fd[1], 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-		ft_putstr_fd("********************************** Here 2\n", 2);
-		exec = execve(commandes->rep, commandes->tab_cmd, commandes->env);
-		ft_putstr_fd("********************************** Here 2\n", 2);
-		//if (exec == -1)
-		//	exit(EXIT_FAILURE);
-	//}
-	ft_putstr_fd("********************************** EXIT FONCTIONS\n", 2);
+		exec = execve(lst->rep, lst->tab_cmd, lst->env);
+		if (exec == -1)
+			exit(EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -92,10 +93,8 @@ static int			exec_cmd_recur(t_struct *data)
 	int		pipe_fd[2];
 	int		fd_in;
 	int		status;
-	int		ret;
 
 	fd_in = 0;
-	status = 0;
 	while (data->commandes)
 	{
 		if (pipe(pipe_fd) == -1)
@@ -104,28 +103,21 @@ static int			exec_cmd_recur(t_struct *data)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
 		{
-			printf("%s ->DEBUG***** (child = %d) (getpid = %d)\n", __func__, pid, getpid());
-			ret = exec_pipe_child(data->commandes, pipe_fd, &fd_in);
-			if (ret == 1)
+			if (exec_pipe_child(data->commandes, pipe_fd, &fd_in) == 1)
 			{
 				kill(pid, 0);
 				exit(EXIT_FAILURE);
 			}
-			printf("%s ->Child End(child = %d) (getpid = %d)\n", __func__, pid, getpid());
 		}
 		else
 		{
-			printf("%s ->DEBUG***** (father = %d)\n", __func__, pid);
 			waitpid(pid, &status, 0);
+			data->ret_func = WEXITSTATUS(status);
 			close(pipe_fd[1]);
 			fd_in = pipe_fd[0];
-			printf("WEXITSTATUS = %d\n", WEXITSTATUS(status));
 		}
 		data->commandes = data->commandes->next;
 	}
-	data->ret_func = WEXITSTATUS(status);
-	printf("END WEXITSTATUS = %d\n", data->ret_func = WEXITSTATUS(status));
-	printf("%s ->Child End(child = %d) (getpid = %d)\n", __func__, pid, getpid());
 	return (EXIT_SUCCESS);
 }
 
@@ -135,29 +127,18 @@ int			execute_commandes(t_struct *data)
 	int		status;
 	pid_t	pid_p;
 
-	// A delete
-	debug(data);
-	// *******
 	ret = 0;
 	if (len_list(data->commandes) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)
-		ft_putstr_fd("Error Fork Father\n", 2);
+		return (EXIT_FAILURE);
 	else if (pid_p == 0)
 	{
-		printf("%s ->DEBUG***** (child = %d) (getpid = %d)\n", __func__, pid_p, getpid());
-		ret = exec_cmd_recur(data);
-		if (ret == 1)
+		if (exec_cmd_recur(data) == 1)
 			exit(EXIT_FAILURE);
-		printf("%s ->Child End(child = %d) (getpid = %d)\n", __func__, pid_p, getpid());
 	}
 	else
-	{
-		printf("%s ->DEBUG***** (father = %d)\n", __func__,pid_p);
 		waitpid(pid_p, &status, 0);
-		ft_putstr_fd("*********************************************************************************", 2);
-	}
-	ret == 1 ? ft_putstr_fd("Un erreur c'est produite\n", 2) : 0;
-	printf("%s ->Father End(child = %d) (getpid = %d)\n", __func__, pid_p, getpid());
+	ret == 1 ? ft_putstr_fd("Error execution, please try again !\n", 2) : 0;
 	return (EXIT_SUCCESS);
 }

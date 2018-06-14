@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 08:55:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/14 15:46:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,10 @@
 **	8 : ||
 **
 **	env : Environnement a envoyer pour la commande
+**
+** t_cmd -> commande a traiter
 */
+
 typedef struct		s_cmd
 {
 	char			*rep;
@@ -91,9 +94,21 @@ typedef struct		s_cmd
 	char			**env;
 	struct s_cmd	*next;
 }					t_cmd;
+
+/*
+**	t_ins -> line spliter par les ;
+*/
+
+typedef struct		s_ins
+{
+	char			*cmd;
+	struct s_ins	*next;
+}					t_ins;
+
 /*
 **	t_struct -> On la ballade partout
 */
+
 typedef struct		s_struct
 {
 	char			*path;
@@ -117,6 +132,7 @@ typedef struct		s_struct
 	int				stderr_shell;
 	t_cmd			*commandes;
 }					t_struct;
+
 /*
 **	***	Fonctions ***
 **
@@ -131,6 +147,7 @@ int					ft_process(t_struct *data);
 **	PARSING
 */
 t_cmd				*ft_split_commandes(char **line, t_struct **data);
+void				ft_split_pvirgule(char *line, t_ins **lst);
 /*
 **	BUILTINS
 */
@@ -159,8 +176,10 @@ t_struct			*init_struct(char **env);
 char				*ft_check_infos(char **env, char *find);
 char				**ft_initialise_builtins(void);
 void				ft_delete_struct(t_struct *data);
-t_cmd				*clear_commandes(t_cmd *start);
-t_cmd				*ft_init_commandes(void);
+t_cmd				*ft_init_cmd(void);
+t_cmd				*clear_cmd(t_cmd *start);
+t_ins				*ft_init_ins(void);
+t_ins				*clear_ins(t_ins *start);
 /*
 **	LIB_SHELL
 */

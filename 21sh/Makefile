@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/14 08:46:09 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/14 15:40:46 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -38,8 +38,8 @@ N_SRCS = 	main.c\
 			init/ft_check_infos.c\
 			init/ft_delete_struct.c\
 			init/ft_init_builtins.c\
-			init/ft_init_commandes.c\
-			init/clear_commandes.c\
+			init/ft_init_cmd.c\
+			init/ft_init_ins.c\
 			init/init_struct.c\
 			lib_termcaps/term.c\
 			lib_termcaps/keys.c\

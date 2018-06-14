@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 08:55:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/14 15:46:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,23 +15,32 @@
 
 /*
 **	Tous le parsing de line est fait ici
-**	Retourne une liste chainee avec les differents commande, path, env
+**	Retourne une liste chainee avec les differents commande, path, env, fd..
+**
+**	Difference entre && et ;
+**	&& -> si la premiere commande echoue, la 2eme ne se fait pas
+**	; -> si la premiere commande echoue, la 2 eme se fait
 */
 
 t_cmd			*ft_split_commandes(char **line, t_struct **data)
 {
-	t_cmd	*new;
-	t_cmd	*start;
-	char	*tmp;
+	t_ins	*new;
+	t_cmd	*new2;
 
-	tmp = NULL;
-	start = NULL;
-	if (!(new = ft_init_commandes()))
+	(void)line;
+	(void)data;
+	if (!(new = ft_init_ins()))
 		return (NULL);
-	start = new;
-	tmp = ft_strdup(*line);
+	if (!(new2 = ft_init_cmd()))
+		return (NULL);
+	//ft_split_pvirgule(*line, &new);
+	//print_debug(new)
+	//ft_split_cmd(&new, &new2);
+	return (new2);
+}
 
-	/* TEST */
+/* old test */
+/*
 	new->rep = ft_strdup("/bin/ls");
 	new->pathname = NULL;
 	new->tab_cmd = (char **)malloc(sizeof(char *) * 3);
@@ -60,7 +69,7 @@ t_cmd			*ft_split_commandes(char **line, t_struct **data)
 	new->stdout_cmd = 1;
 	new->stderr_cmd = 0;
 	new->env = (*data)->env;
-
+	
 	new->next = ft_init_commandes();
 	new = new->next;
 	new->rep = ft_strdup("/usr/bin/wc");
@@ -76,7 +85,7 @@ t_cmd			*ft_split_commandes(char **line, t_struct **data)
 	new->stdout_cmd = 0;
 	new->stderr_cmd = 0;
 	new->env = (*data)->env;
-/*
+
 	new->next = ft_init_commandes();
 	new = new->next;
 
@@ -90,8 +99,4 @@ t_cmd			*ft_split_commandes(char **line, t_struct **data)
 	new->stderr_cmd = 0;
 	new->env = (*data)->env;
 */
-	/* END TEST */
 
-	ft_strdel(&tmp);
-	return (start);
-}
