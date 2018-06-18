@@ -101,7 +101,8 @@ typedef struct		s_cmd
 
 typedef struct		s_ins
 {
-	char			*cmd;
+	char			*str;
+    struct s_cmd    *cmd;
 	struct s_ins	*next;
 }					t_ins;
 
@@ -130,7 +131,7 @@ typedef struct		s_struct
 	int				stdin_shell;
 	int				stdout_shell;
 	int				stderr_shell;
-	t_cmd			*commandes;
+	t_ins			*commandes;
 }					t_struct;
 
 /*
@@ -139,15 +140,16 @@ typedef struct		s_struct
 **	CORE
 */
 void				core_shell(char **line, t_struct *data);
-int					execute_commandes(t_struct *data);
+int					execute_commandes(t_cmd *data);
 int					exec_pipe(t_struct *data);
 int					exec_pipe_suite(t_struct *data);
-int					ft_process(t_struct *data);
+int					ft_process(t_cmd *data);
 /*
 **	PARSING
 */
-t_cmd				*ft_split_commandes(char **line, t_struct **data);
-void				ft_split_pvirgule(char *line, t_ins **lst);
+t_ins				*ft_split_commandes(char **line);
+t_ins				*ft_split_pvirgule(char *line, t_ins *lst);
+t_cmd				*ft_split_cmd(char *str);
 /*
 **	BUILTINS
 */

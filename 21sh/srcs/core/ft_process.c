@@ -13,7 +13,7 @@
 
 #include "shell.h"
 
-int				ft_process(t_struct *data)
+int				ft_process(t_cmd *data)
 {
 	pid_t	father;
 	int		exec;
@@ -27,8 +27,7 @@ int				ft_process(t_struct *data)
 	}
 	else if (father == 0)
 	{
-		exec = execve(data->commandes->rep, data->commandes->tab_cmd,
-				data->commandes->env);
+		exec = execve(data->rep, data->tab_cmd, data->env);
 		if (exec == -1)
 			kill(father, 0);
 		return (exec);

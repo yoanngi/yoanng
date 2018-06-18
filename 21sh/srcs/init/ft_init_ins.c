@@ -21,7 +21,7 @@ t_ins			*ft_init_ins(void)
 	new = (t_ins *)malloc(sizeof(t_ins));
 	if (new == NULL)
 		return (NULL);
-	new->cmd = NULL;
+	new->str = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -35,7 +35,7 @@ t_ins			*clear_ins(t_ins *start)
 	cpy = NULL;
 	while (clear)
 	{
-		ft_strdel(&clear->cmd);
+		ft_strdel(&clear->str);
 		cpy = clear;
 		clear = clear->next;
 		free(cpy);

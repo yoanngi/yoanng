@@ -73,6 +73,8 @@ N_SRCS = 	main.c\
 			builtins/func_setenv.c\
 			builtins/func_unsetenv.c\
 			parsing/ft_split_commandes.c\
+			parsing/ft_split_pvirgule.c\
+			parsing/ft_split_cmd.c\
 
 all: $(NAME)
 

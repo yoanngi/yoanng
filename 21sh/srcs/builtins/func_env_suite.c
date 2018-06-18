@@ -76,7 +76,7 @@ int			ft_env_cmd(t_struct *data, char **tabl, int i, int x)
 	tmp2 = ft_strjoin(tmp, tabl[i]);
 	tabl = ft_del_tab_index(tabl, i);
 	//ft_process(tmp2, tab, data->env_tmp);
-	execute_commandes(data);
+	//execute_commandes(data);
 	ft_strdel(&tmp);
 	ft_strdel(&tmp2);
 	data->env_tmp = ft_del_tab(data->env_tmp);
@@ -103,7 +103,8 @@ int			ft_env_rep(t_struct *data, char **tabl, int i)
 		ft_strdel(&tabl[0]);
 		tabl[0] = ft_strdup(cmd);
 		//ft_process(path, tab, data->env_tmp);
-		execute_commandes(data);
+		//execute_commandes(data);
+        (void)data;
 	}
 	ft_strdel(&path);
 	ft_strdel(&cmd);

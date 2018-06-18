@@ -24,19 +24,23 @@
 static int		parse_line(t_struct *data, char **line)
 {
 	int		ret;
+    t_ins   *cpy;
 
 	ret = 0;
-	data->commandes = ft_split_commandes(line, &data);
-
-	ret = execute_commandes(data);
-
-	// Add check Builtins and exit
-	printf("%s -> Valeur de data->ret_func = %d\n", __func__, data->ret_func);
-	if (ret == 1)
-		printf("On a une erreur\n");
-	if (ret == -1)
-		printf("On doit tous quitter");
-	data->commandes = clear_cmd(data->commandes);
+	data->commandes = ft_split_commandes(line);
+    cpy = data->commandes;
+    while (cpy)
+    {
+        ft_printf("cpy = %s\n", cpy->str);
+	    ret = execute_commandes(cpy->cmd);
+	    ft_printf("Valeur de data->ret_func = %d\n", data->ret_func);
+	    if (ret == 1)
+	    	ft_printf("On a une erreur\n");
+    	if (ret == -1)
+    		ft_printf("On doit quitter\n");
+        cpy = cpy->next;
+    }
+	data->commandes = clear_ins(data->commandes);
 	return (0);
 }
 

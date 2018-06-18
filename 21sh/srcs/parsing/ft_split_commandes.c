@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Tous le parsing de line est fait ici
@@ -22,22 +22,47 @@
 **	; -> si la premiere commande echoue, la 2 eme se fait
 */
 
-t_cmd			*ft_split_commandes(char **line, t_struct **data)
+t_ins			*ft_split_commandes(char **line)
 {
-	t_ins	*new;
-	t_cmd	*new2;
+	t_ins	*new_ins;
+	t_ins	*cpy;
+	t_cmd	*new_cmd;
+    int     err;
 
-	(void)line;
-	(void)data;
-	if (!(new = ft_init_ins()))
-		return (NULL);
-	if (!(new2 = ft_init_cmd()))
-		return (NULL);
-	//ft_split_pvirgule(*line, &new);
-	//print_debug(new)
-	//ft_split_cmd(&new, &new2);
-	return (new2);
+    err = 0;
+    cpy = NULL;
+	if ((!(new_ins = ft_init_ins())) || (!(new_cmd = ft_init_cmd())))
+		err = 1;
+    if (err == 1)
+    {
+        new_ins = clear_ins(new_ins);
+        new_cmd = clear_cmd(new_cmd);
+        return (NULL);
+    }
+	new_ins = ft_split_pvirgule(*line, new_ins);
+    cpy = new_ins;
+    while (cpy)
+    {
+        cpy->cmd = ft_split_cmd(cpy->str);
+        cpy = cpy->next;
+    }
+	return (new_ins);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* old test */
 /*

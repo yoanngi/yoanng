@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 //********************************************************************* A Delete !
 /*
@@ -67,9 +67,6 @@ static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 
 static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 {
-	int		exec;
-
-	exec = 0;
 	if ((lst->op_redir == 2 || lst->op_redir == 3) && lst->pathname != NULL)
 	{
 		if (exec_redirection(lst, fd_in, pipe_fd) == 1)
@@ -80,14 +77,13 @@ static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		dup2(pipe_fd[1], 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-		exec = execve(lst->rep, lst->tab_cmd, lst->env);
-		if (exec == -1)
+		if (execve(lst->rep, lst->tab_cmd, lst->env) == -1)
 			exit(EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
 
-static int			exec_cmd_recur(t_struct *data)
+static int			exec_cmd_recur(t_cmd *data)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -95,15 +91,13 @@ static int			exec_cmd_recur(t_struct *data)
 	int		status;
 
 	fd_in = 0;
-	while (data->commandes)
+	while (data)
 	{
-		if (pipe(pipe_fd) == -1)
-			exit(EXIT_FAILURE);
-		if ((pid = fork()) == -1)
+		if ((pipe(pipe_fd) == -1) && ((pid = fork()) == -1))
 			exit(EXIT_FAILURE);
 		if (pid == 0)
 		{
-			if (exec_pipe_child(data->commandes, pipe_fd, &fd_in) == 1)
+			if (exec_pipe_child(data, pipe_fd, &fd_in) == 1)
 			{
 				kill(pid, 0);
 				exit(EXIT_FAILURE);
@@ -112,23 +106,24 @@ static int			exec_cmd_recur(t_struct *data)
 		else
 		{
 			waitpid(pid, &status, 0);
-			data->ret_func = WEXITSTATUS(status);
+		//	data->ret_func = WEXITSTATUS(status);
 			close(pipe_fd[1]);
 			fd_in = pipe_fd[0];
 		}
-		data->commandes = data->commandes->next;
+		data = data->next;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int			execute_commandes(t_struct *data)
+int			execute_commandes(t_cmd *data)
 {
 	int		ret;
 	int		status;
 	pid_t	pid_p;
 
 	ret = 0;
-	if (len_list(data->commandes) == 1)
+    return (0);
+	if (len_list(data) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)
 		return (EXIT_FAILURE);
