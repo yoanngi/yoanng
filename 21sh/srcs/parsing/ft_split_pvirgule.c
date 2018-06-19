@@ -6,12 +6,28 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 14:38:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 14:20:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 15:52:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+
+static int		verif_str(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (ft_strlen(str) == 1)
+		return (1);
+	while (str[i])
+	{
+		if (ft_isalnum(str[i]) == 1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 {
@@ -21,8 +37,16 @@ static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 	i2 = i;
 	tmp = ft_strdup(*line);
 	(*lst)->str = ft_strsub(*line, 0, i);
-	(*lst)->next = ft_init_ins();
-	*lst = (*lst)->next;
+	if (verif_str((*lst)->str) == 1)
+	{
+		ft_strdel(&(*lst)->str);
+		return (i + 1);
+	}
+	else
+	{
+		(*lst)->next = ft_init_ins();
+		*lst = (*lst)->next;
+	}
 	while (tmp[i2] == ';')
 		i2++;
 	ft_strdel(line);
@@ -54,5 +78,6 @@ t_ins			*ft_split_pvirgule(char *line, t_ins *lst)
 			i++;
 	}
 	lst->str = ft_strdup(line);
+	ft_strdel(&line);
 	return (start);
 }

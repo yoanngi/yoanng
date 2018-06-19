@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 14:22:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 14:44:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ t_cmd				*ft_split_cmd(char *str, t_struct *data)
 	// add builtins //
 	new->tab_cmd = ft_strsplit(str, ' ');
 	new->rep = ft_search_path(new->tab_cmd[0], data);
-	new->env = data->env;
+	new->env = ft_duplicate_tab(data->env);
 	new->op_next = ft_search_opnext(str);
 	return (new);
 }

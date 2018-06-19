@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 14:23:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 15:44:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,9 +31,11 @@ static int		parse_line(t_struct *data, char **line)
 	cpy = data->commandes;
 	while (cpy)
 	{
-		ft_printf("\n\nCommande a executer : |%s|\n", cpy->str);
+		ft_printf("*****************************************************************\n");
+		ft_printf("Commande a executer : |%s|\n", cpy->str);
+		ft_printf("*****************************************************************\n");
 		ret = execute_commandes(cpy->cmd);
-		ft_printf("Valeur de ret = %d\n", ret);
+		ft_printf("Valeur de ret = %d\n\n\n", ret);
 		cpy = cpy->next;
 	}
 	data->commandes = clear_ins(data->commandes);
@@ -52,6 +54,7 @@ void			core_shell(char **line, t_struct *data)
 		get_next_line(0, line);
 		if (*line != NULL)
 			quit = parse_line(data, line);
-		ft_strdel(line);
+		// Line deja free dans ft_split_pvirgule(a verif)
+		//ft_strdel(line);
 	}
 }
