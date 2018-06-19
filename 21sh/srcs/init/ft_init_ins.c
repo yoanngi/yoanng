@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 15:40:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 15:44:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 13:34:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,7 @@ t_ins			*ft_init_ins(void)
 	if (new == NULL)
 		return (NULL);
 	new->str = NULL;
+	new->cmd = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -31,11 +32,14 @@ t_ins			*clear_ins(t_ins *start)
 	t_ins	*clear;
 	t_ins	*cpy;
 
+	if (start == NULL)
+		return (NULL);
 	clear = start;
 	cpy = NULL;
 	while (clear)
 	{
 		ft_strdel(&clear->str);
+		clear->cmd = clear_cmd(clear->cmd);
 		cpy = clear;
 		clear = clear->next;
 		free(cpy);

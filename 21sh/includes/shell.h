@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 15:46:13 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 11:17:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -147,9 +147,10 @@ int					ft_process(t_cmd *data);
 /*
 **	PARSING
 */
-t_ins				*ft_split_commandes(char **line);
+t_ins				*ft_split_commandes(char **line, t_struct *data);
 t_ins				*ft_split_pvirgule(char *line, t_ins *lst);
-t_cmd				*ft_split_cmd(char *str);
+t_cmd				*ft_split_cmd(char *str, t_struct *data);
+void				clear_line(char **line);
 /*
 **	BUILTINS
 */

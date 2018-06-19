@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 15:41:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 14:23:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	parse_line : Parse la line et la convertit en liste chainer
@@ -24,22 +24,18 @@
 static int		parse_line(t_struct *data, char **line)
 {
 	int		ret;
-    t_ins   *cpy;
+    t_ins	*cpy;
 
 	ret = 0;
-	data->commandes = ft_split_commandes(line);
-    cpy = data->commandes;
-    while (cpy)
-    {
-        ft_printf("cpy = %s\n", cpy->str);
-	    ret = execute_commandes(cpy->cmd);
-	    ft_printf("Valeur de data->ret_func = %d\n", data->ret_func);
-	    if (ret == 1)
-	    	ft_printf("On a une erreur\n");
-    	if (ret == -1)
-    		ft_printf("On doit quitter\n");
-        cpy = cpy->next;
-    }
+	data->commandes = ft_split_commandes(line, data);
+	cpy = data->commandes;
+	while (cpy)
+	{
+		ft_printf("\n\nCommande a executer : |%s|\n", cpy->str);
+		ret = execute_commandes(cpy->cmd);
+		ft_printf("Valeur de ret = %d\n", ret);
+		cpy = cpy->next;
+	}
 	data->commandes = clear_ins(data->commandes);
 	return (0);
 }

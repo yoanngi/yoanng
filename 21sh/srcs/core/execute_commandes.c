@@ -6,44 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 14:30:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 14:23:30 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-//********************************************************************* A Delete !
-/*
-static void	debug(t_struct *data)
-{
-	t_cmd	*test;
-
-	test = data->commandes;
-	printf("***(%s)***\n", __func__);
-	while (data->commandes)
-	{
-		printf("data->commandes->rep = %s\n", data->commandes->rep);
-		printf("data->commandes->pathname = %s\n", data->commandes->pathname);
-		if (data->commandes->tab_cmd != NULL)
-		{
-			printf("data->commandes->tab_cmd[0] = %s\n", data->commandes->tab_cmd[0]);
-			printf("data->commandes->tab_cmd[1] = %s\n", data->commandes->tab_cmd[1]);
-			printf("data->commandes->tab_cmd[2] = %s\n", data->commandes->tab_cmd[2]);
-		}
-		printf("data->commandes->stdin_cmd = %d\n", data->commandes->stdin_cmd);
-		printf("data->commandes->stdout_cmd = %d\n", data->commandes->stdout_cmd);
-		printf("data->commandes->stderr_cmd = %d\n", data->commandes->stderr_cmd);
-		printf("data->commandes->op_redir = %d\n", data->commandes->op_redir);
-		printf("data->commandes->op_next = %d\n", data->commandes->op_next);
-		printf("next\n");
-		data->commandes = data->commandes->next;
-	}
-	data->commandes = test;
-	printf("End debug ******************************************\n\n");
-}
-*/
-//**************************************************************************
 
 static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 {
