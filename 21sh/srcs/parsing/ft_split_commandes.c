@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 15:51:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 16:23:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,11 @@ static int		ft_error_enter(char **line)
 		ft_strdel(line);
 		return (1);
 	}
+	if (ft_strlen(*line) == 0 || (ft_strlen(*line) == 1 && *line[0] == ';'))
+	{
+		ft_strdel(line);
+		return (1);
+	}
 	return (0);
 }
 
@@ -44,7 +49,9 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 	cpy = NULL;
 	if (ft_error_enter(line) == 1)
 		return (NULL);
-	if ((!(new_ins = ft_init_ins())) || (!(new_cmd = ft_init_cmd())))
+	if (!(new_ins = ft_init_ins()))
+		err = 1;
+	if (!(new_cmd = ft_init_cmd()))
 		err = 1;
 	if (err == 1)
 	{

@@ -6,17 +6,23 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/13 15:38:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 15:38:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/19 16:31:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
+
+/*
+**	Fonction pour une execution simple d'une commande
+**	return : Valeur de retour de la commande
+*/
 
 int				ft_process(t_cmd *data)
 {
 	pid_t	father;
 	int		exec;
+	int		status;
 
 	father = fork();
 	exec = -1;
@@ -33,6 +39,6 @@ int				ft_process(t_cmd *data)
 		return (exec);
 	}
 	else
-		wait(&exec);
-	return (father);
+		waitpid(father, &status, 0);
+	return (WEXITSTATUS(status));
 }
