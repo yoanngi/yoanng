@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:39:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/14 15:37:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/20 14:01:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,31 +42,17 @@ static char		**init_env(char **env)
 	return (tab_env);
 }
 
-
-// A mettre a la norme
 static void		init_base(t_struct **data)
 {
 	char	*tmp;
 
 	tmp = ft_check_infos((*data)->env, "PATH=");
-	if (tmp == NULL)
-	{
-		(*data)->path = NULL;
-		(*data)->tab_path = NULL;
-		(*data)->home = NULL;
-	}
-	else
-	{
-		(*data)->path = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
-		ft_strdel(&tmp);
-		(*data)->tab_path = ft_strsplit((*data)->path, ':');
-		tmp = ft_check_infos((*data)->env, "PWD=");
-		(*data)->pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
-		ft_strdel(&tmp);
-		tmp = ft_check_infos((*data)->env, "HOME=");
-		(*data)->home = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
-		ft_strdel(&tmp);
-	}
+	ft_load_path(data);
+	(*data)->pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
+	ft_strdel(&tmp);
+	tmp = ft_check_infos((*data)->env, "HOME=");
+	(*data)->home = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
+	ft_strdel(&tmp);
 	(*data)->current_path = ft_strdup((*data)->pwd);
 	(*data)->oldpwd = ft_strdup((*data)->pwd);
 	(*data)->prompt = ft_strdup("$> ");

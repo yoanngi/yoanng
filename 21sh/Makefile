@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/19 11:17:21 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/20 14:02:46 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -41,6 +41,7 @@ N_SRCS = 	main.c\
 			init/ft_init_cmd.c\
 			init/ft_init_ins.c\
 			init/init_struct.c\
+			init/ft_load_path.c\
 			lib_termcaps/term.c\
 			lib_termcaps/keys.c\
 			lib_shell/display.c\
@@ -76,6 +77,7 @@ N_SRCS = 	main.c\
 			parsing/ft_split_pvirgule.c\
 			parsing/ft_split_cmd.c\
 			parsing/clear_line.c\
+			parsing/ft_search_path.c\
 
 all: $(NAME)
 

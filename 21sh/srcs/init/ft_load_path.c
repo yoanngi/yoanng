@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_check_infos.c                                 .::    .:/ .      .::   */
+/*   ft_load_path.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/06 12:57:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/20 13:59:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/20 14:02:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,24 +14,26 @@
 #include "../../includes/shell.h"
 
 /*
-**	Take infos in Env
+**	Load infos in struct data (path)
 */
 
-char		*ft_check_infos(char **env, char *find)
+void		ft_load_path(t_struct **data)
 {
-	int		i;
-	char	*path;
+	char	*tmp;
 
-	i = 0;
-	path = NULL;
-	while (env[i])
+	tmp = ft_check_infos((*data)->env, "PATH=");
+	if (tmp == NULL)
 	{
-		if (ft_strstr(env[i], find))
-		{
-			path = ft_strdup(env[i]);
-			return (path);
-		}
-		i++;
+		(*data)->path = NULL;
+		(*data)->tab_path = NULL;
+		(*data)->home = NULL;
 	}
-	return (NULL);
+	else
+	{
+		(*data)->path = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
+		ft_strdel(&tmp);
+		(*data)->tab_path = ft_strsplit((*data)->path, ':');
+		tmp = ft_check_infos((*data)->env, "PWD=");
+		ft_strdel(&tmp);
+	}
 }

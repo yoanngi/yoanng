@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 11:17:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/20 14:01:53 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,9 +39,6 @@
 **	Si variable path suprimer, ne pas lancer de commande (sauf si chemin indiquer)
 **	gestion des cotes et doubles code pour setenv et unsetenv
 **
-*/
-
-/*
 **	Source :
 **	http://putaindecode.io/fr/articles/shell/redirections/
 **	https://www.gnu.org/software/bash/manual/bashref.html#Redirections
@@ -151,6 +148,7 @@ t_ins				*ft_split_commandes(char **line, t_struct *data);
 t_ins				*ft_split_pvirgule(char *line, t_ins *lst);
 t_cmd				*ft_split_cmd(char *str, t_struct *data);
 void				clear_line(char **line);
+char				*ft_search_path(char *str, t_struct *data);
 /*
 **	BUILTINS
 */
@@ -183,6 +181,7 @@ t_cmd				*ft_init_cmd(void);
 t_cmd				*clear_cmd(t_cmd *start);
 t_ins				*ft_init_ins(void);
 t_ins				*clear_ins(t_ins *start);
+void				ft_load_path(t_struct **data);
 /*
 **	LIB_SHELL
 */

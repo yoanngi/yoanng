@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 16:23:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/20 16:16:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,18 +20,27 @@
 **	Difference entre && et ;
 **	&& -> si la premiere commande echoue, la 2eme ne se fait pas
 **	; -> si la premiere commande echoue, la 2 eme se fait
+**
+**	Gestion des cas d'erreur :
+**	;; -> 21sh :parse errror near ;;
+**
 */
+
+static int		ft_nefaitrien(char **line)
+{
+	if (ft_strlen(*line) == 0 || (ft_strlen(*line) == 1 && *line[0] == ';'))
+	{
+		ft_strdel(line);
+		return (1);
+	}
+	return (0);
+}
 
 static int		ft_error_enter(char **line)
 {
 	if (ft_strstr(*line, ";;") != NULL)
 	{
 		ft_putstr_fd("21sh: parse error near `;;'\n", 2);
-		ft_strdel(line);
-		return (1);
-	}
-	if (ft_strlen(*line) == 0 || (ft_strlen(*line) == 1 && *line[0] == ';'))
-	{
 		ft_strdel(line);
 		return (1);
 	}
@@ -42,28 +51,30 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 {
 	t_ins	*new_ins;
 	t_ins	*cpy;
-	t_cmd	*new_cmd;
 	int		err;
+	char	*tmp;
 
 	err = 0;
 	cpy = NULL;
-	if (ft_error_enter(line) == 1)
+	tmp = NULL;
+	if (ft_error_enter(line) == 1 || ft_nefaitrien(line) == 1)
 		return (NULL);
 	if (!(new_ins = ft_init_ins()))
-		err = 1;
-	if (!(new_cmd = ft_init_cmd()))
 		err = 1;
 	if (err == 1)
 	{
 		new_ins = clear_ins(new_ins);
-		new_cmd = clear_cmd(new_cmd);
 		return (NULL);
 	}
 	new_ins = ft_split_pvirgule(*line, new_ins);
 	cpy = new_ins;
 	while (cpy)
 	{
-		cpy->cmd = ft_split_cmd(cpy->str, data);
+		tmp = ft_strdup(cpy->str);
+		cpy->cmd = ft_split_cmd(tmp, data);
+		if (tmp == NULL)
+			printf("test\n");
+		printf("|%s|\n", tmp);
 		cpy = cpy->next;
 	}
 	return (new_ins);
