@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/20 16:01:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/20 16:47:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,8 @@ int					ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str, int i)
 	return (0);
 
 }
+
+// A modif
 
 t_cmd				*ft_split_cmd(char *str, t_struct *data)
 {
