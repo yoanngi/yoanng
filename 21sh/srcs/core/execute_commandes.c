@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/20 16:16:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/20 16:36:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,6 +83,22 @@ static int			exec_cmd_recur(t_cmd *data)
 	//return (EXIT_SUCCESS);
 }
 
+static void		print_debug(t_cmd **data)
+{
+	t_cmd	*start;
+
+	start = *data;
+	while (start)
+	{
+		printf("[++++++++++++++++++++++++++++++++++]\n");
+		printf("rep = %s\n", start->rep);
+		printf("tab[0] = %s\n", start->tab_cmd[0]);
+		printf("tab[1] = %s\n", start->tab_cmd[1]);
+		printf("[----------------------------------]\n");
+		start = start->next;
+	}
+}
+
 int			execute_commandes(t_cmd *data)
 {
 	int		ret;
@@ -90,7 +106,7 @@ int			execute_commandes(t_cmd *data)
 	pid_t	pid_p;
 
 	ret = 0;
-
+	print_debug(&data);
 	if (len_list(data) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)
