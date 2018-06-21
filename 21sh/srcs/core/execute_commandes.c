@@ -35,7 +35,6 @@ static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 
 static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 {
-    printf("%s\n", __func__);
 	if ((lst->op_redir == 2 || lst->op_redir == 3) && lst->pathname != NULL)
 	{
 		if (exec_redirection(lst, fd_in, pipe_fd) == 1)
@@ -43,7 +42,6 @@ static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 	}
 	if (lst->op_next == 1)
 	{
-        printf("Pipe !\n");
 		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		dup2(pipe_fd[1], 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
@@ -52,10 +50,9 @@ static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 	}
     else
     {
-        printf("end !\n");
-		dup2(pipe_fd[1], *fd_in) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-		dup2(pipe_fd[0], 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-		close(*fd_in) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
+		close(pipe_fd[1]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
 		if (execve(lst->rep, lst->tab_cmd, lst->env) == -1)
 			exit(EXIT_FAILURE);
     }
@@ -72,14 +69,12 @@ static int			exec_cmd_recur(t_cmd *data)
 	fd_in = 0;
 	while (data)
 	{
-        printf("tour de boucle\n");
 		if (pipe(pipe_fd) == -1)
 			exit(EXIT_FAILURE);
         if ((pid = fork()) == -1)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
 		{
-            printf("On est dans le fils (%s)\n", __func__);
 			if (exec_pipe_child(data, pipe_fd, &fd_in) == 1)
 			{
 				kill(pid, 0);
@@ -88,7 +83,6 @@ static int			exec_cmd_recur(t_cmd *data)
 		}
 		else
 		{
-            printf("WAIT\n");
 			waitpid(pid, &status, 0);
 			close(pipe_fd[1]);
 			fd_in = pipe_fd[0];
@@ -108,9 +102,11 @@ static void		print_debug(t_cmd **data)
 	while (start)
 	{
 		printf("rep = %s\n", start->rep);
+		printf("pathname = %s\n", start->pathname);
 		printf("tab[0] = %s\n", start->tab_cmd[0]);
 		printf("tab[1] = %s\n", start->tab_cmd[1]);
-		printf("op_next = %d\n\n", start->op_next);
+		printf("op_next = %d\n", start->op_next);
+		printf("op_redir = %d\n\n", start->op_redir);
 		start = start->next;
 	}
 	printf("[----------------------------------]\n");
@@ -128,7 +124,6 @@ int			execute_commandes(t_cmd *data)
 		return (EXIT_FAILURE);
 	else if (pid_p == 0)
 	{
-        printf("On est dans le fils (%s)\n", __func__);
 		if (exec_cmd_recur(data) != 0)
 			exit(EXIT_FAILURE);
 	}
