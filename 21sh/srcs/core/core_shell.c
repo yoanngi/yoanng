@@ -31,11 +31,11 @@ static int		parse_line(t_struct *data, char **line)
 	cpy = data->commandes;
 	while (cpy)
 	{
-		ft_printf("*****************************************************************\n");
+		ft_printf("*****************************************************\n");
 		ft_printf("******* Commande executer : |%s|\n", cpy->str);
 		ret = execute_commandes(cpy->cmd);
 		ft_printf("******* Valeur de ret = %d\n", ret);
-		ft_printf("*****************************************************************\n");
+		ft_printf("*****************************************************\n");
 		cpy = cpy->next;
 	}
 	data->commandes = clear_ins(data->commandes);
@@ -54,7 +54,6 @@ void			core_shell(char **line, t_struct *data)
 		get_next_line(0, line);
 		if (*line != NULL)
 			quit = parse_line(data, line);
-		// Line deja free dans ft_split_pvirgule(a verif)
-		//ft_strdel(line);
+		ft_strdel(line);
 	}
 }

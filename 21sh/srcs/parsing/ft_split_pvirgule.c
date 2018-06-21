@@ -61,23 +61,25 @@ t_ins			*ft_split_pvirgule(char *line, t_ins *lst)
 	int		i;
 	int		j;
 	int		quote;
+    char    *tmp;
 
 	i = 0;
 	j = 0;
 	quote = 0;
 	start = lst;
-	while (line[i])
+    tmp = ft_strdup(line);
+	while (tmp[i])
 	{
-		if ((line[i] == '\'' || line[i] == '\"') && quote == 0)
+		if ((tmp[i] == '\'' || tmp[i] == '\"') && quote == 0)
 			quote = 1;
-		else if ((line[i] == '\'' || line[i] == '\"') && quote == 1)
+		else if ((tmp[i] == '\'' || tmp[i] == '\"') && quote == 1)
 			quote = 0;
-		if (quote == 0 && line[i] == ';')
-			i = ft_split_pvir_suite(&line, i, &lst);
+		if (quote == 0 && tmp[i] == ';')
+			i = ft_split_pvir_suite(&tmp, i, &lst);
 		else
 			i++;
 	}
 	lst->str = ft_strdup(line);
-	ft_strdel(&line);
+	ft_strdel(&tmp);
 	return (start);
 }

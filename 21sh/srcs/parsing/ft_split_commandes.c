@@ -24,6 +24,8 @@
 **	Gestion des cas d'erreur :
 **	;; -> 21sh :parse errror near ;;
 **
+**  Ne fait rien :
+**  len line = 1 et line[0] = ;
 */
 
 static int		ft_nefaitrien(char **line)
@@ -47,6 +49,18 @@ static int		ft_error_enter(char **line)
 	return (0);
 }
 
+static int      ft_init_parsing(t_ins **new, char **line)
+{
+	if (ft_error_enter(line) == 1 || ft_nefaitrien(line) == 1)
+		return (1);
+	if (!(*new = ft_init_ins()))
+	{
+		*new = clear_ins(*new);
+		return (1);
+	}
+    return (0);
+}
+
 t_ins			*ft_split_commandes(char **line, t_struct *data)
 {
 	t_ins	*new_ins;
@@ -57,15 +71,9 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 	err = 0;
 	cpy = NULL;
 	tmp = NULL;
-	if (ft_error_enter(line) == 1 || ft_nefaitrien(line) == 1)
-		return (NULL);
-	if (!(new_ins = ft_init_ins()))
-		err = 1;
-	if (err == 1)
-	{
-		new_ins = clear_ins(new_ins);
-		return (NULL);
-	}
+    new_ins = NULL;
+    if (ft_init_parsing(&new_ins, line) == 1)
+        return (NULL);
 	new_ins = ft_split_pvirgule(*line, new_ins);
 	cpy = new_ins;
 	while (cpy)

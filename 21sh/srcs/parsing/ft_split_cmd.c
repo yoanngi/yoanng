@@ -40,7 +40,7 @@ static int			ft_search_opnext(char *str, int i)
 **	Ajout des builtins a faire
 */
 
-int					ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str, int i)
+static int			ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 {
 	char	*tmp;
 
@@ -53,45 +53,63 @@ int					ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str, int i)
 	(*new)->tab_cmd = ft_strsplit(tmp, ' ');
 	(*new)->rep = ft_search_path((*new)->tab_cmd[0], data);
 	(*new)->env = ft_duplicate_tab(data->env);
-	(*new)->op_next = ft_search_opnext(*str, i);
-	ft_strdel(&tmp);
-	tmp = ft_strdup(*str);
-	ft_strdel(str);
-	if (i == ft_strlen(tmp))
-		*str = NULL;
-	else
-		*str = ft_strdup(tmp + (i + 1));
+    if (i == ft_strlen(*str))
+        (*new)->op_next = 0;
+    else
+    	(*new)->op_next = ft_search_opnext(*str, i);
+    printf("opnext = %d\n", (*new)->op_next);
 	ft_strdel(&tmp);
 	return (0);
 
 }
 
-// A modif
+static int          ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str)
+{
+    char    *tmp;
+    int     i;
+
+    tmp = ft_strdup(*str);
+    i = 0;
+    while (tmp[i])
+    {
+        if (tmp[i] == '|')
+        {
+            ft_insert_cmd(new, data, &tmp, i);
+            if (i < ft_strlen(tmp))
+            {
+                ft_strdel(&tmp);
+                tmp = ft_strsub(*str, i + 1, ft_strlen(*str) - (i + 1));
+                i = 0;
+            }
+        }
+        i++;
+    }
+    ft_insert_cmd(new, data, &tmp, i);
+    ft_strdel(&tmp);
+    return (0);
+}
 
 t_cmd				*ft_split_cmd(char *str, t_struct *data)
 {
 	t_cmd   *new;
 	t_cmd   *start;
 	int		i;
-	int		x;
 
 	i = 0;
-	x = 0;
+    new = NULL;
+    start = NULL;
 	if (!(new = ft_init_cmd()))
 		return (NULL);
 	start = new;
+    // A modifier, clear line ne vire pas tous les spaces inutiles
 	clear_line(&str);
-	while (str[i])
-	{
-		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
-		{
-			x++;
-			i = ft_split_cmd_suite(&new, data, &str, i);
-		}
-		else
-			i++;
-	}
-	if (x == 0)
-		ft_split_cmd_suite(&new, data, &str, ft_strlen(str));
+    // ***********************************************************
+    if (ft_strstr(str, "|") != NULL || ft_strstr(str, ">") != NULL ||
+    ft_strstr(str, "<") != NULL)
+    {
+        ft_split_cmd_suite(&new, data, &str);
+    }
+    else
+		ft_insert_cmd(&new, data, &str, ft_strlen(str));
 	return (start);
 }
