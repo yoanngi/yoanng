@@ -201,7 +201,11 @@ t_infos             *clear_infos(t_infos *start);
 // HASH
 int                 ft_count(char *path);
 int                 ft_work_in_tab(char **tabl, int(*ft)(char *));
-int                 ft_insert_hash(int sizemax, char **tabp, long **tabh, long(*f)(char *, int));
+int                 ft_readforhash(int sizemax, char **tabp, long **tabh,
+                    long(*f)(char *, int));
+int                 ft_insert_hash(char *str, int hash, long **tabh,
+                    char *tabp);
+int                 ft_insert_collision(t_infos **start, t_infos *next);
 long                ft_calcul_hash(char *str, int sizemax);
 int                 ft_create_table_hash(t_struct **data);
 long                **create_tab(int size);

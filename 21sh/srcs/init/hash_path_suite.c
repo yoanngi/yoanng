@@ -34,7 +34,7 @@ int         ft_count(char *path)
 
 /*
 **  Applique une fonction sur l'ensemble du tableau envoyer en parametre
-**  Retourne la somme total
+**  Retourne la sommes total
 */
 
 int         ft_work_in_tab(char **tabl, int(*ft)(char *))
@@ -56,48 +56,56 @@ int         ft_work_in_tab(char **tabl, int(*ft)(char *))
 **  Insertion et calcul des hash dans la table
 */
 
-int         ft_insert_hash(int sizemax, char **tabp, long **tabh, long(*f)(char *, int))
+int         ft_insert_collision(t_infos **start, t_infos *next)
+{
+    while (*start)
+        *start = (*start)->next;
+    (*start)->next = next;
+    return (0);
+}
+
+int         ft_insert_hash(char *str, int hash, long **tabh, char *tabp)
+{
+    t_infos     *infos;
+
+    infos = NULL;
+    if (tabh[hash][0] == 0)
+    {
+        tabh[hash][0] = hash;
+        infos = init_infos(tabp, str);
+        tabh[hash][1] = &infos;
+    }
+    else
+    {
+        infos = init_infos(tabp, str);
+        ft_insert_collision(tabh[hash][1], infos);
+    }
+    return (0);
+}
+
+int         ft_readforhash(int sizemax, char **tabp, long **tabh, long(*f)(char *, int))
 {
     int             i;
     DIR             *dir;
     struct dirent   *fl;
     long             hash;
-    //t_infos          *infos;
 
     i = 0;
-    hash = 0;
-    int col = 0;
-    int nocol = 0;
-    int j = 0;
-    while (tabp[i] != NULL)
+    while (tabp[i])
     {
         if (!(dir = opendir(tabp[i])))
             return (EXIT_FAILURE);
         while ((fl = readdir(dir)))
         {
-            j++;
+            hash = 0;
             if (ft_strcmp(fl->d_name, ".") != 0 || ft_strcmp(fl->d_name, "..") != 0)
             {
                 hash = (*f)(fl->d_name, sizemax);
-                printf("hash = %ld -> ", hash);
-                if (tabh[hash][0] == 0)
-                {
-                    nocol++;
-                    printf("PAS DE Colision (%d / %d) ! -> %s\n", nocol, j, fl->d_name);
-    //                tabh[hash][0] = hash;
-                    //infos = init_infos(tabp[i], fl->d_name);
-                    //tabh[hash][1] = (long)&infos;
-                }
-                else
-                {
-                    col++;
-                    printf("COLLISION (%d / %d)! -> %s\n", col, j, fl->d_name);
-                }
+                ft_insert_hash(fl->d_name, hash, tabh, tabp[i]);
             }
         }
         closedir(dir);
         i++;
     }
-    printf("END\n");
     return (EXIT_SUCCESS);
 }

@@ -15,10 +15,21 @@
 
 /*
 **  Source : http://www.cse.yorku.ca/~oz/hash.html (adapter)
-**  Taux de collisions : 281 / 1346
+**  Taux de collisions : 282 / 1589 (17,74 %)
 */
 
-long           ft_calcul_hash(char *str, int sizemax)
+static int      hash_compression(int sizemax, long hash)
+{
+    while (hash > (sizemax * 2))
+        hash = (hash / 3) + (hash % 13) - 1;
+    while (hash > (sizemax - 1))
+        hash = (hash / 3) - (hash % 13) + 1;
+    if (hash < 0)
+        hash *= -1;
+    return ((int)hash);
+}
+
+long            ft_calcul_hash(char *str, int sizemax)
 {
     int     i;
     long    hash;
@@ -29,14 +40,12 @@ long           ft_calcul_hash(char *str, int sizemax)
         hash = i + (hash << 6) + (hash << 16) - hash;
     if (hash < 0)
         hash *= -1;
-    if (sizemax == 0)
+    if (sizemax == 0 || hash < sizemax)
         return (hash);
     else
     {
         while (hash > sizemax)
-        {
-            hash = (hash / 3) + (hash % 5);
-        }
+            hash = hash_compression(sizemax, (long)hash);
     }
     return (hash);
 }
@@ -47,16 +56,14 @@ long           ft_calcul_hash(char *str, int sizemax)
 **  On insert les hash dans la table
 */
 
-int                     ft_create_table_hash(t_struct **data)
+int             ft_create_table_hash(t_struct **data)
 {
     int     count;
 
     count = ft_work_in_tab((*data)->tab_path, &ft_count);
     count *= 10;
     (*data)->tab_hash = create_tab(count);
-    printf("TAB create (size = %d)\n", count);
-    if (ft_insert_hash(count, (*data)->tab_path,
-    (*data)->tab_hash, &ft_calcul_hash))
+    if (ft_readforhash(count, (*data)->tab_path, (*data)->tab_hash, &ft_calcul_hash))
         return (EXIT_SUCCESS);
     return (EXIT_FAILURE);
 }
@@ -65,7 +72,7 @@ int                     ft_create_table_hash(t_struct **data)
 ** Allocation de la table et initialisation de celle ci
 */
 
-long         **create_tab(int size)
+long            **create_tab(int size)
 {
     long    **tabl;
     int     i;
