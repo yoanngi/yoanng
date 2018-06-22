@@ -28,35 +28,24 @@ static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 	dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
 	close(fd) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-	if (execve(lst->rep, lst->tab_cmd, lst->env) == -1)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return (execve(lst->rep, lst->tab_cmd, lst->env));
 }
 
 static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 {
 	if ((lst->op_redir == 2 || lst->op_redir == 3) && lst->pathname != NULL)
-	{
-		if (exec_redirection(lst, fd_in, pipe_fd) == 1)
-			exit(EXIT_FAILURE);
-	}
+		return (exec_redirection(lst, fd_in, pipe_fd));
 	if (lst->op_next == 1)
 	{
 		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		dup2(pipe_fd[1], 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-		if (execve(lst->rep, lst->tab_cmd, lst->env) == -1)
-			exit(EXIT_FAILURE);
+		return (execve(lst->rep, lst->tab_cmd, lst->env));
 	}
-    else
-    {
-		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-		close(pipe_fd[1]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-		if (execve(lst->rep, lst->tab_cmd, lst->env) == -1)
-			exit(EXIT_FAILURE);
-    }
-	return (EXIT_SUCCESS);
+	dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
+	close(pipe_fd[1]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+	return (execve(lst->rep, lst->tab_cmd, lst->env));
 }
 
 static int			exec_cmd_recur(t_cmd *data)
@@ -90,9 +79,9 @@ static int			exec_cmd_recur(t_cmd *data)
 		data = data->next;
 	}
 	return (WEXITSTATUS(status));
-	//return (EXIT_SUCCESS);
 }
 
+// A delete
 static void		print_debug(t_cmd **data)
 {
 	t_cmd	*start;
@@ -112,22 +101,29 @@ static void		print_debug(t_cmd **data)
 	printf("[----------------------------------]\n");
 }
 
+
+/*
+**  Ok sa marche, valeur de retour fausse. 
+**  A proteger
+*/
 int			execute_commandes(t_cmd *data)
 {
 	int		status;
 	pid_t	pid_p;
+    int     ret;
 
 	print_debug(&data);
+    ret = 0;
 	if (len_list(data) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)
 		return (EXIT_FAILURE);
 	else if (pid_p == 0)
 	{
-		if (exec_cmd_recur(data) != 0)
-			exit(EXIT_FAILURE);
+		if ((ret = exec_cmd_recur(data)) != 0)
+			exit(ret);
 	}
 	else
 		waitpid(pid_p, &status, 0);
-	return (EXIT_SUCCESS);
+	return (ret);
 }

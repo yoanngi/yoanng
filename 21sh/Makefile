@@ -42,6 +42,9 @@ N_SRCS = 	main.c\
 			init/ft_init_ins.c\
 			init/init_struct.c\
 			init/ft_load_path.c\
+			init/hash_path.c\
+			init/hash_path_suite.c\
+			init/init_infos.c\
 			lib_termcaps/term.c\
 			lib_termcaps/keys.c\
 			lib_shell/display.c\

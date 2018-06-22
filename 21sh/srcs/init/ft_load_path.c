@@ -14,7 +14,7 @@
 #include "../../includes/shell.h"
 
 /*
-**	Load infos in struct data (path)
+**	Creation d‘une table de hashage
 */
 
 void		ft_load_path(t_struct **data)
@@ -36,4 +36,5 @@ void		ft_load_path(t_struct **data)
 		tmp = ft_check_infos((*data)->env, "PWD=");
 		ft_strdel(&tmp);
 	}
+    ft_create_table_hash(data);
 }

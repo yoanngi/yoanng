@@ -104,12 +104,26 @@ typedef struct		s_ins
 }					t_ins;
 
 /*
+**  Infos tab de hashge
+*/
+
+typedef struct      s_infos
+{
+    char            *rep;
+    char            *name;
+    char            *repname;
+    struct s_infos  *next;
+}                   t_infos;
+
+/*
 **	t_struct -> On la ballade partout
 */
 
 typedef struct		s_struct
 {
 	char			*path;
+	char			**tab_path;
+    long            **tab_hash;
 	char			*pwd;
 	char			*oldpwd;
 	char			*home;
@@ -117,7 +131,6 @@ typedef struct		s_struct
 	char			*current_path;
 	char			*prompt;
 	char			*prompt_current;
-	char			**tab_path;
 	char			**env;
 	char			**builtins;
 	int				option_echo;
@@ -182,6 +195,17 @@ t_cmd				*clear_cmd(t_cmd *start);
 t_ins				*ft_init_ins(void);
 t_ins				*clear_ins(t_ins *start);
 void				ft_load_path(t_struct **data);
+t_infos             *init_infos(char *rep, char *name);
+t_infos             *clear_infos(t_infos *start);
+
+// HASH
+int                 ft_count(char *path);
+int                 ft_work_in_tab(char **tabl, int(*ft)(char *));
+int                 ft_insert_hash(int sizemax, char **tabp, long **tabh, long(*f)(char *, int));
+long                ft_calcul_hash(char *str, int sizemax);
+int                 ft_create_table_hash(t_struct **data);
+long                **create_tab(int size);
+
 /*
 **	LIB_SHELL
 */
