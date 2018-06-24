@@ -53,7 +53,7 @@ int         ft_work_in_tab(char **tabl, int(*ft)(char *))
 }
 
 /*
-**  Insertion et calcul des hash dans la table
+**  Boucle liste chainee pour inserer les donnees lors d'une collision
 */
 
 int         ft_insert_collision(t_infos **start, t_infos *next)
@@ -63,6 +63,10 @@ int         ft_insert_collision(t_infos **start, t_infos *next)
     (*start)->next = next;
     return (0);
 }
+
+/*
+** Insert hash dans struct t_infos
+*/
 
 int         ft_insert_hash(char *str, int hash, long **tabh, char *tabp)
 {
@@ -82,6 +86,10 @@ int         ft_insert_hash(char *str, int hash, long **tabh, char *tabp)
     }
     return (0);
 }
+
+/*
+** Read target (**tab) pour inserer le hash et repertoire
+*/
 
 int         ft_readforhash(int sizemax, char **tabp, long **tabh, long(*f)(char *, int))
 {
