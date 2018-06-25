@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 11:41:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 12:08:24 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,9 +64,9 @@ int				ft_create_table_hash(t_struct **data)
 	count *= 10;
 	(*data)->tab_hash = create_tab(count);
 	if (ft_rforhash(count, (*data)->tab_path, (*data)->tab_hash,
-	&ft_calcul_hash))
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
+	&ft_calcul_hash) == 0)
+		return (count);
+	return (-1);
 }
 
 /*

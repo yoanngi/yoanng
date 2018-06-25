@@ -6,13 +6,13 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 11:18:28 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 11:32:05 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 12:28:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
+/*
 static void			ft_reload_path(t_struct **data)
 {
 	ft_strdel(&(*data)->path);
@@ -58,6 +58,33 @@ char				*ft_search_path(char *str, t_struct *data)
 			return (tmp);
 		}
 		i++;
+	}
+	return (NULL);
+}
+*/
+
+/*
+**	New Version
+*/
+
+char				*ft_search_path(char *str, t_struct *data)
+{
+	int			hash;
+	t_infos		*rep;
+
+	rep = NULL;
+	hash = ft_calcul_hash(str, data->sizemax);
+	if (data->tab_hash[hash][0] == 0)
+		return (NULL);
+	else
+	{
+		rep = (t_infos *)data->tab_hash[hash][1];
+		while (rep)
+		{
+			if (ft_strcmp(rep->name, str) == 0)
+				return (rep->repname);
+			rep = rep->next;
+		}
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 11:40:59 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 12:05:07 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -138,6 +138,7 @@ typedef struct		s_struct
 	char			**env_tmp;
 	char			*char_echo;
 	int				ret_func;
+	int				sizemax;
 	int				stdin_shell;
 	int				stdout_shell;
 	int				stderr_shell;
@@ -194,7 +195,7 @@ t_cmd				*ft_init_cmd(void);
 t_cmd				*clear_cmd(t_cmd *start);
 t_ins				*ft_init_ins(void);
 t_ins				*clear_ins(t_ins *start);
-void				ft_load_path(t_struct **data);
+int					ft_load_path(t_struct **data);
 t_infos             *init_infos(char *rep, char *name);
 t_infos             *clear_infos(t_infos *start);
 

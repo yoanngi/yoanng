@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 11:17:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 12:02:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,10 @@
 **	Creation d‘une table de hashage
 */
 
-void		ft_load_path(t_struct **data)
+int			ft_load_path(t_struct **data)
 {
 	char	*tmp;
+	int		ret;
 
 	tmp = ft_check_infos((*data)->env, "PATH=");
 	if (tmp == NULL)
@@ -36,5 +37,8 @@ void		ft_load_path(t_struct **data)
 		tmp = ft_check_infos((*data)->env, "PWD=");
 		ft_strdel(&tmp);
 	}
-	ft_create_table_hash(data);
+	ret = ft_create_table_hash(data);
+	if (ret == -1)
+		ft_putstr_fd("Erreur table hashage\n", 2);
+	return (ret);
 }
