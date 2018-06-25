@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:39:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/20 14:01:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 11:41:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ static void		init_base(t_struct **data)
 	(*data)->option_i_env = 0;
 	(*data)->charfound = NULL;
 	(*data)->char_echo = NULL;
-	(*data)->env_tmp = NULL;	
+	(*data)->env_tmp = NULL;
 }
 
 t_struct		*init_struct(char **env)

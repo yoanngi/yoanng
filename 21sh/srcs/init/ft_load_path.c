@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/20 14:02:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 11:17:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,5 +36,5 @@ void		ft_load_path(t_struct **data)
 		tmp = ft_check_infos((*data)->env, "PWD=");
 		ft_strdel(&tmp);
 	}
-    ft_create_table_hash(data);
+	ft_create_table_hash(data);
 }

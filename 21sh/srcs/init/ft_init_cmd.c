@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 15:37:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 14:44:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 11:39:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ t_cmd			*ft_init_cmd(void)
 	return (new);
 }
 
-t_cmd		*clear_cmd(t_cmd *start)
+t_cmd			*clear_cmd(t_cmd *start)
 {
 	t_cmd	*clear;
 	t_cmd	*cpy;

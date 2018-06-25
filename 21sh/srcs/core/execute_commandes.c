@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/20 16:36:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 11:46:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,7 @@ static int			exec_cmd_recur(t_cmd *data)
 	{
 		if (pipe(pipe_fd) == -1)
 			exit(EXIT_FAILURE);
-        if ((pid = fork()) == -1)
+		if ((pid = fork()) == -1)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
 		{
@@ -82,7 +82,7 @@ static int			exec_cmd_recur(t_cmd *data)
 }
 
 // A delete
-static void		print_debug(t_cmd **data)
+static void			print_debug(t_cmd **data)
 {
 	t_cmd	*start;
 
@@ -101,19 +101,19 @@ static void		print_debug(t_cmd **data)
 	printf("[----------------------------------]\n");
 }
 
-
 /*
-**  Ok sa marche, valeur de retour fausse. 
+**  Ok sa marche, valeur de retour fausse.
 **  A proteger
 */
-int			execute_commandes(t_cmd *data)
+
+int					execute_commandes(t_cmd *data)
 {
 	int		status;
 	pid_t	pid_p;
-    int     ret;
+	int		ret;
 
 	print_debug(&data);
-    ret = 0;
+	ret = 0;
 	if (len_list(data) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)

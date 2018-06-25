@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 11:18:28 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/20 14:39:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 11:32:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ char				*ft_search_path(char *str, t_struct *data)
 	tmp = NULL;
 	tmp2 = NULL;
 	ft_reload_path(&data);
-	while(data->tab_path[i])
+	while (data->tab_path[i])
 	{
 		if (ft_search_in_dir(data->tab_path[i], str) == 0)
 		{
