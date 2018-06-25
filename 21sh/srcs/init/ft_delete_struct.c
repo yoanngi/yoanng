@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/15 13:57:17 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 12:22:07 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 13:45:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,7 @@ void			ft_delete_struct(t_struct *data)
 	data->env = ft_del_tab(data->env);
 	data->builtins = ft_del_tab(data->builtins);
 	data->env_tmp = ft_del_tab(data->env_tmp);
+	data->tab_hash = delete_tab_hash(data->tab_hash, data->sizemax);
 	free(data);
 	data = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 12:29:23 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 14:31:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,8 +102,8 @@ static void			print_debug(t_cmd **data)
 }
 
 /*
-**  Ok sa marche, valeur de retour fausse.
-**  A proteger
+**  On fork pour maintenir l'acces au shell
+**	On envoie la liste chainee a exec_cmd_recur
 */
 
 int					execute_commandes(t_cmd *data)
@@ -112,17 +112,18 @@ int					execute_commandes(t_cmd *data)
 	pid_t	pid_p;
 	int		ret;
 
+	// A DELETE **********************************************
 	print_debug(&data);
+	// *******************************************************
 	ret = 0;
+	if (!data)
+		return (EXIT_FAILURE);
 	if (len_list(data) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)
 		return (EXIT_FAILURE);
 	else if (pid_p == 0)
-	{
-		if ((ret = exec_cmd_recur(data)) != 0)
-			exit(ret);
-	}
+		ret = exec_cmd_recur(data);
 	else
 		waitpid(pid_p, &status, 0);
 	return (ret);

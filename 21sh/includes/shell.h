@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 12:05:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 13:55:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -137,7 +137,7 @@ typedef struct		s_struct
 	int				option_i_env;
 	char			**env_tmp;
 	char			*char_echo;
-	int				ret_func;
+	int				code_erreur;
 	int				sizemax;
 	int				stdin_shell;
 	int				stdout_shell;
@@ -209,7 +209,8 @@ int                 ft_insert_hash(char *str, int hash, long **tabh,
 int                 ft_insert_collision(t_infos **start, char *tabp, char *str);
 long                ft_calcul_hash(char *str, int sizemax);
 int                 ft_create_table_hash(t_struct **data);
-long                **create_tab(int size);
+long                **create_tab_hash(int size);
+long				**delete_tab_hash(long **tabh, int size);
 
 /*
 **	LIB_SHELL

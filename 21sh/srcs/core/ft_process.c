@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/13 15:38:15 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 16:31:19 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 14:31:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,9 +34,8 @@ int				ft_process(t_cmd *data)
 	else if (father == 0)
 	{
 		exec = execve(data->rep, data->tab_cmd, data->env);
-		if (exec == -1)
-			kill(father, 0);
-		return (exec);
+		//if (exec == -1)
+		//	kill(father, 0);
 	}
 	else
 		waitpid(father, &status, 0);

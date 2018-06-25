@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 11:42:48 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 14:28:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,14 +31,28 @@ static int		parse_line(t_struct *data, char **line)
 	cpy = data->commandes;
 	while (cpy)
 	{
-		ft_printf("******* Commande executer : |%s|\n", cpy->str);
 		ret = execute_commandes(cpy->cmd);
+		data->code_erreur = ret;
+		if (ret == -1)
+		{
+			ft_putstr("exit\n");
+			data->commandes = clear_ins(data->commandes);
+			return (1);
+		}
+		if (ret == 1)
+			ft_putstr_fd("Error: Too many open files in system\n", 2);
+		// A DETETE **********************************************************
+		ft_printf("******* Commande executer : |%s|\n", cpy->str);
 		ft_printf("******* Valeur de retour = %d\n", ret);
 		cpy = cpy->next;
 	}
 	data->commandes = clear_ins(data->commandes);
 	return (0);
 }
+
+/*
+**	Boucle infini, Attend un retour different de zero pour exit
+*/
 
 void			core_shell(char **line, t_struct *data)
 {
@@ -54,4 +68,5 @@ void			core_shell(char **line, t_struct *data)
 			quit = parse_line(data, line);
 		ft_strdel(line);
 	}
+	ft_delete_struct(data);
 }

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 11:18:28 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 12:28:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/25 14:32:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,9 +70,11 @@ char				*ft_search_path(char *str, t_struct *data)
 char				*ft_search_path(char *str, t_struct *data)
 {
 	int			hash;
+	char		*retour;
 	t_infos		*rep;
 
 	rep = NULL;
+	retour = NULL;
 	hash = ft_calcul_hash(str, data->sizemax);
 	if (data->tab_hash[hash][0] == 0)
 		return (NULL);
@@ -82,7 +84,10 @@ char				*ft_search_path(char *str, t_struct *data)
 		while (rep)
 		{
 			if (ft_strcmp(rep->name, str) == 0)
-				return (rep->repname);
+			{
+				retour = ft_strdup(rep->repname);
+				return (retour);
+			}
 			rep = rep->next;
 		}
 	}
