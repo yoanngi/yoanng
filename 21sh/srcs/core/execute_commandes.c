@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/26 16:11:18 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/26 16:42:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,12 @@ static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
 	return (execve(lst->rep, lst->tab_cmd, lst->env));
 }
+
+/*
+**	Wait a verifier
+**	bon wait par rapport au nombre de fork ?
+**	A Normer
+*/
 
 static int			exec_cmd_recur(t_cmd *data)
 {
