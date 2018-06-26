@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/26 09:57:50 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/26 16:11:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,12 +72,13 @@ static int			exec_cmd_recur(t_cmd *data)
 		}
 		else
 		{
-			waitpid(pid, &status, 0);
+//			waitpid(pid, &status, 0);
 			close(pipe_fd[1]);
 			fd_in = pipe_fd[0];
 		}
 		data = data->next;
 	}
+	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
 
@@ -118,11 +119,11 @@ int					execute_commandes(t_cmd *data)
 	// *******************************************************
 	ret = 0;
 	if (!data)
-		return (EXIT_FAILURE);
+		return (-1);
 	if (len_list(data) == 1)
 		return (ft_process(data));
 	if ((pid_p = fork()) == -1)
-		return (EXIT_FAILURE);
+		return (-1);
 	else if (pid_p == 0)
 		ret = exec_cmd_recur(data);
 	else

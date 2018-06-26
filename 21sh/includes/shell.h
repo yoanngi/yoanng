@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 13:55:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/26 13:01:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -247,16 +247,50 @@ int					len_list(t_cmd *lst);
 # define KEY_CODE_DOWN buff[0] == 27 && buff[1] == 91 && buff[2] == 66
 # define KEY_CODE_RIGHT buff[0] == 27 && buff[1] == 91 && buff[2] == 67
 # define KEY_CODE_LEFT buff[0] == 27 && buff[1] == 91 && buff[2] == 68
+# define KEY_CODE_ALT_UP buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 65
+# define KEY_CODE_ALT_DOWN buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 66
+# define KEY_CODE_ALT_RIGHT buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 67
+# define KEY_CODE_ALT_LEFT buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 68
 # define KEY_CODE_BSP *(int*)buff == 127
 # define KEY_CODE_RC *(int*)buff == 10
-
+# define KEY_CODE_END buff[0] == 27 && buff[1] == 91 && buff[2] == 70
+# define KEY_CODE_HOME buff[0] == 27 && buff[1] == 91 && buff[2] == 72
+# define KEY_CODE_CTRL_A
 # define KEY_CODE_CTRL_D *(int*)buff == 4
 # define KEY_CODE_TAB *(int*)buff == 9
 
-void				default_term_mode(void);
-void				raw_term_mode(void);
-char				*get_key(int *loop, char *line, int *curs_idx);
+# define CURS_X get_curs_pos(0, info)
+# define CURS_Y get_curs_pos(1, info)
 
+typedef struct winsize t_wndw;
+typedef struct termios t_termios;
+typedef struct		s_info
+{
+	int				s_len;
+	int				orig_y;
+	int				curs_x;
+	int				curs_y;
+	int				row_nb;
+	int				col_nb;
+	int				curs_in_str;
+	char			*line;
+	char			*prompt;
+	t_list			*history;
+	t_wndw			wndw;
+	t_termios		term;
+}					t_info;
+
+void				default_term_mode(t_info *info);
+void				raw_term_mode(t_info *info);
+void				get_key(int *loop, t_info *info);
+t_info				*memo_info(t_info *info, int mode);
+int					get_curs_pos(int mode, t_info *info);
+void				get_signals(void);
+void				left_key(t_info *info);
+void				right_key(t_info *info);
+void				add_c_in_str(t_info *info, char c);
+void				del_c(t_info *info);
+void				curs_extremity(t_info *info, char *buff);
 /*
 **	END
 */

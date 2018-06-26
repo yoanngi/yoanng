@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/06/20 14:02:46 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/26 13:03:20 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -47,6 +47,10 @@ N_SRCS = 	main.c\
 			init/init_infos.c\
 			lib_termcaps/term.c\
 			lib_termcaps/keys.c\
+			lib_termcaps/keys2.c\
+			lib_termcaps/signals.c\
+			lib_termcaps/str_gestion.c\
+			lib_termcaps/cursor_position.c\
 			lib_shell/display.c\
 			lib_shell/ft_add_line.c\
 			lib_shell/ft_check_path.c\

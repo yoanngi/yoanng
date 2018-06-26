@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/26 09:56:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/26 16:10:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,8 +39,6 @@ static int		parse_line(t_struct *data, char **line)
 			data->commandes = clear_ins(data->commandes);
 			return (1);
 		}
-		if (ret == 1)
-			ft_putstr_fd("Error: Too many open files in system\n", 2);
 		// A DETETE **********************************************************
 		ft_printf("******* Commande executer : |%s|\n", cpy->str);
 		ft_printf("******* Valeur de retour = %d\n", ret);
