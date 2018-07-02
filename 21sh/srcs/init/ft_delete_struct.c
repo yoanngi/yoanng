@@ -17,22 +17,40 @@
 **	Delete struct ans datas
 */
 
-void			ft_delete_struct(t_struct *data)
+int			ft_delete_struct(t_struct *data)
 {
-	ft_strdel(&data->path);
-	ft_strdel(&data->pwd);
-	ft_strdel(&data->oldpwd);
-	ft_strdel(&data->home);
-	ft_strdel(&data->charfound);
-	ft_strdel(&data->current_path);
-	ft_strdel(&data->prompt);
-	ft_strdel(&data->prompt_current);
-	ft_strdel(&data->char_echo);
-	data->tab_path = ft_del_tab(data->tab_path);
-	data->env = ft_del_tab(data->env);
-	data->builtins = ft_del_tab(data->builtins);
-	data->env_tmp = ft_del_tab(data->env_tmp);
+	int		ret;
+
+	ret = data->code_erreur;
+	printf("free 1\n");
 	data->tab_hash = delete_tab_hash(data->tab_hash, data->sizemax);
+	printf("free 2\n");
+	data->tab_path = ft_del_tab(data->tab_path);
+	printf("free 3\n");
+	data->env = ft_del_tab(data->env);
+	printf("free 4\n");
+	data->builtins = ft_del_tab(data->builtins);
+	printf("free 5\n");
+	data->env_tmp = ft_del_tab(data->env_tmp);
+	printf("free 6\n");
+	ft_strdel(&data->pwd);
+	printf("free 7\n");
+	ft_strdel(&data->oldpwd);
+	printf("free 8\n");
+	ft_strdel(&data->home);
+	printf("free 9\n");
+	ft_strdel(&data->charfound);
+	printf("free 10\n");
+	ft_strdel(&data->current_path);
+	printf("free 11\n");
+	ft_strdel(&data->prompt);
+	printf("free 12\n");
+	ft_strdel(&data->prompt_current);
+	printf("free 13\n");
+	ft_strdel(&data->char_echo);
+	printf("free 14\n");
 	free(data);
 	data = NULL;
+	printf("DATA CLEARED\n");
+	return (ret);
 }

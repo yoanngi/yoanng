@@ -31,11 +31,10 @@ static int		parse_line(t_struct *data, char **line)
 	cpy = data->commandes;
 	while (cpy)
 	{
-		ret = execute_commandes(cpy->cmd);
-		data->code_erreur = ret;
+		ret = execute_commandes(data, cpy->cmd);
 		if (ret == -1)
 		{
-			ft_putstr("exit\n");
+			ft_putstr_fd("--> exit shell <--\n", 2);
 			data->commandes = clear_ins(data->commandes);
 			return (1);
 		}
@@ -52,19 +51,21 @@ static int		parse_line(t_struct *data, char **line)
 **	Boucle infini, Attend un retour different de zero pour exit
 */
 
-void			core_shell(char **line, t_struct *data)
+void			core_shell(t_struct *data)
 {
 	int		quit;
+	char	*line;
 
 	quit = 0;
+	line = NULL;
 	while (quit == 0)
 	{
 		ft_display(data);
 //		signal(SIGINT, my_signal);
-		get_next_line(0, line);
-		if (*line != NULL)
-			quit = parse_line(data, line);
-		ft_strdel(line);
+//		Code 130 a gerer quand on a un crl + C
+		get_next_line(0, &line);
+		if (line != NULL)
+			quit = parse_line(data, &line);
+		ft_strdel(&line);
 	}
-	ft_delete_struct(data);
 }

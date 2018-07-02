@@ -35,6 +35,7 @@ N_SRCS = 	main.c\
 			core/core_shell.c\
 			core/ft_process.c\
 			core/execute_commandes.c\
+			core/execute_builtins.c\
 			init/ft_check_infos.c\
 			init/ft_delete_struct.c\
 			init/ft_init_builtins.c\
@@ -70,16 +71,14 @@ N_SRCS = 	main.c\
 			lib_shell/func_access.c\
 			lib_shell/format_line.c\
 			lib_shell/len_list.c\
+			lib_shell/ft_replace_word.c\
 			builtins/good_func.c\
 			builtins/func_cd.c\
-			builtins/func_cd_suite.c\
 			builtins/func_echo.c\
-			builtins/func_echo_suite.c\
-			builtins/func_echo_print.c\
 			builtins/func_env.c\
-			builtins/func_env_suite.c\
 			builtins/func_setenv.c\
 			builtins/func_unsetenv.c\
+			builtins/func_exit.c\
 			parsing/ft_split_commandes.c\
 			parsing/ft_split_pvirgule.c\
 			parsing/ft_split_cmd.c\

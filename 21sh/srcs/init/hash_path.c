@@ -96,7 +96,7 @@ long			**create_tab_hash(int size)
 
 long		**delete_tab_hash(long **tabh, int size)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (i < size)

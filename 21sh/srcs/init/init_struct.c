@@ -47,22 +47,26 @@ static void		init_base(t_struct **data)
 	char	*tmp;
 
 	tmp = ft_check_infos((*data)->env, "PATH=");
-	(*data)->sizemax = ft_load_path(data);
 	(*data)->pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
 	ft_strdel(&tmp);
+	(*data)->oldpwd = ft_strdup((*data)->pwd);
 	tmp = ft_check_infos((*data)->env, "HOME=");
 	(*data)->home = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
 	ft_strdel(&tmp);
+	(*data)->charfound = NULL;
 	(*data)->current_path = ft_strdup((*data)->pwd);
-	(*data)->oldpwd = ft_strdup((*data)->pwd);
 	(*data)->prompt = ft_strdup("$> ");
 	(*data)->prompt_current = NULL;
-	(*data)->builtins = ft_initialise_builtins();
+	(*data)->char_echo = NULL;
+	(*data)->tab_hash = 0;
+	(*data)->tab_path = NULL;
+	(*data)->builtins = NULL;
+	(*data)->env_tmp = NULL;
 	(*data)->option_echo = 0;
 	(*data)->option_i_env = 0;
-	(*data)->charfound = NULL;
-	(*data)->char_echo = NULL;
-	(*data)->env_tmp = NULL;
+	(*data)->code_erreur = 0;
+	(*data)->pid = getpid();
+	(*data)->sizemax = ft_load_path(data);
 }
 
 t_struct		*init_struct(char **env)
@@ -75,6 +79,7 @@ t_struct		*init_struct(char **env)
 	else
 		data->env = init_env(env);
 	init_base(&data);
+	data->builtins = ft_initialise_builtins();
 	data->commandes = NULL;
 	return (data);
 }

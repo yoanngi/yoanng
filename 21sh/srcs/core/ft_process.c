@@ -32,11 +32,7 @@ int				ft_process(t_cmd *data)
 		exit(EXIT_FAILURE);
 	}
 	else if (father == 0)
-	{
 		exec = execve(data->rep, data->tab_cmd, data->env);
-		//if (exec == -1)
-		//	kill(father, 0);
-	}
 	else
 		waitpid(father, &status, 0);
 	return (WEXITSTATUS(status));

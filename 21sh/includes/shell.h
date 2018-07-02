@@ -104,7 +104,7 @@ typedef struct		s_ins
 }					t_ins;
 
 /*
-**  Infos tab de hashge
+**  Infos tab de hashage
 */
 
 typedef struct      s_infos
@@ -121,9 +121,12 @@ typedef struct      s_infos
 
 typedef struct		s_struct
 {
-	char			*path;
-	char			**tab_path;
     long            **tab_hash;
+	char			**tab_path;
+	char			**env;
+	char			**builtins;
+	char			**env_tmp;
+	char			*path;
 	char			*pwd;
 	char			*oldpwd;
 	char			*home;
@@ -131,17 +134,12 @@ typedef struct		s_struct
 	char			*current_path;
 	char			*prompt;
 	char			*prompt_current;
-	char			**env;
-	char			**builtins;
+	char			*char_echo;
 	int				option_echo;
 	int				option_i_env;
-	char			**env_tmp;
-	char			*char_echo;
 	int				code_erreur;
 	int				sizemax;
-	int				stdin_shell;
-	int				stdout_shell;
-	int				stderr_shell;
+	int				pid;
 	t_ins			*commandes;
 }					t_struct;
 
@@ -150,8 +148,10 @@ typedef struct		s_struct
 **
 **	CORE
 */
-void				core_shell(char **line, t_struct *data);
-int					execute_commandes(t_cmd *data);
+void				core_shell(t_struct *data);
+int					execute_commandes(t_struct *mystruct, t_cmd *data);
+int					execute_builtins(t_struct *mystruct, t_cmd *data, int pipe_fd[2], int *fd_in);
+int					execute_builtins_light(t_struct *mystruct, t_cmd *data);
 int					exec_pipe(t_struct *data);
 int					exec_pipe_suite(t_struct *data);
 int					ft_process(t_cmd *data);
@@ -166,31 +166,23 @@ char				*ft_search_path(char *str, t_struct *data);
 /*
 **	BUILTINS
 */
-int					ft_builtins(char **line, t_struct *data);
-int					func_cd(char **line, t_struct *data);
-int					ft_error_cd(char *line);
-void				ft_check_error_cd(t_struct **data);
-int					func_echo(char **line, t_struct *data);
-void				option_echo(int j, t_struct *data);
-int					ft_search_env(char *str, int i, t_struct *data, int i2);
-void				ft_print_echo(char *str, t_struct *data, size_t len);
-int					ft_print_special(char *str, int i, int len);
-char				**func_setenv(char **line, t_struct *data);
-char				**func_unsetenv(char **line, t_struct *data);
-void				func_env(char **line, t_struct *data);
-void				print_full_env(t_struct *data);
-void				ft_print_usage(char *str);
-char				*ft_return_env(char *str, t_struct *data);
-int					ft_option_i(char *str);
-int					ft_env_cmd(t_struct *data, char **tmp, int i, int x);
-int					ft_env_rep(t_struct *data, char **tmp, int i);
+int					ft_search_func(t_struct *mystruct, t_cmd *lst, int i);
+int					func_exit(t_struct *data, t_cmd *lst);
+int					func_env(t_struct *data, t_cmd *lst);
+int					func_echo(t_struct *data, t_cmd *lst);
+int					func_cd(t_struct *data, t_cmd *lst);
+int					func_setenv(t_struct *data, t_cmd *lst);
+int					func_unsetenv(t_struct *data, t_cmd *lst);
+
+
+
 /*
 **	INIT
 */
 t_struct			*init_struct(char **env);
 char				*ft_check_infos(char **env, char *find);
 char				**ft_initialise_builtins(void);
-void				ft_delete_struct(t_struct *data);
+int					ft_delete_struct(t_struct *data);
 t_cmd				*ft_init_cmd(void);
 t_cmd				*clear_cmd(t_cmd *start);
 t_ins				*ft_init_ins(void);
@@ -215,6 +207,7 @@ long				**delete_tab_hash(long **tabh, int size);
 /*
 **	LIB_SHELL
 */
+int					ft_replace_word(char **str, char *word, char *replace);
 char				**ft_del_tab(char **tabl);
 int					ft_len_tab(char **tabl);
 char				**ft_duplicate_tab(char **tabl);

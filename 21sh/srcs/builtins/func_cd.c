@@ -14,14 +14,19 @@
 #include "../../includes/shell.h"
 
 /*
-**	Sycronise path in env
+**	Change directory
+**	~ // - // $ > traiter dans parsing
 */
 
-static void		ft_insert_in_env_suite(t_struct *data)
+static int		actualise_env(t_struct *data, char *newpath)
 {
 	int		i;
 
 	i = 0;
+	ft_strdel(&data->oldpwd);
+	data->oldpwd = ft_strdup(data->pwd);
+	ft_strdel(&data->pwd);
+	data->pwd = ft_strdup(newpath);
 	while (data->env[i])
 	{
 		if (ft_strncmp(data->env[i], "PWD=", 4) == 0)
@@ -36,105 +41,94 @@ static void		ft_insert_in_env_suite(t_struct *data)
 		}
 		i++;
 	}
+	return (0);
 }
 
-static void		ft_insert_in_env(t_struct *data)
+static int		change_directory(t_struct *data, t_cmd *lst, char *newpath)
 {
-	char	*buf;
-
-	buf = ft_strnew(512);
-	getcwd(buf, 512);
-	ft_strdel(&data->oldpwd);
-	if (data->pwd != NULL)
-		data->oldpwd = ft_strdup(data->pwd);
-	else
-		data->oldpwd = ft_strdup(buf);
-	ft_strdel(&data->pwd);
-	data->pwd = ft_strdup(buf);
-	ft_strdel(&buf);
-	ft_insert_in_env_suite(data);
-}
-
-/*
-**	Special func for ~
-*/
-
-static char		*ft_tild(char *target, t_struct *data)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	if (ft_strlen(target) > 1)
-		tmp = ft_strsub(target, 1, ft_strlen(target) - 1);
-	else
-		tmp = ft_strdup("/");
-	ft_strdel(&target);
-	target = ft_strdup(data->home);
-	tmp2 = ft_strjoin(target, tmp);
-	ft_strdel(&target);
-	target = ft_strdup(tmp2);
-	ft_strdel(&tmp);
-	ft_strdel(&tmp2);
-	return (target);
-}
-
-/*
-**	Check target for change directory
-*/
-
-static char		*func_return_target(char *line, t_struct *data)
-{
-	char	*target;
-	char	**tabl;
-	int		i;
-
-	i = 0;
-	tabl = ft_strsplit(line, ' ');
-	while (tabl[i])
-		i++;
-	if (i == 1)
-		target = ft_strdup(data->home);
-	else if ((ft_strlen(line) == 4 && line[3] == '-') ||
-	(ft_strlen(line) == 5 && line[3] == '-' && line[4] == '/'))
-		target = ft_strdup(data->oldpwd);
-	else if (ft_strlen(line) == 5 && line[3] == '~' && line[4] == '-')
-		target = ft_strdup(data->home);
-	else
-		target = ft_strdup(tabl[i - 1]);
-	if (ft_strstr(target, "~") != NULL)
-		target = ft_tild(target, data);
-	ft_del_tab(tabl);
-	return (target);
-}
-
-/*
-**	Change directory
-*/
-
-int				func_cd(char **line, t_struct *data)
-{
-	int		i;
-	int		ret;
-	char	*tmp;
-
-	i = 0;
-	if (ft_error_cd(*line) == 1)
-		return (1);
-	ft_check_error_cd(&data);
-	tmp = func_return_target(*line, data);
-	if (ft_access(tmp) == -1)
+	if (newpath != NULL)
 	{
-		ft_strdel(&tmp);
-		return (1);
+		if (chdir(newpath) == -1)
+		{
+			ft_putstr_fd("cd: no such file or directory:", 2);
+			ft_putstr_fd(newpath, 2);
+			ft_putstr_fd("\n", 2);
+			return (1);
+		}
+		actualise_env(data, newpath);
 	}
-	if ((ret = chdir(tmp)) == -1)
+	else
 	{
-		ft_putstr_fd("cd: no such file of directory: ", 2);
-		ft_putstr_fd(tmp, 2);
+		if (chdir(lst->tab_cmd[1]) == -1)
+		{
+			ft_putstr_fd("cd: no such file or directory:", 2);
+			ft_putstr_fd(lst->tab_cmd[1], 2);
+			ft_putstr_fd("\n", 2);
+			return (1);
+		}
+		actualise_env(data, lst->tab_cmd[1]);
+	}
+	return (0);
+}
+
+static int		pwd_replace(t_struct *data, t_cmd *lst)
+{
+	char	*pwd;
+	char	*tmp;
+	int		i;
+
+	pwd = NULL;
+	tmp = NULL;
+	i = 0;
+	tmp = ft_check_infos(data->env, "PWD=");
+	pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
+	ft_strdel(&tmp);
+	if (ft_strstr(pwd, lst->tab_cmd[1]) == NULL)
+	{
+		ft_putstr_fd("cd: string not in pwd: ", 2);
+		ft_putstr_fd(lst->tab_cmd[1], 2);
 		ft_putstr_fd("\n", 2);
+		return (1);
 	}
 	else
-		ft_insert_in_env(data);
-	ft_strdel(&tmp);
-	return (1);
+	{
+		if (ft_replace_word(&pwd, lst->tab_cmd[1], lst->tab_cmd[2]) == 1)
+			return (1);
+	}
+	change_directory(data, lst, pwd);
+	ft_strdel(&pwd);
+	return (0);
+}
+
+static int		check_error_cd(char **tabargv)
+{
+	int		i;
+
+	i = 0;
+	while (tabargv[i])
+		i++;
+	if (i > 3)
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (EXIT_FAILURE);
+	}
+	if (i == 3)
+		return (2);
+	return (EXIT_SUCCESS);
+}
+
+int				func_cd(t_struct *data, t_cmd *lst)
+{
+	int		mode;
+
+	mode = 0;
+	if (!data || !lst)
+		return (EXIT_FAILURE);
+	if ((mode = check_error_cd(lst->tab_cmd)) == 1)
+		return (EXIT_FAILURE);
+	if (mode == 2)
+		pwd_replace(data, lst);
+	else
+		change_directory(data, lst, NULL);
+	return (EXIT_SUCCESS);
 }

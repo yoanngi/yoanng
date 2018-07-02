@@ -1,48 +1,44 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   func_unsetenv.c                                  .::    .:/ .      .::   */
+/*   format_line.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/04/15 13:22:42 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 12:20:55 by volivry     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/04/21 10:09:53 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/13 12:12:19 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int			func_unsetenv(t_struct *data, t_cmd *lst)
-{
-	/*
-	int		i;
-	int		len;
-	char	*tmp;
+/*
+** Remplace word par replace dans str
+** Retourne 1 si erreur
+** Retourne 0 si ok
+*/
 
+int			ft_replace_word(char **str, char *word, char *replace)
+{
+	char	*start;
+	char	*tmp;
+	int		i;
+
+	start = NULL;
+	tmp = NULL;
 	i = 0;
-	len = ft_len_tab(data->env);
-	tmp = ft_return_tmp(*line);
-	while (data->env[i])
-	{
-		if (ft_strncmp(data->env[i], tmp, ft_strlen(tmp)) == 0)
-		{
-			ft_strdel(&tmp);
-			while (i != len - 1)
-			{
-				ft_delete(data, i);
-				i++;
-			}
-			ft_strdel(&data->env[i]);
-			return (data->env);
-		}
-		i++;
-	}
-	ft_error_unset(tmp, 1);
+	if (!*str || !word || !replace)
+		return (1);
+	start = ft_strstr(*str, word);
+	tmp = ft_strsub(*str, 0, ft_strlen(*str) - ft_strlen(start));
+	i = ft_strlen(tmp);
+	start = ft_strjoin(tmp, replace);
 	ft_strdel(&tmp);
-	return (data->env);
-	*/
-	(void)data;
-	(void)lst;
+	tmp = ft_strsub(*str, i + ft_strlen(word), ft_strlen(*str) - (i + ft_strlen(word)));
+	ft_strdel(str);
+	*str = ft_strjoin(start, tmp);
+	ft_strdel(&tmp);
+	ft_strdel(&start);
 	return (0);
 }

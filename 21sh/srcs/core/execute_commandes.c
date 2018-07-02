@@ -31,8 +31,12 @@ static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 	return (execve(lst->rep, lst->tab_cmd, lst->env));
 }
 
-static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
+static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int *fd_in)
 {
+	int		builtins;
+
+	if ((builtins = execute_builtins(mystruct, lst, pipe_fd, fd_in)) != -1)
+		return (builtins);
 	if ((lst->op_redir == 2 || lst->op_redir == 3) && lst->pathname != NULL)
 		return (exec_redirection(lst, fd_in, pipe_fd));
 	if (lst->op_next == 1)
@@ -54,7 +58,7 @@ static int			exec_pipe_child(t_cmd *lst, int pipe_fd[2], int *fd_in)
 **	A Normer
 */
 
-static int			exec_cmd_recur(t_cmd *data)
+static int			exec_cmd_recur(t_struct *mystruct, t_cmd *data)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -70,15 +74,11 @@ static int			exec_cmd_recur(t_cmd *data)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
 		{
-			if (exec_pipe_child(data, pipe_fd, &fd_in) == 1)
-			{
+			if (exec_pipe_child(mystruct, data, pipe_fd, &fd_in) == -1)
 				kill(pid, 0);
-				exit(EXIT_FAILURE);
-			}
 		}
 		else
 		{
-//			waitpid(pid, &status, 0);
 			close(pipe_fd[1]);
 			fd_in = pipe_fd[0];
 		}
@@ -88,7 +88,7 @@ static int			exec_cmd_recur(t_cmd *data)
 	return (WEXITSTATUS(status));
 }
 
-// A delete
+// ***************************************************** A delete
 static void			print_debug(t_cmd **data)
 {
 	t_cmd	*start;
@@ -113,7 +113,7 @@ static void			print_debug(t_cmd **data)
 **	On envoie la liste chainee a exec_cmd_recur
 */
 
-int					execute_commandes(t_cmd *data)
+int					execute_commandes(t_struct *mystruct, t_cmd *data)
 {
 	int		status;
 	pid_t	pid_p;
@@ -121,17 +121,21 @@ int					execute_commandes(t_cmd *data)
 
 	// A DELETE **********************************************
 	print_debug(&data);
-	// les valeurs de retours a revoir
 	// *******************************************************
 	ret = 0;
 	if (!data)
 		return (-1);
 	if (len_list(data) == 1)
-		return (ft_process(data));
+	{
+		if ((ret = execute_builtins_light(mystruct, data)) == 1)
+			return (ft_process(data));
+		else
+			return (ret);
+	}
 	if ((pid_p = fork()) == -1)
 		return (-1);
 	else if (pid_p == 0)
-		ret = exec_cmd_recur(data);
+		ret = exec_cmd_recur(mystruct, data);
 	else
 		waitpid(pid_p, &status, 0);
 	return (ret);
