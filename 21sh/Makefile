@@ -63,13 +63,11 @@ N_SRCS = 	main.c\
 			lib_shell/ft_good_path.c\
 			lib_shell/ft_insert_dollar.c\
 			lib_shell/ft_insert_in_tab.c\
-			lib_shell/ft_insert_tild.c\
 			lib_shell/ft_len_tab.c\
 			lib_shell/ft_print_tab.c\
 			lib_shell/ft_return_path.c\
 			lib_shell/ft_return_pwd.c\
 			lib_shell/func_access.c\
-			lib_shell/format_line.c\
 			lib_shell/len_list.c\
 			lib_shell/ft_replace_word.c\
 			builtins/good_func.c\
@@ -84,6 +82,7 @@ N_SRCS = 	main.c\
 			parsing/ft_split_cmd.c\
 			parsing/clear_line.c\
 			parsing/ft_search_path.c\
+			parsing/replace_in_line.c\
 
 all: $(NAME)
 

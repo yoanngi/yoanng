@@ -161,7 +161,8 @@ int					ft_process(t_cmd *data);
 t_ins				*ft_split_commandes(char **line, t_struct *data);
 t_ins				*ft_split_pvirgule(char *line, t_ins *lst);
 t_cmd				*ft_split_cmd(char *str, t_struct *data);
-void				clear_line(char **line);
+int					clear_line(char **line);
+int					replace_in_line(t_struct *data, char **line);
 char				*ft_search_path(char *str, t_struct *data);
 /*
 **	BUILTINS
@@ -226,11 +227,11 @@ void				ft_error_fork(int father);
 void				ft_check_path(t_struct *data, char **path);
 int					good_path(char *target, char *cmd, int opt);
 char				*ft_return_path(char *str);
-int					ft_insert_tild(t_struct *data, char **str, int i);
-int					ft_insert_dollar(t_struct *data, char **str, int i);
+char				*ft_insert_home(t_struct *data, char **str, int i, int len);
+char				*ft_insert_dollar(t_struct *data, char **str, int i, int len);
+char				*ft_insert_moins(t_struct *data, char **str, int i, int len);
 int					ft_existe_in_path(t_struct *data, char **path);
 char				*ft_return_pwd(void);
-void				ft_check_line(t_struct *data, char **line, int i);
 int					len_list(t_cmd *lst);
 /*
 **	LIB_TERMCAPS

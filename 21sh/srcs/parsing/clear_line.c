@@ -80,7 +80,7 @@ static void	ft_clean_suite(char **line, int i, int repere)
 	ft_strdel(&str);
 }
 
-void		clear_line(char **line)
+int			clear_line(char **line)
 {
 	int		i;
 	char	*str;
@@ -94,4 +94,5 @@ void		clear_line(char **line)
 	*line = ft_strdup(str + i);
 	ft_strdel(&str);
 	ft_clean_suite(line, 0, 0);
+	return (0);
 }

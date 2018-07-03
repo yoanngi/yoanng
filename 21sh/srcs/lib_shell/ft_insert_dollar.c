@@ -17,65 +17,61 @@
 **  replace $ for the path and return len var env
 */
 
-static char		*ft_return_env_dollar(t_struct *data, char *tmp, int i, int j)
+char			*ft_insert_dollar(t_struct *data, char **str, int i, int len)
 {
-	char	*tmp2;
-	int		x;
-
-	tmp2 = NULL;
-	x = 0;
-	while (data->env[x] && tmp2 == NULL)
-	{
-		if (ft_strncmp(data->env[x], tmp + j + 1, i - j - 1) == 0)
-			tmp2 = ft_strsub(data->env[x], i - j,
-	ft_strlen(data->env[x]) - (i - j));
-		x++;
-	}
-	return (tmp2);
-}
-
-static int		ft_suite(t_struct *data, char **str, int i, int j)
-{
-	char	*ttt;
+	char	*new;
 	char	*tmp;
-	char	*tmp2;
-
-	ttt = NULL;
-	tmp2 = NULL;
-	tmp = ft_strdup(*str);
-	*str = ft_strsub(tmp, 0, j);
-	tmp2 = ft_return_env_dollar(data, tmp, i, j);
-	if (tmp2 == NULL)
-	{
-		ft_strdel(str);
-		*str = ft_strdup(tmp);
-		ft_strdel(&tmp);
-		return (1);
-	}
-	ttt = ft_strjoin(*str, tmp2);
-	ft_strdel(str);
-	*str = ft_strjoin(ttt, tmp + i);
+	
+	new = NULL;
+	tmp = NULL;
+	new = ft_strsub(*str, i, len);
+	tmp = ft_check_infos(data->env, new + 1);
+	ft_strdel(&new);
+	if (tmp == NULL)
+		return (NULL);
+	new = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
 	ft_strdel(&tmp);
-	ft_strdel(&tmp2);
-	ft_strdel(&ttt);
-	return (ft_strlen(*str));
+	return (new);
 }
 
-int				ft_insert_dollar(t_struct *data, char **str, int i)
+char			*ft_insert_moins(t_struct *data, char **str, int i, int len)
 {
+	char	*new;
 	char	*tmp;
 	int		j;
-	int		ret;
-
-	tmp = ft_strdup(*str);
-	ret = 1;
-	j = i;
-	while (tmp[i] || tmp[i] == ' ')
-		i++;
-	if (i - j > 1)
-		ret = ft_suite(data, &tmp, i, j);
-	ft_strdel(str);
-	*str = ft_strdup(tmp);
+	
+	j = 0;
+	new = NULL;
+	tmp = NULL;
+	(void)str;
+	if (len != 1)
+		return (NULL);
+	if (i < 3)
+		return (NULL);
+	if (ft_strstr(*str, "cd -") == NULL)
+		return (NULL);
+	tmp = ft_check_infos(data->env, "OLDPWD=");
+	if (tmp == NULL)
+		return (NULL);
+	new = ft_strsub(tmp, 7, ft_strlen(tmp) - 7);
 	ft_strdel(&tmp);
-	return (ret);
+	return (new);
+}
+
+char			*ft_insert_home(t_struct *data, char **str, int i, int len)
+{
+	char	*new;
+	char	*tmp;
+	
+	new = NULL;
+	tmp = NULL;
+	(void)str;
+	(void)i;
+	(void)len;
+	tmp = ft_check_infos(data->env, "HOME=");
+	if (tmp == NULL)
+		return (NULL);
+	new = ft_strsub(tmp, 5, ft_strlen(tmp) - 5);
+	ft_strdel(&tmp);
+	return (new);
 }
