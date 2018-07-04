@@ -13,7 +13,7 @@
 
 #include "../../includes/shell.h"
 
-int				func_setenv(t_struct *data, t_cmd *lst)
+int				func_setenv(t_struct **data, t_cmd *lst)
 {
 	/*
 	int		i;

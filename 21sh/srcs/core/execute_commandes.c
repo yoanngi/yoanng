@@ -127,7 +127,7 @@ int					execute_commandes(t_struct *mystruct, t_cmd *data)
 		return (-1);
 	if (len_list(data) == 1)
 	{
-		if ((ret = execute_builtins_light(mystruct, data)) == 1)
+		if ((ret = execute_builtins_light(mystruct, data)) == -2)
 			return (ft_process(data));
 		else
 			return (ret);

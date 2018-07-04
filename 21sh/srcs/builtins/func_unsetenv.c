@@ -13,36 +13,74 @@
 
 #include "../../includes/shell.h"
 
-int			func_unsetenv(t_struct *data, t_cmd *lst)
+static int	check_error(t_cmd *lst)
 {
-	/*
 	int		i;
-	int		len;
+
+	i = 0;
+	while (lst->tab_cmd[i])
+		i++;
+	if (i < 2 || i > 2)
+	{
+		ft_putstr_fd("21sh: unsetenv: Invalid format\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+static int	delete_in_env(t_struct **data, int i)
+{
+	while ((*data)->env[i])
+	{
+		if ((*data)->env[i + 1] == NULL)
+		{
+			ft_strdel(&(*data)->env[i]);
+			return (0);
+		}
+		ft_strdel(&(*data)->env[i]);
+		(*data)->env[i] = ft_strdup((*data)->env[i + 1]);
+		i++;
+	}
+	return (0);
+}
+static int	convertmaj(char **str)
+{
+	int		i;
 	char	*tmp;
 
 	i = 0;
-	len = ft_len_tab(data->env);
-	tmp = ft_return_tmp(*line);
-	while (data->env[i])
+	if (!(tmp = ft_strdup(*str)))
+		return (1);
+	while (tmp[i])
 	{
-		if (ft_strncmp(data->env[i], tmp, ft_strlen(tmp)) == 0)
+		tmp[i] = ft_toupper(tmp[i]);
+		i++;
+	}
+	ft_strdel(str);
+	*str = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	return (0);
+}
+
+int			func_unsetenv(t_struct **data, t_cmd *lst)
+{
+	int		i;
+	int		len;
+
+	i = 0;
+	len = ft_len_tab((*data)->env);
+	if (check_error(lst) == 1)
+		return (1);
+	convertmaj(&lst->tab_cmd[1]);
+	while ((*data)->env[i])
+	{
+		if (ft_strncmp((*data)->env[i], lst->tab_cmd[1], ft_strlen(lst->tab_cmd[1])) == 0)
 		{
-			ft_strdel(&tmp);
-			while (i != len - 1)
-			{
-				ft_delete(data, i);
-				i++;
-			}
-			ft_strdel(&data->env[i]);
-			return (data->env);
+			delete_in_env(data, i);
+			return (0);
 		}
 		i++;
 	}
-	ft_error_unset(tmp, 1);
-	ft_strdel(&tmp);
-	return (data->env);
-	*/
-	(void)data;
-	(void)lst;
-	return (0);
+	ft_putstr_fd("21sh: unsetenv: Pattern not found\n", 2);
+	return (1);
 }

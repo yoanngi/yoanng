@@ -27,9 +27,9 @@ int		ft_search_func(t_struct *mystruct, t_cmd *lst, int i)
 	else if (i == 1)
 		ret = func_echo(mystruct, lst);
 	else if (i == 2)
-		ret = func_setenv(mystruct, lst);
+		ret = func_setenv(&mystruct, lst);
 	else if (i == 3)
-		ret = func_unsetenv(mystruct, lst);
+		ret = func_unsetenv(&mystruct, lst);
 	else if (i == 4)
 		ret = func_env(mystruct, lst);
 	else if (i == 5)

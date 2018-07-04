@@ -44,7 +44,13 @@ int			func_env(t_struct *data, t_cmd *lst)
 	tabl = ft_del_tab(tabl);
 	data->env_tmp = ft_del_tab(data->env_tmp);
 	*/
-	(void)data;
+	int i = 0;
+	printf("BUILTINS ENV\n");
+	while (data->env[i])
+	{
+		ft_putendl(data->env[i]);
+		i++;
+	}
 	(void)lst;
 	return (0);
 }

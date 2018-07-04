@@ -172,8 +172,8 @@ int					func_exit(t_struct *data, t_cmd *lst);
 int					func_env(t_struct *data, t_cmd *lst);
 int					func_echo(t_struct *data, t_cmd *lst);
 int					func_cd(t_struct *data, t_cmd *lst);
-int					func_setenv(t_struct *data, t_cmd *lst);
-int					func_unsetenv(t_struct *data, t_cmd *lst);
+int					func_setenv(t_struct **data, t_cmd *lst);
+int					func_unsetenv(t_struct **data, t_cmd *lst);
 
 
 

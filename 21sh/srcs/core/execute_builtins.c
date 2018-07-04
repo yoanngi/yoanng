@@ -51,5 +51,5 @@ int		execute_builtins_light(t_struct *mystruct, t_cmd *lst)
 		}
 		i++;
 	}
-	return (1);
+	return (-2);
 }
