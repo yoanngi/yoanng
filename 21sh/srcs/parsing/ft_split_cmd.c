@@ -36,10 +36,6 @@ static int		ft_search_opnext(char *str, int i)
 	return (0);
 }
 
-/*
-**	Ajout des builtins a faire
-*/
-
 static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 {
 	char	*tmp;
