@@ -120,8 +120,14 @@ t_cmd			*ft_split_cmd(char *str, t_struct *data)
 	if (!(new = ft_init_cmd()))
 		return (NULL);
 	start = new;
-	// clear_line vire space et tabulation inutiles
+	// ***********************************************************
+	//clear_line vire space et tabulation inutiles
 	clear_line(&str);
+	if (str == NULL)
+	{
+		new = clear_cmd(new);
+		return (NULL);
+	}
 	// Replace in line remplace les ~ - et $
 	replace_in_line(data, &str);
 	// ***********************************************************

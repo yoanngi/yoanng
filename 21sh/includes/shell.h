@@ -183,7 +183,7 @@ int					func_unsetenv(t_struct *data, t_cmd *lst);
 t_struct			*init_struct(char **env);
 char				*ft_check_infos(char **env, char *find);
 char				**ft_initialise_builtins(void);
-int					ft_delete_struct(t_struct *data);
+int					ft_delete_struct(t_struct **data);
 t_cmd				*ft_init_cmd(void);
 t_cmd				*clear_cmd(t_cmd *start);
 t_ins				*ft_init_ins(void);

@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 /*
 **	Main 42sh
@@ -30,7 +30,7 @@ int				main(int argc, char **argv, char **env)
 	data = NULL;
 	data = init_struct(env);
 	core_shell(data);
-	code_exit = ft_delete_struct(data);
+	code_exit = ft_delete_struct(&data);
 	if (data != NULL)
 		ft_printf("LEAKS !!!!!!!\n");
 	return (code_exit);

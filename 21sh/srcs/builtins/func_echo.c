@@ -13,36 +13,37 @@
 
 #include "../../includes/shell.h"
 
+/*
+**	Func echo provisoire
+** 	reste option a gerer
+*/
+
 int				func_echo(t_struct *data, t_cmd *lst)
 {
-	/*
-	char	*str;
 	int		i;
-	int		tiret_n;
-	int		tiret_e;
+	int		noreturn;
 
-	str = NULL;
-	i = 0;
-	if (ft_echo_path(*line, data) == 1)
-		return (0);
-	tiret_n = ft_check_option(*line, 0);
-	tiret_e = ft_check_option(*line, 1);
-	if (tiret_n == 0 && tiret_e == 0)
-		str = ft_strsub(*line, 5, ft_strlen(*line) - 5);
-	else
-	{
-		if (tiret_n == 1 || tiret_e == 1)
-			str = ft_strsub(*line, 8, ft_strlen(*line) - 8);
-		else if (tiret_n == 2)
-			str = ft_strsub(*line, 9, ft_strlen(*line) - 9);
-	}
-	if (str)
-		ft_print_echo(str, data, 0);
-	option_echo(tiret_n, data);
-	ft_strdel(&str);
-	return (0);
-	*/
+	i = 1;
+	noreturn = 0;
 	(void)data;
-	(void)lst;
+	while (lst->tab_cmd[i])
+	{
+		if (lst->tab_cmd[i] != NULL && i == 1)
+		{
+			if (ft_strcmp(lst->tab_cmd[i], "-n") == 0)
+				noreturn = 1;
+			else
+				ft_putstr(lst->tab_cmd[i]);
+		}
+		else
+			ft_putstr(lst->tab_cmd[i]);
+		if (lst->tab_cmd[i + 1] != NULL)
+			ft_putstr(" ");
+		i++;
+	}
+	if (noreturn == 0)
+		ft_putstr("\n");
+	else
+		ft_putstr("\033[7m%\033[0m\n");
 	return (0);
 }

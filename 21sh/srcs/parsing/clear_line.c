@@ -88,8 +88,13 @@ int			clear_line(char **line)
 	i = 0;
 	str = NULL;
 	str = ft_strdup(*line);
-	while (str[i] == ' ' || str[i] == '\t')
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
+	if (i == ft_strlen(*line))
+	{
+		ft_strdel(line);
+		return (0);
+	}
 	ft_strdel(line);
 	*line = ft_strdup(str + i);
 	ft_strdel(&str);

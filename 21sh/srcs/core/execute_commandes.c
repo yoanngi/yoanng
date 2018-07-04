@@ -102,10 +102,10 @@ static void			print_debug(t_cmd **data)
 		printf("tab[0] = %s\n", start->tab_cmd[0]);
 		printf("tab[1] = %s\n", start->tab_cmd[1]);
 		printf("op_next = %d\n", start->op_next);
-		printf("op_redir = %d\n\n", start->op_redir);
+		printf("op_redir = %d\n", start->op_redir);
 		start = start->next;
 	}
-	printf("[----------------------------------]\n");
+	printf("[----------------------------------]\n\n");
 }
 
 /*

@@ -31,7 +31,8 @@ static int		parse_line(t_struct *data, char **line)
 	cpy = data->commandes;
 	while (cpy)
 	{
-		ret = execute_commandes(data, cpy->cmd);
+		if (cpy->cmd != NULL)
+			ret = execute_commandes(data, cpy->cmd);
 		if (ret == -1)
 		{
 			ft_putstr_fd("--> exit shell <--\n", 2);
