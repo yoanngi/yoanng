@@ -94,7 +94,7 @@ static void			print_debug(t_cmd **data)
 	t_cmd	*start;
 
 	start = *data;
-	//return ;
+	return ;
 	printf("[++++++++++++++++++++++++++++++++++]\n");
 	while (start)
 	{

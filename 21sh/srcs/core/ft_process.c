@@ -23,11 +23,6 @@ int				ft_process(t_cmd *data)
 	pid_t	pid;
 	int		status;
 
-	if (data->rep == NULL)
-	{
-		ft_putstr_fd("21sh: command not found\n", 2);
-		return (127);
-	}
 	pid = fork();
 	if (pid < 0)
 	{

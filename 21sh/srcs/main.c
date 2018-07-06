@@ -46,6 +46,5 @@ int				main(int argc, char **argv, char **env)
 	data = init_struct(env);
 	core_shell(data);
 	code_exit = ft_delete_struct(&data);
-	printf("CODE EXIT = %d\n", code_exit);
 	return (code_exit);
 }

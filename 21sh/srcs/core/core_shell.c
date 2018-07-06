@@ -15,10 +15,7 @@
 
 /*
 **	parse_line : Parse la line et la convertit en liste chainer
-**	Valeur de retour de ret :
-**	0 -> ok
-**	1 -> erreur de pipe ou fork
-**	-1 -> On a un exit
+**	Execute la / les commandes
 */
 
 static int		parse_line(t_struct *data, char **line)
@@ -43,6 +40,7 @@ static int		parse_line(t_struct *data, char **line)
 		// A DETETE **********************************************************
 		ft_printf("******* Commande executer : |%s|\n", cpy->str);
 		ft_printf("******* Valeur de retour = %d\n", ret);
+		// *******************************************************************
 		cpy = cpy->next;
 	}
 	data->commandes = clear_ins(data->commandes);
