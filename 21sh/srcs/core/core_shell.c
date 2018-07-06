@@ -52,18 +52,29 @@ static int		parse_line(t_struct *data, char **line)
 **	Boucle infini, Attend un retour different de zero pour exit
 */
 
+void			my_signal(int sig)
+{
+	if (sig & SIGINT)
+	{
+		ft_putstr("\n");
+		ft_putstr("\033[32m");
+		ft_putstr("$> ");
+		ft_putstr("\033[0m");
+	}
+}
+
 void			core_shell(t_struct *data)
 {
-	int		quit;
-	char	*line;
+	int				quit;
+	char			*line;
 
 	quit = 0;
 	line = NULL;
 	while (quit == 0)
 	{
 		ft_display(data);
-//		signal(SIGINT, my_signal);
-//		Code 130 a gerer quand on a un crl + C
+		if (signal(SIGINT, my_signal) == SIG_IGN)
+			data->code_erreur = 130;
 		get_next_line(0, &line);
 		if (line != NULL)
 			quit = parse_line(data, &line);

@@ -20,20 +20,26 @@
 
 int				ft_process(t_cmd *data)
 {
-	pid_t	father;
-	int		exec;
+	pid_t	pid;
 	int		status;
 
-	father = fork();
-	exec = -1;
-	if (father < 0)
+	if (data->rep == NULL)
 	{
-		ft_error_fork(father);
+		ft_putstr_fd("21sh: command not found\n", 2);
+		return (127);
+	}
+	pid = fork();
+	if (pid < 0)
+	{
+		ft_error_fork(pid);
 		exit(EXIT_FAILURE);
 	}
-	else if (father == 0)
-		exec = execve(data->rep, data->tab_cmd, data->env);
+	else if (pid == 0)
+	{
+		if (execve(data->rep, data->tab_cmd, data->env) == -1)
+			kill(pid, 0);
+	}
 	else
-		waitpid(father, &status, 0);
+		waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }

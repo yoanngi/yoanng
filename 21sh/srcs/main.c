@@ -19,6 +19,20 @@
 **	Retourne la valeur de exit
 */
 
+static void		print_ascii_art(void)
+{
+	ft_printf("       ::::::::    :::   ::::::::  :::    ::: \n");
+	ft_printf("     :+:    :+: :+:+:  :+:    :+: :+:    :+:  \n");
+	ft_printf("          +:+    +:+  +:+        +:+    +:+   \n");
+	ft_printf("       +#+      +#+  +#++:++#++ +#++:++#++    \n");
+	ft_printf("    +#+        +#+         +#+ +#+    +#+     \n");
+	ft_printf("  #+#         #+#  #+#    #+# #+#    #+#      \n");
+	ft_printf("########## ####### ########  ###    ###       \n");
+	ft_printf("\n");
+	ft_printf("© - volivry\n");
+	ft_printf("© - yoginet\n");
+}
+
 int				main(int argc, char **argv, char **env)
 {
 	t_struct	*data;
@@ -26,12 +40,12 @@ int				main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	print_ascii_art();
 	code_exit = 0;
 	data = NULL;
 	data = init_struct(env);
 	core_shell(data);
 	code_exit = ft_delete_struct(&data);
-	if (data != NULL)
-		ft_printf("LEAKS !!!!!!!\n");
+	printf("CODE EXIT = %d\n", code_exit);
 	return (code_exit);
 }

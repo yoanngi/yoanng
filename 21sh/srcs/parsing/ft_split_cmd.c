@@ -36,6 +36,15 @@ static int		ft_search_opnext(char *str, int i)
 	return (0);
 }
 
+static int		chose_rep(t_struct *data, t_cmd **new)
+{
+	if (ft_strstr((*new)->tab_cmd[0], "./") != NULL)
+		(*new)->rep = ft_strdup((*new)->tab_cmd[0]);
+	else
+		(*new)->rep = ft_search_path((*new)->tab_cmd[0], data);
+	return (0);
+}
+
 static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 {
 	char	*tmp;
@@ -52,7 +61,7 @@ static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 	}
 	tmp = ft_strsub(*str, 0, i);
 	(*new)->tab_cmd = ft_strsplit(tmp, ' ');
-	(*new)->rep = ft_search_path((*new)->tab_cmd[0], data);
+	chose_rep(data, new);
 	if ((*new)->rep == NULL)
 		(*new)->pathname = ft_strdup((*new)->tab_cmd[0]);
 	(*new)->env = ft_duplicate_tab(data->env);

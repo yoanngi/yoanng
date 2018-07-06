@@ -219,6 +219,7 @@ char				*ft_add_line(char *str, char **add, t_struct *data);
 int					ft_dir_exist(char *path);
 void				ft_display(t_struct *data);
 int					ft_access(char *path);
+int					ft_access_rep(char *path);
 void				basic_error(char *name, char *cmd);
 int					ft_error(int cmd, char **line);
 void				ft_error_dir(char *name, char *pre);

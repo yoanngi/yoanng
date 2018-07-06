@@ -34,3 +34,10 @@ int		ft_access(char *path)
 	}
 	return (0);
 }
+
+int		ft_access_rep(char *path)
+{
+	if (!(access(path, X_OK) & EACCES))
+		return (0);
+	return (1);
+}
