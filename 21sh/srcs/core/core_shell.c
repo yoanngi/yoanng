@@ -39,6 +39,7 @@ static int		parse_line(t_struct *data, char **line)
 			data->commandes = clear_ins(data->commandes);
 			return (1);
 		}
+		data->code_erreur = ret;
 		// A DETETE **********************************************************
 		ft_printf("******* Commande executer : |%s|\n", cpy->str);
 		ft_printf("******* Valeur de retour = %d\n", ret);
