@@ -73,7 +73,9 @@ void			core_shell(t_struct *data)
 	{
 		ft_display(data);
 		if (signal(SIGINT, my_signal) == SIG_IGN)
-			data->code_erreur = 130;
+			printf("control c\n");
+		//	Quand control C :
+		//	data->code_erreur = 130;
 		get_next_line(0, &line);
 		if (line != NULL)
 			quit = parse_line(data, &line);
