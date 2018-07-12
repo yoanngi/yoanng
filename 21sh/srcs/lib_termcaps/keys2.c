@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 15:53:00 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/26 10:27:23 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/11 16:20:19 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ void	left_key(t_info *info)
 }
 
 /*
-** RIGHT KEY / LEFT KEY
+** RIGHT KEY
 ** nd : move cursor right
 ** le : move cursor left
 ** sr : scroll the screen one line down
@@ -71,7 +71,7 @@ void	right_key(t_info *info)
 				info->curs_x--;
 			}
 			info->curs_in_str++;
-			info->orig_y -= info->curs_y == info->row_nb ? 1 : 0;
+	//		info->orig_y -= info->curs_y == info->row_nb ? 1 : 0;
 		}
 	}
 	info->curs_x = CURS_X;
@@ -84,7 +84,6 @@ void	right_key(t_info *info)
 
 void	curs_extremity(t_info *info, char *buff)
 {
-
 	tputs(tgetstr("vi", NULL), 1, ft_putchar_err);
 	if (KEY_CODE_HOME)
 	{

@@ -50,8 +50,12 @@ N_SRCS = 	main.c\
 			lib_termcaps/keys.c\
 			lib_termcaps/keys2.c\
 			lib_termcaps/signals.c\
-			lib_termcaps/str_gestion.c\
 			lib_termcaps/cursor_position.c\
+			lib_termcaps/lst_utils.c\
+			lib_termcaps/lst_utils2.c\
+			lib_termcaps/alt_keys.c\
+			lib_termcaps/add_del_insert.c\
+			lib_termcaps/history.c\
 			lib_shell/display.c\
 			lib_shell/ft_add_line.c\
 			lib_shell/ft_check_path.c\

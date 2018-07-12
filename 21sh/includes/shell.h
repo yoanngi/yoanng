@@ -35,6 +35,20 @@
 # include <term.h>
 
 /*
+** PRINT COLORS
+*/
+
+# define BLACK "\033[30m"
+# define BLUE "\033[34m"
+# define CYAN "\033[36m"
+# define GREEN "\033[32m"
+# define MAGENTA "\033[35m"
+# define WHITE "\033[37m"
+# define YELLOW "\033[33m"
+
+# define RESET "\033[00m"
+
+/*
 **	A Faire :
 **	Si variable path suprimer, ne pas lancer de commande (sauf si chemin indiquer)
 **	gestion des cotes et doubles code pour setenv et unsetenv
@@ -87,6 +101,7 @@ typedef struct		s_cmd
 	int				stdin_cmd;
 	int				stdout_cmd;
 	int				stderr_cmd;
+	int				pid;
 
 	char			**env;
 	struct s_cmd	*next;
@@ -99,7 +114,7 @@ typedef struct		s_cmd
 typedef struct		s_ins
 {
 	char			*str;
-    struct s_cmd    *cmd;
+	struct s_cmd	*cmd;
 	struct s_ins	*next;
 }					t_ins;
 
@@ -107,13 +122,13 @@ typedef struct		s_ins
 **  Infos tab de hashage
 */
 
-typedef struct      s_infos
+typedef struct		s_infos
 {
-    char            *rep;
-    char            *name;
-    char            *repname;
-    struct s_infos  *next;
-}                   t_infos;
+	char			*rep;
+	char			*name;
+	char			*repname;
+	struct s_infos	*next;
+}					t_infos;
 
 /*
 **	t_struct -> On la ballade partout
@@ -121,7 +136,7 @@ typedef struct      s_infos
 
 typedef struct		s_struct
 {
-    long            **tab_hash;
+	long			**tab_hash;
 	char			**tab_path;
 	char			**env;
 	char			**builtins;
@@ -193,16 +208,16 @@ t_infos             *init_infos(char *rep, char *name);
 t_infos             *clear_infos(t_infos *start);
 
 // HASH
-int                 ft_count(char *path);
-int                 ft_work_in_tab(char **tabl, int(*ft)(char *));
-int                 ft_rforhash(int s, char **tabp, long **tabh,
-                    long(*f)(char *, int));
+int					ft_count(char *path);
+int					ft_work_in_tab(char **tabl, int(*ft)(char *));
+int					ft_rforhash(int s, char **tabp, long **tabh,
+	long(*f)(char *, int));
 int                 ft_insert_hash(char *str, int hash, long **tabh,
-                    char *tabp);
-int                 ft_insert_collision(t_infos **start, char *tabp, char *str);
-long                ft_calcul_hash(char *str, int sizemax);
-int                 ft_create_table_hash(t_struct **data);
-long                **create_tab_hash(int size);
+	char *tabp);
+int					ft_insert_collision(t_infos **start, char *tabp, char *str);
+long				ft_calcul_hash(char *str, int sizemax);
+int					ft_create_table_hash(t_struct **data);
+long				**create_tab_hash(int size);
 long				**delete_tab_hash(long **tabh, int size);
 
 /*
@@ -257,8 +272,19 @@ int					len_list(t_cmd *lst);
 # define CURS_X get_curs_pos(0, info)
 # define CURS_Y get_curs_pos(1, info)
 
+
 typedef struct winsize t_wndw;
 typedef struct termios t_termios;
+
+typedef struct		s_hist
+{
+	char			*name;
+	char			*backup;
+	int				current;
+	struct s_hist	*next;
+	struct s_hist	*prev;
+}					t_hist;
+
 typedef struct		s_info
 {
 	int				s_len;
@@ -269,23 +295,38 @@ typedef struct		s_info
 	int				col_nb;
 	int				curs_in_str;
 	char			*line;
-	char			*prompt;
-	t_list			*history;
+	char			*prmpt;
+	t_hist			*history;
 	t_wndw			wndw;
 	t_termios		term;
 }					t_info;
 
 void				default_term_mode(t_info *info);
 void				raw_term_mode(t_info *info);
-void				get_key(int *loop, t_info *info);
+void				get_key(int *loop, t_info *info, t_hist *tmp);
 t_info				*memo_info(t_info *info, int mode);
 int					get_curs_pos(int mode, t_info *info);
 void				get_signals(void);
 void				left_key(t_info *info);
 void				right_key(t_info *info);
-void				add_c_in_str(t_info *info, char c);
-void				del_c(t_info *info);
+void				add_c_in_str(t_info *info, char c, t_hist *tmp);
+void				del_c_in_str(t_info *info, t_hist *tmp);
+void				del_char(t_info *info, t_hist *tmp);
+void				add_char(char c, t_info *info, t_hist *tmp);
+void				insert_char(char c, t_info *info, t_hist *tmp);
 void				curs_extremity(t_info *info, char *buff);
+void				add_queue(t_hist *root);
+void				add_head(t_hist *root);
+void				remove_elem(t_hist *elem);
+t_hist				*root_hist(void);
+t_hist				*first_elem(t_hist *root);
+t_hist				*last_elem(t_hist *root);
+void				alt_up_down(t_info *info, char *buff);
+void				init_current(t_hist *history);
+void				alt_right(t_info *info, t_hist *tmp);
+void				alt_left(t_info *info, t_hist *tmp);
+void				up_key(t_info *info, t_hist *tmp);
+void				down_key(t_info *info, t_hist *tmp);
 /*
 **	END
 */

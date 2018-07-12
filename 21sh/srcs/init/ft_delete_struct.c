@@ -37,6 +37,5 @@ int			ft_delete_struct(t_struct **data)
 	ft_strdel(&(*data)->char_echo);
 	free(*data);
 	*data = NULL;
-	printf("DATA CLEARED\n");
 	return (ret);
 }

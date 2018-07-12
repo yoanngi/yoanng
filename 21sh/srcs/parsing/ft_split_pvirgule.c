@@ -86,5 +86,12 @@ t_ins			*ft_split_pvirgule(char *line, t_ins *lst)
 	}
 	lst->str = ft_strdup(line);
 	ft_strdel(&tmp);
+	lst = start;
+	while (lst)
+	{
+		printf("%s a modifier\n", __func__);
+		printf("str = %s\n", lst->str);
+		lst = lst->next;
+	}
 	return (start);
 }

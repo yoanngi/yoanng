@@ -29,6 +29,7 @@ t_cmd			*ft_init_cmd(void)
 	new->stdin_cmd = 0;
 	new->stdout_cmd = 1;
 	new->stderr_cmd = 2;
+	new->pid = 0;
 	new->env = NULL;
 	new->next = NULL;
 	return (new);

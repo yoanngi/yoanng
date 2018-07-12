@@ -13,7 +13,8 @@
 
 #include "../../includes/shell.h"
 
-int			execute_builtins(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int *fd_in)
+int			execute_builtins(t_struct *mystruct, t_cmd *lst, int pipe_fd[2],
+	int *fd_in)
 {
 	int		i;
 	int		ret;
@@ -35,7 +36,7 @@ int			execute_builtins(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int *fd_i
 	return (-1);
 }
 
-int		execute_builtins_light(t_struct *mystruct, t_cmd *lst)
+int			execute_builtins_light(t_struct *mystruct, t_cmd *lst)
 {
 	int		i;
 	int		ret;

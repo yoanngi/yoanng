@@ -13,6 +13,16 @@
 
 #include "../../includes/shell.h"
 
+static int			ft_kill_process(t_cmd *start)
+{
+	while (start)
+	{
+		kill(start->pid, 0);
+		start = start->next;
+	}
+	return (0);
+}
+
 static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 {
 	int		fd;
@@ -79,6 +89,7 @@ static int			exec_cmd_recur(t_struct *mystruct, t_cmd *data)
 		}
 		else
 		{
+			data->pid = pid;
 			close(pipe_fd[1]);
 			fd_in = pipe_fd[0];
 		}
@@ -94,6 +105,7 @@ static void			print_debug(t_cmd **data)
 	t_cmd	*start;
 
 	start = *data;
+	// commenter le return pour pas print la debug
 	return ;
 	printf("[++++++++++++++++++++++++++++++++++]\n");
 	while (start)
@@ -116,13 +128,11 @@ static void			print_debug(t_cmd **data)
 
 int					execute_commandes(t_struct *mystruct, t_cmd *data)
 {
-	int		status;
-	pid_t	pid_p;
 	int		ret;
+	t_cmd	*start;
 
-	// A DELETE **********************************************
+	start = NULL;
 	print_debug(&data);
-	// *******************************************************
 	ret = 0;
 	if (!data)
 		return (-1);
@@ -133,11 +143,8 @@ int					execute_commandes(t_struct *mystruct, t_cmd *data)
 		else
 			return (ret);
 	}
-	if ((pid_p = fork()) == -1)
-		return (-1);
-	else if (pid_p == 0)
-		ret = exec_cmd_recur(mystruct, data);
-	else
-		waitpid(pid_p, &status, 0);
+	start = data;
+	ret = exec_cmd_recur(mystruct, data);
+	ft_kill_process(start);
 	return (ret);
 }

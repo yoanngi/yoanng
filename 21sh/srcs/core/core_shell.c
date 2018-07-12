@@ -13,6 +13,58 @@
 
 #include "../../includes/shell.h"
 
+void			init_info(t_info *info)
+{
+	raw_term_mode(info);
+	info->s_len = 0;
+	info->orig_y = CURS_Y;
+	info->curs_x = CURS_X;
+	info->curs_y = CURS_Y;
+	info->line = NULL;
+	info->curs_in_str = 1;
+	ioctl(0, TIOCGWINSZ, &(info->wndw));
+	info->row_nb = info->wndw.ws_row;
+	info->col_nb = info->wndw.ws_col;
+	info = memo_info(info, 0);
+	info->prmpt = NULL;
+	info->prmpt = ft_strdup("$> ");
+	info->history = root_hist();
+}
+
+void			reinit_info(t_info *info)
+{
+	raw_term_mode(info);
+	info->s_len = 0;
+	info->orig_y = CURS_Y;
+	info->curs_x = CURS_X;
+	info->curs_y = CURS_Y;
+	info->curs_in_str = 1;
+	ft_strdel(&(info->line));
+/*	ioctl(0, TIOCGWINSZ, &(info->wndw));
+	info->row_nb = info->wndw.ws_row;
+	info->col_nb = info->wndw.ws_col;*/
+}
+
+static t_info	line_edit(t_info info, t_hist *tmp)
+{
+	int loop;
+
+	raw_term_mode(&info);
+	add_head(info.history);
+	tmp = last_elem(info.history);
+	init_current(info.history);
+	loop = 1;
+	ft_putstr(MAGENTA);
+	ft_putstr(info.prmpt);
+	ft_putstr(RESET);
+	while (loop)
+	{
+		get_signals();
+		get_key(&loop, &info, tmp);
+	}
+	return (info);
+}
+
 /*
 **	parse_line : Parse la line et la convertit en liste chainer
 **	Execute la / les commandes
@@ -20,8 +72,8 @@
 
 static int		parse_line(t_struct *data, char **line)
 {
-	int		ret;
-	t_ins	*cpy;
+	int ret;
+	t_ins *cpy;
 
 	ret = 0;
 	data->commandes = ft_split_commandes(line, data);
@@ -32,14 +84,14 @@ static int		parse_line(t_struct *data, char **line)
 			ret = execute_commandes(data, cpy->cmd);
 		if (ret == -1)
 		{
-			ft_putstr_fd("--> exit shell <--\n", 2);
+			ft_putstr_fd("--> exit 21sh <--\n", 2);
 			data->commandes = clear_ins(data->commandes);
 			return (1);
 		}
 		data->code_erreur = ret;
 		// A DETETE **********************************************************
-		ft_printf("******* Commande executer : |%s|\n", cpy->str);
-		ft_printf("******* Valeur de retour = %d\n", ret);
+		ft_printf("\n******* Valeur de retour (ret) = %d\n", ret);
+		ft_printf("******* Valeur de retour (data->code_erreur) = %d\n", data->code_erreur);
 		// *******************************************************************
 		cpy = cpy->next;
 	}
@@ -51,34 +103,25 @@ static int		parse_line(t_struct *data, char **line)
 **	Boucle infini, Attend un retour different de zero pour exit
 */
 
-void			my_signal(int sig)
-{
-	if (sig & SIGINT)
-	{
-		ft_putstr("\n");
-		ft_putstr("\033[32m");
-		ft_putstr("$> ");
-		ft_putstr("\033[0m");
-	}
-}
-
 void			core_shell(t_struct *data)
 {
-	int				quit;
-	char			*line;
+	int		quit;
+	t_info	info;
+	t_hist	*tmp;
 
 	quit = 0;
-	line = NULL;
+	tmp = NULL;
+	init_info(&info);
 	while (quit == 0)
 	{
-		ft_display(data);
-		if (signal(SIGINT, my_signal) == SIG_IGN)
-			printf("control c\n");
-		//	Quand control C :
-		//	data->code_erreur = 130;
-		get_next_line(0, &line);
-		if (line != NULL)
-			quit = parse_line(data, &line);
-		ft_strdel(&line);
+		info = line_edit(info, tmp);
+		if (info.line != NULL && quit == 0)
+		{
+			default_term_mode(&info);
+			quit = parse_line(data, &(info.line));
+			ft_strdel(&(info.line));
+		}
+		reinit_info(&info);
 	}
+	default_term_mode(&info);
 }
