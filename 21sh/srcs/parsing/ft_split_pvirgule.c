@@ -12,7 +12,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
+/*
 static int		verif_str(char *str)
 {
 	int		i;
@@ -28,7 +28,7 @@ static int		verif_str(char *str)
 	}
 	return (1);
 }
-
+*/
 static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 {
 	char	*tmp;
@@ -36,17 +36,22 @@ static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 
 	i2 = i;
 	tmp = ft_strdup(*line);
-	(*lst)->str = ft_strsub(*line, 0, i);
-	if (verif_str((*lst)->str) == 1)
-	{
-		ft_strdel(&(*lst)->str);
-		return (i + 1);
-	}
-	else
+//	if (verif_str((*lst)->str) == 1)
+//	{
+//		ft_strdel(&(*lst)->str);
+//		return (i + 1);
+//	}
+//	else
+//	{
+//		(*lst)->next = ft_init_ins();
+//		*lst = (*lst)->next;
+//	}
+	if ((*lst)->str == NULL)
 	{
 		(*lst)->next = ft_init_ins();
 		*lst = (*lst)->next;
 	}
+	(*lst)->str = ft_strsub(*line, 0, i);
 	while (tmp[i2] == ';')
 		i2++;
 	ft_strdel(line);
