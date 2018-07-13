@@ -12,7 +12,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-/*
+
 static int		verif_str(char *str)
 {
 	int		i;
@@ -28,70 +28,90 @@ static int		verif_str(char *str)
 	}
 	return (1);
 }
-*/
+
+static int		ft_check_vir(t_ins **lst, char *line)
+{
+	if (ft_strstr(line, ";") == NULL)
+	{
+		(*lst)->str = ft_strdup(line);
+		return (0);
+	}
+	return (1);
+}
+
 static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 {
 	char	*tmp;
-	int		i2;
 
-	i2 = i;
-	tmp = ft_strdup(*line);
-//	if (verif_str((*lst)->str) == 1)
-//	{
-//		ft_strdel(&(*lst)->str);
-//		return (i + 1);
-//	}
-//	else
-//	{
-//		(*lst)->next = ft_init_ins();
-//		*lst = (*lst)->next;
-//	}
-	if ((*lst)->str == NULL)
+	tmp = NULL;
+	if ((*lst)->str != NULL)
 	{
 		(*lst)->next = ft_init_ins();
 		*lst = (*lst)->next;
 	}
+	if (i == ft_strlen(*line))
+	{
+		if (verif_str(*line) == 0)
+			(*lst)->str = ft_strdup(*line);
+		return (-2);
+	}
 	(*lst)->str = ft_strsub(*line, 0, i);
-	while (tmp[i2] == ';')
-		i2++;
-	ft_strdel(line);
-	*line = ft_strsub(tmp, i2, ft_strlen(tmp) - i2);
+	tmp = ft_strsub(*line, i + 1, ft_strlen(*line) - (i + 1));
+	if (ft_strstr(tmp, ";") == NULL && verif_str(tmp) == 0)
+	{
+		(*lst)->next = ft_init_ins();
+		*lst = (*lst)->next;
+		(*lst)->str = ft_strdup(tmp);
+		ft_strdel(&tmp);
+		return (-2);
+	}
 	ft_strdel(&tmp);
-	return (0);
+	return (i);
+}
+
+static int		resize_line(char **str, int i, t_ins *lst)
+{
+	char	*tmp;
+	int		len;
+
+	tmp = NULL;
+	if (lst->str == NULL)
+		return (i);
+	len = ft_strlen(lst->str);
+	if (i == -2)
+		return (-2);
+	tmp = ft_strdup(*str);
+	ft_strdel(str);
+	*str = ft_strsub(tmp, len, ft_strlen(tmp) - len);
+	ft_strdel(&tmp);
+	return (-1);
 }
 
 t_ins			*ft_split_pvirgule(char *line, t_ins *lst)
 {
 	t_ins	*start;
 	int		i;
-	int		j;
 	int		quote;
 	char	*tmp;
 
 	i = 0;
-	j = 0;
 	quote = 0;
+	tmp = NULL;
 	start = lst;
+	if (ft_check_vir(&lst, line) == 0)
+		return (start);
 	tmp = ft_strdup(line);
-	while (tmp[i])
+	while (i != -1)
 	{
 		if ((tmp[i] == '\'' || tmp[i] == '\"') && quote == 0)
 			quote = 1;
 		else if ((tmp[i] == '\'' || tmp[i] == '\"') && quote == 1)
 			quote = 0;
-		if (quote == 0 && tmp[i] == ';')
+		if ((quote == 0 && tmp[i] == ';') || i == ft_strlen(tmp))
 			i = ft_split_pvir_suite(&tmp, i, &lst);
-		else
-			i++;
+		i = resize_line(&tmp, i, lst);
+		i++;
 	}
-	lst->str = ft_strdup(line);
 	ft_strdel(&tmp);
-	lst = start;
-	while (lst)
-	{
-		printf("%s a modifier\n", __func__);
-		printf("str = %s\n", lst->str);
-		lst = lst->next;
-	}
 	return (start);
 }

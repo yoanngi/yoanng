@@ -51,8 +51,20 @@ static int		ft_nefaitrien(char **line)
 
 static int		ft_init_parsing(t_ins **new, char **line)
 {
+	char	*tmp;
+	int		len;
+
+	tmp = NULL;
 	if (ft_nefaitrien(line) == 1)
 		return (1);
+	len = ft_strlen(*line);
+	tmp = ft_strdup(*line);
+	if (tmp[len - 1] == ';')
+	{
+		ft_strdel(line);
+		*line = ft_strsub(tmp, 0, len - 1);
+	}
+	ft_strdel(&tmp);
 	if (!(*new = ft_init_ins()))
 	{
 		*new = clear_ins(*new);
@@ -133,6 +145,17 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 	if (ft_init_parsing(&new_ins, line) == 1)
 		return (NULL);
 	new_ins = ft_split_pvirgule(*line, new_ins);
+	// test
+	t_ins *cpytest;
+	cpytest = new_ins;
+	while (new_ins)
+	{
+		printf("lst->str = |%s|\n", new_ins->str);
+		new_ins = new_ins->next;
+	}
+	new_ins = cpytest;
+	// end
+	ft_strdel(line);
 	cpy = new_ins;
 	while (cpy)
 	{
