@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:03:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 11:41:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,8 @@ static int		ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str)
 	i = 0;
 	while (tmp[i])
 	{
+		if (ft_strstr(tmp, ">&") != NULL)
+			ft_redirection_avancees(tmp, new);
 		if (tmp[i] == '|' || tmp[i] == '>')
 		{
 			ft_insert_cmd(new, data, &tmp, i);

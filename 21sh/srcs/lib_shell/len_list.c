@@ -6,12 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/12 07:25:56 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 16:25:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 11:49:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../includes/shell.h"
 
 int			len_list(t_cmd *lst)
 {

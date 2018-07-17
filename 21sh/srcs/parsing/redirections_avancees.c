@@ -6,11 +6,16 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:54:14 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:03:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 11:51:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-
+int				ft_redirection_avancees(char *str, t_cmd **new)
+{
+	printf("Redirection\n");
+	(void)str;
+	(void)new;
+}
