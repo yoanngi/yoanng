@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 15:29:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 17:11:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,14 +101,12 @@ t_cmd			*ft_split_cmd(char *str, t_struct *data)
 	if (!(new = ft_init_cmd()))
 		return (NULL);
 	start = new;
-	//clear_line vire space et tabulation inutiles
 	clear_line(&str);
 	if (str == NULL)
 	{
 		new = clear_cmd(new);
 		return (NULL);
 	}
-	// Replace in line remplace les ~ - et $
 	replace_in_line(data, &str);
 	if (ft_strstr(str, "|") != NULL || ft_strstr(str, ">") != NULL ||
 			ft_strstr(str, "<") != NULL)

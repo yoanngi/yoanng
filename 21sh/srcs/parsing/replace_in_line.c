@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/26 14:57:37 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/19 14:12:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 17:09:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 
 static int		insert_in_str(t_struct *data, char **str, int i)
 {
-	char 	*tmp;
+	char	*tmp;
 	char	*new;
 	int		j;
 
@@ -74,7 +74,7 @@ int				replace_in_line(t_struct *data, char **line)
 			dquote = (tmp[i] == '\"' && dquote == 1) ? 0 : 1;
 		}
 		else if ((tmp[i] == '~' || tmp[i] == '-' || tmp[i] == '$')
-	&& (quote == 0 && dquote == 0))
+				&& (quote == 0 && dquote == 0))
 			insert_in_str(data, &tmp, i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:42:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 17:09:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,7 @@ static int		ft_init_parsing(t_ins **new, char **line)
 static int		compare_builtins(char **builtins, t_cmd *cmd)
 {
 	int		i;
-	int 	z;
+	int		z;
 
 	i = 0;
 	z = 0;

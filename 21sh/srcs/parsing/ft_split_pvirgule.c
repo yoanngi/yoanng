@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 14:38:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:42:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 17:08:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,13 +43,13 @@ static int		resize_line(char **str, int i, t_ins **lst)
 {
 	char	*tmp;
 
-    (void)lst;
+	(void)lst;
 	tmp = NULL;
-    tmp = ft_strdup(*str);
-    ft_strdel(str);
-    *str = ft_strsub(tmp, i + 1, ft_strlen(tmp) - (i + 1));
-    ft_strdel(&tmp);
-    return (0);
+	tmp = ft_strdup(*str);
+	ft_strdel(str);
+	*str = ft_strsub(tmp, i + 1, ft_strlen(tmp) - (i + 1));
+	ft_strdel(&tmp);
+	return (0);
 }
 
 static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
@@ -57,13 +57,13 @@ static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 	char	*tmp;
 
 	tmp = NULL;
-    if ((*lst)->str != NULL)
-    {
-        while((*lst)->next)
-            *lst = (*lst)->next;
-	    (*lst)->next = ft_init_ins();
-	    *lst = (*lst)->next;
-    }
+	if ((*lst)->str != NULL)
+	{
+		while ((*lst)->next)
+			*lst = (*lst)->next;
+		(*lst)->next = ft_init_ins();
+		*lst = (*lst)->next;
+	}
 	if (i == ft_strlen(*line))
 	{
 		if (verif_str(*line) == 0)
@@ -71,7 +71,7 @@ static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 		return (-2);
 	}
 	(*lst)->str = ft_strsub(*line, 0, i);
-    resize_line(line, i, lst);
+	resize_line(line, i, lst);
 	return (-1);
 }
 
@@ -96,7 +96,7 @@ t_ins			*ft_split_pvirgule(char *line, t_ins *lst)
 		else if ((tmp[i] == '\'' || tmp[i] == '\"') && quote == 1)
 			quote = 0;
 		if ((quote == 0 && tmp[i] == ';') || i == ft_strlen(tmp))
-		    i = ft_split_pvir_suite(&tmp, i, &lst);
+			i = ft_split_pvir_suite(&tmp, i, &lst);
 		i++;
 	}
 	ft_strdel(&tmp);

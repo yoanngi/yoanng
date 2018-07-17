@@ -6,16 +6,16 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:59:09 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 13:36:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 17:11:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int              ft_search_opnext(char *str, int i)
+int				ft_search_opnext(char *str, int i)
 {
-	int             len;
+	int		len;
 
 	len = ft_strlen(str);
 	if (i < len)
@@ -38,7 +38,7 @@ int              ft_search_opnext(char *str, int i)
 	return (0);
 }
 
-int              chose_rep(t_struct *data, t_cmd **new)
+int				chose_rep(t_struct *data, t_cmd **new)
 {
 	if (ft_strstr((*new)->tab_cmd[0], "./") != NULL)
 		(*new)->rep = ft_strdup((*new)->tab_cmd[0]);

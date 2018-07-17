@@ -12,3 +12,8 @@ https://openclassrooms.com/courses/la-programmation-systeme-en-c-sous-unix/les-p
 https://openclassrooms.com/courses/la-programmation-systeme-en-c-sous-unix/les-tubes
 https://openclassrooms.com/forum/sujet/pipe-et-dup2-comment-faire-23270
 
+
+A faire:
+
+Supression des cotes et doubles cote inutile
+tous ce aui est 1>&2

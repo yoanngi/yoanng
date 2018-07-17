@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 15:29:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 17:01:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 17:12:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ static char		*clean_next(char *str)
 	int		i;
 	char	*new;
 
-	i = ft_strlen(str) - 1 ;
+	i = ft_strlen(str) - 1;
 	new = NULL;
 	while (i >= 0 && (str[i] == ' ' || str[i] == '\t'))
 		i--;

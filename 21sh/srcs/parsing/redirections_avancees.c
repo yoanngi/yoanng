@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:54:14 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 15:04:33 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 17:10:27 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,9 +51,11 @@ static int		insert_before(t_cmd **new, char *str, int i)
 		return (0);
 	}
 	else
+	{
 		ft_putstr_fd("21sh :", 2);
 		write(1, &str[i], 2);
 		ft_putstr_fd(": bad file descriptor\n", 2);
+	}
 	return (1);
 }
 
