@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/26 16:10:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 10:48:11 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,9 +40,6 @@ void			reinit_info(t_info *info)
 	info->curs_y = CURS_Y;
 	info->curs_in_str = 1;
 	ft_strdel(&(info->line));
-/*	ioctl(0, TIOCGWINSZ, &(info->wndw));
-	info->row_nb = info->wndw.ws_row;
-	info->col_nb = info->wndw.ws_col;*/
 }
 
 static t_info	line_edit(t_info info, t_hist *tmp)
@@ -90,7 +87,6 @@ static int		parse_line(t_struct *data, char **line)
 		}
 		data->code_erreur = ret;
 		// A DETETE **********************************************************
-		ft_printf("\n******* Valeur de retour (ret) = %d\n", ret);
 		ft_printf("******* Valeur de retour (data->code_erreur) = %d\n", data->code_erreur);
 		// *******************************************************************
 		cpy = cpy->next;
@@ -118,6 +114,7 @@ void			core_shell(t_struct *data)
 		if (info.line != NULL && quit == 0)
 		{
 			default_term_mode(&info);
+			printf("*** LINE = |%s|***\n", info.line);
 			quit = parse_line(data, &(info.line));
 			ft_strdel(&(info.line));
 		}

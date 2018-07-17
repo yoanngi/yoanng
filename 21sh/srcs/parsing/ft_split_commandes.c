@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 12:17:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 10:56:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,30 +20,7 @@
 **	Difference entre && et ;
 **	&& -> si la premiere commande echoue, la 2eme ne se fait pas
 **	; -> si la premiere commande echoue, la 2 eme se fait
-**
-**
-**  ft_nefaitrien
-**	Gestion des cas d'erreur :
-**  **	len line = 1 et line[0] = ;
-**	**	;; -> 21sh :parse errror near ;;
-**
 */
-
-static int		ft_nefaitrien(char **line)
-{
-	if (ft_strlen(*line) == 0 || (ft_strlen(*line) == 1 && *line[0] == ';'))
-	{
-		ft_strdel(line);
-		return (1);
-	}
-	else if (ft_strstr(*line, ";;") != NULL)
-	{
-		ft_putstr_fd("21sh: parse error near `;;'\n", 2);
-		ft_strdel(line);
-		return (1);
-	}
-	return (0);
-}
 
 /*
 **	Fonction annexe de ft_split_commandes
@@ -145,16 +122,6 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 	if (ft_init_parsing(&new_ins, line) == 1)
 		return (NULL);
 	new_ins = ft_split_pvirgule(*line, new_ins);
-	// test
-	t_ins *cpytest;
-	cpytest = new_ins;
-	while (new_ins)
-	{
-		printf("lst->str = |%s|\n", new_ins->str);
-		new_ins = new_ins->next;
-	}
-	new_ins = cpytest;
-	// end
 	ft_strdel(line);
 	cpy = new_ins;
 	while (cpy)

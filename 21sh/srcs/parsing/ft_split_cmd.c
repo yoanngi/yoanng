@@ -6,44 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 12:28:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 11:03:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-static int		ft_search_opnext(char *str, int i)
-{
-	int		len;
-
-	len = ft_strlen(str);
-	if (i < len)
-	{
-		if (str[i] == '<' && str[i + 1] == '<')
-			return (5);
-		if (str[i] == '>' && str[i + 1] == '>')
-			return (3);
-	}
-	if (str[i] == '|')
-		return (1);
-	else if (str[i] == '>')
-		return (2);
-	else if (str[i] == '<')
-		return (4);
-	else if (str[i] == '&')
-		return (4);
-	return (0);
-}
-
-static int		chose_rep(t_struct *data, t_cmd **new)
-{
-	if (ft_strstr((*new)->tab_cmd[0], "./") != NULL)
-		(*new)->rep = ft_strdup((*new)->tab_cmd[0]);
-	else
-		(*new)->rep = ft_search_path((*new)->tab_cmd[0], data);
-	return (0);
-}
 
 static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 {
