@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:41:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 15:29:08 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,6 +38,8 @@ static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 	else
 		(*new)->op_next = ft_search_opnext(*str, i);
 	ft_strdel(&tmp);
+	if ((*new)->op_next == 9)
+		ft_redirection_avancees(new, str);
 	return (0);
 }
 
@@ -47,12 +49,18 @@ static void		ft_split_cmd_suite_deux(char **str, t_cmd **new, int i)
 
 	tmp2 = NULL;
 	tmp2 = ft_strdup(*str);
-	if (tmp2[i] == '>')
+/*	if (tmp2[i] == '>')
 		(*new)->op_redir = 2;
 	if (tmp2[i + 1] == '>')
 		(*new)->op_redir = 3;
+*/
+	printf("|%s| -> i = %d\n", *str, i);
 	ft_strdel(str);
-	*str = ft_strsub(tmp2, i + 1, ft_strlen(tmp2) - (i + 1));
+	if ((*new)->stdcmd != 0)
+		*str = ft_strsub(tmp2, i + 3, ft_strlen(tmp2) - (i + 3));
+	else
+		*str = ft_strsub(tmp2, i + 1, ft_strlen(tmp2) - (i + 1));
+	printf("|%s| -> i = %d\n\n", *str, i);
 	ft_strdel(&tmp2);
 }
 
@@ -65,8 +73,6 @@ static int		ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str)
 	i = 0;
 	while (tmp[i])
 	{
-		if (ft_strstr(tmp, ">&") != NULL)
-			ft_redirection_avancees(tmp, new);
 		if (tmp[i] == '|' || tmp[i] == '>')
 		{
 			ft_insert_cmd(new, data, &tmp, i);
@@ -95,7 +101,6 @@ t_cmd			*ft_split_cmd(char *str, t_struct *data)
 	if (!(new = ft_init_cmd()))
 		return (NULL);
 	start = new;
-	// ***********************************************************
 	//clear_line vire space et tabulation inutiles
 	clear_line(&str);
 	if (str == NULL)
@@ -105,7 +110,6 @@ t_cmd			*ft_split_cmd(char *str, t_struct *data)
 	}
 	// Replace in line remplace les ~ - et $
 	replace_in_line(data, &str);
-	// ***********************************************************
 	if (ft_strstr(str, "|") != NULL || ft_strstr(str, ">") != NULL ||
 			ft_strstr(str, "<") != NULL)
 		ft_split_cmd_suite(&new, data, &str);

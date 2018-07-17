@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/17 11:30:29 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/07/17 16:52:20 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -85,7 +85,7 @@ N_SRCS = 	main.c\
 			parsing/ft_split_pvirgule.c\
 			parsing/ft_split_cmd.c\
 			parsing/ft_split_cmd_suite.c\
-			parsing/clear_line.c\
+			parsing/epur_line.c\
 			parsing/ft_search_path.c\
 			parsing/replace_in_line.c\
 			parsing/ft_error_parsing.c\

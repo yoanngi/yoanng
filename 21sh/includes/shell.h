@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:51:36 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 15:03:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,6 +82,7 @@
 **	6 : &
 **	7 : &&
 **	8 : ||
+**	9 : >&
 **
 **	env : Environnement a envoyer pour la commande
 **
@@ -97,6 +98,7 @@ typedef struct		s_cmd
 	int				op_redir;
 	int				op_next;
 
+	int				stdcmd;
 	int				stdin_cmd;
 	int				stdout_cmd;
 	int				stderr_cmd;
@@ -182,7 +184,7 @@ int					ft_nefaitrien(char **line);
 int					ft_check_pvir_error(char *str);
 int					ft_search_opnext(char *str, int i);
 int					chose_rep(t_struct *data, t_cmd **new);
-int					ft_redirection_avancees(char *str, t_cmd **new);
+int					ft_redirection_avancees(t_cmd **new, char **str);
 /*
 **	BUILTINS
 */

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:59:09 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:01:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 13:36:46 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,8 @@ int              ft_search_opnext(char *str, int i)
 			return (5);
 		if (str[i] == '>' && str[i + 1] == '>')
 			return (3);
+		if (str[i] == '>' && str[i + 1] == '&')
+			return (9);
 	}
 	if (str[i] == '|')
 		return (1);

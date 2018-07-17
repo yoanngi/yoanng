@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 15:37:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 11:39:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/17 15:04:11 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@ t_cmd			*ft_init_cmd(void)
 	new->pathname = NULL;
 	new->op_redir = 0;
 	new->op_next = 0;
+	new->stdcmd = 0;
 	new->stdin_cmd = 0;
 	new->stdout_cmd = 1;
 	new->stderr_cmd = 2;
