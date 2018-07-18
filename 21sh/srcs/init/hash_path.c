@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 13:45:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 09:59:01 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,7 +94,7 @@ long			**create_tab_hash(int size)
 	return (tabl);
 }
 
-long		**delete_tab_hash(long **tabh, int size)
+long			**delete_tab_hash(long **tabh, int size)
 {
 	int			i;
 

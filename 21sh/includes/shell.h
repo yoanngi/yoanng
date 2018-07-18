@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 17:02:53 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 11:21:13 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -178,6 +178,8 @@ t_ins				*ft_split_commandes(char **line, t_struct *data);
 t_ins				*ft_split_pvirgule(char *line, t_ins *lst);
 t_cmd				*ft_split_cmd(char *str, t_struct *data);
 int					clear_line(char **line);
+char				*clean_before(char *str);
+char				*clean_next(char *str);
 int					replace_in_line(t_struct *data, char **line);
 char				*ft_search_path(char *str, t_struct *data);
 int					ft_nefaitrien(char **line);

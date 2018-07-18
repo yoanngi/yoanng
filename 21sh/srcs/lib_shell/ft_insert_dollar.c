@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/05/22 11:56:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 11:58:36 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 09:57:58 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,7 @@ char			*ft_insert_dollar(t_struct *data, char **str, int i, int len)
 {
 	char	*new;
 	char	*tmp;
-	
+
 	new = NULL;
 	tmp = NULL;
 	if (ft_insert_special(data, str, &tmp, i) == 0)
@@ -68,7 +68,7 @@ char			*ft_insert_moins(t_struct *data, char **str, int i, int len)
 	char	*new;
 	char	*tmp;
 	int		j;
-	
+
 	j = 0;
 	new = NULL;
 	tmp = NULL;
@@ -91,7 +91,7 @@ char			*ft_insert_home(t_struct *data, char **str, int i, int len)
 {
 	char	*new;
 	char	*tmp;
-	
+
 	new = NULL;
 	tmp = NULL;
 	(void)str;

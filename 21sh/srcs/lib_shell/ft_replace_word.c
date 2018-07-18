@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 11:49:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 11:49:44 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 09:59:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,8 @@ int			ft_replace_word(char **str, char *word, char *replace)
 	i = ft_strlen(tmp);
 	start = ft_strjoin(tmp, replace);
 	ft_strdel(&tmp);
-	tmp = ft_strsub(*str, i + ft_strlen(word), ft_strlen(*str) - (i + ft_strlen(word)));
+	tmp = ft_strsub(*str, i + ft_strlen(word), ft_strlen(*str) -
+	(i + ft_strlen(word)));
 	ft_strdel(str);
 	*str = ft_strjoin(start, tmp);
 	ft_strdel(&tmp);

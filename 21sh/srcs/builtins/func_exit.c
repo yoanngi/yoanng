@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 12:19:36 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 10:03:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,12 @@ int			func_exit(t_struct *data, t_cmd *lst)
 	int ret;
 
 	ret = 0;
+	if (ft_len_tab(lst->tab_cmd) > 2)
+	{
+		ft_putstr_fd("exit: too many arguments\n", 2);
+		data->code_erreur = 1;
+		return (1);
+	}
 	if (lst->tab_cmd[1] == NULL)
 		ret = 0;
 	else

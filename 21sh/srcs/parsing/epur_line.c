@@ -6,46 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 15:29:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 17:12:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 11:15:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-/*
-**	Supprime les espaces avant
-*/
-
-static char		*clean_before(char *str)
-{
-	int		i;
-	char	*new;
-
-	i = 0;
-	new = NULL;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	new = ft_strsub(str, i, ft_strlen(str) - i);
-	return (new);
-}
-
-/*
-**	Supprime les espaces apres
-*/
-
-static char		*clean_next(char *str)
-{
-	int		i;
-	char	*new;
-
-	i = ft_strlen(str) - 1;
-	new = NULL;
-	while (i >= 0 && (str[i] == ' ' || str[i] == '\t'))
-		i--;
-	new = ft_strsub(str, 0, i + 1);
-	return (new);
-}
 
 /*
 **	Supprime les espaces entre
@@ -56,42 +22,66 @@ static int		clean_bet_suite(char *str, int i, char **new, char **tmp)
 	int		q;
 
 	q = 0;
+	if (i == ft_strlen(str) || i + 1 == ft_strlen(str))
+		return (1);
 	if (i + 2 == ft_strlen(str))
 		q = 1;
-	if (str[i] == ' ' && str[i + 1] == ' ')
+	if ((str[i] == ' ' || str[i] == '\t') && (str[i + 1] == ' ' ||
+	str[i] == '\t'))
 	{
 		*new = ft_strsub(str, 0, i);
-		while (str[i] == ' ')
+		while (str[i] == ' ' || str[i] == '\t')
 			i++;
 		*tmp = ft_strsub(str, i - 1, ft_strlen(str) - (i - 1));
+		if (*new[ft_strlen(*new) - 1] == '\t')
+			*new[ft_strlen(*new) - 1] = ' ';
 		q = 1;
 	}
 	return (q);
 }
 
-static int		*clean_between(char **string, int i)
+static int		echap_quote(char *str, int i)
+{
+	if (str[i] == '\"')
+	{
+		i++;
+		while (str[i] && str[i] != '\"')
+			i++;
+	}
+	if (str[i] == '\'')
+	{
+		i++;
+		while (str[i] && str[i] != '\'')
+			i++;
+	}
+	return (i);
+}
+
+static int		*clean_between(char **string, int i, int q)
 {
 	char	*tmp;
 	char	*new;
 	char	*str;
-	int		q;
 
 	tmp = NULL;
 	new = NULL;
 	str = ft_strdup(*string);
-	q = 0;
 	while (q == 0)
 	{
+		i = echap_quote(str, i);
 		q = clean_bet_suite(str, i, &new, &tmp);
 		i++;
 	}
-	ft_strdel(string);
-	*string = ft_strjoin(new, tmp);
+	if (new && tmp)
+	{
+		ft_strdel(string);
+		*string = ft_strjoin(new, tmp);
+	}
 	ft_strdel(&tmp);
 	ft_strdel(&new);
 	ft_strdel(&str);
-	if (ft_strstr(*string, "  ") != NULL)
-		clean_between(string, 0);
+	if (i + 2 < ft_strlen(*string))
+		clean_between(string, 0, 0);
 	return (0);
 }
 
@@ -112,7 +102,7 @@ int				clear_line(char **line)
 	*line = ft_strdup(next);
 	ft_strdel(&before);
 	ft_strdel(&next);
-	if (ft_strstr(*line, "  ") != NULL)
-		clean_between(line, 0);
+	if (ft_strstr(*line, "  ") != NULL || ft_strstr(*line, "\t ") != NULL)
+		clean_between(line, 0, 0);
 	return (0);
 }
