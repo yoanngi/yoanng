@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 10:48:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 12:07:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,7 +114,7 @@ void			core_shell(t_struct *data)
 		if (info.line != NULL && quit == 0)
 		{
 			default_term_mode(&info);
-			printf("*** LINE = |%s|***\n", info.line);
+			printf("********************************************* LINE = |%s|***\n\n", info.line);
 			quit = parse_line(data, &(info.line));
 			ft_strdel(&(info.line));
 		}

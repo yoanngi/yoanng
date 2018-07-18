@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/18 09:56:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/18 14:19:33 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 		*new = (*new)->next;
 	}
 	tmp = ft_strsub(*str, 0, i);
-	(*new)->tab_cmd = ft_strsplit(tmp, ' ');
+	(*new)->tab_cmd = split_cmd(tmp, 0);
 	chose_rep(data, new);
 	if ((*new)->rep == NULL)
 		(*new)->pathname = ft_strdup((*new)->tab_cmd[0]);
