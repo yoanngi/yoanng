@@ -102,7 +102,8 @@ int				clear_line(char **line)
 	*line = ft_strdup(next);
 	ft_strdel(&before);
 	ft_strdel(&next);
-	if (ft_strstr(*line, "  ") != NULL || ft_strstr(*line, "\t ") != NULL)
+	if ((ft_strstr(*line, "  ") != NULL || ft_strstr(*line, "\t ") != NULL)
+    && ft_strlen(*line) > 1)
 		clean_between(line, 0, 0);
 	return (0);
 }

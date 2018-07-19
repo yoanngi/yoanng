@@ -122,16 +122,13 @@ char			**split_cmd(char *str, int i)
 	char		**new;
 	char		*tmp;
 
-	printf("Avant str = |%s|\n", str);
 	delete_char(&str, 0, 0, 0);
-	printf("Apres str = |%s|\n", str);
 	new = ft_strsplit(str, ' ');
 	tmp = NULL;
 	while (new[i])
 	{
-		if (clear_quote(&new[i], tmp) == 1)
+        if (clear_quote(&new[i], tmp) == 1)
 		{
-			ft_strdel(&tmp);
 			ft_strdel(&str);
 			i = 0;
 		}

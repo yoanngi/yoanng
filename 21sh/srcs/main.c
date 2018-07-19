@@ -19,6 +19,23 @@
 **	Retourne la valeur de exit
 */
 
+static int      ft_test_system(void)
+{
+    int     i;
+    char    *test;
+
+    i = 0;
+    test = NULL;
+    while (i < 10)
+    {
+        if (!(test = ft_strnew(2000000)))
+            return (EXIT_FAILURE);
+        ft_strdel(&test);
+        i++;
+    }
+    return (EXIT_SUCCESS);
+}
+
 static void		print_ascii_art(void)
 {
 	ft_putstr(MAGENTA);
@@ -48,6 +65,8 @@ int				main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+    if (ft_test_system() == 1)
+        return (1);
 	print_ascii_art();
 	code_exit = 0;
 	data = NULL;

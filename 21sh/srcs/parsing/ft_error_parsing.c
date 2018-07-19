@@ -13,23 +13,42 @@
 
 #include "../../includes/shell.h"
 
-static int	check_pvir_suite(char *str, int i)
-{
-	int		len;
+/*
+**  Ecrit le message d'erreur
+*/
 
-	len = ft_strlen(str);
-	if (len == i)
-		return (0);
-	if (str[i] != ';')
-		return (0);
-	if (str[i] == ';' && str[i + 1] == ';')
-		return (1);
-	return (0);
+static int  error_enter(char *str, int i)
+{
+	ft_putstr_fd("21sh: syntax error near unexpected token ‘", 2);
+    if (i == 1)
+    {
+        ft_putchar_fd(str[0], 2);
+        ft_putchar_fd(str[0], 2);
+    }
+    else if (i == 2)
+    {
+        ft_putchar_fd(str[0], 2);
+    }
+	ft_putstr_fd("'\n", 2);
+    return (0);
 }
 
-int			ft_check_pvir_error(char *str)
+static int  verif_hard_suite(char *str, int i)
 {
-	int		i;
+    int     len;
+
+    len = ft_strlen(str);
+    if (i < len - 1)
+    {
+        if (str[i] == ';' && str[i + 1] == ';')
+            return (1);
+    }
+    return (0);
+}
+
+static int  verif_hard(char *str)
+{
+    int		i;
 	int		quote;
 	int		dquote;
 
@@ -48,7 +67,7 @@ int			ft_check_pvir_error(char *str)
 			dquote = 0;
 		else if (quote == 0 && dquote == 0)
 		{
-			if (check_pvir_suite(str, i) == 1)
+			if (verif_hard_suite(str, i) == 1)
 				return (1);
 		}
 		i++;
@@ -58,19 +77,23 @@ int			ft_check_pvir_error(char *str)
 
 int			ft_nefaitrien(char **line)
 {
-	if (ft_strlen(*line) == 0 || (ft_strlen(*line) == 1 && *line[0] == ';'))
-	{
-		ft_strdel(line);
-		return (1);
-	}
-	else if (ft_strstr(*line, ";;") != NULL)
-	{
-		if (ft_check_pvir_error(*line) == 1)
-		{
-			ft_putstr_fd("21sh: parse error near `;;'\n", 2);
-			ft_strdel(line);
-			return (1);
-		}
-	}
+    if (ft_strlen(*line) == 0)
+        return (1);
+    if (ft_strstr(*line, "\"") || ft_strstr(*line, "\'"))
+    {
+       if (verif_hard(*line) == 1)
+       {
+           error_enter(*line, 2);
+           return (1);
+       }
+    }
+    else
+    {
+        if ((*line[0] == ';' || *line[0] == '|') || (ft_strstr(*line, ";;")))
+        {
+            error_enter(*line, 2);
+            return (1);
+        }
+    }
 	return (0);
 }

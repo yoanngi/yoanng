@@ -106,7 +106,7 @@ static void			print_debug(t_cmd **data)
 
 	start = *data;
 	// commenter le return pour pas print la debug
-	return ;
+	//return ;
 	printf("[++++++++++++++++++++++++++++++++++]\n");
 	while (start)
 	{

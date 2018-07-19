@@ -74,6 +74,7 @@ static int		parse_line(t_struct *data, char **line)
 
 	ret = 0;
 	data->commandes = ft_split_commandes(line, data);
+    printf("End Parsing\n");
 	cpy = data->commandes;
 	while (cpy)
 	{

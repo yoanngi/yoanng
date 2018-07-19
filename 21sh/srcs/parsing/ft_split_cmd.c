@@ -54,6 +54,7 @@ static void		ft_split_cmd_suite_deux(char **str, t_cmd **new, int i)
 	if (tmp2[i + 1] == '>')
 		(*new)->op_redir = 3;
 */
+    printf("%s\n", __func__);
 	printf("|%s| -> i = %d\n", *str, i);
 	ft_strdel(str);
 	if ((*new)->stdcmd != 0)

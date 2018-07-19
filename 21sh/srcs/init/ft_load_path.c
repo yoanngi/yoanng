@@ -39,6 +39,9 @@ int			ft_load_path(t_struct **data)
 	}
 	ret = ft_create_table_hash(data);
 	if (ret == -1)
+    {
 		ft_putstr_fd("Erreur table hashage\n", 2);
+        exit(EXIT_FAILURE);
+    }
 	return (ret);
 }

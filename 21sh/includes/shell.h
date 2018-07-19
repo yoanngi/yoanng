@@ -183,7 +183,6 @@ char				*clean_next(char *str);
 int					replace_in_line(t_struct *data, char **line);
 char				*ft_search_path(char *str, t_struct *data);
 int					ft_nefaitrien(char **line);
-int					ft_check_pvir_error(char *str);
 int					ft_search_opnext(char *str, int i);
 int					chose_rep(t_struct *data, t_cmd **new);
 int					ft_redirection_avancees(t_cmd **new, char **str);
