@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/26 16:42:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 10:05:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,7 +106,7 @@ static void			print_debug(t_cmd **data)
 
 	start = *data;
 	// commenter le return pour pas print la debug
-	//return ;
+	return ;
 	printf("[++++++++++++++++++++++++++++++++++]\n");
 	while (start)
 	{

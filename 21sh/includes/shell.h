@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/18 14:19:58 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 14:08:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,16 +35,19 @@
 # include <term.h>
 
 /*
-** PRINT COLORS
-*/
+ ** PRINT COLORS
+ */
 
 # define BLACK "\033[30m"
 # define BLUE "\033[34m"
 # define CYAN "\033[36m"
 # define GREEN "\033[32m"
+# define ORANGE "\033[38;5;208m"
+# define L_BLUE "\033[38;5;51m"
 # define MAGENTA "\033[35m"
 # define WHITE "\033[37m"
 # define YELLOW "\033[33m"
+# define RED "\033[31m"
 # define RESET "\033[00m"
 
 /*
@@ -64,30 +67,30 @@
 */
 
 /*
-**	***	Structures ***
-**
-**	t_cmd -> liste chainer des commandes a executer
-**
-**	rep = Repertoire de commande
-**	tab_cmd : commande et options sous forme de tableau
-**	pathname : Si redirection dans un fichier, pathanme != NULL
+ **	***	Structures ***
+ **
+ **	t_cmd -> liste chainer des commandes a executer
+ **
+ **	rep = Repertoire de commande
+ **	tab_cmd : commande et options sous forme de tableau
+ **	pathname : Si redirection dans un fichier, pathanme != NULL
 
-**	Code operateur:
-**	0 : NULL
-**	1 : |
-**	2 : >
-**	3 : >>
-**	4 : <
-**	5 : <<
-**	6 : &
-**	7 : &&
-**	8 : ||
-**	9 : >&
-**
-**	env : Environnement a envoyer pour la commande
-**
-** t_cmd -> commande a traiter
-*/
+ **	Code operateur:
+ **	0 : NULL
+ **	1 : |
+ **	2 : >
+ **	3 : >>
+ **	4 : <
+ **	5 : <<
+ **	6 : &
+ **	7 : &&
+ **	8 : ||
+ **	9 : >&
+ **
+ **	env : Environnement a envoyer pour la commande
+ **
+ ** t_cmd -> commande a traiter
+ */
 
 typedef struct		s_cmd
 {
@@ -109,8 +112,8 @@ typedef struct		s_cmd
 }					t_cmd;
 
 /*
-**	t_ins -> line spliter par les ;
-*/
+ **	t_ins -> line spliter par les ;
+ */
 
 typedef struct		s_ins
 {
@@ -120,8 +123,8 @@ typedef struct		s_ins
 }					t_ins;
 
 /*
-**  Infos tab de hashage
-*/
+ **  Infos tab de hashage
+ */
 
 typedef struct		s_infos
 {
@@ -132,8 +135,8 @@ typedef struct		s_infos
 }					t_infos;
 
 /*
-**	t_struct -> On la ballade partout
-*/
+ **	t_struct -> On la ballade partout
+ */
 
 typedef struct		s_struct
 {
@@ -160,10 +163,10 @@ typedef struct		s_struct
 }					t_struct;
 
 /*
-**	***	Fonctions ***
-**
-**	CORE
-*/
+ **	***	Fonctions ***
+ **
+ **	CORE
+ */
 void				core_shell(t_struct *data);
 int					execute_commandes(t_struct *mystruct, t_cmd *data);
 int					execute_builtins(t_struct *mystruct, t_cmd *data, int pipe_fd[2], int *fd_in);
@@ -171,9 +174,10 @@ int					execute_builtins_light(t_struct *mystruct, t_cmd *data);
 int					exec_pipe(t_struct *data);
 int					exec_pipe_suite(t_struct *data);
 int					ft_process(t_cmd *data);
+int					ft_check_arg_invalid(t_struct *data, t_cmd *cmd);
 /*
-**	PARSING
-*/
+ **	PARSING
+ */
 t_ins				*ft_split_commandes(char **line, t_struct *data);
 t_ins				*ft_split_pvirgule(char *line, t_ins *lst);
 t_cmd				*ft_split_cmd(char *str, t_struct *data);
@@ -188,8 +192,8 @@ int					chose_rep(t_struct *data, t_cmd **new);
 int					ft_redirection_avancees(t_cmd **new, char **str);
 char				**split_cmd(char *str, int i);
 /*
-**	BUILTINS
-*/
+ **	BUILTINS
+ */
 int					ft_search_func(t_struct *mystruct, t_cmd *lst, int i);
 int					func_exit(t_struct *data, t_cmd *lst);
 int					func_env(t_struct *data, t_cmd *lst);
@@ -201,8 +205,8 @@ int					func_unsetenv(t_struct **data, t_cmd *lst);
 
 
 /*
-**	INIT
-*/
+ **	INIT
+ */
 t_struct			*init_struct(char **env);
 char				*ft_check_infos(char **env, char *find);
 char				**ft_initialise_builtins(void);
@@ -219,9 +223,9 @@ t_infos             *clear_infos(t_infos *start);
 int					ft_count(char *path);
 int					ft_work_in_tab(char **tabl, int(*ft)(char *));
 int					ft_rforhash(int s, char **tabp, long **tabh,
-	long(*f)(char *, int));
+		long(*f)(char *, int));
 int                 ft_insert_hash(char *str, int hash, long **tabh,
-	char *tabp);
+		char *tabp);
 int					ft_insert_collision(t_infos **start, char *tabp, char *str);
 long				ft_calcul_hash(char *str, int sizemax);
 int					ft_create_table_hash(t_struct **data);
@@ -229,8 +233,8 @@ long				**create_tab_hash(int size);
 long				**delete_tab_hash(long **tabh, int size);
 
 /*
-**	LIB_SHELL
-*/
+ **	LIB_SHELL
+ */
 int					ft_replace_word(char **str, char *word, char *replace);
 char				**ft_del_tab(char **tabl);
 int					ft_len_tab(char **tabl);
@@ -258,8 +262,8 @@ int					ft_existe_in_path(t_struct *data, char **path);
 char				*ft_return_pwd(void);
 int					len_list(t_cmd *lst);
 /*
-**	LIB_TERMCAPS
-*/
+ **	LIB_TERMCAPS
+ */
 # define KEY_CODE_NONE 0
 # define KEY_CODE_UP buff[0] == 27 && buff[1] == 91 && buff[2] == 65
 # define KEY_CODE_DOWN buff[0] == 27 && buff[1] == 91 && buff[2] == 66
@@ -279,7 +283,6 @@ int					len_list(t_cmd *lst);
 
 # define CURS_X get_curs_pos(0, info)
 # define CURS_Y get_curs_pos(1, info)
-
 
 typedef struct winsize t_wndw;
 typedef struct termios t_termios;
@@ -309,6 +312,8 @@ typedef struct		s_info
 	t_termios		term;
 }					t_info;
 
+t_info				g_info;
+
 void				default_term_mode(t_info *info);
 void				raw_term_mode(t_info *info);
 void				get_key(int *loop, t_info *info, t_hist *tmp);
@@ -335,6 +340,8 @@ void				alt_right(t_info *info, t_hist *tmp);
 void				alt_left(t_info *info, t_hist *tmp);
 void				up_key(t_info *info, t_hist *tmp);
 void				down_key(t_info *info, t_hist *tmp);
+void				print_prompt(t_info *info);
+void				fill_history(t_info *info, t_hist *tmp);
 /*
 **	END
 */

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/18 12:07:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 14:17:23 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,6 @@ void			init_info(t_info *info)
 	ioctl(0, TIOCGWINSZ, &(info->wndw));
 	info->row_nb = info->wndw.ws_row;
 	info->col_nb = info->wndw.ws_col;
-	info = memo_info(info, 0);
 	info->prmpt = NULL;
 	info->prmpt = ft_strdup("$> ");
 	info->history = root_hist();
@@ -42,24 +41,19 @@ void			reinit_info(t_info *info)
 	ft_strdel(&(info->line));
 }
 
-static t_info	line_edit(t_info info, t_hist *tmp)
+static void		line_edit(t_info *info, t_hist *tmp)
 {
 	int loop;
 
-	raw_term_mode(&info);
-	add_head(info.history);
-	tmp = last_elem(info.history);
-	init_current(info.history);
+	raw_term_mode(info);
+	add_head(info->history);
+	tmp = last_elem(info->history);
+	init_current(info->history);
 	loop = 1;
-	ft_putstr(MAGENTA);
-	ft_putstr(info.prmpt);
-	ft_putstr(RESET);
+	print_prompt(info);
+	get_signals();
 	while (loop)
-	{
-		get_signals();
-		get_key(&loop, &info, tmp);
-	}
-	return (info);
+		get_key(&loop, info, tmp);
 }
 
 /*
@@ -74,21 +68,24 @@ static int		parse_line(t_struct *data, char **line)
 
 	ret = 0;
 	data->commandes = ft_split_commandes(line, data);
-    printf("End Parsing\n");
 	cpy = data->commandes;
 	while (cpy)
 	{
-		if (cpy->cmd != NULL)
-			ret = execute_commandes(data, cpy->cmd);
-		if (ret == -1)
+		if (ft_check_arg_invalid(data, cpy->cmd) == 0)
 		{
-			ft_putstr_fd("--> exit 21sh <--\n", 2);
-			data->commandes = clear_ins(data->commandes);
-			return (1);
+			ret = execute_commandes(data, cpy->cmd);
+			if (ret == -1)
+			{
+				ft_putstr_fd("--> exit 21sh <--\n", 2);
+				data->commandes = clear_ins(data->commandes);
+				return (1);
+			}
+			data->code_erreur = ret;
 		}
-		data->code_erreur = ret;
 		// A DETETE **********************************************************
+		ft_putstr_fd(GREEN, 2);
 		ft_printf("******* Valeur de retour (data->code_erreur) = %d\n", data->code_erreur);
+		ft_putstr_fd(RESET, 2);
 		// *******************************************************************
 		cpy = cpy->next;
 	}
@@ -103,23 +100,26 @@ static int		parse_line(t_struct *data, char **line)
 void			core_shell(t_struct *data)
 {
 	int		quit;
-	t_info	info;
 	t_hist	*tmp;
 
 	quit = 0;
 	tmp = NULL;
-	init_info(&info);
+	init_info(&g_info);
 	while (quit == 0)
 	{
-		info = line_edit(info, tmp);
-		if (info.line != NULL && quit == 0)
+		line_edit(&g_info, tmp);
+		if (g_info.line != NULL && quit == 0)
 		{
-			default_term_mode(&info);
-			printf("********************************************* LINE = |%s|***\n\n", info.line);
-			quit = parse_line(data, &(info.line));
-			ft_strdel(&(info.line));
+			default_term_mode(&g_info);
+			// A DETETE **********************************************************
+			ft_putstr_fd(GREEN, 2);
+			printf("********************************************* LINE = |%s|***\n", g_info.line);
+			ft_putstr_fd(RESET, 2);
+			// *******************************************************************
+			quit = parse_line(data, &(g_info.line));
+			ft_strdel(&(g_info.line));
 		}
-		reinit_info(&info);
+		reinit_info(&g_info);
 	}
-	default_term_mode(&info);
+	default_term_mode(&g_info);
 }

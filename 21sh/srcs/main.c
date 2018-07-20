@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/12 12:08:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 10:11:36 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,19 +38,19 @@ static int      ft_test_system(void)
 
 static void		print_ascii_art(void)
 {
-	ft_putstr(MAGENTA);
+	ft_putstr(BLUE);
 	ft_printf("       ::::::::    :::   ::::::::  :::    ::: \n");
-	ft_putstr(CYAN);
+	ft_putstr(BLUE);
 	ft_printf("     :+:    :+: :+:+:  :+:    :+: :+:    :+:  \n");
 	ft_putstr(BLUE);
 	ft_printf("          +:+    +:+  +:+        +:+    +:+   \n");
-	ft_putstr(GREEN);
+	ft_putstr(BLUE);
 	ft_printf("       +#+      +#+  +#++:++#++ +#++:++#++    \n");
-	ft_putstr(YELLOW);
+	ft_putstr(BLUE);
 	ft_printf("    +#+        +#+         +#+ +#+    +#+     \n");
-	ft_putstr(WHITE);
+	ft_putstr(BLUE);
 	ft_printf("  #+#         #+#  #+#    #+# #+#    #+#      \n");
-	ft_putstr(MAGENTA);
+	ft_putstr(BLUE);
 	ft_printf("########## ####### ########  ###    ###       \n");
 	ft_putstr(RESET);
 	ft_printf("\n");
@@ -72,8 +72,6 @@ int				main(int argc, char **argv, char **env)
 	data = NULL;
 	data = init_struct(env);
 	core_shell(data);
-	printf("DELETE STRUCTURE\n");
 	code_exit = ft_delete_struct(&data);
-	printf("DELETE OK\n");
 	return (code_exit);
 }
