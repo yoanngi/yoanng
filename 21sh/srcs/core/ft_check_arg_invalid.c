@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/20 11:13:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 11:47:23 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 15:57:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,8 @@ static int		compare_builtins(char **builtins, t_cmd *cmd)
 
 int			ft_check_arg_invalid(t_struct *data, t_cmd *cmd)
 {
+	if (cmd == NULL)
+		return (1);
 	if ((cmd->rep == NULL && cmd->op_redir == 0)
 	&& compare_builtins(data->builtins, cmd) == 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:26:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 14:37:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 15:29:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,7 @@ static int  verif_hard(char *str)
 	return (0);
 }
 
-static int	ft_verif_alphanum(char *str)
+int			ft_verif_alphanum(char *str)
 {
 	int		i;
 	int		ret;
@@ -90,7 +90,6 @@ static int	ft_verif_alphanum(char *str)
 	}
 	if (ret == 1)
 	{
-		i = 0;
 		ft_putstr_fd("21sh: ", 2);
 		ft_putchar_fd(str[0], 2);
 		ft_putstr_fd(": commande not found\n", 2);
@@ -102,8 +101,6 @@ int			ft_nefaitrien(char **line)
 {
     if (ft_strlen(*line) == 0)
         return (1);
-	if (ft_verif_alphanum(*line) == 1)
-		return (1);
     if (ft_strstr(*line, "\"") || ft_strstr(*line, "\'"))
     {
        if (verif_hard(*line) == 1)

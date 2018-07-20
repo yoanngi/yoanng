@@ -6,28 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 14:38:25 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/18 12:09:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 16:05:11 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-static int		verif_str(char *str)
-{
-	int		i;
-
-	i = 0;
-	if (ft_strlen(str) == 1)
-		return (1);
-	while (str[i])
-	{
-		if (ft_isalnum(str[i]) == 1)
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static int		ft_check_vir(t_ins **lst, char *line)
 {
@@ -66,8 +50,7 @@ static int		ft_split_pvir_suite(char **line, int i, t_ins **lst)
 	}
 	if (i == ft_strlen(*line))
 	{
-		if (verif_str(*line) == 0)
-			(*lst)->str = ft_strdup(*line);
+		(*lst)->str = ft_strdup(*line);
 		return (-2);
 	}
 	(*lst)->str = ft_strsub(*line, 0, i);

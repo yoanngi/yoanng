@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 12:59:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 16:08:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,10 +32,8 @@ static int		ft_init_parsing(t_ins **new, char **line)
 	int		len;
 
 	tmp = NULL;
-	printf("Line = |%s|\n", *line);
 	if (ft_nefaitrien(line) == 1)
 		return (1);
-	printf("Line = |%s|\n", *line);
 	len = ft_strlen(*line);
 	tmp = ft_strdup(*line);
 	if (tmp[len - 1] == ';')
@@ -74,9 +72,12 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 	cpy = new_ins;
 	while (cpy)
 	{
+		printf("cpy->str = |%s|\n", cpy->str);
 		tmp = ft_strdup(cpy->str);
-		cpy->cmd = ft_split_cmd(tmp, data);
+		if (cpy->str != NULL)
+			cpy->cmd = ft_split_cmd(tmp, data);
 		cpy = cpy->next;
 	}
+	printf("split_commandes\n");
 	return (new_ins);
 }

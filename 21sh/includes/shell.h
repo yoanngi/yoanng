@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 14:08:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/20 15:28:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -191,6 +191,7 @@ int					ft_search_opnext(char *str, int i);
 int					chose_rep(t_struct *data, t_cmd **new);
 int					ft_redirection_avancees(t_cmd **new, char **str);
 char				**split_cmd(char *str, int i);
+int					ft_verif_alphanum(char *str);
 /*
  **	BUILTINS
  */
