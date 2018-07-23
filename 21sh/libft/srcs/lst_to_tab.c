@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "./libft.h"
+#include "../includes/libft.h"
 
 char	**lst_to_tab(t_list *lst)
 {

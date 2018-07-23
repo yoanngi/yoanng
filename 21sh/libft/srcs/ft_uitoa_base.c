@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 #include <stdlib.h>
 
 char	*ft_uitoa_base(uintmax_t n, int base)

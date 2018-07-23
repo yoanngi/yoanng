@@ -102,7 +102,10 @@ int			ft_rforhash(int s, char **tabp, long **tabh, long (*f)(char *, int))
 	while (tabp[i])
 	{
 		if (!(dir = opendir(tabp[i])))
+		{
+			printf("opendir failled\n");
 			return (EXIT_FAILURE);
+		}
 		while ((fl = readdir(dir)))
 		{
 			hash = 0;

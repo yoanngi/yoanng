@@ -13,7 +13,7 @@
 
 #include "../../includes/shell.h"
 
-void	add_c_in_str(t_info *info, char c)
+void	add_c_in_str(t_info *info, char c, t_hist *tmp)
 {
 	char	*str;
 	int		i;

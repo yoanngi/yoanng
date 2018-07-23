@@ -6,12 +6,12 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 16:44:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/23 15:54:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "../includes/shell.h"
 
 /*
 **	Main 42sh
@@ -104,5 +104,7 @@ int				main(int argc, char **argv, char **env)
 	core_shell(data);
 	code_exit = ft_delete_struct(&data);
 	print_ascii_art_end();
+	ft_printf("SLEEP\n");
+	sleep(150);
 	return (code_exit);
 }

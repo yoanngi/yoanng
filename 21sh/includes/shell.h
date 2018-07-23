@@ -50,6 +50,27 @@
 # define RED "\033[31m"
 # define RESET "\033[00m"
 
+# define KEY_CODE_NONE 0
+# define KEY_CODE_UP buff[0] == 27 && buff[1] == 91 && buff[2] == 65
+# define KEY_CODE_DOWN buff[0] == 27 && buff[1] == 91 && buff[2] == 66
+# define KEY_CODE_RIGHT buff[0] == 27 && buff[1] == 91 && buff[2] == 67
+# define KEY_CODE_LEFT buff[0] == 27 && buff[1] == 91 && buff[2] == 68
+# define KEY_CODE_ALT_UP buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 65
+# define KEY_CODE_ALT_DOWN buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 66
+# define KEY_CODE_ALT_RIGHT buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 67
+# define KEY_CODE_ALT_LEFT buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 68
+# define KEY_CODE_BSP *(int*)buff == 127
+# define KEY_CODE_RC *(int*)buff == 10
+# define KEY_CODE_END buff[0] == 27 && buff[1] == 91 && buff[2] == 70
+# define KEY_CODE_HOME buff[0] == 27 && buff[1] == 91 && buff[2] == 72
+# define KEY_CODE_CTRL_A
+# define KEY_CODE_CTRL_D *(int*)buff == 4
+# define KEY_CODE_TAB *(int*)buff == 9
+
+# define CURS_X get_curs_pos(0, info)
+# define CURS_Y get_curs_pos(1, info)
+
+
 /*
 **	A Faire :
 **	Si variable path suprimer, ne pas lancer de commande (sauf si chemin indiquer)
@@ -265,25 +286,6 @@ int					len_list(t_cmd *lst);
 /*
  **	LIB_TERMCAPS
  */
-# define KEY_CODE_NONE 0
-# define KEY_CODE_UP buff[0] == 27 && buff[1] == 91 && buff[2] == 65
-# define KEY_CODE_DOWN buff[0] == 27 && buff[1] == 91 && buff[2] == 66
-# define KEY_CODE_RIGHT buff[0] == 27 && buff[1] == 91 && buff[2] == 67
-# define KEY_CODE_LEFT buff[0] == 27 && buff[1] == 91 && buff[2] == 68
-# define KEY_CODE_ALT_UP buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 65
-# define KEY_CODE_ALT_DOWN buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 66
-# define KEY_CODE_ALT_RIGHT buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 67
-# define KEY_CODE_ALT_LEFT buff[0] == 27 && buff[1] == 27 && buff[2] == 91 && buff[3] == 68
-# define KEY_CODE_BSP *(int*)buff == 127
-# define KEY_CODE_RC *(int*)buff == 10
-# define KEY_CODE_END buff[0] == 27 && buff[1] == 91 && buff[2] == 70
-# define KEY_CODE_HOME buff[0] == 27 && buff[1] == 91 && buff[2] == 72
-# define KEY_CODE_CTRL_A
-# define KEY_CODE_CTRL_D *(int*)buff == 4
-# define KEY_CODE_TAB *(int*)buff == 9
-
-# define CURS_X get_curs_pos(0, info)
-# define CURS_Y get_curs_pos(1, info)
 
 typedef struct winsize t_wndw;
 typedef struct termios t_termios;

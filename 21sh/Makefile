@@ -19,7 +19,7 @@ JAUNE=\033[33m
 
 NAME =		21sh
 CC = 		gcc
-FLAGS = 	-Wall -Werror -Wextra
+FLAGS = 	-Wall -Werror -Wextra -g
 DEL =		rm -rf
 
 SRC_PATH = ./srcs/

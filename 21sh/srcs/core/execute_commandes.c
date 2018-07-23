@@ -6,12 +6,16 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 15:55:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/23 16:10:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+
+/*
+**	Kill all process
+*/
 
 static int			ft_kill_process(t_cmd *start)
 {
@@ -63,9 +67,7 @@ static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int
 }
 
 /*
-**	Wait a verifier
-**	bon wait par rapport au nombre de fork ?
-**	A Normer
+**	Bla
 */
 
 static int			exec_cmd_recur(t_struct *mystruct, t_cmd *data)
@@ -106,16 +108,16 @@ static void			print_debug(t_cmd **data)
 
 	start = *data;
 	// commenter le return pour pas print la debug
-	return ;
+	//return ;
 	printf("[++++++++++++++++++++++++++++++++++]\n");
 	while (start)
 	{
 		printf("rep = %s\n", start->rep);
-		printf("pathname = %s\n", start->pathname);
+		printf("pathname = |%s|\n", start->pathname);
 		printf("tab[0] = %s\n", start->tab_cmd[0]);
 		printf("tab[1] = %s\n", start->tab_cmd[1]);
 		printf("op_next = %d\n", start->op_next);
-		printf("op_redir = %d\n", start->op_redir);
+		printf("op_redir = %d\n\n", start->op_redir);
 		start = start->next;
 	}
 	printf("[----------------------------------]\n\n");
@@ -136,7 +138,7 @@ int					execute_commandes(t_struct *mystruct, t_cmd *data)
 	ret = 0;
 	if (!data)
 		return (-1);
-	if (len_list(data) == 1)
+	if (len_list(data) == 1 && (data->op_redir != 2 && data->op_redir != 3))
 	{
 		if ((ret = execute_builtins_light(mystruct, data)) == -2)
 			return (ft_process(data));

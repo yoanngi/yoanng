@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 static void	ft_type_oub_pos(t_format *fmt, char *str, int len, int *ret)
 {

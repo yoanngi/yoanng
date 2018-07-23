@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 15:55:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/23 16:12:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,12 @@ static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 	tmp = ft_strsub(*str, 0, i);
 	(*new)->tab_cmd = split_cmd(tmp, 0);
 	chose_rep(data, new);
-	if ((*new)->rep == NULL)
+	if ((*new)->rep == NULL || (*new)->op_next == 2 || (*new)->op_next == 3)
+	{
+		if ((*new)->pathname != NULL)
+			ft_strdel(&(*new)->pathname);
 		(*new)->pathname = ft_strdup((*new)->tab_cmd[0]);
+	}
 	(*new)->env = ft_duplicate_tab(data->env);
 	if (i == ft_strlen(*str))
 		(*new)->op_next = 0;
@@ -49,19 +53,15 @@ static void		ft_split_cmd_suite_deux(char **str, t_cmd **new, int i)
 
 	tmp2 = NULL;
 	tmp2 = ft_strdup(*str);
-/*	if (tmp2[i] == '>')
+	if (tmp2[i] == '>')
 		(*new)->op_redir = 2;
 	if (tmp2[i + 1] == '>')
 		(*new)->op_redir = 3;
-*/
-    printf("%s\n", __func__);
-	printf("|%s| -> i = %d\n", *str, i);
 	ft_strdel(str);
 	if ((*new)->stdcmd != 0)
 		*str = ft_strsub(tmp2, i + 3, ft_strlen(tmp2) - (i + 3));
 	else
 		*str = ft_strsub(tmp2, i + 1, ft_strlen(tmp2) - (i + 1));
-	printf("|%s| -> i = %d\n\n", *str, i);
 	ft_strdel(&tmp2);
 }
 

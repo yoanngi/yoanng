@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 static void	follow_d_pos(t_format *fmt, char *str, int *ret, int len)
 {

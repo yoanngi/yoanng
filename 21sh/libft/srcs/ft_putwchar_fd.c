@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 #include <wchar.h>
 
 int	ft_putwchar_fd(wchar_t c, int fd)
