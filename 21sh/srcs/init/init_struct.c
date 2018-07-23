@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:39:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 12:02:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/23 16:16:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,5 +81,10 @@ t_struct		*init_struct(char **env)
 	init_base(&data);
 	data->builtins = ft_initialise_builtins();
 	data->commandes = NULL;
+	if (data->sizemax == -1)
+	{
+		ft_delete_struct(&data);
+		return (NULL);
+	}
 	return (data);
 }

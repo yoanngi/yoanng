@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/23 15:54:37 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/23 16:16:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,7 +100,8 @@ int				main(int argc, char **argv, char **env)
 	print_ascii_art_start();
 	code_exit = 0;
 	data = NULL;
-	data = init_struct(env);
+	if (!(data = init_struct(env)))
+		return (EXIT_FAILURE);
 	core_shell(data);
 	code_exit = ft_delete_struct(&data);
 	print_ascii_art_end();

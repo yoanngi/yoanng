@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 14:31:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/23 16:13:47 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,10 +102,7 @@ int			ft_rforhash(int s, char **tabp, long **tabh, long (*f)(char *, int))
 	while (tabp[i])
 	{
 		if (!(dir = opendir(tabp[i])))
-		{
-			printf("opendir failled\n");
 			return (EXIT_FAILURE);
-		}
 		while ((fl = readdir(dir)))
 		{
 			hash = 0;
