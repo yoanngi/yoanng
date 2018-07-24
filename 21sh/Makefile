@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/20 14:05:43 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/07/24 16:10:51 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -57,6 +57,7 @@ N_SRCS = 	main.c\
 			lib_termcaps/alt_keys.c\
 			lib_termcaps/add_del_insert.c\
 			lib_termcaps/history.c\
+			lib_termcaps/end_quote.c\
 			lib_termcaps/prompt.c\
 			lib_shell/display.c\
 			lib_shell/ft_add_line.c\
@@ -94,6 +95,7 @@ N_SRCS = 	main.c\
 			parsing/ft_error_parsing.c\
 			parsing/redirections_avancees.c\
 			parsing/split_cmd.c\
+			parsing/check_error.c\
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/12 14:39:02 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 11:09:59 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/23 16:48:47 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,9 @@ static void	cursor_start(t_info *info)
 
 void		rc_key(t_info *info, int *loop, t_hist *tmp)
 {
+
 	fill_history(info, tmp);
+	toggle_quote(info);
 	tputs(tgetstr("vi", NULL), 1, ft_putchar_err);
 	while (info->curs_in_str < info->s_len)
 		right_key(info);
@@ -32,7 +34,6 @@ void		rc_key(t_info *info, int *loop, t_hist *tmp)
 	cursor_start(info);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar_err);
 	*loop = 0;
-
 }
 
 void		get_key(int *loop, t_info *info, t_hist *tmp)

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/23 15:08:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/24 10:26:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,6 +70,11 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 	new_ins = ft_split_pvirgule(*line, new_ins);
 	ft_strdel(line);
 	cpy = new_ins;
+	if (check_error_inlinesplit(&cpy) == 1)
+	{
+		cpy = clear_ins(cpy);
+		return (NULL);
+	}
 	while (cpy)
 	{
 		tmp = ft_strdup(cpy->str);

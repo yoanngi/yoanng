@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:26:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 15:29:43 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/24 11:16:37 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,108 +14,105 @@
 #include "../../includes/shell.h"
 
 /*
-**  Ecrit le message d'erreur
+**	Check les cas d'erreur (line non spliter)
+**	Check surtout debut de line et fin de line
 */
 
-static int  error_enter(char *str, int i)
+static void		print_msg_error(char *str, int i)
 {
-	ft_putstr_fd("21sh: syntax error near unexpected token ‘", 2);
-    if (i == 1)
-    {
-        ft_putchar_fd(str[0], 2);
-        ft_putchar_fd(str[0], 2);
-    }
-    else if (i == 2)
-    {
-        ft_putchar_fd(str[0], 2);
-    }
-	ft_putstr_fd("'\n", 2);
-    return (0);
-}
-
-static int  verif_hard_suite(char *str, int i)
-{
-    int     len;
-
-    len = ft_strlen(str);
-    if (i < len - 1)
-    {
-        if (str[i] == ';' && str[i + 1] == ';')
-            return (1);
-    }
-    return (0);
-}
-
-static int  verif_hard(char *str)
-{
-    int		i;
-	int		quote;
-	int		dquote;
-
-	i = 0;
-	quote = 0;
-	dquote = 0;
-	while (str[i])
+	ft_putstr_fd("21sh: ", 2);
+	if (i == 1)
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+	else if (i == 2)
 	{
-		if (str[i] == '\'' && quote == 0)
-			quote = 1;
-		else if (str[i] == '\'' && quote == 1)
-			quote = 0;
-		else if (str[i] == '\"' && dquote == 0)
-			dquote = 1;
-		else if (str[i] == '\"' && dquote == 1)
-			dquote = 0;
-		else if (quote == 0 && dquote == 0)
-		{
-			if (verif_hard_suite(str, i) == 1)
-				return (1);
-		}
-		i++;
+		ft_putstr_fd("syntax error near unexpected token `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\"\n", 2);
+	}
+	else if (i == 3)
+	{
+		ft_putstr_fd("command not found: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\n", 2);
+	}
+}
+
+static int		ft_len_un(char *str)
+{
+	if (str[0] == '>' || str[0] == '<')
+	{
+		print_msg_error(str, 1);
+		return (1);
+	}
+	else if (str[0] == '|' || str[0] == '&' || str[0] == ';' || str[0] == '!')
+	{
+		print_msg_error(str, 2);
+		return (1);
 	}
 	return (0);
 }
 
-int			ft_verif_alphanum(char *str)
+static int		check_end_line(char *line)
 {
-	int		i;
-	int		ret;
+	int		len;
 
-	i = 0;
-	ret = 1;
-	while (str[i])
+	len = ft_strlen(line);
+	if (line[len - 1] == '>' || line[len - 1] == '<' || line[len - 1] == '|')
 	{
-		if (str[i] != '\"' && str[i] != '\'' && str[i] != ';')
-			ret = 0;
-		i++;
+		print_msg_error(line + (len - 1), 2);
+		return (1);
 	}
-	if (ret == 1)
-	{
-		ft_putstr_fd("21sh: ", 2);
-		ft_putchar_fd(str[0], 2);
-		ft_putstr_fd(": commande not found\n", 2);
-	}
-	return (ret);
+	return (0);
 }
 
-int			ft_nefaitrien(char **line)
+static int		check_regex_invalid(char *str, int i, int j)
+{
+	char	*invalid;
+	int		ret;
+
+	invalid = ft_strdup("|;\"<>[]{}'!");
+	ret = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (invalid[j])
+		{
+			if (invalid[j] == str[i])
+				ret = 1;
+			j++;
+		}
+		if (ret == 1)
+			ret = 0;
+		else
+		{
+			ft_strdel(&invalid);
+			return (0);
+		}
+		i++;
+	}
+	print_msg_error(str, 3);
+	ft_strdel(&invalid);
+	return (1);
+}
+
+int				ft_nefaitrien(char **line)
 {
     if (ft_strlen(*line) == 0)
         return (1);
-    if (ft_strstr(*line, "\"") || ft_strstr(*line, "\'"))
-    {
-       if (verif_hard(*line) == 1)
-       {
-           error_enter(*line, 2);
-           return (1);
-       }
-    }
-    else
-    {
-        if ((*line[0] == ';' || *line[0] == '|') || (ft_strstr(*line, ";;")))
-        {
-            error_enter(*line, 2);
-            return (1);
-        }
-    }
+	else if (ft_strlen(*line) == 1)
+	{
+		if (ft_len_un(*line) == 1)
+			return (1);
+		return (0);
+	}
+	else if (ft_strstr(*line, "\"") == NULL && ft_strstr(*line, ";;"))
+	{
+		print_msg_error(*line, 2);
+		return (1);
+	}
+	else if (check_end_line(*line) == 1)
+		return (1);
+	else if (check_regex_invalid(*line, 0, 0) == 1)
+		return (1);
 	return (0);
 }

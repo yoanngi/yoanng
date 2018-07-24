@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 15:28:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/24 16:19:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,8 +35,8 @@
 # include <term.h>
 
 /*
- ** PRINT COLORS
- */
+** PRINT COLORS
+*/
 
 # define BLACK "\033[30m"
 # define BLUE "\033[34m"
@@ -213,6 +213,7 @@ int					chose_rep(t_struct *data, t_cmd **new);
 int					ft_redirection_avancees(t_cmd **new, char **str);
 char				**split_cmd(char *str, int i);
 int					ft_verif_alphanum(char *str);
+int					check_error_inlinesplit(t_ins **lst);
 /*
  **	BUILTINS
  */
@@ -308,6 +309,7 @@ typedef struct		s_info
 	int				row_nb;
 	int				col_nb;
 	int				curs_in_str;
+	int				quoted;
 	char			*line;
 	char			*prmpt;
 	t_hist			*history;
@@ -343,8 +345,11 @@ void				alt_right(t_info *info, t_hist *tmp);
 void				alt_left(t_info *info, t_hist *tmp);
 void				up_key(t_info *info, t_hist *tmp);
 void				down_key(t_info *info, t_hist *tmp);
+void				change_prompt(t_info *info, int mode);
 void				print_prompt(t_info *info);
 void				fill_history(t_info *info, t_hist *tmp);
+void				toggle_quote(t_info *info);
+void				line_edit(t_info *info, t_hist *tmp);
 /*
 **	END
 */

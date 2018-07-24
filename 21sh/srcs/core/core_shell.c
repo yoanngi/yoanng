@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 15:57:08 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/24 16:17:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ void			reinit_info(t_info *info)
 	ft_strdel(&(info->line));
 }
 
-static void		line_edit(t_info *info, t_hist *tmp)
+void			line_edit(t_info *info, t_hist *tmp)
 {
 	int loop;
 

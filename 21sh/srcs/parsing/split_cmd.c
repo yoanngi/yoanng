@@ -6,135 +6,115 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/18 12:12:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/18 16:56:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/24 16:31:42 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static int		clear_quote_suite(char **tmp, int i, char **new, char **new2)
+static int		clear_string(char **str, int delete, int opt)
 {
-	if (i == 0 && ft_strlen(*tmp) > 1)
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = NULL;
+	tmp2 = NULL;
+	if (delete == 0)
 	{
-		*new = ft_strsub(*tmp, 1, ft_strlen(*tmp) - 1);
-		ft_strdel(tmp);
-		*tmp = ft_strdup(*new);
+		tmp1 = ft_strsub(*str, 1, ft_strlen(*str) - 1);
+		ft_strdel(str);
+		*str = ft_strdup(tmp1);
 	}
-	else if (i == 0 && ft_strlen(*tmp) == 1)
-		return (1);
-	else if (i == ft_strlen(*tmp) - 1)
+	else if (delete == ft_strlen(*str) || delete == ft_strlen(*str) - 1)
 	{
-		*new = ft_strsub(*tmp, 0, ft_strlen(*tmp) - 1);
-		ft_strdel(tmp);
-		*tmp = ft_strdup(*new);
+		tmp1 = ft_strsub(*str, 0, ft_strlen(*str) - 1);
+		ft_strdel(str);
+		*str = ft_strdup(tmp1);
 	}
 	else
 	{
-		*new = ft_strsub(*tmp, 0, i - 1);
-		*new2 = ft_strsub(*tmp, i + 1, ft_strlen(*tmp) - (i + 1));
-		ft_strdel(tmp);
-		*tmp = ft_strjoin(*new, *new2);
-		ft_strdel(new2);
+		if (opt == 1)
+		{
+			tmp1 = ft_strsub(*str, 0, delete - 1);
+			tmp2 = ft_strsub(*str, delete, ft_strlen(*str) - (delete));
+		}
+		else
+		{
+			tmp1 = ft_strsub(*str, 0, delete);
+			tmp2 = ft_strsub(*str, delete + 1, ft_strlen(*str) - (delete + 1));
+		}
+		ft_strdel(str);
+		*str = ft_strjoin(tmp1, tmp2);
 	}
-	ft_strdel(new);
+	ft_strdel(&tmp1);
+	ft_strdel(&tmp2);
 	return (0);
 }
 
-static int		clear_quote(char **str, char *tmp)
+static int		clear_quote_deux(char *tmp, int i, int j)
 {
-	char		*new;
-	char		*new2;
-	int			i;
+	if (tmp[i] == '\"' && j > i)
+	{
+		while (tmp[j] && (tmp[j] != '\"' && tmp[j - 1] != '\\'))
+			j++;
+		if (tmp[j] != '\"')
+			return (0);
+		return (j);
+	}
+	else if (tmp[i] == '\'' && j > i)
+	{
+		while (tmp[j] && (tmp[j] != '\'' && tmp[j - 1] != '\\'))
+			j++;
+		if (tmp[j] != '\'')
+			return (0);
+		return (j);
+	}
+	return (0);
+}
 
-	if (!(tmp = ft_strdup(*str)))
-		return (-1);
-	new = NULL;
-	new2 = NULL;
+static int		clear_quote(char **str)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
 	i = 0;
+	j = 0;
+	tmp = ft_strdup(*str);
 	while (tmp[i])
 	{
 		if (tmp[i] == '\"' || tmp[i] == '\'')
 		{
-			if (clear_quote_suite(&tmp, i, &new, &new2) == 1)
-				return (1);
-			i = 0;
-		}
-		else
-			i++;
-	}
-	ft_strdel(str);
-	*str = ft_strdup(tmp);
-	ft_strdel(&tmp);
-	return (0);
-}
-
-static int		delete_char_suite(char **str, int i)
-{
-	char	*prev;
-	char	*new;
-
-	prev = NULL;
-	new = NULL;
-	prev = ft_strsub(*str, 0, i);
-	if (i == ft_strlen(*str) - 1)
-		new = ft_strsub(*str, i, ft_strlen(*str) - (i));
-	else
-		new = ft_strsub(*str, i + 1, ft_strlen(*str) - (i + 1));
-	ft_strdel(str);
-	*str = ft_strjoin(prev, new);
-	ft_strdel(&prev);
-	ft_strdel(&new);
-	return (0);
-}
-
-static int		delete_char(char **str, int i, int quote, int dquote)
-{
-	char		*tmp;
-
-	tmp = ft_strdup(*str);
-	while (i < ft_strlen(tmp))
-	{
-		if (tmp[i] == '\"' && dquote == 0)
-			dquote = 1;
-		else if (tmp[i] == '\"' && dquote == 1)
-			dquote = 0;
-		else if (tmp[i] == '\'' && quote == 0)
-			quote = 1;
-		else if (tmp[i] == '\'' && quote == 1)
-			quote = 0;
-		else if (tmp[i] == '\\' && tmp[i + 1] != '\\' && quote == 0 &&
-	dquote == 0)
-		{
-			delete_char_suite(str, i);
-			ft_strdel(&tmp);
-			tmp = ft_strdup(*str);
-			i = 0;
+			j = i + 1;
+			j = clear_quote_deux(tmp, i, j);
+			if (j != 0)
+			{
+				clear_string(str, i, 0);
+				clear_string(str, j, 1);
+				ft_strdel(&tmp);
+				i = j - 2;
+				tmp = ft_strdup(*str);
+			}
 		}
 		i++;
 	}
 	ft_strdel(&tmp);
-	return (0);
+	return (0);	
 }
 
 char			**split_cmd(char *str, int i)
 {
 	char		**new;
-	char		*tmp;
 
-	delete_char(&str, 0, 0, 0);
 	new = ft_strsplit(str, ' ');
-	tmp = NULL;
+	printf("splitcmd\n");
 	while (new[i])
 	{
-        if (clear_quote(&new[i], tmp) == 1)
-		{
-			ft_strdel(&str);
-			i = 0;
-		}
-		else
-			i++;
-		ft_strdel(&tmp);
+		if (ft_strstr(new[i], "\"") != NULL || ft_strstr(new[i], "\'") != NULL)
+        	clear_quote(&new[i]);
+		i++;
 	}
+	printf("end splitcmd\n");
 	return (new);
 }
