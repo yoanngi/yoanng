@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/24 16:17:03 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/24 17:02:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,9 +57,9 @@ void			line_edit(t_info *info, t_hist *tmp)
 }
 
 /*
-**	parse_line : Parse la line et la convertit en liste chainer
-**	Execute la / les commandes
-*/
+ **	parse_line : Parse la line et la convertit en liste chainer
+ **	Execute la / les commandes
+ */
 
 static int		parse_line(t_struct *data, char **line)
 {
@@ -99,30 +99,43 @@ static int		parse_line(t_struct *data, char **line)
 }
 
 /*
-**	Boucle infini, Attend un retour different de zero pour exit
-*/
-
+ **	Boucle infini, Attend un retour different de zero pour exit
+ */
 void			core_shell(t_struct *data)
 {
 	int		quit;
 	t_hist	*tmp;
+	char	*full_line;
 
 	quit = 0;
 	tmp = NULL;
+	full_line = NULL;
 	init_info(&g_info);
 	while (quit == 0)
 	{
 		line_edit(&g_info, tmp);
 		if (g_info.line != NULL && quit == 0)
 		{
-			default_term_mode(&g_info);
-			// A DETETE **********************************************************
-			ft_putstr_fd(GREEN, 2);
-			printf("********************************************* LINE = |%s|***\n", g_info.line);
-			ft_putstr_fd(RESET, 2);
-			// *******************************************************************
-			quit = parse_line(data, &(g_info.line));
-			ft_strdel(&(g_info.line));
+			if (g_info.quoted)
+			{
+				full_line = str_append(full_line, g_info.line);
+				full_line = str_append(full_line, "\n");
+				ft_strdel(&(g_info.line));
+			}
+			else
+			{
+				full_line = str_append(full_line, g_info.line);
+				ft_strdel(&(g_info.line));
+				default_term_mode(&g_info);
+				// A DETETE **********************************************************
+				ft_putstr_fd(GREEN, 2);
+				printf("********************************************* LINE = |%s|***\n", g_info.line);
+				ft_putstr_fd(RESET, 2);
+				// *******************************************************************
+				quit = parse_line(data, &(full_line));
+				if (full_line)
+					ft_strdel(&full_line);
+			}
 		}
 		reinit_info(&g_info);
 	}
