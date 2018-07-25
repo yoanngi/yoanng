@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/24 16:10:51 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/07/25 13:38:29 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -81,6 +81,7 @@ N_SRCS = 	main.c\
 			builtins/func_cd.c\
 			builtins/func_echo.c\
 			builtins/func_env.c\
+			builtins/func_env_suite.c\
 			builtins/func_setenv.c\
 			builtins/func_unsetenv.c\
 			builtins/func_exit.c\

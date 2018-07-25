@@ -6,43 +6,127 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/13 12:20:46 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/25 15:12:34 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int				func_setenv(t_struct **data, t_cmd *lst)
+/*
+**	Check error
+*/
+
+static int		ft_check_error_setenv(t_cmd **lst)
 {
-	/*
 	int		i;
-	char	**tmp;
-	char	*str;
+	int		j;
 
 	i = 0;
-	if ((str = ft_valid_env(*line)) == NULL)
-		return (data->env);
-	data->env = ft_existe_or_not(data, &str);
-	if (str == NULL || data->env == NULL)
-		return (data->env);
-	while (data->env[i])
-		i++;
-	if (!(tmp = (char **)malloc(sizeof(char *) * (i + 2))))
-		return (NULL);
-	i = 0;
-	while (data->env[i])
+	j = 0;
+	while ((*lst)->tab_cmd[i])
 	{
-		tmp[i] = ft_strdup(data->env[i]);
+		if (i == 1)
+		{
+			while ((*lst)->tab_cmd[i][j])
+			{
+				(*lst)->tab_cmd[i][j] = ft_toupper((*lst)->tab_cmd[i][j]);
+				j++;
+			}
+		}
 		i++;
 	}
-	tmp[i] = ft_strdup(str);
-	tmp[i + 1] = NULL;
-	ft_del_tab(data->env);
-	ft_strdel(&str);
-	return (tmp);
-	*/
-	(void)data;
-	(void)lst;
+	if (i != 3)
+	{
+		ft_putstr_fd("setenv: Invalid format\n", (*lst)->stderr_cmd);
+		return (1);
+	}
+	return (0);
+}
+
+/*
+**	Modifie la new setenv in env
+*/
+
+static int		modifie_env(t_struct **data, t_cmd *lst, int i)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = NULL;
+	tmp2 = NULL;
+	tmp = ft_strjoin(lst->tab_cmd[1], "=");
+	tmp2 = ft_strjoin(tmp, lst->tab_cmd[2]);
+	ft_strdel(&(*data)->env[i]);
+	(*data)->env[i] = ft_strdup(tmp2);
+	ft_strdel(&tmp);
+	ft_strdel(&tmp2);
+	if (ft_strcmp(lst->tab_cmd[1], "PATH") == 0)
+	{
+		(*data)->tab_hash = delete_tab_hash((*data)->tab_hash,
+	(*data)->sizemax);
+		(*data)->sizemax = ft_load_path(data);
+		if ((*data)->sizemax == -1)
+			return (1);
+	}
+	return (0);
+}
+
+/*
+**	Add new setenv in env
+*/
+
+static int		add_in_env(t_struct **data, t_cmd *lst)
+{
+	int		i;
+	char	**new;
+	char	*tmp;
+
+	i = 0;
+	new = NULL;
+	tmp = NULL;
+	while ((*data)->env[i])
+		i++;
+	if (!(new = (char **)malloc(sizeof(char *) * i + 2)))
+		return (1);
+	i = 0;
+	while ((*data)->env[i])
+	{
+		new[i] = ft_strdup((*data)->env[i]);
+		i++;
+	}
+	tmp = ft_strjoin(lst->tab_cmd[1], "=");
+	new[i] = ft_strjoin(tmp, lst->tab_cmd[2]);
+	ft_strdel(&tmp);
+	new[i + 1] = NULL;
+	(*data)->env = ft_del_tab((*data)->env);
+	(*data)->env = ft_duplicate_tab(new);
+	new = ft_del_tab(new);
+	return (0);
+}
+
+/*
+**	Core setenv
+*/
+
+int				func_setenv(t_struct **data, t_cmd *lst)
+{
+	int		i;
+
+	i = 0;
+	if (ft_check_error_setenv(&lst) == 1)
+		return (1);
+	while ((*data)->env[i])
+	{
+		if (ft_strncmp((*data)->env[i], lst->tab_cmd[1],
+	ft_strlen(lst->tab_cmd[1])) == 0)
+			return (modifie_env(data, lst, i));
+		i++;
+	}
+	if (add_in_env(data, lst) == 1)
+	{
+		ft_putstr_fd("setenv: Error d'allocation\n", lst->stderr_cmd);
+		return (1);
+	}
 	return (0);
 }

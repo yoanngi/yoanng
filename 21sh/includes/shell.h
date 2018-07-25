@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/24 16:19:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/25 16:41:26 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -220,13 +220,12 @@ int					check_error_inlinesplit(t_ins **lst);
 int					ft_search_func(t_struct *mystruct, t_cmd *lst, int i);
 int					func_exit(t_struct *data, t_cmd *lst);
 int					func_env(t_struct *data, t_cmd *lst);
+int					execute_with_env(t_struct **data, t_cmd *lst, int i, int opt);
+int					execute_var_modif(t_struct *data, t_cmd **lst, int i, int opt);
 int					func_echo(t_struct *data, t_cmd *lst);
 int					func_cd(t_struct *data, t_cmd *lst);
 int					func_setenv(t_struct **data, t_cmd *lst);
 int					func_unsetenv(t_struct **data, t_cmd *lst);
-
-
-
 /*
  **	INIT
  */
@@ -272,7 +271,7 @@ int					ft_access(char *path);
 int					ft_access_rep(char *path);
 void				basic_error(char *name, char *cmd);
 int					ft_error(int cmd, char **line);
-void				ft_error_dir(char *name, char *pre);
+void				ft_error_dir(char *name, char *pre, int fd);
 void				ft_error_unset(char *str, int what);
 void				ft_error_fork(int father);
 void				ft_check_path(t_struct *data, char **path);
