@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/25 13:38:29 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/07/26 12:08:47 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -97,6 +97,7 @@ N_SRCS = 	main.c\
 			parsing/redirections_avancees.c\
 			parsing/split_cmd.c\
 			parsing/check_error.c\
+			parsing/check_line_vide.c\
 
 all: $(NAME)
 

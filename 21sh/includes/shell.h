@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/25 16:41:26 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 12:07:46 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -183,6 +183,8 @@ typedef struct		s_struct
 	t_ins			*commandes;
 }					t_struct;
 
+t_struct			*g_data;
+
 /*
  **	***	Fonctions ***
  **
@@ -214,6 +216,7 @@ int					ft_redirection_avancees(t_cmd **new, char **str);
 char				**split_cmd(char *str, int i);
 int					ft_verif_alphanum(char *str);
 int					check_error_inlinesplit(t_ins **lst);
+int					ft_check_line_vide(char *str);
 /*
  **	BUILTINS
  */

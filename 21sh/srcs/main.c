@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/23 16:16:49 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 11:29:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,7 +90,7 @@ static int		help_bash(int ac, char **av)
 
 int				main(int argc, char **argv, char **env)
 {
-	t_struct	*data;
+//	t_struct	*data;
 	int			code_exit;
 
 	if (help_bash(argc, argv) == 1)
@@ -99,11 +99,11 @@ int				main(int argc, char **argv, char **env)
         return (1);
 	print_ascii_art_start();
 	code_exit = 0;
-	data = NULL;
-	if (!(data = init_struct(env)))
+	g_data = NULL;
+	if (!(g_data = init_struct(env)))
 		return (EXIT_FAILURE);
-	core_shell(data);
-	code_exit = ft_delete_struct(&data);
+	core_shell(g_data);
+	code_exit = ft_delete_struct(&g_data);
 	print_ascii_art_end();
 	ft_printf("SLEEP\n");
 	sleep(150);
