@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/25 13:36:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 13:14:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:21:23 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,6 @@ static int		ft_existe_in_env(char *str, char **env)
 		len++;
 	while (env[i])
 	{
-		printf("%d\n", i);
 		if (ft_strncmp(env[i], str, len - 1) == 0)
 			return (i);
 		i++;
@@ -36,7 +35,8 @@ static int		ft_existe_in_env(char *str, char **env)
 	return (0);
 }
 
-static int		malloc_for_env_suite(char ***str, t_struct *data, t_cmd *lst, int i)
+static int		malloc_for_env_suite(char ***str, t_struct *data, t_cmd *lst,
+	int i)
 {
 	int		j;
 	int		ret;
@@ -70,7 +70,7 @@ static int		malloc_for_env_suite(char ***str, t_struct *data, t_cmd *lst, int i)
 		if (lst->tab_cmd[i] == NULL)
 			return (0);
 	}
-	return (0);	
+	return (0);
 }
 
 static char		**malloc_for_env(t_struct **data, t_cmd **lst, int i, int opt)
@@ -132,13 +132,6 @@ int				execute_var_modif(t_struct *data, t_cmd **lst, int i, int opt)
 		return (1);
 	(*lst)->env = ft_del_tab((*lst)->env);
 	(*lst)->env = ft_duplicate_tab(new);
-	printf("********************************************\n");
-	int	w = 0;
-	while (new[w])
-	{
-		printf("---> %s\n", new[w]);
-		w++;
-	}
 	new = ft_del_tab(new);
 	ret = execute_with_env(&data, *lst, i, 0);
 	return (ret);

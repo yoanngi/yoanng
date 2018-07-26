@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 12:07:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:24:22 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -198,6 +198,7 @@ int					exec_pipe(t_struct *data);
 int					exec_pipe_suite(t_struct *data);
 int					ft_process(t_cmd *data);
 int					ft_check_arg_invalid(t_struct *data, t_cmd *cmd);
+int					ft_kill_process(t_cmd *start);
 /*
  **	PARSING
  */

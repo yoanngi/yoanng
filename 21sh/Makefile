@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/26 12:08:47 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/07/26 13:24:36 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -37,6 +37,7 @@ N_SRCS = 	main.c\
 			core/execute_commandes.c\
 			core/execute_builtins.c\
 			core/ft_check_arg_invalid.c\
+			core/kill_process.c\
 			init/ft_check_infos.c\
 			init/ft_delete_struct.c\
 			init/ft_init_builtins.c\

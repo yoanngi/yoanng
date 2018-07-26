@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/20 11:13:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/25 14:51:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:21:35 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ static int		compare_builtins(char **builtins, t_cmd *cmd)
 **	Verifis si on a les droits et si la commandes existe
 */
 
-int			ft_check_arg_invalid(t_struct *data, t_cmd *cmd)
+int				ft_check_arg_invalid(t_struct *data, t_cmd *cmd)
 {
 	if (cmd == NULL)
 		return (1);

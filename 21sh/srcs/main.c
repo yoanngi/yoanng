@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/03/29 15:00:57 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 11:29:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:29:31 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,21 +55,21 @@ static void		print_ascii_art_end(void)
 	ft_putstr(RESET);
 }
 
-static int      ft_test_system(void)
+static int		ft_test_system(void)
 {
-    int     i;
-    char    *test;
+	int		i;
+	char	*test;
 
-    i = 0;
-    test = NULL;
-    while (i < 10)
-    {
-        if (!(test = ft_strnew(2000000)))
-            return (EXIT_FAILURE);
-        ft_strdel(&test);
-        i++;
-    }
-    return (EXIT_SUCCESS);
+	i = 0;
+	test = NULL;
+	while (i < 10)
+	{
+		if (!(test = ft_strnew(2000000)))
+			return (EXIT_FAILURE);
+		ft_strdel(&test);
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
 
 static int		help_bash(int ac, char **av)
@@ -90,13 +90,12 @@ static int		help_bash(int ac, char **av)
 
 int				main(int argc, char **argv, char **env)
 {
-//	t_struct	*data;
 	int			code_exit;
 
 	if (help_bash(argc, argv) == 1)
 		return (0);
-    if (ft_test_system() == 1)
-        return (1);
+	if (ft_test_system() == 1)
+		return (1);
 	print_ascii_art_start();
 	code_exit = 0;
 	g_data = NULL;

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 12:08:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:22:10 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,9 +57,9 @@ void			line_edit(t_info *info, t_hist *tmp)
 }
 
 /*
- **	parse_line : Parse la line et la convertit en liste chainer
- **	Execute la / les commandes
- */
+**	parse_line : Parse la line et la convertit en liste chainer
+**	Execute la / les commandes
+*/
 
 static int		parse_line(t_struct *data, char **line)
 {

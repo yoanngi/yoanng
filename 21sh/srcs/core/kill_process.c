@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   check_error.c                                    .::    .:/ .      .::   */
+/*   kill_process.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/07/24 09:43:18 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 13:27:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/07/26 13:22:36 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/07/26 13:24:38 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-/*
-**	Check si on a des regex d'erreur 
-*/
-
-static int	print_error(char *str)
+int				ft_kill_process(t_cmd *start)
 {
-	if (ft_strstr(str, "\"") == NULL && ft_strstr(str, "><"))
-		return (1);
-	return (0);
-}
-
-int			check_error_inlinesplit(t_ins **lst)
-{
-	t_ins	*cpy;
-
-	cpy = *lst;
-	while (cpy)
+	while (start)
 	{
-		if (print_error(cpy->str) == 1)
-			return (1);
-		cpy = cpy->next;
+		kill(start->pid, 0);
+		start = start->next;
 	}
 	return (0);
 }

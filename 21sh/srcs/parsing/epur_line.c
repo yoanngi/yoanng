@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 15:29:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/24 11:47:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:30:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,7 +103,7 @@ int				clear_line(char **line)
 	ft_strdel(&before);
 	ft_strdel(&next);
 	if ((ft_strstr(*line, "  ") != NULL || ft_strstr(*line, "\t ") != NULL)
-    && ft_strlen(*line) > 1)
+	&& ft_strlen(*line) > 1)
 		clean_between(line, 0, 0);
 	return (0);
 }

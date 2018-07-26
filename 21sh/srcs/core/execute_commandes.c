@@ -6,26 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 11:32:41 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:23:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-/*
-**	Kill all process
-*/
-
-static int			ft_kill_process(t_cmd *start)
-{
-	while (start)
-	{
-		kill(start->pid, 0);
-		start = start->next;
-	}
-	return (0);
-}
 
 static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 {
