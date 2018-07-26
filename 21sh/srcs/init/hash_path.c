@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/18 09:59:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 16:21:57 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ int				ft_create_table_hash(t_struct **data)
 	int		count;
 
 	count = ft_work_in_tab((*data)->tab_path, &ft_count);
-	count *= 10;
+	count *= 3;
 	(*data)->tab_hash = create_tab_hash(count);
 	if (ft_rforhash(count, (*data)->tab_path, (*data)->tab_hash,
 	&ft_calcul_hash) == 0)

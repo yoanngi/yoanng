@@ -15,6 +15,8 @@ https://openclassrooms.com/forum/sujet/pipe-et-dup2-comment-faire-23270
 
 A faire:
 
-Supression des cotes et doubles cote inutile
 tous ce aui est 1>&2
 gestion des droits des redirections (ecriture dans fichier)
+
+free not allocated setenv
+quand path delete, il faut que les executable fonctione avec le chemin

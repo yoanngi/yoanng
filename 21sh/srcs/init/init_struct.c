@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:39:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 11:31:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 15:43:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,7 @@ static void		init_base(t_struct **data)
 	char	*tmp;
 
 	tmp = ft_check_infos((*data)->env, "PATH=");
-	(*data)->pwd = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
+	(*data)->path = ft_strsub(tmp, 4, ft_strlen(tmp) - 4);
 	ft_strdel(&tmp);
 	(*data)->oldpwd = ft_strdup((*data)->pwd);
 	tmp = ft_check_infos((*data)->env, "HOME=");

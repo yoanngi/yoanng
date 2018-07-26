@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 13:24:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 14:17:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -212,7 +212,7 @@ int					replace_in_line(t_struct *data, char **line);
 char				*ft_search_path(char *str, t_struct *data);
 int					ft_nefaitrien(char **line);
 int					ft_search_opnext(char *str, int i);
-int					chose_rep(t_struct *data, t_cmd **new);
+int					chose_rep(t_struct *data, t_cmd **new, int provisoire);
 int					ft_redirection_avancees(t_cmd **new, char **str);
 char				**split_cmd(char *str, int i);
 int					ft_verif_alphanum(char *str);

@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:42 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/25 15:11:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 14:35:11 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,6 +64,21 @@ static int		delete_in_env(t_struct **data, int i, int j)
 	return (0);
 }
 
+static int		verif_unset(t_struct *data, char *str, int i)
+{
+	int		len;
+	int		len2;
+
+	len = ft_strlen(data->env[i]);
+	len2 = ft_strlen(str);
+	if (len > len2)
+	{
+		if (data->env[i][len2] == '=')
+			return (0);
+	}
+	return (1);
+}
+
 int				func_unsetenv(t_struct **data, t_cmd *lst)
 {
 	int		i;
@@ -73,11 +88,10 @@ int				func_unsetenv(t_struct **data, t_cmd *lst)
 		return (1);
 	while ((*data)->env[i])
 	{
-		if (ft_strncmp((*data)->env[i], lst->tab_cmd[1],
-	ft_strlen((*data)->env[i])) == 0)
+		if ((ft_strncmp((*data)->env[i], lst->tab_cmd[1],
+	ft_strlen(lst->tab_cmd[1])) == 0) && verif_unset(*data, lst->tab_cmd[1], i) == 0)
 		{
-			if (ft_strncmp((*data)->env[i], "PATH=",
-	ft_strlen((*data)->env[i])) == 0)
+			if (ft_strncmp(lst->tab_cmd[1], "PATH", 4) == 0)
 			{
 				(*data)->tab_hash = delete_tab_hash((*data)->tab_hash,
 	(*data)->sizemax);

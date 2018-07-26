@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/25 15:12:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 16:36:44 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,8 +100,31 @@ static int		add_in_env(t_struct **data, t_cmd *lst)
 	ft_strdel(&tmp);
 	new[i + 1] = NULL;
 	(*data)->env = ft_del_tab((*data)->env);
+	if ((*data)->env != NULL)
+		printf("NON NULL\n");
 	(*data)->env = ft_duplicate_tab(new);
+	// free not allocated ??? WHY !!!!!!!!!!
 	new = ft_del_tab(new);
+	return (0);
+}
+
+/*
+**	Return la len jusqu'qu egal
+*/
+
+static int		return_len(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (ft_strstr(str, "=") == NULL)
+		return (0);
+	while (str[i])
+	{	
+		if (str[i] == '=')
+			return (i);
+		i++;
+	}
 	return (0);
 }
 
@@ -112,14 +135,16 @@ static int		add_in_env(t_struct **data, t_cmd *lst)
 int				func_setenv(t_struct **data, t_cmd *lst)
 {
 	int		i;
+	int		len;
 
 	i = 0;
+	len = 0;
 	if (ft_check_error_setenv(&lst) == 1)
 		return (1);
 	while ((*data)->env[i])
 	{
-		if (ft_strncmp((*data)->env[i], lst->tab_cmd[1],
-	ft_strlen(lst->tab_cmd[1])) == 0)
+		len = return_len((*data)->env[i]); 
+		if (ft_strncmp((*data)->env[i], lst->tab_cmd[1], len) == 0)
 			return (modifie_env(data, lst, i));
 		i++;
 	}

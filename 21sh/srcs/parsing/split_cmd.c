@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/18 12:12:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/24 16:31:42 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 15:53:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,13 +108,11 @@ char			**split_cmd(char *str, int i)
 	char		**new;
 
 	new = ft_strsplit(str, ' ');
-	printf("splitcmd\n");
 	while (new[i])
 	{
 		if (ft_strstr(new[i], "\"") != NULL || ft_strstr(new[i], "\'") != NULL)
         	clear_quote(&new[i]);
 		i++;
 	}
-	printf("end splitcmd\n");
 	return (new);
 }
