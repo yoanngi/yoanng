@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:42 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 14:35:11 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 11:27:46 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,7 @@ static int		delete_in_env(t_struct **data, int i, int j)
 	new = NULL;
 	while ((*data)->env[j])
 		j++;
-	if (!(new = (char **)malloc(sizeof(char *) * j - 1)))
+	if (!(new = (char **)malloc(sizeof(char *) * (j - 1))))
 		return (1);
 	new[j - 1] = NULL;
 	j = 0;

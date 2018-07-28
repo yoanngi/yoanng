@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 15:52:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 10:34:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,10 +24,10 @@ static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 		fd = open(lst->pathname, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		exit(EXIT_FAILURE);
-	dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-	dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-	close(fd) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+	dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2 exec_redireciton 1\n", 2) : 0;
+	dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2 exec redirection 2\n", 2) : 0;
+	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close exec_redirection 1\n", 2) : 0;
+	close(fd) == -1 ? ft_putstr_fd("error close exec_redirection 2\n", 2) : 0;
 	return (execve(lst->rep, lst->tab_cmd, lst->env));
 }
 
@@ -43,12 +43,12 @@ static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int
 	{
 		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
 		dup2(pipe_fd[1], 1) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close 1\n", 2) : 0;
 		return (execve(lst->rep, lst->tab_cmd, lst->env));
 	}
 	dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
-	close(pipe_fd[1]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
-	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close\n", 2) : 0;
+	close(pipe_fd[1]) == -1 ? ft_putstr_fd("error close 2\n", 2) : 0;
+	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close 3\n", 2) : 0;
 	return (execve(lst->rep, lst->tab_cmd, lst->env));
 }
 
@@ -110,7 +110,6 @@ static void			print_debug(t_cmd **data)
 }
 
 /*
-**  On fork pour maintenir l'acces au shell
 **	On envoie la liste chainee a exec_cmd_recur
 */
 

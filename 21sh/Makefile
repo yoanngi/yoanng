@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/28 09:47:18 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/07/28 11:18:36 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -61,7 +61,7 @@ N_SRCS = 	main.c\
 			lib_termcaps/end_quote.c\
 			lib_termcaps/prompt.c\
 			lib_termcaps/cut_copy_paste.c\
-			lib_shell/display.c\
+			lib_shell/ascii_art.c\
 			lib_shell/ft_add_line.c\
 			lib_shell/ft_check_path.c\
 			lib_shell/ft_del_tab.c\

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/20 12:13:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 10:52:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,11 +25,11 @@ int			execute_builtins(t_struct *mystruct, t_cmd *lst, int pipe_fd[2],
 	{
 		if (ft_strcmp(lst->tab_cmd[0], mystruct->builtins[i]) == 0)
 		{
-			(void)pipe_fd;
-			(void)fd_in;
-			// Gestion des pipes et redirection a faire
+			dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2 builtins\n", 2) : 0;
+			dup2(pipe_fd[1], 1) == -1 ? ft_putstr_fd("error dup2 builtins\n", 2) : 0;
+			close(pipe_fd[0]) == -1 ? ft_putstr_fd("close builtins\n", 2) : 0;
 			ret = ft_search_func(mystruct, lst, i);
-			return (ret);
+			exit(ret);
 		}
 		i++;
 	}

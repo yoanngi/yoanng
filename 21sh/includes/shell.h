@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 09:59:01 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 11:17:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -265,6 +265,8 @@ long				**delete_tab_hash(long **tabh, int size);
 /*
  **	LIB_SHELL
  */
+void				print_ascii_art_start(void);
+void				print_ascii_art_end(void);
 int					ft_replace_word(char **str, char *word, char *replace);
 char				**ft_del_tab(char **tabl);
 int					ft_len_tab(char **tabl);
@@ -274,7 +276,6 @@ void				ft_print_tab(char **tabl);
 char				**ft_del_tab_index(char **tabl, int max);
 char				*ft_add_line(char *str, char **add, t_struct *data);
 int					ft_dir_exist(char *path);
-void				ft_display(t_struct *data);
 int					ft_access(char *path);
 int					ft_access_rep(char *path);
 void				basic_error(char *name, char *cmd);

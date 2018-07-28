@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:26:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 13:32:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 10:50:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ static void		print_msg_error(char *str, int i)
 	}
 }
 
-static int		ft_len_un(char *str)
+static int		ft_check_start_line(char *str)
 {
 	if (str[0] == '>' || str[0] == '<')
 	{
@@ -96,15 +96,10 @@ static int		check_regex_invalid(char *str, int i, int j, int ret)
 
 int				ft_nefaitrien(char **line)
 {
-	if (ft_strlen(*line) == 0)
+	if (ft_check_start_line(*line) == 1)
 		return (1);
-	else if (ft_strlen(*line) == 1)
-	{
-		if (ft_len_un(*line) == 1)
-			return (1);
-		return (0);
-	}
-	else if (ft_strstr(*line, "\"") == NULL && ft_strstr(*line, ";;"))
+	else if (ft_strstr(*line, "\"") == NULL &&
+	(ft_strstr(*line, ";;") || ft_strstr(*line, "><")))
 	{
 		print_msg_error(*line, 2);
 		return (1);

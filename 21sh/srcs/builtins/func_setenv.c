@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 16:38:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 11:26:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,11 @@ static int		modifie_env(t_struct **data, t_cmd *lst, int i)
 	(*data)->sizemax);
 		(*data)->sizemax = ft_load_path(data);
 		if ((*data)->sizemax == -1)
+		{
+			ft_putstr_fd("Erreur lors de la creation de la table de hashage\n",
+		lst->stderr_cmd);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -87,7 +91,7 @@ static int		add_in_env(t_struct **data, t_cmd *lst)
 	tmp = NULL;
 	while ((*data)->env[i])
 		i++;
-	if (!(new = (char **)malloc(sizeof(char *) * i + 2)))
+	if (!(new = (char **)malloc(sizeof(char *) * (i + 2))))
 		return (1);
 	i = 0;
 	while ((*data)->env[i])
@@ -100,10 +104,7 @@ static int		add_in_env(t_struct **data, t_cmd *lst)
 	ft_strdel(&tmp);
 	new[i + 1] = NULL;
 	(*data)->env = ft_del_tab((*data)->env);
-	if ((*data)->env != NULL)
-		printf("NON NULL\n");
 	(*data)->env = ft_duplicate_tab(new);
-	// free not allocated ??? WHY !!!!!!!!!!
 	new = ft_del_tab(new);
 	return (0);
 }
