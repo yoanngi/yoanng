@@ -17,6 +17,6 @@ A faire:
 
 tous ce aui est 1>&2
 gestion des droits des redirections (ecriture dans fichier)
-
-free not allocated setenv
+Verif que le env fonctionne:
+env path=/ ls
 quand path delete, il faut que les executable fonctione avec le chemin

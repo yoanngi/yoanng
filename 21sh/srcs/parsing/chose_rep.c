@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/26 13:40:50 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 14:14:16 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 16:52:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,13 +44,13 @@ static int		read_path(char *rep, char *name)
 	struct dirent	*fl;
 	int				ret;
 
-	ret = 0;
+	ret = 1;
 	if ((dir = opendir(rep)) == NULL)
 		return (1);
 	while ((fl = readdir(dir)) != NULL)
 	{
 		if (ft_strcmp(fl->d_name, name) == 0)
-			ret = 1;
+			ret = 0;
 	}
 	if (closedir(dir) == -1)
 		return (1);
@@ -60,13 +60,16 @@ static int		read_path(char *rep, char *name)
 static int		chose_rep_provisoire(t_cmd **new)
 {
 	char	*tmp;
+	char	*tmp2;
 	char	**env_p;
 	int		i;
 
 	tmp = NULL;
+	tmp2 = NULL;
 	env_p = NULL;
 	i = 0;
-	tmp = ft_check_infos((*new)->env, "PATH=");
+	tmp2 = ft_check_infos((*new)->env, "PATH=");
+	tmp = ft_strsub(tmp2, 5, ft_strlen(tmp2) - 5);
 	// **************************************
 	ft_printf("(%s)tmp = %s\n", __func__, tmp);
 	env_p = ft_strsplit(tmp, ':');
@@ -76,11 +79,13 @@ static int		chose_rep_provisoire(t_cmd **new)
 		{
 			(*new)->rep = ft_strdup(env_p[i]);
 			ft_strdel(&tmp);
+			ft_strdel(&tmp2);
 			return (0);
 		}
 		i++;
 	}
 	ft_strdel(&tmp);
+	ft_strdel(&tmp2);
 	return (0);
 }
 

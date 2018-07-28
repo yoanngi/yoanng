@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 14:10:15 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 16:52:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,11 +73,12 @@ int				execute_with_env(t_struct **data, t_cmd *lst, int i, int opt)
 		lst->env = ft_del_tab(lst->env);
 	if (ft_check_arg_invalid(*data, lst) == 1)
 		return ((*data)->code_erreur);
-	return (ft_process(lst));
+	j = ft_process(lst);
+	return (j);
 }
 
 /*
-**	Print env
+**	Print env ou execute commande avec env modifier
 */
 
 static int		print_env(t_struct *data, t_cmd *lst, int i, int opt)
