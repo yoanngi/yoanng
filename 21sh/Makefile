@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/28 11:18:36 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/07/28 13:47:24 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -85,6 +85,7 @@ N_SRCS = 	main.c\
 			builtins/func_env.c\
 			builtins/func_env_suite.c\
 			builtins/func_setenv.c\
+			builtins/func_setenv_suite.c\
 			builtins/func_unsetenv.c\
 			builtins/func_exit.c\
 			parsing/ft_split_commandes.c\
@@ -100,6 +101,7 @@ N_SRCS = 	main.c\
 			parsing/split_cmd.c\
 			parsing/check_error.c\
 			parsing/check_line_vide.c\
+			debug.c\
 
 all: $(NAME)
 

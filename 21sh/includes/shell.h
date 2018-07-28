@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 11:17:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 14:06:51 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -233,6 +233,8 @@ int					execute_var_modif(t_struct *data, t_cmd **lst, int i, int opt);
 int					func_echo(t_struct *data, t_cmd *lst);
 int					func_cd(t_struct *data, t_cmd *lst);
 int					func_setenv(t_struct **data, t_cmd *lst);
+int					modifie_env(t_struct **data, t_cmd *lst, int i);
+int					check_if_path_modif(t_struct **data, t_cmd *lst);
 int					func_unsetenv(t_struct **data, t_cmd *lst);
 /*
  **	INIT
@@ -293,9 +295,12 @@ int					ft_existe_in_path(t_struct *data, char **path);
 char				*ft_return_pwd(void);
 int					len_list(t_cmd *lst);
 /*
- **	LIB_TERMCAPS
- */
-
+**	DEBUG
+*/
+void				print_debug(t_cmd **data);
+/*
+**	LIB_TERMCAPS
+*/
 typedef struct winsize t_wndw;
 typedef struct termios t_termios;
 

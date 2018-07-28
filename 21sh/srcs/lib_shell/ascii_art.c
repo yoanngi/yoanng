@@ -6,14 +6,14 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/28 11:11:45 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 11:17:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 14:12:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void             print_ascii_art_start(void)
+void		print_ascii_art_start(void)
 {
 	ft_putstr(BLUE);
 	ft_printf("       ::::::::    :::   ::::::::  :::    ::: \n");
@@ -35,7 +35,7 @@ void             print_ascii_art_start(void)
 	ft_printf("© - yoginet\n");
 }
 
-void             print_ascii_art_end(void)
+void		print_ascii_art_end(void)
 {
 	ft_putstr(BLUE);
 	ft_printf(" _________\n");
@@ -48,4 +48,3 @@ void             print_ascii_art_end(void)
 	ft_printf("                ||     ||\n");
 	ft_putstr(RESET);
 }
-

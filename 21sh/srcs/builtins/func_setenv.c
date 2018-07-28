@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:35 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 11:26:02 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 14:09:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,38 +45,6 @@ static int		ft_check_error_setenv(t_cmd **lst)
 }
 
 /*
-**	Modifie la new setenv in env
-*/
-
-static int		modifie_env(t_struct **data, t_cmd *lst, int i)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	tmp = NULL;
-	tmp2 = NULL;
-	tmp = ft_strjoin(lst->tab_cmd[1], "=");
-	tmp2 = ft_strjoin(tmp, lst->tab_cmd[2]);
-	ft_strdel(&(*data)->env[i]);
-	(*data)->env[i] = ft_strdup(tmp2);
-	ft_strdel(&tmp);
-	ft_strdel(&tmp2);
-	if (ft_strcmp(lst->tab_cmd[1], "PATH") == 0)
-	{
-		(*data)->tab_hash = delete_tab_hash((*data)->tab_hash,
-	(*data)->sizemax);
-		(*data)->sizemax = ft_load_path(data);
-		if ((*data)->sizemax == -1)
-		{
-			ft_putstr_fd("Erreur lors de la creation de la table de hashage\n",
-		lst->stderr_cmd);
-			return (1);
-		}
-	}
-	return (0);
-}
-
-/*
 **	Add new setenv in env
 */
 
@@ -86,11 +54,9 @@ static int		add_in_env(t_struct **data, t_cmd *lst)
 	char	**new;
 	char	*tmp;
 
-	i = 0;
 	new = NULL;
 	tmp = NULL;
-	while ((*data)->env[i])
-		i++;
+	i = ft_len_tab((*data)->env);
 	if (!(new = (char **)malloc(sizeof(char *) * (i + 2))))
 		return (1);
 	i = 0;
@@ -106,7 +72,8 @@ static int		add_in_env(t_struct **data, t_cmd *lst)
 	(*data)->env = ft_del_tab((*data)->env);
 	(*data)->env = ft_duplicate_tab(new);
 	new = ft_del_tab(new);
-	return (0);
+	i = check_if_path_modif(data, lst);
+	return (i);
 }
 
 /*
@@ -121,7 +88,7 @@ static int		return_len(char *str)
 	if (ft_strstr(str, "=") == NULL)
 		return (0);
 	while (str[i])
-	{	
+	{
 		if (str[i] == '=')
 			return (i);
 		i++;
@@ -144,7 +111,7 @@ int				func_setenv(t_struct **data, t_cmd *lst)
 		return (1);
 	while ((*data)->env[i])
 	{
-		len = return_len((*data)->env[i]); 
+		len = return_len((*data)->env[i]);
 		if (ft_strncmp((*data)->env[i], lst->tab_cmd[1], len) == 0)
 			return (modifie_env(data, lst, i));
 		i++;

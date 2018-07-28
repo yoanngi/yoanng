@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:42 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 11:27:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 13:29:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,8 @@ int				func_unsetenv(t_struct **data, t_cmd *lst)
 	while ((*data)->env[i])
 	{
 		if ((ft_strncmp((*data)->env[i], lst->tab_cmd[1],
-	ft_strlen(lst->tab_cmd[1])) == 0) && verif_unset(*data, lst->tab_cmd[1], i) == 0)
+	ft_strlen(lst->tab_cmd[1])) == 0) &&
+	verif_unset(*data, lst->tab_cmd[1], i) == 0)
 		{
 			if (ft_strncmp(lst->tab_cmd[1], "PATH", 4) == 0)
 			{

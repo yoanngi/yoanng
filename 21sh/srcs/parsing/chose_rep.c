@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/26 13:40:50 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 15:46:54 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 14:14:16 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ static int		read_path(char *rep, char *name)
 	DIR				*dir;
 	struct dirent	*fl;
 	int				ret;
-	
+
 	ret = 0;
 	if ((dir = opendir(rep)) == NULL)
 		return (1);
@@ -68,7 +68,7 @@ static int		chose_rep_provisoire(t_cmd **new)
 	i = 0;
 	tmp = ft_check_infos((*new)->env, "PATH=");
 	// **************************************
-	ft_printf("tmp = %s\n", tmp);
+	ft_printf("(%s)tmp = %s\n", __func__, tmp);
 	env_p = ft_strsplit(tmp, ':');
 	while (env_p[i])
 	{
@@ -86,16 +86,21 @@ static int		chose_rep_provisoire(t_cmd **new)
 
 int				chose_rep(t_struct *data, t_cmd **new, int provisoire)
 {
+	char		*tmp;
+
+	tmp = NULL;
 	if (provisoire == 1)
 	{
 		chose_rep_provisoire(new);
 		return (0);
 	}
+	tmp = ft_return_path((*new)->tab_cmd[0]);
 	if (ft_strstr((*new)->tab_cmd[0], "./") != NULL)
 		(*new)->rep = ft_strdup((*new)->tab_cmd[0]);
+	else if (ft_dir_exist(tmp) == 1)
+		(*new)->rep = ft_strdup((*new)->tab_cmd[0]);
 	else
-	{
 		(*new)->rep = ft_search_path((*new)->tab_cmd[0], data);
-	}
+	ft_strdel(&tmp);
 	return (0);
 }

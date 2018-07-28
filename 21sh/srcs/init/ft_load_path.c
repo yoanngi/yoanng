@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 13:26:35 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 14:11:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ int			ft_load_path(t_struct **data)
 	{
 		(*data)->path = NULL;
 		(*data)->tab_path = NULL;
-		(*data)->home = NULL;
+		return (1);
 	}
 	else
 	{

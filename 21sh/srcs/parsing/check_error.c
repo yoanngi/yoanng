@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/24 09:43:18 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 13:27:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 14:12:54 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "../../includes/shell.h"
 
 /*
-**	Check si on a des regex d'erreur 
+**	Check si on a des regex d'erreur
 */
 
 static int	print_error(char *str)

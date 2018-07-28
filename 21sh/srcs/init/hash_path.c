@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 16:21:57 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 12:52:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,8 @@ int				ft_create_table_hash(t_struct **data)
 	int		count;
 
 	count = ft_work_in_tab((*data)->tab_path, &ft_count);
+	if (count == -1)
+		return (-1);
 	count *= 3;
 	(*data)->tab_hash = create_tab_hash(count);
 	if (ft_rforhash(count, (*data)->tab_path, (*data)->tab_hash,
@@ -99,6 +101,8 @@ long			**delete_tab_hash(long **tabh, int size)
 	int			i;
 
 	i = 0;
+	if (tabh == NULL)
+		return (NULL);
 	while (i < size)
 	{
 		free(tabh[i]);

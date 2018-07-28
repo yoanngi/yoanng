@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 10:34:09 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 13:02:20 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,28 +87,6 @@ static int			exec_cmd_recur(t_struct *mystruct, t_cmd *data)
 	return (WEXITSTATUS(status));
 }
 
-// ***************************************************** A delete
-static void			print_debug(t_cmd **data)
-{
-	t_cmd	*start;
-
-	start = *data;
-	// commenter le return pour pas print la debug
-	return ;
-	printf("[++++++++++++++++++++++++++++++++++]\n");
-	while (start)
-	{
-		printf("rep = %s\n", start->rep);
-		printf("pathname = |%s|\n", start->pathname);
-		printf("tab[0] = %s\n", start->tab_cmd[0]);
-		printf("tab[1] = %s\n", start->tab_cmd[1]);
-		printf("op_next = %d\n", start->op_next);
-		printf("op_redir = %d\n\n", start->op_redir);
-		start = start->next;
-	}
-	printf("[----------------------------------]\n\n");
-}
-
 /*
 **	On envoie la liste chainee a exec_cmd_recur
 */
@@ -119,7 +97,6 @@ int					execute_commandes(t_struct *mystruct, t_cmd *data)
 	t_cmd	*start;
 
 	start = NULL;
-	print_debug(&data);
 	ret = 0;
 	if (!data)
 		return (-1);

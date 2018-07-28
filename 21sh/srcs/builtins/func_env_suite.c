@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/25 13:36:26 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 16:38:48 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/28 14:10:32 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,30 @@ static int		malloc_for_env_suite(char ***str, t_struct *data, t_cmd *lst,
 	return (0);
 }
 
-static char		**malloc_for_env(t_struct **data, t_cmd **lst, int i, int opt)
+static char		**malloc_for_env_deux(t_struct **data, t_cmd **lst, int i)
+{
+	char		**new;
+	int			len;
+	int			x;
+
+	new = NULL;
+	len = 0;
+	x = 0;
+	while ((*data)->env[len])
+		len++;
+	len += (i + 1);
+	if (!(new = (char **)malloc(sizeof(char *) * len)))
+		return (NULL);
+	if (malloc_for_env_suite(&new, *data, *lst, 1) == 1)
+	{
+		new = ft_del_tab(new);
+		return (NULL);
+	}
+	return (new);
+}
+
+static char		**malloc_for_env(t_struct **data, t_cmd **lst, int i,
+	int opt)
 {
 	char		**new;
 	int			len;
@@ -95,18 +118,7 @@ static char		**malloc_for_env(t_struct **data, t_cmd **lst, int i, int opt)
 		}
 	}
 	else
-	{
-		while ((*data)->env[len])
-			len++;
-		len += (i + 1);
-		if (!(new = (char **)malloc(sizeof(char *) * len)))
-			return (NULL);
-		if (malloc_for_env_suite(&new, *data, *lst, 1) == 1)
-		{
-			new = ft_del_tab(new);
-			return (NULL);
-		}
-	}
+		new = malloc_for_env_deux(data, lst, i);
 	return (new);
 }
 
