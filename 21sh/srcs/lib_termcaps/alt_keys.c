@@ -6,26 +6,15 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/27 10:42:20 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/10 14:40:45 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 14:30:05 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	init_end(char *end)
-{
-	end[0] = 27;
-	end[1] = 91;
-	end[2] = 70;
-	end[3] = 0;
-}
-
 void		alt_up_down(t_info *info, char *buff)
 {
-	char	end[4];
-
-	init_end(end);
 	if ((KEY_CODE_ALT_UP) && info->curs_y > info->orig_y)
 	{
 		tputs(tgetstr("up", NULL), 1, ft_putchar_err);
@@ -39,7 +28,7 @@ void		alt_up_down(t_info *info, char *buff)
 			info->curs_in_str += info->col_nb;
 		}
 		else if (info->curs_y < info->row_nb)
-			curs_extremity(info, end);
+			end_key(info);
 	}
 	info->curs_x = CURS_X;
 	info->curs_y = CURS_Y;

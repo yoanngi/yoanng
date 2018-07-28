@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 12:14:19 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/24 15:11:04 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 13:21:30 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,36 +46,31 @@ static void		resize_win(int sig)
 	resize(&g_info);
 }
 
-static void		stop_shell(t_info *info)
+static void		stop(int sig)
 {
+	t_info	*info;
 	char	s[2];
 
+
+	info = &g_info;
 	s[0] = info->term.c_cc[VSUSP];
 	s[1] = 0;
+	(void)sig;
 	default_term_mode(info);
 	signal(SIGTSTP, SIG_DFL);
 	ioctl(0, TIOCSTI, s);
 }
 
-static void		stop(int sig)
-{
-	(void)sig;
-	stop_shell(&g_info);
-}
-
-static void		restart_shell(t_info *info)
-{
-	signal(SIGTSTP, stop);
-	raw_term_mode(info);
-	resize(info);
-}
-
 static void		restart(int sig)
 {
-	(void)sig;
-	restart_shell(&g_info);
-}
+	t_info	*info;
 
+	info = &g_info;
+	(void)sig;
+//	signal(SIGTSTP, stop);
+//	raw_term_mode(info);
+	resize(info);
+}
 
 void			get_signals(void)
 {

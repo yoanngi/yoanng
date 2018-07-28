@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 11:18:44 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 18:06:47 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 14:29:31 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,28 +82,24 @@ void	right_key(t_info *info)
 ** Put cursor at first (HOME) or last (END) position
 */
 
-void	curs_extremity(t_info *info, char *buff)
+void	home_key(t_info *info)
 {
 	tputs(tgetstr("vi", NULL), 1, ft_putchar_err);
-	if (KEY_CODE_HOME)
-	{
-		if (info->s_len + ft_strlen(info->prmpt) > info->col_nb * info->row_nb)
-		{
-		}
-		else
-			while (info->curs_in_str > 1)
-				left_key(info);
+		while (info->curs_in_str > 1)
+			left_key(info);
 		info->curs_x = CURS_X;
 		info->curs_y = CURS_Y;
 		info->curs_in_str = 1;
-	}
-	else if (KEY_CODE_END)
-	{
-		while (info->curs_in_str <= info->s_len)
-			right_key(info);
-		info->curs_x = CURS_X;
-		info->curs_y = CURS_Y;
-		info->curs_in_str = info->s_len + 1;
-	}
+	tputs(tgetstr("ve", NULL), 1, ft_putchar_err);
+}
+
+void	end_key(t_info *info)
+{
+	tputs(tgetstr("vi", NULL), 1, ft_putchar_err);
+	while (info->curs_in_str <= info->s_len)
+		right_key(info);
+	info->curs_x = CURS_X;
+	info->curs_y = CURS_Y;
+	info->curs_in_str = info->s_len + 1;
 	tputs(tgetstr("ve", NULL), 1, ft_putchar_err);
 }

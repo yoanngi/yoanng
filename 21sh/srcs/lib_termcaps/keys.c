@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/12 14:39:02 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/23 16:48:47 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/26 14:53:25 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,7 @@ void		get_key(int *loop, t_info *info, t_hist *tmp)
 	ft_bzero(buff, 5);
 	info->curs_x = CURS_X;
 	info->curs_y = CURS_Y;
+
 	while (!tmp->current)
 		tmp = tmp->next;
 	if ((read(0, buff, 4) < 0))
@@ -67,10 +68,19 @@ void		get_key(int *loop, t_info *info, t_hist *tmp)
 		alt_left(info, tmp);
 	else if (KEY_CODE_BSP)
 		del_char(info, tmp);
-	else if ((KEY_CODE_HOME) || (KEY_CODE_END))
-		curs_extremity(info, buff);
+	else if (KEY_CODE_HOME)
+		home_key(info);
+	else if (KEY_CODE_END)
+		end_key(info);
 	else if (KEY_CODE_RC)
 		rc_key(info, loop, tmp);
+	else if (KEY_CODE_CTRL_E || KEY_CODE_CTRL_B ||
+			KEY_CODE_CTRL_X || KEY_CODE_CTRL_A || KEY_CODE_CTRL_P)
+		cut_n_cpy(info, buff, tmp);
+/*	else if (KEY_CODE_CTRL_A || KEY_CODE_CTRL_O)
+		copy(info, buff);
+	else if (KEY_CODE_CTRL_P)
+		paste(info);*/
 	else if (KEY_CODE_CTRL_D)
 	{
 		tputs(tgetstr("vi", NULL), 1, ft_putchar_err);
