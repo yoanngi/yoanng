@@ -17,6 +17,8 @@ static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 {
 	char	*tmp;
 
+    printf("START %s\n", __func__);
+    printf("str = %s || i = %d\n", *str, i);
 	if ((*new)->op_redir == 2 || (*new)->op_redir == 3)
 	{
 		(*new)->pathname = ft_strdup(*str + 1);
@@ -28,6 +30,12 @@ static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 		*new = (*new)->next;
 	}
 	tmp = ft_strsub(*str, 0, i);
+    printf("tmp = |%s|\n", tmp);
+   // if (tmp == NULL || ft_strlen(tmp) < 2)
+    //{
+    //    ft_strdel(&tmp);
+    //    return (0);
+    //}
 	(*new)->tab_cmd = split_cmd(tmp, 0);
 	chose_rep(data, new, 0);
 	if ((*new)->rep == NULL || (*new)->op_next == 2 || (*new)->op_next == 3)
@@ -42,8 +50,9 @@ static int		ft_insert_cmd(t_cmd **new, t_struct *data, char **str, int i)
 	else
 		(*new)->op_next = ft_search_opnext(*str, i);
 	ft_strdel(&tmp);
-	if ((*new)->op_next == 9)
-		ft_redirection_avancees(new, str);
+	//if ((*new)->op_next == 9)
+	//	ft_redirection_avancees(new, str);
+    printf("END %s\n", __func__);
 	return (0);
 }
 
@@ -51,6 +60,7 @@ static void		ft_split_cmd_suite_deux(char **str, t_cmd **new, int i)
 {
 	char	*tmp2;
 
+    printf("START %s\n", __func__);
 	tmp2 = NULL;
 	tmp2 = ft_strdup(*str);
 	if (tmp2[i] == '>')
@@ -62,6 +72,7 @@ static void		ft_split_cmd_suite_deux(char **str, t_cmd **new, int i)
 		*str = ft_strsub(tmp2, i + 3, ft_strlen(tmp2) - (i + 3));
 	else
 		*str = ft_strsub(tmp2, i + 1, ft_strlen(tmp2) - (i + 1));
+    printf("END %s\n", __func__);
 	ft_strdel(&tmp2);
 }
 
@@ -70,6 +81,7 @@ static int		ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str)
 	char	*tmp;
 	int		i;
 
+    printf("START %s\n", __func__);
 	tmp = ft_strdup(*str);
 	i = 0;
 	while (tmp[i])
@@ -87,6 +99,7 @@ static int		ft_split_cmd_suite(t_cmd **new, t_struct *data, char **str)
 	}
 	ft_insert_cmd(new, data, &tmp, i);
 	ft_strdel(&tmp);
+    printf("END %s\n", __func__);
 	return (0);
 }
 
@@ -109,10 +122,13 @@ t_cmd			*ft_split_cmd(char *str, t_struct *data)
 		return (NULL);
 	}
 	replace_in_line(data, &str);
+    printf("%s\n", __func__);
 	if (ft_strstr(str, "|") != NULL || ft_strstr(str, ">") != NULL ||
 			ft_strstr(str, "<") != NULL)
 		ft_split_cmd_suite(&new, data, &str);
 	else
 		ft_insert_cmd(&new, data, &str, ft_strlen(str));
+    printf("Here\n");
+    print_debug(&start);
 	return (start);
 }

@@ -19,7 +19,7 @@ void		print_debug(t_cmd **data)
 
 	start = *data;
 	// comment for no print
-	//return ;
+	return ;
 	printf("[++++++++++++++++++++++++++++++++++]\n");
 	while (start)
 	{
