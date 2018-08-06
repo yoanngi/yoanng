@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 13:02:20 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/06 14:10:02 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,19 +16,30 @@
 static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
 {
 	int		fd;
+	int		ret;
+	t_path	*cpy;
 
 	fd = 0;
-	if (lst->op_redir == 2)
-		fd = open(lst->pathname, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	else if (lst->op_redir == 3)
-		fd = open(lst->pathname, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (fd == -1)
-		exit(EXIT_FAILURE);
-	dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2 exec_redireciton 1\n", 2) : 0;
-	dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2 exec redirection 2\n", 2) : 0;
-	close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close exec_redirection 1\n", 2) : 0;
-	close(fd) == -1 ? ft_putstr_fd("error close exec_redirection 2\n", 2) : 0;
-	return (execve(lst->rep, lst->tab_cmd, lst->env));
+	ret = 0;
+	cpy = lst->pathname;
+	if (lst->pathname == NULL)
+		return (-1);
+	while (cpy)
+	{
+		if (lst->op_next == 2)
+			fd = open(cpy->name, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		else if (lst->op_next == 3)
+			fd = open(cpy->name, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		if (fd == -1)
+			exit(EXIT_FAILURE);
+		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2 exec_redireciton 1\n", 2) : 0;
+		dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2 exec redirection 2\n", 2) : 0;
+		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close exec_redirection 1\n", 2) : 0;
+		close(fd) == -1 ? ft_putstr_fd("error close exec_redirection 2\n", 2) : 0;
+		execve(lst->rep, lst->tab_cmd, lst->env);
+		cpy = cpy->next;
+	}
+	return (ret);
 }
 
 static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int *fd_in)
@@ -37,7 +48,7 @@ static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int
 
 	if ((builtins = execute_builtins(mystruct, lst, pipe_fd, fd_in)) != -1)
 		return (builtins);
-	if ((lst->op_redir == 2 || lst->op_redir == 3) && lst->pathname != NULL)
+	if (lst->op_next == 2 || lst->op_next == 3)
 		return (exec_redirection(lst, fd_in, pipe_fd));
 	if (lst->op_next == 1)
 	{
@@ -100,7 +111,7 @@ int					execute_commandes(t_struct *mystruct, t_cmd *data)
 	ret = 0;
 	if (!data)
 		return (-1);
-	if (len_list(data) == 1 && (data->op_redir != 2 && data->op_redir != 3))
+	if (len_list(data) == 1 && (data->op_next != 2 && data->op_next != 3))
 	{
 		if ((ret = execute_builtins_light(mystruct, data)) == -2)
 			return (ft_process(data));

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/28 12:57:46 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 13:29:10 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/06 16:34:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,19 +16,35 @@
 void		print_debug(t_cmd **data)
 {
 	t_cmd   *start;
+	t_path	*path;
+	int		i;
 
 	start = *data;
 	// comment for no print
-	return ;
+	//return ;
 	printf("[++++++++++++++++++++++++++++++++++]\n");
 	while (start)
 	{
+		i = 0;
 		printf("rep = %s\n", start->rep);
-		printf("pathname = |%s|\n", start->pathname);
-		printf("tab[0] = %s\n", start->tab_cmd[0]);
-		printf("tab[1] = %s\n", start->tab_cmd[1]);
+		path = start->pathname;
+		printf("PATH:\n");
+		while (path)
+		{
+			printf("pathname = |%s|\n", path->name);
+			path = path->next;
+		}
+		printf("COMMANDES:\n");
+		while (start->tab_cmd[i])
+		{
+			printf("tab_cmd[%d] = %s\n", i, start->tab_cmd[i]);
+			i++;
+		}
 		printf("op_next = %d\n", start->op_next);
-		printf("op_redir = %d\n\n", start->op_redir);
+		printf("stdin = %d\n", start->stdin_cmd);
+		printf("stdout = %d\n", start->stdout_cmd);
+		printf("stderr = %d\n", start->stderr_cmd);
+		printf("pid = %d\n\n", start->pid);
 		start = start->next;
 	}
 	printf("[----------------------------------]\n\n");

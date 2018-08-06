@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 14:06:51 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/06 16:22:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@
 # include <term.h>
 
 /*
-** PRINT COLORS
+** Define
 */
 
 # define BLACK "\033[30m"
@@ -49,7 +49,6 @@
 # define YELLOW "\033[33m"
 # define RED "\033[31m"
 # define RESET "\033[00m"
-
 # define KEY_CODE_NONE 0
 # define KEY_CODE_UP buff[0] == 27 && buff[1] == 91 && buff[2] == 65
 # define KEY_CODE_DOWN buff[0] == 27 && buff[1] == 91 && buff[2] == 66
@@ -70,16 +69,10 @@
 # define KEY_CODE_CTRL_A *(int*)buff == 1
 # define KEY_CODE_CTRL_P *(int*)buff == 16
 # define KEY_CODE_TAB *(int*)buff == 9
-
 # define CURS_X get_curs_pos(0, info)
 # define CURS_Y get_curs_pos(1, info)
 
-
 /*
-**	A Faire :
-**	Si variable path suprimer, ne pas lancer de commande (sauf si chemin indiquer)
-**	gestion des cotes et doubles code pour setenv et unsetenv
-**
 **	Source :
 **	http://putaindecode.io/fr/articles/shell/redirections/
 **	https://www.gnu.org/software/bash/manual/bashref.html#Redirections
@@ -88,57 +81,49 @@
 **	https://stackoverflow.com/questions/17630247/coding-multiple-pipe-in-c/17631589
 **	https://openclassrooms.com/forum/sujet/dup-dup2-et-close-12008
 **
+**	***	Structures ***
 **
+**	t_cmd -> liste chainer des commandes a executer
+**
+**	rep = Repertoire de commande
+**	tab_cmd : commande et options sous forme de tableau
+**	pathname : Si redirection dans un fichier, pathanme != NULL
+**	Code operateur:
+**	0 : NULL
+**	1 : |
+**	2 : >
+**	3 : >>
+**	4 : <
+**	5 : <<
+**	6 : &
+**	7 : &&
+**	8 : ||
+**	9 : >&
+**
+**	env : Environnement a envoyer pour la commande
 */
 
 /*
- **	***	Structures ***
- **
- **	t_cmd -> liste chainer des commandes a executer
- **
- **	rep = Repertoire de commande
- **	tab_cmd : commande et options sous forme de tableau
- **	pathname : Si redirection dans un fichier, pathanme != NULL
-
- **	Code operateur:
- **	0 : NULL
- **	1 : |
- **	2 : >
- **	3 : >>
- **	4 : <
- **	5 : <<
- **	6 : &
- **	7 : &&
- **	8 : ||
- **	9 : >&
- **
- **	env : Environnement a envoyer pour la commande
- **
- ** t_cmd -> commande a traiter
- */
+** t_cmd -> commande a traiter
+*/
 
 typedef struct		s_cmd
 {
-	char			*rep;
+	char			**env;
 	char			**tab_cmd;
-	char			*pathname;
-
-	int				op_redir;
+	char			*rep;
 	int				op_next;
-
-	int				stdcmd;
 	int				stdin_cmd;
 	int				stdout_cmd;
 	int				stderr_cmd;
 	int				pid;
-
-	char			**env;
+	struct s_path	*pathname;
 	struct s_cmd	*next;
 }					t_cmd;
 
 /*
- **	t_ins -> line spliter par les ;
- */
+**	t_ins -> line spliter par les ;
+*/
 
 typedef struct		s_ins
 {
@@ -148,8 +133,18 @@ typedef struct		s_ins
 }					t_ins;
 
 /*
- **  Infos tab de hashage
- */
+**	s_path -> si redirection dans plusieurs fichiers
+*/
+
+typedef struct		s_path
+{
+	char			*name;
+	struct s_path	*next;
+}					t_path;
+
+/*
+**  Infos tab de hashage
+*/
 
 typedef struct		s_infos
 {
@@ -160,8 +155,8 @@ typedef struct		s_infos
 }					t_infos;
 
 /*
- **	t_struct -> On la ballade partout
- */
+**	t_struct -> On la ballade partout
+*/
 
 typedef struct		s_struct
 {
@@ -217,11 +212,12 @@ char				*ft_search_path(char *str, t_struct *data);
 int					ft_nefaitrien(char **line);
 int					ft_search_opnext(char *str, int i);
 int					chose_rep(t_struct *data, t_cmd **new, int provisoire);
-int					ft_redirection_avancees(t_cmd **new, char **str);
+int					ft_redirection_avancees(t_cmd **lst, char *str, int i);
 char				**split_cmd(char *str, int i);
 int					ft_verif_alphanum(char *str);
 int					check_error_inlinesplit(t_ins **lst);
 int					ft_check_line_vide(char *str);
+int					resize_str(char **str, int start, int end);
 /*
  **	BUILTINS
  */
@@ -250,6 +246,8 @@ t_ins				*clear_ins(t_ins *start);
 int					ft_load_path(t_struct **data);
 t_infos             *init_infos(char *rep, char *name);
 t_infos             *clear_infos(t_infos *start);
+t_path				*ft_init_path(void);
+t_path				*clear_pathname(t_path **path);
 
 // HASH
 int					ft_count(char *path);

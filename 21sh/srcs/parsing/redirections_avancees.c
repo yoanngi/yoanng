@@ -6,13 +6,13 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:54:14 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/17 17:10:27 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/06 10:55:15 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
+/*
 static int		insert_next(t_cmd **new, char *str, int i)
 {
 	if (str[i] == ' ')
@@ -82,33 +82,11 @@ static int		insert_redir(t_cmd **new, char *str, int i)
 	}
 	return (0);
 }
-
-int				ft_redirection_avancees(t_cmd **new, char **str)
+*/
+int				ft_redirection_avancees(t_cmd **lst, char *str, int i)
 {
-	char	*tmp;
-	int		i;
-	int		ret;
-
-	ret = 0;
-	if (!(tmp = ft_strdup(*str)))
-		return (1);
-	i = 0;
-	while (tmp[i])
-	{
-		if (tmp[i] == '>')
-		{
-			if (i < ft_strlen(*str))
-			{
-				if (tmp[i + 1] == '&')
-				{
-					ret = insert_redir(new, tmp, i);
-					(*new)->stdcmd = 1;
-				}
-				if (ret == 1)
-					return (1);
-			}
-		}
-		i++;
-	}
+	(void)lst;
+	(void)str;
+	(void)i;
 	return (0);
 }
