@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/06 16:40:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/06 16:51:03 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,17 +51,17 @@ static int			good_tab_cmd(t_struct *data, t_cmd **new, char *str, int i)
 	char		*tmp;
 
 	tmp = NULL;
-	if (str != NULL && ft_strlen(str) > 1)
-		tmp = ft_strsub(str, 0, i);
-	else
-		return (0);
+	if (str == NULL)
+		return (1);
+	tmp = ft_strsub(str, 0, i);
 	printf("TMP = |%s|\n", tmp);
 	(*new)->tab_cmd = split_cmd(tmp, 0);
 	chose_rep(data, new, 0);
 	(*new)->env = ft_duplicate_tab(data->env);
 	ft_strdel(&tmp);
 	if ((*new)->op_next == 2 || (*new)->op_next == 3)
-		(*new)->pathname = search_redirection(str, i + 1);
+		(*new)->pathname = search_redirection(str, i);
+	printf("last resize\n");
 	if (resize_str(&str, 0, i) == 1)
 		return (-1);
 	return (0);
@@ -103,6 +103,7 @@ int				resize_str(char **str, int start, int end)
 		return (1);
 	if (!(tmp = ft_strsub(*str, start, end)))
 		return (1);
+	printf("TMP = %s\n", tmp);
 	ft_strdel(str);
 	if (!(*str = ft_strdup(tmp)))
 		return (1);
