@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 16:47:25 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/08 16:50:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,7 @@ static int			good_op_next(t_cmd **new, char *str, int i)
 	return (0);
 }
 
-static int		ft_split_cmd_suite(t_cmd **new, t_struct *data, char *str)
+static int			ft_split_cmd_suite(t_cmd **new, t_struct *data, char *str)
 {
 	int		i;
 
@@ -94,7 +94,7 @@ static int		ft_split_cmd_suite(t_cmd **new, t_struct *data, char *str)
 	return (0);
 }
 
-t_cmd			*ft_split_cmd(char *str, t_struct *data)
+t_cmd				*ft_split_cmd(char *str, t_struct *data)
 {
 	t_cmd	*new;
 	t_cmd	*start;
