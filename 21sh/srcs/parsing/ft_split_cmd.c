@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 16:41:59 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/08 16:47:25 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,8 +44,6 @@ static int		check_arg_line(t_cmd **new, char **str)
 
 static int			good_op_next(t_cmd **new, char *str, int i)
 {
-	printf("str = %s\n", str);
-	printf("str[%d] = %c\n", i, str[i]);
 	if (i >= ft_strlen(str))
 		return (1);
 	if (str[i] == '|' && (str[i + 1] != '|' && str[i + 1] != '\0'))
@@ -84,9 +82,8 @@ static int		ft_split_cmd_suite(t_cmd **new, t_struct *data, char *str)
 			{
 				good_op_next(new, str, i);
 				i = good_tab_cmd(data, new, str, i);
-				i = resize_str(&str, i) - 1;
-				// delete le strlen
-				if (str == NULL || ft_strlen(str) < 2)
+				i = resize_str(&str, i + 1) - 1;
+				if (str == NULL)
 					return (0);
 				(*new)->next = ft_init_cmd();
 				*new = (*new)->next;
