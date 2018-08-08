@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/06 16:22:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/08 15:33:06 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -217,7 +217,8 @@ char				**split_cmd(char *str, int i);
 int					ft_verif_alphanum(char *str);
 int					check_error_inlinesplit(t_ins **lst);
 int					ft_check_line_vide(char *str);
-int					resize_str(char **str, int start, int end);
+int					insert_cmd_simple(t_struct *data, t_cmd **lst, char *str);
+int					good_tab_cmd(t_struct *data, t_cmd **lst, char *str, int i);
 /*
  **	BUILTINS
  */
@@ -292,6 +293,7 @@ char				*ft_insert_moins(t_struct *data, char **str, int i, int len);
 int					ft_existe_in_path(t_struct *data, char **path);
 char				*ft_return_pwd(void);
 int					len_list(t_cmd *lst);
+int					resize_str(char **str, int len);
 /*
 **	DEBUG
 */

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   kill_process.c                                   .::    .:/ .      .::   */
+/*   insert_cmd_simple.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/07/26 13:22:36 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 10:55:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/08/08 15:04:18 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/08/08 15:40:49 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int				ft_kill_process(t_cmd *start)
+int			insert_cmd_simple(t_struct *data, t_cmd **lst, char *str)
 {
-	while (start)
-	{
-		kill(start->pid, 0);
-		start = start->next;
-	}
+	(*lst)->tab_cmd = split_cmd(str, 0);
+	chose_rep(data, lst, 0);
+	(*lst)->env = ft_duplicate_tab(data->env);
 	return (0);
 }

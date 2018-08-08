@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/07/28 13:47:24 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/08/08 15:31:30 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -78,6 +78,7 @@ N_SRCS = 	main.c\
 			lib_shell/ft_return_pwd.c\
 			lib_shell/func_access.c\
 			lib_shell/len_list.c\
+			lib_shell/resize_str.c\
 			lib_shell/ft_replace_word.c\
 			builtins/good_func.c\
 			builtins/func_cd.c\
@@ -101,6 +102,8 @@ N_SRCS = 	main.c\
 			parsing/split_cmd.c\
 			parsing/check_error.c\
 			parsing/check_line_vide.c\
+			parsing/insert_cmd_simple.c\
+			parsing/good_tab_cmd.c\
 			debug.c\
 
 all: $(NAME)

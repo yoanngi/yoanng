@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   kill_process.c                                   .::    .:/ .      .::   */
+/*   resize_str.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/07/26 13:22:36 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 10:55:14 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/08/08 09:48:23 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/08/08 15:28:39 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int				ft_kill_process(t_cmd *start)
+int			resize_str(char **str, int len)
 {
-	while (start)
+	char		*tmp;
+
+	tmp = NULL;
+	if (*str == NULL)
+		return (1);
+	tmp = ft_strsub(*str, len, (ft_strlen(*str) - len));
+	if (tmp == NULL)
+		return (1);
+	ft_strdel(str);
+	*str = ft_strdup(tmp);
+	if (*str == NULL || ft_strlen(*str) == 0)
 	{
-		kill(start->pid, 0);
-		start = start->next;
+		ft_strdel(str);
+		ft_strdel(&tmp);
+		return (1);
 	}
+	ft_strdel(&tmp);
 	return (0);
 }
