@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/08/08 09:48:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 15:28:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/08 16:18:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,11 @@ int			resize_str(char **str, int len)
 	tmp = NULL;
 	if (*str == NULL)
 		return (1);
+	if (len >= ft_strlen(*str))
+	{
+		ft_strdel(str);
+		return (0);
+	}
 	tmp = ft_strsub(*str, len, (ft_strlen(*str) - len));
 	if (tmp == NULL)
 		return (1);

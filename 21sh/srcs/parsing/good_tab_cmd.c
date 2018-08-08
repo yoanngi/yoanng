@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/08/08 15:29:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 15:40:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/08 16:42:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,17 +64,19 @@ int			good_tab_cmd(t_struct *data, t_cmd **lst, char *str, int i)
 	ret = 0;
 	start = 0;
 	if (str == NULL)
-		return (-1);
+		return (0);
 	if (i == 0)
 	{
 		start = 1;
 		while (str[i] && (str[i] != '|' || str[i] != '>'))
 			i++;
 	}
-	if (!(tmp = ft_strsub(str, start, i)))
-		return (-1);
-	insert_cmd_simple(data, lst ,tmp);
-	ret = ft_strlen(tmp) + 1;
+	if (i == ft_strlen(str) - 1)
+		tmp = ft_strdup(str);
+	else
+		tmp = ft_strsub(str, start, i);
+	insert_cmd_simple(data, lst, tmp);
+	ret = ft_strlen(tmp);
 	ft_strdel(&tmp);
 	if ((*lst)->op_next == 2)
 		ret = search_redirection(lst, str, i);
