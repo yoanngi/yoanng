@@ -20,10 +20,9 @@ static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2],
 
 	if ((builtins = execute_builtins(mystruct, lst, pipe_fd, fd_in)) != -1)
 		return (builtins);
+    // code de retour a check
 	if (lst->op_next == 2 || lst->op_next == 3)
-    {
         return (fork_redirection(lst, pipe_fd, fd_in));
-    }
 	if (lst->op_next == 1)
 	{
 		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;
