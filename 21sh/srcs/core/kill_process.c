@@ -22,3 +22,13 @@ int				ft_kill_process(t_cmd *start)
 	}
 	return (0);
 }
+
+int             ft_kill_fork_path(t_path *start)
+{
+    while (start)
+    {
+        kill(start->pid, 0);
+        start = start->next;
+    }
+    return (0);
+}

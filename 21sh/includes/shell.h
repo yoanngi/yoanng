@@ -139,6 +139,8 @@ typedef struct		s_ins
 typedef struct		s_path
 {
 	char			*name;
+    int             s_or_d;
+    int             pid;
 	struct s_path	*next;
 }					t_path;
 
@@ -197,7 +199,10 @@ int					exec_pipe(t_struct *data);
 int					exec_pipe_suite(t_struct *data);
 int					ft_process(t_cmd *data);
 int					ft_check_arg_invalid(t_struct *data, t_cmd *cmd);
+int                 fork_redirection(t_cmd *lst, int pipe_fd[2], int *fd_in);
+int                 exec_redirection(t_cmd *lst, t_path *file, int *fd_in, int pipe_fd[2]);
 int					ft_kill_process(t_cmd *start);
+int                 ft_kill_fork_path(t_path *start);
 /*
  **	PARSING
  */

@@ -13,35 +13,6 @@
 
 #include "../../includes/shell.h"
 
-/*
-static int		check_arg_line(t_cmd **new, char **str)
-{
-	t_path		*lst;
-
-	lst = NULL;
-	printf("%s || str = |%s|\n", __func__, *str);
-	if (*str == NULL)
-		return (0);
-	if (ft_strstr(*str, "|") == NULL && ft_strstr(*str, ">") == NULL)
-	{
-		if (ft_strstr(*str, "-") == NULL && (*new)->pathname != NULL)
-		{
-			lst = (*new)->pathname;
-			while (lst->next)
-				lst = lst->next;
-			lst->next = ft_init_path();
-			lst = lst->next;
-			lst->name = ft_strdup(*str);
-			clear_line(&lst->name);
-			ft_strdel(str);
-		}
-		else
-			printf("DEBUG : option a rajouter dans tab_cmd\n");
-	}
-	return (0);
-}
-*/
-
 static int			good_op_next(t_cmd **new, char *str, int i)
 {
 	if (i >= ft_strlen(str))

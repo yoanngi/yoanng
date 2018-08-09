@@ -13,43 +13,17 @@
 
 #include "../../includes/shell.h"
 
-static int			exec_redirection(t_cmd *lst, int *fd_in, int pipe_fd[2])
-{
-	int		fd;
-	int		ret;
-	t_path	*cpy;
-
-	fd = 0;
-	ret = 0;
-	cpy = lst->pathname;
-	if (lst->pathname == NULL)
-		return (-1);
-	while (cpy)
-	{
-		if (lst->op_next == 2)
-			fd = open(cpy->name, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		else if (lst->op_next == 3)
-			fd = open(cpy->name, O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		if (fd == -1)
-			exit(EXIT_FAILURE);
-		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2 exec_redireciton 1\n", 2) : 0;
-		dup2(fd, 1) == -1 ? ft_putstr_fd("error dup2 exec redirection 2\n", 2) : 0;
-		close(pipe_fd[0]) == -1 ? ft_putstr_fd("error close exec_redirection 1\n", 2) : 0;
-		close(fd) == -1 ? ft_putstr_fd("error close exec_redirection 2\n", 2) : 0;
-		execve(lst->rep, lst->tab_cmd, lst->env);
-		cpy = cpy->next;
-	}
-	return (ret);
-}
-
-static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2], int *fd_in)
+static int			exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2],
+    int *fd_in)
 {
 	int		builtins;
 
 	if ((builtins = execute_builtins(mystruct, lst, pipe_fd, fd_in)) != -1)
 		return (builtins);
 	if (lst->op_next == 2 || lst->op_next == 3)
-		return (exec_redirection(lst, fd_in, pipe_fd));
+    {
+        return (fork_redirection(lst, pipe_fd, fd_in));
+    }
 	if (lst->op_next == 1)
 	{
 		dup2(*fd_in, 0) == -1 ? ft_putstr_fd("error dup2\n", 2) : 0;

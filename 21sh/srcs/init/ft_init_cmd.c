@@ -68,6 +68,8 @@ t_path			*ft_init_path(void)
 	if (new == NULL)
 		return (NULL);
 	new->name = NULL;
+    new->s_or_d = 0;
+    new->pid = 0;
 	new->next = NULL;
 	return (new);
 }
