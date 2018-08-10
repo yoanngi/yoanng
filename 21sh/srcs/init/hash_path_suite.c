@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 12:45:04 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 12:59:19 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,7 +106,7 @@ int			ft_rforhash(int s, char **tabp, long **tabh, long (*f)(char *, int))
 		while ((fl = readdir(dir)))
 		{
 			hash = 0;
-			if (ft_strcmp(fl->d_name, ".") != 0 ||
+			if (ft_strcmp(fl->d_name, ".") != 0 &&
 	ft_strcmp(fl->d_name, "..") != 0)
 			{
 				hash = (*f)(fl->d_name, s);

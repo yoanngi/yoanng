@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/26 13:40:50 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 16:52:32 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 15:31:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,35 +57,46 @@ static int		read_path(char *rep, char *name)
 	return (ret);
 }
 
-static int		chose_rep_provisoire(t_cmd **new)
+static char		*good_name(char *s1, char *s2)
 {
-	char	*tmp;
+	char		*new;
+	char		*tmp;
+
+	new = NULL;
+	tmp = NULL;
+	if (!(tmp = ft_strjoin(s1, "/")))
+		return (NULL);
+	if (!(new = ft_strjoin(tmp, s2)))
+		return (NULL);
+	ft_strdel(&tmp);
+	return (new);
+}
+
+static int		chose_rep_provisoire(t_cmd **new, char *tmp)
+{
 	char	*tmp2;
 	char	**env_p;
 	int		i;
 
-	tmp = NULL;
 	tmp2 = NULL;
 	env_p = NULL;
 	i = 0;
 	tmp2 = ft_check_infos((*new)->env, "PATH=");
 	tmp = ft_strsub(tmp2, 5, ft_strlen(tmp2) - 5);
-	// **************************************
-	ft_printf("(%s)tmp = %s\n", __func__, tmp);
 	env_p = ft_strsplit(tmp, ':');
+	ft_strdel(&tmp);
+	ft_strdel(&tmp2);
 	while (env_p[i])
 	{
 		if (read_path(env_p[i], (*new)->tab_cmd[0]) == 0)
 		{
-			(*new)->rep = ft_strdup(env_p[i]);
-			ft_strdel(&tmp);
-			ft_strdel(&tmp2);
+			(*new)->rep = good_name(env_p[i], (*new)->tab_cmd[0]);
+			env_p = ft_del_tab(env_p);
 			return (0);
 		}
 		i++;
 	}
-	ft_strdel(&tmp);
-	ft_strdel(&tmp2);
+	env_p = ft_del_tab(env_p);
 	return (0);
 }
 
@@ -96,7 +107,8 @@ int				chose_rep(t_struct *data, t_cmd **new, int provisoire)
 	tmp = NULL;
 	if (provisoire == 1)
 	{
-		chose_rep_provisoire(new);
+		chose_rep_provisoire(new, tmp);
+		ft_strdel(&tmp);
 		return (0);
 	}
 	tmp = ft_return_path((*new)->tab_cmd[0]);

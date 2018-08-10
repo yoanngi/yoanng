@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/06 11:37:47 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 12:44:09 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,8 +105,9 @@ static int		parse_line(t_struct *data, char **line)
 }
 
 /*
- **	Boucle infini, Attend un retour different de zero pour exit
- */
+**	Boucle infini, Attend un retour different de zero pour exit
+*/
+
 void			core_shell(t_struct *data)
 {
 	int		quit;
@@ -139,8 +140,7 @@ void			core_shell(t_struct *data)
 				ft_putstr_fd(RESET, 2);
 				// *******************************************************************
 				quit = parse_line(data, &(full_line));
-				if (full_line)
-					ft_strdel(&full_line);
+				ft_strdel(&full_line);
 			}
 		}
 		reinit_info(&g_info);

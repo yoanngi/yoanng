@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/18 12:12:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 14:25:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 15:02:21 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ static int		clear_suite(char **tmp1, char **tmp2, char **str, int delete,
 	return (0);
 }
 
-static int		clear_string(char **str, int delete, int opt)
+static void		clear_string(char **str, int delete, int opt)
 {
 	char	*tmp1;
 	char	*tmp2;
@@ -56,7 +56,6 @@ static int		clear_string(char **str, int delete, int opt)
 	}
 	ft_strdel(&tmp1);
 	ft_strdel(&tmp2);
-	return (0);
 }
 
 static int		clear_quote_deux(char *tmp, int i, int j)

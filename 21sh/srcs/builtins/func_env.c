@@ -6,7 +6,7 @@
 /*   By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/04/15 13:22:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 16:54:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 15:31:48 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,10 +65,8 @@ int				execute_with_env(t_struct **data, t_cmd *lst, int i, int opt)
 	lst->tab_cmd = ft_del_tab(lst->tab_cmd);
 	lst->tab_cmd = ft_duplicate_tab(new);
 	new = ft_del_tab(new);
-	printf("(%s) lst->rep = %s\n", __func__, lst->rep);
 	ft_strdel(&lst->rep);
 	chose_rep(*data, &lst, 1);
-	printf("(%s) lst->rep = %s\n", __func__, lst->rep);
 	if (opt == 1)
 		lst->env = ft_del_tab(lst->env);
 	if (ft_check_arg_invalid(*data, lst) == 1)

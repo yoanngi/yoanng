@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 15:33:06 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 14:56:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -224,6 +224,8 @@ int					check_error_inlinesplit(t_ins **lst);
 int					ft_check_line_vide(char *str);
 int					insert_cmd_simple(t_struct *data, t_cmd **lst, char *str);
 int					good_tab_cmd(t_struct *data, t_cmd **lst, char *str, int i);
+int					what_is_op(char *str, int i);
+int					search_redirection(t_cmd **lst, char *str, int i, int j);
 /*
  **	BUILTINS
  */

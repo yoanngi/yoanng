@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 16:50:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 15:05:45 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,29 +38,32 @@ static int			good_op_next(t_cmd **new, char *str, int i)
 	return (0);
 }
 
-static int			ft_split_cmd_suite(t_cmd **new, t_struct *data, char *str)
+static int			ft_split_cmd_suite(t_cmd **new, t_struct *data, char *str,
+	int i)
 {
-	int		i;
+	char	*tmp;
 
-	i = 0;
+	tmp = NULL;
 	if (ft_strstr(str, ">") == NULL && ft_strstr(str, "|") == NULL)
 		insert_cmd_simple(data, new, str);
 	else
 	{
-		while (str[i])
+		tmp = ft_strdup(str);
+		while (tmp[i])
 		{
-			if (str[i] == '|' || str[i] == '>' || i == ft_strlen(str) - 1)
+			if (tmp[i] == '|' || tmp[i] == '>' || i == ft_strlen(tmp) - 1)
 			{
-				good_op_next(new, str, i);
-				i = good_tab_cmd(data, new, str, i);
-				i = resize_str(&str, i + 1) - 1;
-				if (str == NULL)
+				good_op_next(new, tmp, i);
+				i = good_tab_cmd(data, new, tmp, i);
+				i = resize_str(&tmp, i + 1) - 1;
+				if (tmp == NULL)
 					return (0);
 				(*new)->next = ft_init_cmd();
 				*new = (*new)->next;
 			}
 			i++;
 		}
+		ft_strdel(&tmp);
 	}
 	return (0);
 }
@@ -74,7 +77,7 @@ t_cmd				*ft_split_cmd(char *str, t_struct *data)
 	i = 0;
 	new = NULL;
 	start = NULL;
-	if (!(new = ft_init_cmd()))
+	if (!(new = ft_init_cmd()) || str == NULL)
 		return (NULL);
 	start = new;
 	clear_line(&str);
@@ -84,7 +87,7 @@ t_cmd				*ft_split_cmd(char *str, t_struct *data)
 		return (NULL);
 	}
 	replace_in_line(data, &str);
-	if (ft_split_cmd_suite(&new, data, str) == 1)
+	if (ft_split_cmd_suite(&new, data, str, 0) == 1)
 	{
 		new = clear_cmd(new);
 		return (NULL);

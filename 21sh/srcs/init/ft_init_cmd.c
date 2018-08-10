@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/14 15:37:03 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/06 14:11:07 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 15:07:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,8 +68,8 @@ t_path			*ft_init_path(void)
 	if (new == NULL)
 		return (NULL);
 	new->name = NULL;
-    new->s_or_d = 0;
-    new->pid = 0;
+	new->s_or_d = 0;
+	new->pid = 0;
 	new->next = NULL;
 	return (new);
 }

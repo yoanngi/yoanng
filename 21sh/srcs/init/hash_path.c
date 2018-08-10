@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:59:22 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/28 12:52:12 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 12:59:56 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,7 @@ long			ft_calcul_hash(char *str, int sizemax)
 /*
 **  Creation de la table :
 **  On compte le nombre de fichier, on malloc la size * 3
-**  On insert les hash dans la table
+**  On insert les hashs dans la table
 */
 
 int				ft_create_table_hash(t_struct **data)
@@ -99,12 +99,19 @@ long			**create_tab_hash(int size)
 long			**delete_tab_hash(long **tabh, int size)
 {
 	int			i;
+	t_infos		*clear;
 
 	i = 0;
+	clear = NULL;
 	if (tabh == NULL)
 		return (NULL);
 	while (i < size)
 	{
+		if (tabh[i][0] != 0)
+		{
+			clear = (t_infos *)tabh[i][1];
+			clear = clear_infos(clear);
+		}
 		free(tabh[i]);
 		tabh[i] = NULL;
 		i++;

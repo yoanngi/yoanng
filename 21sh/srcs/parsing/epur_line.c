@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 15:29:32 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 13:30:39 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/10 12:48:05 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,6 +96,8 @@ int				clear_line(char **line)
 
 	before = NULL;
 	next = NULL;
+	if (ft_strstr(*line, " ") == NULL && ft_strstr(*line, "\t") == NULL)
+		return (0);
 	before = clean_before(*line);
 	next = clean_next(before);
 	ft_strdel(line);
