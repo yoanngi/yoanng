@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/06 10:11:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/11 16:17:52 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 16:47:43 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ static t_ins		*what_next_link(t_ins *lst, int code)
 	return (NULL);
 }
 
-static int		parse_line(t_struct *data, char **line)
+static int			parse_line(t_struct *data, char **line)
 {
 	int		ret;
 	t_ins	*cpy;
@@ -77,7 +77,7 @@ static int		parse_line(t_struct *data, char **line)
 **	Boucle infini, Attend un retour different de zero pour exit
 */
 
-void			core_shell(t_struct *data)
+void				core_shell(t_struct *data)
 {
 	int		quit;
 	t_hist	*tmp;
