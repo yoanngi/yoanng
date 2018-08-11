@@ -20,3 +20,4 @@ gestion des droits des redirections (ecriture dans fichier)
 Verif que le env fonctionne:
 env path=/ ls
 quand path delete, il faut que les executable fonctione avec le chemin
+Encore quelques erreur sur le cd
