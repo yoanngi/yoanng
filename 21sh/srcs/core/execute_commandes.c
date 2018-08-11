@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 10:58:55 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 16:25:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,15 +20,20 @@ static int		exec_pipe_child(t_struct *mystruct, t_cmd *lst, int pipe_fd[2],
 
 	if ((builtins = execute_builtins(mystruct, lst, pipe_fd, fd_in)) != -1)
 		return (builtins);
-	if (lst->op_next == 2 || lst->op_next == 3)
+	if (lst->pathname != NULL)
+	{
+		printf("Redirection:\n");
 		return (fork_redirection(lst, pipe_fd, fd_in));
+	}
 	if (lst->op_next == 1)
 	{
+		printf("Pipe:\n");
 		dup2(*fd_in, 0) == -1 ? basic_error("dup2", "failled") : 0;
 		dup2(pipe_fd[1], 1) == -1 ? basic_error("dup2", "failled") : 0;
 		close(pipe_fd[0]) == -1 ? basic_error("close", "failled") : 0;
 		return (execve(lst->rep, lst->tab_cmd, lst->env));
 	}
+	printf("Execution:\n");
 	dup2(*fd_in, 0) == -1 ? basic_error("dup2", "failled") : 0;
 	close(pipe_fd[1]) == -1 ? basic_error("close", "failled") : 0;
 	close(pipe_fd[0]) == -1 ? basic_error("close", "failled") : 0;
@@ -52,10 +57,7 @@ static int		exec_cmd_recur(t_struct *mystruct, t_cmd *data, int fd_in)
 		if ((pid = fork()) == -1)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
-		{
-			if (exec_pipe_child(mystruct, data, pipe_fd, &fd_in) == -1)
-				kill(pid, 0);
-		}
+			exec_pipe_child(mystruct, data, pipe_fd, &fd_in);
 		else
 		{
 			data->pid = pid;
@@ -85,7 +87,7 @@ int				execute_commandes(t_struct *mystruct, t_cmd *data)
 	start = NULL;
 	if (!data)
 		return (-1);
-	if (len_list(data) == 1 && (data->op_next != 2 && data->op_next != 3))
+	if (len_list(data) == 1 && (data)->op_next == 0)
 	{
 		if ((ret = execute_builtins_light(mystruct, data)) == -2)
 			return (ft_process(data));

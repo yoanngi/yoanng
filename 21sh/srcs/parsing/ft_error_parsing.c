@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/17 10:26:53 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 16:36:56 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 13:48:00 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,25 +17,6 @@
 **	Check les cas d'erreur (line non spliter)
 **	Check surtout debut de line et fin de line
 */
-
-static void		print_msg_error(char *str, int i)
-{
-	ft_putstr_fd("21sh: ", 2);
-	if (i == 1)
-		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
-	else if (i == 2)
-	{
-		ft_putstr_fd("syntax error near unexpected token `", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\"\n", 2);
-	}
-	else if (i == 3)
-	{
-		ft_putstr_fd("command not found: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\n", 2);
-	}
-}
 
 static int		ft_check_start_line(char *str)
 {
@@ -105,7 +86,7 @@ static int		check_regex_invalid(char *str, int i)
 			quote = 1;
 		else if (str[i] == '\'' && quote == 1)
 			quote = 0;
-		else if  (str[i] == '\"' && dquote == 0)
+		else if (str[i] == '\"' && dquote == 0)
 			dquote = 1;
 		else if (str[i] == '\"' && dquote == 1)
 			dquote = 0;

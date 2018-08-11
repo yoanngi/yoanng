@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   resize_str.c                                     .::    .:/ .      .::   */
+/*   print_msg_error.c                                .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/08/08 09:48:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/11 15:30:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/08/11 13:43:49 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/08/11 13:44:28 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int			resize_str(char **str, int len)
+void		print_msg_error(char *str, int i)
 {
-	char		*tmp;
-
-	tmp = NULL;
-	if (*str == NULL)
-		return (1);
-	if (len >= ft_strlen(*str))
+	ft_putstr_fd("21sh: ", 2);
+	if (i == 1)
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+	else if (i == 2)
 	{
-		ft_strdel(str);
-		return (0);
+		ft_putstr_fd("syntax error near unexpected token `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\"\n", 2);
 	}
-	tmp = ft_strsub(*str, len, (ft_strlen(*str) - len));
-	if (tmp == NULL)
-		return (1);
-	ft_strdel(str);
-	*str = ft_strdup(tmp);
-	if (*str == NULL || ft_strlen(*str) == 0)
+	else if (i == 3)
 	{
-		ft_strdel(str);
-		ft_strdel(&tmp);
-		return (1);
+		ft_putstr_fd("command not found: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\n", 2);
 	}
-	ft_strdel(&tmp);
-	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: yoginet <yoginet@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2017/11/24 10:04:43 by yoginet      #+#   ##    ##    #+#        #
-#    Updated: 2018/08/10 14:28:02 by yoginet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/08/11 14:08:43 by yoginet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -39,6 +39,7 @@ N_SRCS = 	main.c\
 			core/execute_builtins.c\
 			core/ft_check_arg_invalid.c\
 			core/kill_process.c\
+			core/cmd_suivante.c\
 			init/ft_check_infos.c\
 			init/ft_delete_struct.c\
 			init/ft_init_builtins.c\
@@ -62,6 +63,7 @@ N_SRCS = 	main.c\
 			lib_termcaps/end_quote.c\
 			lib_termcaps/prompt.c\
 			lib_termcaps/cut_copy_paste.c\
+			lib_termcaps/core_shell_termcaps.c\
 			lib_shell/ascii_art.c\
 			lib_shell/ft_add_line.c\
 			lib_shell/ft_check_path.c\
@@ -101,11 +103,14 @@ N_SRCS = 	main.c\
 			parsing/ft_error_parsing.c\
 			parsing/redirections_avancees.c\
 			parsing/split_cmd.c\
+			parsing/split_cmd_suite.c\
 			parsing/check_error.c\
 			parsing/check_line_vide.c\
 			parsing/insert_cmd_simple.c\
 			parsing/good_tab_cmd.c\
 			parsing/search_redirection.c\
+			parsing/check_validity.c\
+			parsing/print_msg_error.c\
 			debug.c\
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 09:36:12 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 14:12:17 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 16:20:18 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,7 @@ int			fork_redirection(t_cmd *lst, int pipe_fd[2],
 	int		pid;
 	t_path	*lst_path;
 
+	printf("%s\n", __func__);
 	lst_path = lst->pathname;
 	if (len_list_redirection(lst_path) == 1)
 		return (exec_redirection(lst, lst->pathname, fd_in, pipe_fd));

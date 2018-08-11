@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/11 10:11:49 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 16:27:30 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 13:54:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,14 +26,17 @@
 **	Fonction annexe de ft_split_commandes
 */
 
-static int		ft_init_parsing(t_ins **new, char **line)
+static int		ft_init_parsing(t_ins **new, char **line, t_struct **data)
 {
 	char	*tmp;
 	int		len;
 
 	tmp = NULL;
 	if (ft_nefaitrien(line) == 1)
+	{
+		(*data)->code_erreur = 258;
 		return (1);
+	}
 	len = ft_strlen(*line);
 	tmp = ft_strdup(*line);
 	if (tmp[len - 1] == ';')
@@ -45,6 +48,7 @@ static int		ft_init_parsing(t_ins **new, char **line)
 	if (!(*new = ft_init_ins()))
 	{
 		*new = clear_ins(*new);
+		(*data)->code_erreur = 258;
 		return (1);
 	}
 	return (0);
@@ -65,9 +69,9 @@ t_ins			*ft_split_commandes(char **line, t_struct *data)
 	cpy = NULL;
 	tmp = NULL;
 	new_ins = NULL;
-	if (ft_init_parsing(&new_ins, line) == 1)
+	if (ft_init_parsing(&new_ins, line, &data) == 1)
 		return (NULL);
-	new_ins = ft_split_pvirgule(*line, new_ins);
+	new_ins = ft_split_pvirgule(*line, new_ins, 0);
 	ft_strdel(line);
 	cpy = new_ins;
 	if (check_error_inlinesplit(&cpy) == 1)

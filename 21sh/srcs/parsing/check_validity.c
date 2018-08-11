@@ -1,41 +1,44 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   resize_str.c                                     .::    .:/ .      .::   */
+/*   check_validity.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/08/08 09:48:23 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/11 15:30:46 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/08/11 09:42:47 by yoginet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/08/11 10:43:52 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int			resize_str(char **str, int len)
+int				check_link(t_cmd *lst)
 {
-	char		*tmp;
+	if (lst->op_next == 1 && lst->pathname != NULL)
+		return (1);
+	if (lst->op_next == 2 && lst->pathname == NULL)
+		return (1);
+	return (0);
+}
 
-	tmp = NULL;
-	if (*str == NULL)
+int				check_validity(t_cmd **lst, t_struct *data)
+{
+	t_cmd	*start;
+
+	if (!(*lst))
 		return (1);
-	if (len >= ft_strlen(*str))
+	start = *lst;
+	while (start)
 	{
-		ft_strdel(str);
-		return (0);
+		if (check_link(start) != 0)
+		{
+			*lst = clear_cmd(*lst);
+			ft_putstr_fd("21sh: invalid command\n", 2);
+			data->code_erreur = 1;
+			return (1);
+		}
+		start = start->next;
 	}
-	tmp = ft_strsub(*str, len, (ft_strlen(*str) - len));
-	if (tmp == NULL)
-		return (1);
-	ft_strdel(str);
-	*str = ft_strdup(tmp);
-	if (*str == NULL || ft_strlen(*str) == 0)
-	{
-		ft_strdel(str);
-		ft_strdel(&tmp);
-		return (1);
-	}
-	ft_strdel(&tmp);
 	return (0);
 }

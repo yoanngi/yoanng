@@ -6,14 +6,14 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/25 13:50:09 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/26 16:47:07 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 13:41:04 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	copy_end(t_info *info, t_hist *tmp)
+static void		copy_end(t_info *info, t_hist *tmp)
 {
 	int		curs_pos;
 	char	*tmp_str;
@@ -37,7 +37,7 @@ static void	copy_end(t_info *info, t_hist *tmp)
 	}
 }
 
-static void	copy_beginning(t_info *info, t_hist *tmp)
+static void		copy_beginning(t_info *info, t_hist *tmp)
 {
 	int		curs_pos;
 	char	*tmp_str;
@@ -60,8 +60,7 @@ static void	copy_beginning(t_info *info, t_hist *tmp)
 	}
 }
 
-
-static void	cut_end(t_info *info, t_hist *tmp)
+static void		cut_end(t_info *info, t_hist *tmp)
 {
 	int		curs_pos;
 
@@ -72,7 +71,7 @@ static void	cut_end(t_info *info, t_hist *tmp)
 		del_char(info, tmp);
 }
 
-static void	cut_beginning(t_info *info, t_hist *tmp)
+static void		cut_beginning(t_info *info, t_hist *tmp)
 {
 	int		curs_pos;
 
@@ -86,7 +85,7 @@ static void	cut_beginning(t_info *info, t_hist *tmp)
 	}
 }
 
-void	cut_n_cpy(t_info *info, char *buff, t_hist *tmp)
+void			cut_n_cpy(t_info *info, char *buff, t_hist *tmp)
 {
 	int	i;
 

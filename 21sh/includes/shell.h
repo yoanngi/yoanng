@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/04 14:43:34 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 14:56:40 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 14:05:12 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,6 +128,7 @@ typedef struct		s_cmd
 typedef struct		s_ins
 {
 	char			*str;
+	int				code;
 	struct s_cmd	*cmd;
 	struct s_ins	*next;
 }					t_ins;
@@ -203,11 +204,12 @@ int                 fork_redirection(t_cmd *lst, int pipe_fd[2], int *fd_in);
 int                 exec_redirection(t_cmd *lst, t_path *file, int *fd_in, int pipe_fd[2]);
 int					ft_kill_process(t_cmd *start);
 int                 ft_kill_fork_path(t_path *start);
+int					cmd_suivante(t_ins *cpy, int code);
 /*
  **	PARSING
  */
 t_ins				*ft_split_commandes(char **line, t_struct *data);
-t_ins				*ft_split_pvirgule(char *line, t_ins *lst);
+t_ins				*ft_split_pvirgule(char *line, t_ins *lst, int i);
 t_cmd				*ft_split_cmd(char *str, t_struct *data);
 int					clear_line(char **line);
 char				*clean_before(char *str);
@@ -221,11 +223,15 @@ int					ft_redirection_avancees(t_cmd **lst, char *str, int i);
 char				**split_cmd(char *str, int i);
 int					ft_verif_alphanum(char *str);
 int					check_error_inlinesplit(t_ins **lst);
-int					ft_check_line_vide(char *str);
+int					ft_check_line_vide(char *str, t_struct **data);
 int					insert_cmd_simple(t_struct *data, t_cmd **lst, char *str);
 int					good_tab_cmd(t_struct *data, t_cmd **lst, char *str, int i);
 int					what_is_op(char *str, int i);
 int					search_redirection(t_cmd **lst, char *str, int i, int j);
+int					check_validity(t_cmd **lst, t_struct *data);
+int					check_link(t_cmd *lst);
+void				print_msg_error(char *str, int i);
+void				clear_string(char **str, int deleted, int opt);
 /*
  **	BUILTINS
  */
@@ -304,7 +310,7 @@ int					resize_str(char **str, int len);
 /*
 **	DEBUG
 */
-void				print_debug(t_cmd **data);
+void				print_debug(t_cmd **data, int code);
 /*
 **	LIB_TERMCAPS
 */
@@ -373,6 +379,10 @@ void				fill_history(t_info *info, t_hist *tmp);
 void				toggle_quote(t_info *info);
 void				line_edit(t_info *info, t_hist *tmp);
 void				cut_n_cpy(t_info *info, char *buff, t_hist *tmp);
+void				init_info(t_info *info);
+void				reinit_info(t_info *info);
+void				line_edit(t_info *info, t_hist *tmp);
+
 /*
 **	END
 */

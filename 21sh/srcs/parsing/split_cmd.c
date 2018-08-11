@@ -6,57 +6,12 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/18 12:12:16 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 15:02:21 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 15:00:50 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-static int		clear_suite(char **tmp1, char **tmp2, char **str, int delete,
-	int opt)
-{
-	if (opt == 1)
-	{
-		*tmp1 = ft_strsub(*str, 0, delete - 1);
-		*tmp2 = ft_strsub(*str, delete, ft_strlen(*str) - (delete));
-	}
-	else
-	{
-		*tmp1 = ft_strsub(*str, 0, delete);
-		*tmp2 = ft_strsub(*str, delete + 1, ft_strlen(*str) - (delete + 1));
-	}
-	return (0);
-}
-
-static void		clear_string(char **str, int delete, int opt)
-{
-	char	*tmp1;
-	char	*tmp2;
-
-	tmp1 = NULL;
-	tmp2 = NULL;
-	if (delete == 0)
-	{
-		tmp1 = ft_strsub(*str, 1, ft_strlen(*str) - 1);
-		ft_strdel(str);
-		*str = ft_strdup(tmp1);
-	}
-	else if (delete == ft_strlen(*str) || delete == ft_strlen(*str) - 1)
-	{
-		tmp1 = ft_strsub(*str, 0, ft_strlen(*str) - 1);
-		ft_strdel(str);
-		*str = ft_strdup(tmp1);
-	}
-	else
-	{
-		clear_suite(&tmp1, &tmp2, str, delete, opt);
-		ft_strdel(str);
-		*str = ft_strjoin(tmp1, tmp2);
-	}
-	ft_strdel(&tmp1);
-	ft_strdel(&tmp2);
-}
 
 static int		clear_quote_deux(char *tmp, int i, int j)
 {

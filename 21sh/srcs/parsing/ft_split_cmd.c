@@ -6,15 +6,29 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 15:05:45 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 15:50:55 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
+static int			good_return(t_cmd **new, int ret)
+{
+	if ((*new)->op_next == 1 || (*new)->op_next == 2 || (*new)->op_next == 4 ||
+	(*new)->op_next == 6)
+		return (1);
+	if ((*new)->op_next == 9)
+		return (ret);
+	return (2);
+}
+
 static int			good_op_next(t_cmd **new, char *str, int i)
 {
+	int		ret;
+
+	ret = 0;
+	printf("HERE (%s)\n", __func__);
 	if (i >= ft_strlen(str))
 		return (1);
 	if (str[i] == '|' && (str[i + 1] != '|' && str[i + 1] != '\0'))
@@ -34,37 +48,49 @@ static int			good_op_next(t_cmd **new, char *str, int i)
 	else if (str[i] == '|' && str[i + 1] == '|')
 		(*new)->op_next = 8;
 	else if (str[i] == '>' && str[i + 1] == '&')
-		ft_redirection_avancees(new, str, i);
+		ret = ft_redirection_avancees(new, str, i);
+	ret = good_return(new, ret);
+	return (ret);
+}
+
+static int			check_split(t_struct *data, t_cmd **new, char *str)
+{
+	if (ft_strstr(str, ">") == NULL && ft_strstr(str, "|") == NULL
+	&& ft_strstr(str, "&") == NULL)
+	{
+		insert_cmd_simple(data, new, str);
+		return (1);
+	}
 	return (0);
 }
 
-static int			ft_split_cmd_suite(t_cmd **new, t_struct *data, char *str,
-	int i)
+static int			ft_split_cmd_suite(t_cmd **new, t_struct *data,
+	char *str, int i)
 {
 	char	*tmp;
 
 	tmp = NULL;
-	if (ft_strstr(str, ">") == NULL && ft_strstr(str, "|") == NULL)
-		insert_cmd_simple(data, new, str);
-	else
+	if (check_split(data, new, str) == 1)
+		return (0);
+	tmp = ft_strdup(str);
+	while (tmp[i])
 	{
-		tmp = ft_strdup(str);
-		while (tmp[i])
+		if (tmp[i] == '|' || tmp[i] == '>' || tmp[i] == '&' ||
+	tmp[i] == '<' || i == ft_strlen(tmp) - 1)
 		{
-			if (tmp[i] == '|' || tmp[i] == '>' || i == ft_strlen(tmp) - 1)
-			{
-				good_op_next(new, tmp, i);
-				i = good_tab_cmd(data, new, tmp, i);
-				i = resize_str(&tmp, i + 1) - 1;
-				if (tmp == NULL)
-					return (0);
-				(*new)->next = ft_init_cmd();
-				*new = (*new)->next;
-			}
-			i++;
+			i += good_op_next(new, tmp, i);
+			i += good_tab_cmd(data, new, tmp, i);
+			printf("(avant) tmp == |%s|\n", tmp);
+			i = resize_str(&tmp, i + 1) - 1;
+			printf("(apres) tmp == |%s|\n", tmp);
+			if (tmp == NULL)
+				return (0);
+			(*new)->next = ft_init_cmd();
+			*new = (*new)->next;
 		}
-		ft_strdel(&tmp);
+		i++;
 	}
+	ft_strdel(&tmp);
 	return (0);
 }
 
@@ -92,5 +118,6 @@ t_cmd				*ft_split_cmd(char *str, t_struct *data)
 		new = clear_cmd(new);
 		return (NULL);
 	}
+	check_validity(&start, data);
 	return (start);
 }

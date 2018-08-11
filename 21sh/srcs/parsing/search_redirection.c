@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/08/10 14:27:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/10 14:59:22 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 16:28:29 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,12 +70,10 @@ static char		*return_name(t_cmd **lst, char *str, int start, int end)
 	tab_tmp = NULL;
 	if (start >= end)
 		return (NULL);
-	if (!(new = ft_strnew((end - start + 1))))
-		return (NULL);
 	if (ft_strlen(str) == end + 1)
-		ft_strncpy(new, str + start, (end - start + 1));
+		new = ft_strsub(str, start, (end - start + 1));
 	else
-		ft_strncpy(new, str + start, (end - start));
+		new = ft_strsub(str, start, (end - start));
 	clear_line(&new);
 	tab_tmp = ft_strsplit(new, ' ');
 	if (ft_len_tab(tab_tmp) > 1)
@@ -84,30 +82,34 @@ static char		*return_name(t_cmd **lst, char *str, int start, int end)
 	return (new);
 }
 
-static int		search_suite_null(t_path **new, t_cmd **lst, int j, char *str)
+static int		check_search_null(t_path **new, t_cmd **lst, char *str, int i)
 {
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != '|' && str[i] != '<')
-		i++;
 	if (new == NULL)
 	{
 		*new = ft_init_path();
 		(*lst)->pathname = *new;
-		(*new)->name = ft_strsub(str, j, ft_strlen(str) - j);
-		(*new)->s_or_d = what_is_op(str, i);
+		(*new)->name = ft_strdup(str);
+		(*new)->s_or_d = (*lst)->op_next;
 		clear_line(&(*new)->name);
-		j = ft_strlen(str);
+		return (ft_strlen(str));
 	}
-	return (j);
+	return (i);
 }
+
+/*
+**	Fonction appeler par good_tab_cmd
+**	Insert dans une liste chainer toutes les redirections a faire
+**	Retourne la longueur de str a resize, exemple :
+**	ls > test1 > test2 | grep auteur
+**					  |-> i	
+*/
 
 int				search_redirection(t_cmd **lst, char *str, int i, int j)
 {
 	t_path		*new;
 
 	new = NULL;
+
 	while (str[i] && str[i] != '|' && str[i] != '<')
 	{
 		if (str[i] == '>' || str[i + 1] == '\0')
@@ -128,6 +130,6 @@ int				search_redirection(t_cmd **lst, char *str, int i, int j)
 		}
 		i++;
 	}
-	j = search_suite_null(&new, lst, j, str);
-	return (j);
+	i = check_search_null(&new, lst, str, i);
+	return (i);
 }

@@ -6,14 +6,14 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/07/28 12:57:46 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/08 13:58:28 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 13:15:14 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
 
-void		print_debug(t_cmd **data)
+void		print_debug(t_cmd **data, int code)
 {
 	t_cmd   *start;
 	t_path	*path;
@@ -23,6 +23,7 @@ void		print_debug(t_cmd **data)
 	// comment for no print
 	//return ;
 	printf("[+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]\n");
+	printf("code = %d\n", code);
 	while (start)
 	{
 		printf("[++++++++++++++++++++++++++++++++++]\n");
