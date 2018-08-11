@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/19 11:08:13 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/11 16:31:34 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 16:34:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,6 @@ static int			good_op_next(t_cmd **new, char *str, int i)
 	int		ret;
 
 	ret = 0;
-	printf("HERE (%s)\n", __func__);
 	if (i >= ft_strlen(str))
 		return (1);
 	if (str[i] == '|' && (str[i + 1] != '|' && str[i + 1] != '\0'))

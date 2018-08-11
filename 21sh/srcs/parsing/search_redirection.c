@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/08/10 14:27:41 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/11 16:31:29 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 16:34:17 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,7 @@ static int		check_search_null(t_path **new, t_cmd **lst, char *str, int i)
 **	Insert dans une liste chainer toutes les redirections a faire
 **	Retourne la longueur de str a resize, exemple :
 **	ls > test1 > test2 | grep auteur
-**					  |-> i	
+**					  |-> i
 */
 
 int				search_redirection(t_cmd **lst, char *str, int i, int j)
@@ -109,7 +109,6 @@ int				search_redirection(t_cmd **lst, char *str, int i, int j)
 	t_path		*new;
 
 	new = NULL;
-
 	while (str[i] && str[i] != '|' && str[i] != '<')
 	{
 		if (str[i] == '>' || str[i + 1] == '\0')

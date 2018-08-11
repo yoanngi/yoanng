@@ -6,7 +6,7 @@
 /*   By: yoginet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/08/08 15:29:39 by yoginet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/08/11 16:31:31 by yoginet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/11 16:35:40 by yoginet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,8 +44,6 @@ int				what_is_op(char *str, int i)
 **	Il faut check avant si il y a un fd
 **	check apres tant qu'on a des redirections
 **	retourner la longueur a delete
-**
-**
 */
 
 int				good_tab_cmd(t_struct *data, t_cmd **lst, char *str, int i)
